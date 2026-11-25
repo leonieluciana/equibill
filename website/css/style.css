@@ -130,8 +130,6 @@ a{color:inherit;text-decoration:none}
 .cat--design .cat__m--a{left:-6%;top:6%;width:52%;height:88%}
 .cat--design .cat__m--b{left:24%;top:2%;width:52%;height:88%}
 .cat--design .cat__m--c{right:-6%;top:8%;width:52%;height:88%}
-.cat__plate .mk{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.cat:hover .cat__plate .mk{transform:scale(1.05)}
 .cat__body{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:end;margin-top:16px}
 .cat h3{margin:0;font:400 clamp(30px,3.4vw,44px)/1 var(--serif);letter-spacing:-.02em}
 .cat p{margin:8px 0 0;opacity:.75;max-width:34ch}
@@ -156,8 +154,35 @@ a{color:inherit;text-decoration:none}
 .product[data-category="software"]{--c:var(--plate-software)}
 .product[data-category="tools"]{--c:var(--plate-tools)}
 .product[data-category="design"]{--c:var(--plate-design)}
-.product__plate .mk{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.product:hover .product__plate .mk{transform:scale(1.05)}
+/* ---------- Echte Fotos (Unsplash, Symbolbilder; Nachweis: assets/images/fotos/BILDNACHWEIS.txt) ---------- */
+/* Fotos in Hero und Über uns füllen die Bildfläche; die Körnung (.photo::before) liegt darüber */
+.photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero__photo>img{object-position:55% 50%}
+/* Produkt- und Kategoriebilder: Foto füllt die Fläche, Hover = sanfter Zoom */
+.product__plate,.cat__plate{container-type:size}
+.plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.plate__img,.shot{transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.product:hover .plate__img,.product:hover .shot,.cat:hover .plate__img,.cat:hover .shot{scale:1.05}
+/* Geräte-Foto mit eingeblendetem Bildschirm: Das Foto behält sein Seitenverhältnis (--ar)
+   und füllt die Fläche wie „cover“; so bleibt der Bildschirm-Ausschnitt deckungsgleich. */
+.shot{position:absolute;left:50%;top:50%;width:max(100cqw,calc(100cqh * var(--ar)));aspect-ratio:var(--ar);translate:-50% -50%}
+.shot>img{width:100%;height:100%;display:block}
+.shot__screen{position:absolute;overflow:hidden;background:var(--mk-bg)}
+.shot--laptop{--ar:1000/666}
+.shot--laptop .shot__screen{left:29%;top:33.2%;width:42.2%;height:38.9%}   /* gemessen im Foto: Display 290–712 × 221–480 px */
+.shot--phone{--ar:1000/636}
+.shot--phone .shot__screen{left:41.6%;top:21%;width:13.1%;height:43.6%;border-radius:6%/3%}  /* Display 416–548 × 134–411 px */
+/* Dashboard auf dem Laptop-Display: Rahmen und Schatten entfallen, das Foto liefert das Gerät.
+   „.shot__screen“ davor macht die Regel stärker als die allgemeinen Mockup-Regeln weiter unten. */
+.shot__screen .mk--screen .scr{width:100%;height:100%;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;padding:5%}
+.shot__screen .mk--screen .st i{height:auto;aspect-ratio:3/1}
+/* Social-Feed auf dem Smartphone-Display */
+.feed{position:absolute;inset:0;padding:22% 9% 8%;display:grid;grid-template-rows:auto 1fr;gap:6%}
+.feed__bar{display:block;height:4px;width:55%;background:var(--ink);border-radius:9px}
+.feed__grid{display:grid;grid-template-columns:1fr 1fr;gap:5%;align-content:start}
+.feed__grid i{display:grid;place-items:center;aspect-ratio:1;font:400 clamp(7px,1.6cqw,12px)/1 var(--serif);font-style:normal;color:var(--ivory)}
+.feed__t1{background:var(--ox)}.feed__t2{background:var(--blush)}.feed__t3{background:var(--ink)}
+.feed__t4{background:#bdb5ab}.feed__t5{background:var(--ink)}.feed__t6{background:var(--ox)}
 .product__note{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);padding:4px 6px}
 .product__body{display:flex;flex-direction:column;gap:14px;padding:22px 22px 24px;flex:1}
 .product__meta{display:flex;justify-content:space-between;gap:10px;margin:0;align-items:center}

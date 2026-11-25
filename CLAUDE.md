@@ -75,7 +75,7 @@ Die Designrichtung ist entschieden (24.11.2026): **Atelier, Variante A „Maison
 Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kontrast (berechnet, WCAG): Ink auf Ivory 16,25:1, Oxblood auf Ivory 10,25:1, Blush auf Ink 12,04:1, Ink auf Blush 12,04:1. **Stone nicht für Text verwenden** (nur 1,77:1 auf Ivory). Weitere Paarungen vor dem Einsatz prüfen.
 
 - **Typografie:** hochkontrastige Didone (Didot / Bodoni 72) für Display, groß, mit kursivem Gegenspieler; Labels in Helvetica Neue Versalien mit weiter Laufweite (ca. +24 %); Nummern als „N°“. Umsetzung mit lokalen Schriftdateien mit offener Lizenz: Bodoni Moda (statt Didot) und Inter (statt Helvetica Neue), siehe Kap. 13; **keine Google Fonts**. Eine finale Hausschrift ist offen.
-- **Bildsprache:** Mittelformat-Look, Fensterlicht, warme Hauttöne, ruhige Porträts und Details (Hände, Zügel, Leder, Stangen im Streiflicht), Stillleben statt Action; Produkte als Packshots auf farbigen Flächen. Fotos bleiben bis auf Weiteres **gekennzeichnete Platzhalter**.
+- **Bildsprache:** Mittelformat-Look, Fensterlicht, warme Hauttöne, ruhige Porträts und Details (Hände, Zügel, Leder, Stangen im Streiflicht), Stillleben statt Action; Produkte als Packshots auf farbigen Flächen. **Fotos (Entscheidung 25.11.2026):** echte Fotos mit freier Lizenz (Unsplash-Lizenz, keine Unsplash+-Bilder) als **gekennzeichnete Symbolbilder**; jedes Foto mit Fotograf, Link und Lizenz in `website/assets/images/fotos/BILDNACHWEIS.txt`. Eigene Fotos sind langfristig vorzuziehen.
 - **Layout:** asymmetrisches 12-Spalten-Raster, überlappende Bilder, Headline über Bildkanten, Kategorien als Index-Liste, Produkte im versetzten Lookbook-Raster (kein gleichförmiges Kachelraster). Produktkarten rahmenlos mit „N°0x“, Name in Serif, Preis rechtsbündig, Hover als sanfter Zoom.
 - **Wortmarke (Idee):** EQUI—BILL in gesperrten Didone-Versalien, Mittelstrich in Akzentfarbe; Monogramm „EB“.
 - **Hell/Dunkel:** A ist der Standard. B kommt ergänzend zum Einsatz, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush und wirken dadurch verwandt. **Offen:** Welche Seiten dunkel gestaltet werden und wie der Wechsel aussieht. Bis zur Festlegung nicht innerhalb einer Seite mischen.
@@ -92,7 +92,7 @@ Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kon
 - Neue Designrichtungen mit Begründung entwickeln, vergleichen und gemeinsam entscheiden; Designoptimierung erfolgt iterativ.
 - Kontraste prüfen (WCAG AA), insbesondere helle Akzentfarben und Button-Texte.
 - Typografie: klare, gut lesbare Schriften mit klarer Hierarchie; **lokale Schriftdateien aus `website/fonts/` (offene Lizenz), keine Google Fonts** (Vorgabe der Weiterbildung; Details Kap. 13).
-- Bildsprache: authentisch, hochwertig, Produkt- und Mockup-orientiert; keine Ponyhof-Klischees, keine generischen Stockfotos, keine fremden urheberrechtlich geschützten Bilder; Platzhalter klar kennzeichnen.
+- Bildsprache: authentisch, hochwertig, Produkt- und Mockup-orientiert; keine Ponyhof-Klischees, keine beliebigen Stockfotos (nur passende Motive im Sinne der Bildsprache), keine Bilder ohne nachgewiesene freie Lizenz; Fotos als Symbolbilder kennzeichnen, keine erkennbaren Personen als Kunden oder Empfehlung darstellen, keine fremden Marken/Logos im Bildvordergrund.
 - Mobile First, responsive, barrierearm, einheitliche Komponenten und Abstände, klare CTAs, wenige Klicks.
 
 ## 7. Website-Umfang und Customer Journey
@@ -188,7 +188,8 @@ website/
 ├─ js/app.js         Interaktion: mobiles Menü, Shop-Filter, Demo-Warenkorb-Zähler
 ├─ fonts/            lokale Schriften (.woff2) + LIZENZ.txt (Name, Quelle, Lizenz)
 └─ assets/
-   └─ images/        Körnungs-Textur, Pfeil-Symbol, Favicon (später Bilder/Mockups)
+   └─ images/        Körnungs-Textur, Pfeil-Symbol, Favicon
+      └─ fotos/      Symbolfotos (Unsplash) + BILDNACHWEIS.txt
 ```
 
 Regeln:
@@ -230,4 +231,5 @@ Regeln:
 - Sicherungen: `_archiv/_archiv_2026-11-25_vor-fonts-und-inline-styles/website/` (Website vor der Änderung), `_archiv/_archiv_2026-11-25_vor-fontpfad/CLAUDE.md` (diese Datei vor der Änderung), `_archiv/_archiv_2026-11-25_vor-kap6-kap10/CLAUDE.md` (vor Angleichung Kap. 6/10).
 - Geändert (Designrunde 1): Desktop-Navigation erst ab 1240 px statt 900 px, weil die Menüpunkte zwischen 900 und 1239 px zweizeilig umbrachen; Werte in `css/style.css` und `js/app.js`. Sicherung: `_archiv/_archiv_2026-11-25_vor-nav-breakpoint/`.
 - Neu: Git eingerichtet und privates GitHub-Repository angelegt (Kap. 13); `.gitignore` ergänzt. Sicherung: `_archiv/_archiv_2026-11-25_vor-git/CLAUDE.md`.
+- Neu (Designrunden 2–4): echte Fotos statt Platzhaltern (Unsplash-Lizenz, Symbolbilder, Bildnachweis in `website/assets/images/fotos/BILDNACHWEIS.txt`); Laptop/Smartphone mit eingeblendetem Mockup. Kap. 6 und 13 angepasst.
 - Offen: Anzahl der Startseitenbereiche (Kap. 7: acht; Positionierung vom 25.11.: neun), Entscheidung steht aus.

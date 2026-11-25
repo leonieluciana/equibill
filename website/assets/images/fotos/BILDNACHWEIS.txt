@@ -1,0 +1,27 @@
+Bildnachweis – Fotos der EquiBill-Website (Weiterbildungsprojekt, fiktives Unternehmen)
+Stand: 25.11.2026
+
+Alle Fotos stammen von Unsplash (https://unsplash.com) und stehen unter der Unsplash-Lizenz
+(https://unsplash.com/de/lizenz): kostenlos, auch kommerziell nutzbar, Namensnennung nicht
+verpflichtend, aber hier freiwillig angegeben. Keine „Unsplash+“-Bilder (kostenpflichtig).
+Lizenz am 25.11.2026 auf der jeweiligen Fotoseite geprüft.
+
+Hinweise:
+- Alle Fotos sind SYMBOLBILDER. Abgebildete Personen, Pferde und Orte haben keinen Bezug zu
+  EquiBill; sie sind keine Kundinnen oder Kunden und empfehlen keine Produkte.
+- Auf Laptop- und Smartphone-Display ist ein selbst gezeichnetes Mockup eingeblendet (CSS).
+- Die Unsplash-Lizenz erlaubt nicht, die Fotos unverändert als eigene Fotosammlung weiterzuverkaufen.
+- Heruntergeladen in Webgröße (max. 1400 px), Produktbilder auf max. 1000 px verkleinert.
+
+Datei                               | Motiv                                   | Fotograf/in        | Quelle
+------------------------------------|-----------------------------------------|--------------------|--------------------------------------------
+hero-stiefel-steigbuegel.jpg        | Reitstiefel im Steigbügel, Schabracke   | Philippe Oursel    | https://unsplash.com/de/fotos/jckGRV_-FI4
+ueber-uns-stallgasse.jpg            | Stallgasse S/W, Pferd in der Box        | Paul Millage       | https://unsplash.com/de/fotos/HaSmNeQopzw
+manage-laptop.jpg                   | Laptop mit leerem Bildschirm, Holztisch | Sincerely Media    | https://unsplash.com/de/fotos/OOHsoUNRxt8
+tournament-planner-notizbuch.jpg    | Kariertes Notizbuch mit Bleistift       | Kelly Sikkema      | https://unsplash.com/de/fotos/q3blHqtnhog
+rider-portfolio-springreiter.jpg    | Springreiter auf Schimmel               | Valerie Semenova   | https://unsplash.com/de/fotos/9bOYXUlfyik
+horse-portfolio-fuchs.jpg           | Fuchs schaut aus dem Boxenfenster       | Anna               | https://unsplash.com/de/fotos/z95cffEbcg4
+social-media-kit-smartphone.jpg     | Hand mit Smartphone, dunkler Tisch      | Kelly Sikkema      | https://unsplash.com/de/fotos/roJv_dmHKVA
+business-kit-notizbuch.jpg          | Dunkles Notizbuch auf Schreibblock      | Justin Morgan      | https://unsplash.com/de/fotos/2_BrZ3AJ_78
+kategorie-tools-notizbuch.jpg       | Spiralnotizbuch mit Stiften             | Kelly Sikkema      | https://unsplash.com/de/fotos/iiaUVel-cJE
+kategorie-design-reiterin.jpg       | Reiterin S/W, Detail                    | Louise Pilgaard    | https://unsplash.com/de/fotos/3SM_F21nzSw
