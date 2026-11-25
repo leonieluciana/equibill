@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EquiBill · Designstudie 4 – Terra</title>
+<style>:root{--gr:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.mk{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.mk *{box-sizing:border-box}
+.mk i,.mk b{display:block;font-style:normal}
+.mk .l{height:5px;border-radius:9px;background:var(--mk-soft)}
+.mk-manage .scr{width:82%;aspect-ratio:16/10;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:7px;display:grid;grid-template-columns:20% 1fr;gap:6%;padding:5%;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}
+.mk-manage .sb{background:var(--mk-soft);border-radius:4px}
+.mk-manage .mn{display:grid;grid-template-rows:auto auto 1fr;gap:9%}
+.mk-manage .mh{height:6px;width:46%;background:var(--mk-ink);border-radius:9px}
+.mk-manage .st{display:grid;grid-template-columns:repeat(3,1fr);gap:6%}
+.mk-manage .st i{height:20px;background:var(--mk-soft);border-radius:3px}
+.mk-manage .st i:first-child{background:var(--mk-acc)}
+.mk-manage .bars{display:flex;align-items:flex-end;gap:5%}
+.mk-manage .bars i{flex:1;height:var(--h);background:var(--mk-ink);opacity:.8;border-radius:2px 2px 0 0}
+.mk-manage .bars i:nth-child(5){background:var(--mk-acc);opacity:1}
+.mk-manage .ph{position:absolute;right:6%;bottom:9%;width:19%;aspect-ratio:9/18;background:var(--mk-ink);border-radius:9px;padding:4px;box-shadow:0 14px 30px -10px rgba(0,0,0,.55)}
+.mk-manage .ph b{height:100%;border-radius:6px;background:var(--mk-bg);padding:12% 14%;display:grid;align-content:start;gap:8px}
+.mk-manage .ph b i{height:5px;border-radius:9px;background:var(--mk-soft)}
+.mk-manage .ph b i:first-child{background:var(--mk-acc);height:12px;border-radius:3px}
+.mk-planner .sheet{width:56%;aspect-ratio:4/5;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:6px;padding:7%;display:grid;grid-template-rows:auto 1fr;gap:6%;transform:rotate(-4deg);box-shadow:0 18px 36px -16px rgba(0,0,0,.4)}
+.mk-planner .top{height:14px;background:var(--mk-ink);border-radius:3px}
+.mk-planner .g{display:grid;grid-template-columns:repeat(5,1fr);gap:5%}
+.mk-planner .g i{background:var(--mk-soft);border-radius:2px}
+.mk-planner .g i.on{background:var(--mk-acc)}
+.mk-planner .g i.dk{background:var(--mk-ink)}
+.mk-planner .sum{position:absolute;right:7%;bottom:12%;width:34%;background:var(--mk-ink);border-radius:6px;padding:7%;display:grid;gap:7px;transform:rotate(5deg);box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
+.mk-planner .sum .l{background:var(--mk-bg);opacity:.35}
+.mk-planner .sum .l.a{background:var(--mk-acc);opacity:1;width:60%}
+.mk-rider .pg{width:46%;aspect-ratio:3/4.2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;display:grid;grid-template-rows:56% auto auto;gap:5%;padding:6%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);z-index:2}
+.mk-rider .pg.bk{position:absolute;transform:translate(34%,4%) rotate(7deg);z-index:1;opacity:.9;grid-template-rows:1fr;background:var(--mk-soft)}
+.mk-rider .pic{background:linear-gradient(160deg,var(--mk-acc),var(--mk-ink));border-radius:2px}
+.mk-rider .nm{height:9px;width:70%;background:var(--mk-ink);border-radius:2px}
+.mk-rider .lg{display:flex;gap:6%}
+.mk-rider .lg i{width:18%;aspect-ratio:1;background:var(--mk-soft);border:1px solid var(--mk-line)}
+.mk-horse .ld{width:78%;aspect-ratio:3/2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:4px;display:grid;grid-template-columns:58% 1fr;gap:5%;padding:5%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);transform:rotate(-2deg)}
+.mk-horse .pic{background:linear-gradient(200deg,var(--mk-soft),var(--mk-acc) 70%);border-radius:2px;position:relative}
+.mk-horse .pic::after{content:"";position:absolute;left:12%;right:12%;bottom:18%;height:38%;border:2px solid var(--mk-bg);border-bottom:none;border-radius:99px 99px 0 0;opacity:.8}
+.mk-horse .sp{display:grid;align-content:center;gap:9px}
+.mk-horse .sp .l:first-child{height:9px;background:var(--mk-ink);width:80%}
+.mk-horse .tag{position:absolute;right:8%;bottom:14%;background:var(--mk-acc);color:var(--mk-bg);font:700 9px/1 var(--mk-font,sans-serif);padding:6px 9px;border-radius:99px;letter-spacing:.08em;transform:rotate(-2deg)}
+.mk-social .sq{position:absolute;width:40%;aspect-ratio:1;border-radius:4px;box-shadow:0 16px 30px -14px rgba(0,0,0,.5);display:grid;place-items:center;font:800 clamp(22px,5cqi,44px)/1 var(--mk-font,sans-serif)}
+.mk-social .a{left:12%;top:16%;background:var(--mk-acc);color:var(--mk-bg);transform:rotate(-6deg)}
+.mk-social .b{right:12%;top:10%;background:var(--mk-ink);color:var(--mk-bg);transform:rotate(5deg)}
+.mk-social .c{left:30%;bottom:10%;background:var(--mk-bg);color:var(--mk-ink);border:1px solid var(--mk-line);transform:rotate(-1deg)}
+.mk-biz .dc{position:absolute;width:44%;aspect-ratio:3/4;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;padding:6%;display:grid;align-content:start;gap:8px;box-shadow:0 14px 28px -14px rgba(0,0,0,.5)}
+.mk-biz .d1{left:12%;top:12%;transform:rotate(-7deg);background:var(--mk-soft)}
+.mk-biz .d2{left:30%;top:8%;transform:rotate(2deg)}
+.mk-biz .d3{right:10%;top:16%;transform:rotate(8deg);background:var(--mk-ink)}
+.mk-biz .d3 .l{background:var(--mk-bg);opacity:.4}
+.mk-biz .d2 .l:first-child{background:var(--mk-ink);height:8px;width:60%}
+.mk-biz .stamp{position:absolute;left:36%;bottom:12%;width:22%;aspect-ratio:1;border-radius:50%;background:var(--mk-acc);color:var(--mk-bg);display:grid;place-items:center;font:800 9px/1 var(--mk-font,sans-serif);letter-spacing:.1em;transform:rotate(-12deg)}
+
+.dsx-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:999;display:flex;align-items:center;gap:14px;background:rgba(17,17,17,.92);color:#fff;border-radius:99px;padding:8px 10px 8px 16px;font:500 12px/1 -apple-system,"Helvetica Neue",Arial,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(8px)}
+.dsx-bar a{color:#fff;text-decoration:none}.dsx-bar>a{opacity:.75}
+.dsx-bar span{display:flex;gap:4px}.dsx-bar span a{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12)}
+.dsx-bar span a[aria-current]{background:#fff;color:#111}
+.dsx-bar em{font-style:normal;opacity:.6;padding-right:6px}
+@media(max-width:640px){.dsx-bar em{display:none}}
+.dsx-dossier{background:#ecebe7;color:#16161a;padding:clamp(40px,6vw,88px) clamp(20px,5vw,72px) 110px;font:400 15px/1.6 -apple-system,"Helvetica Neue",Arial,sans-serif}
+.dsx-dossier h2{font:800 clamp(26px,3.4vw,44px)/1.05 -apple-system,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em;margin:0 0 6px}
+.dsx-dossier .sub{margin:0 0 36px;opacity:.65;max-width:70ch}
+.dsx-dossier .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.dsx-dossier .box{background:#fff;border-radius:14px;padding:22px 24px}
+.dsx-dossier .box h3{margin:0 0 10px;font:700 11px/1 -apple-system,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.5}
+.dsx-dossier .box p{margin:0 0 8px}
+.dsx-dossier .wide{grid-column:1/-1}
+.dsx-sw{display:flex;flex-wrap:wrap;gap:10px}
+.dsx-sw div{width:112px}.dsx-sw i{display:block;height:64px;border-radius:10px;border:1px solid rgba(0,0,0,.08)}
+.dsx-sw b{display:block;font:700 12px/1.3 ui-monospace,Menlo,monospace;margin-top:6px}.dsx-sw small{display:block;opacity:.6;font-size:11px;line-height:1.3}
+.dsx-note{margin-top:22px;font-size:13px;opacity:.65;max-width:90ch}
+
+:root{--bone:#F1E9DD;--clay:#C4623B;--esp:#2B1D16;--apr:#F3B58E;--dune:#D9C6AB;--mk-bg:#fbf6ee;--mk-ink:#2B1D16;--mk-acc:#C4623B;--mk-soft:#e8dccb;--mk-line:#d8c8b1;--mk-font:Georgia,serif;--serif:"Hoefler Text",Baskerville,"Iowan Old Style",Georgia,serif;--sans:"Avenir Next",Avenir,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bone);color:var(--esp);font:400 16px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.lab{font:600 11px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:22px clamp(18px,4vw,56px);position:relative;z-index:10}
+.hd nav{display:flex;gap:30px;align-items:center}
+.pill{border:1.5px solid var(--esp);border-radius:99px;padding:10px 18px}
+.wm{display:flex;align-items:center;gap:10px;font:italic 400 30px/1 var(--serif);letter-spacing:-.02em}
+.wm .ar{width:20px;height:26px;border:3px solid var(--clay);border-bottom:none;border-radius:99px 99px 0 0;display:inline-block}
+.wm.lg{font-size:clamp(50px,11vw,170px)}.wm.lg .ar{width:.62em;height:.78em;border-width:.1em}
+@media(max-width:760px){.hd nav{display:none}}
+.hero{position:relative;padding:0 clamp(18px,4vw,56px) clamp(70px,9vw,130px);display:grid;grid-template-columns:1fr minmax(260px,34vw) 1fr;gap:20px;align-items:end;min-height:88vh}
+.arch{position:relative;overflow:hidden;border-radius:999px 999px 0 0;margin:0}
+.arch::before{content:"";position:absolute;inset:0;background-image:var(--gr);opacity:.5;mix-blend-mode:multiply;z-index:1}
+.arch .cap{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:3;font:600 9.5px/1.35 var(--sans);letter-spacing:.1em;text-transform:uppercase;background:rgba(241,233,221,.92);padding:7px 10px;text-align:center;width:78%}
+.hero .arch.main{aspect-ratio:3/4.6;background:radial-gradient(60% 40% at 50% 28%,#f8d4b4,transparent 70%),linear-gradient(180deg,#d98a62,#8b3f24 75%,#2b1d16)}
+.hero .arch.main .jump{position:absolute;inset:auto 14% 22%;color:var(--bone);width:72%;height:auto;opacity:.9}
+.sun{position:absolute;width:clamp(80px,12vw,180px);aspect-ratio:1;border-radius:50%;background:var(--apr);right:3%;top:8%}
+.hero h1{margin:0;font:italic 400 clamp(46px,7.6vw,120px)/.92 var(--serif);letter-spacing:-.035em}
+.hero .hl{padding-bottom:40px}.hero .hr{padding-bottom:40px;display:grid;gap:22px;justify-items:start}
+.hero .hr p{margin:0;max-width:26ch;font-size:17px}
+.btn{display:inline-block;background:var(--esp);color:var(--bone);border-radius:99px;padding:16px 28px;font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.btn:hover{background:var(--clay)}
+@media(max-width:860px){.hero{display:block;padding-top:10px}.hero .arch.main{width:78%;margin:24px auto}.hero .hl,.hero .hr{padding:0 0 18px}}
+.msg{background:var(--esp);color:var(--bone);text-align:center;padding:clamp(70px,10vw,150px) clamp(18px,4vw,56px);border-radius:48px 48px 0 0}
+.msg p{margin:0 auto;max-width:22ch;font:italic 400 clamp(32px,5.4vw,84px)/1.02 var(--serif);letter-spacing:-.02em}
+.msg p em{color:var(--apr)}
+.cats{background:var(--esp);padding:0 clamp(18px,4vw,56px) clamp(70px,9vw,120px);display:flex;gap:clamp(14px,3vw,40px);align-items:flex-end;justify-content:center}
+.ca{flex:1;max-width:360px;color:var(--bone);text-align:center}
+.ca .arch{background:var(--c);display:grid;place-items:end center;padding-bottom:20px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.ca:hover .arch{transform:translateY(-12px)}
+.ca:nth-child(1) .arch{aspect-ratio:3/5;--c:var(--clay)}.ca:nth-child(2) .arch{aspect-ratio:3/4;--c:var(--apr);color:var(--esp)}.ca:nth-child(3) .arch{aspect-ratio:3/4.4;--c:var(--dune);color:var(--esp)}
+.ca .arch b{font:italic 400 clamp(22px,3vw,40px)/1 var(--serif);position:relative;z-index:2}
+.ca small{display:block;margin-top:14px;opacity:.7}
+@media(max-width:700px){.cats{gap:8px}.ca .arch b{font-size:16px}}
+.shop{padding:clamp(80px,10vw,150px) clamp(18px,4vw,56px) 0}
+.shop-h{text-align:center;margin-bottom:60px}
+.shop-h h2{margin:0 0 10px;font:italic 400 clamp(44px,7vw,110px)/.9 var(--serif);letter-spacing:-.035em}
+.disp{display:grid;grid-template-columns:repeat(3,1fr);gap:70px clamp(18px,3vw,50px);align-items:end}
+.it{display:block;text-align:center}
+.it .st{position:relative;aspect-ratio:1/1.05;display:grid;align-items:end}
+.it .st .mk{position:absolute;inset:0 0 14%;z-index:2;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.it:hover .st .mk{transform:translateY(-14px) rotate(-1.5deg)}
+.it .st::before{content:"";position:absolute;left:8%;right:8%;bottom:0;height:20%;background:var(--pl,var(--dune));border-radius:16px 16px 0 0}
+.it .st::after{content:"";position:absolute;left:14%;right:14%;bottom:20%;height:16px;background:radial-gradient(50% 50% at 50% 50%,rgba(43,29,22,.35),transparent);z-index:1}
+.it:nth-child(2) .st{--pl:var(--apr)}.it:nth-child(4) .st{--pl:var(--clay)}.it:nth-child(5) .st{--pl:var(--apr)}
+.it:nth-child(2){transform:translateY(-34px)}.it:nth-child(5){transform:translateY(-34px)}
+.it h3{margin:20px 0 4px;font:italic 400 clamp(24px,2.5vw,34px)/1 var(--serif)}
+.it p{margin:0 auto 12px;opacity:.7;max-width:28ch;font-size:14px}
+.it .pr{display:inline-flex;gap:12px;align-items:center;border:1.5px solid var(--esp);border-radius:99px;padding:8px 8px 8px 16px;font:700 14px/1 var(--sans)}
+.it .pr i{font-style:normal;background:var(--esp);color:var(--bone);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:16px}
+.it:hover .pr{background:var(--esp);color:var(--bone)}.it:hover .pr i{background:var(--clay)}
+@media(max-width:860px){.disp{grid-template-columns:1fr 1fr}.it:nth-child(n){transform:none}}
+@media(max-width:560px){.disp{grid-template-columns:1fr}}
+.demo{text-align:center;margin-top:50px;opacity:.65}
+.feat{margin:clamp(80px,10vw,150px) clamp(10px,2vw,28px) 0;background:var(--clay);color:var(--bone);border-radius:48px;display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:clamp(30px,5vw,80px);align-items:center;overflow:hidden;--mk-acc:#F1E9DD;--mk-ink:#2B1D16;--mk-bg:#fbf6ee}
+.feat .arch{aspect-ratio:3/3.6;background:var(--apr);max-width:440px;justify-self:center;width:100%}
+.feat h2{margin:14px 0 18px;font:italic 400 clamp(50px,7vw,110px)/.9 var(--serif);letter-spacing:-.035em}
+.feat p{max-width:40ch;margin:0 0 24px;opacity:.9}
+.feat .pr{font:italic 400 44px/1 var(--serif);margin-bottom:24px}.feat .pr small{font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-left:8px}
+.feat .btn{background:var(--bone);color:var(--esp)}.feat .btn:hover{background:var(--esp);color:var(--bone)}
+@media(max-width:860px){.feat{grid-template-columns:1fr}}
+.about{padding:clamp(90px,11vw,170px) clamp(18px,4vw,56px);display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(20px,5vw,80px);align-items:center}
+.about .arch{aspect-ratio:3/4;background:linear-gradient(180deg,#e7c6a0,#8d6a4d)}
+.about .arch .jump{position:absolute;inset:auto 14% 24%;color:var(--bone);width:72%;height:auto}
+.about h2{margin:12px 0 22px;font:italic 400 clamp(36px,5vw,76px)/1 var(--serif);letter-spacing:-.025em}
+.about p{max-width:46ch;opacity:.8;margin:0 0 12px}
+@media(max-width:800px){.about{grid-template-columns:1fr}}
+footer{background:var(--esp);color:var(--bone);padding:clamp(50px,7vw,100px) clamp(18px,4vw,56px) 30px;border-radius:48px 48px 0 0}
+footer .wm{margin-bottom:46px;justify-content:center}
+footer .rw{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid rgba(241,233,221,.25);padding-top:20px}
+footer .demo-b{background:var(--apr);color:var(--esp);border-radius:99px;padding:11px 20px;max-width:640px}
+</style></head><body>
+
+<header class="hd"><nav class="lab"><a href="#shop">Shop</a><a href="#kat">Kategorien</a><a href="#manage">Manage</a></nav><a class="wm" href="#"><span class="ar"></span>equibill</a><nav class="lab"><a href="#about">Über uns</a><a class="pill" href="#shop">Warenkorb (0)</a></nav></header>
+<section class="hero"><div class="hl"><p class="lab" style="margin:0 0 18px;color:var(--clay)">Concept Store · Reitsport</p><h1>Weniger<br>Büro.</h1></div>
+<figure class="arch main"><i class="sun"></i><svg class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg><figcaption class="cap">Foto-Platzhalter · Motiv: Reiter im Abendlicht, warme Erdtöne, Pferd im Schritt, Dünenhorizont</figcaption></figure>
+<div class="hr"><h1>Mehr<br>Pferd.</h1><p>Digitale Werkzeuge für Berufsreiter, ruhig gestaltet und mit Sorgfalt kuratiert.</p><a class="btn" href="#shop">Shop entdecken</a></div></section>
+<section class="msg"><p>Für alle, die ihr Pferdebusiness <em>mit Ruhe</em> führen wollen.</p></section>
+<section class="cats" id="kat"><a class="ca" href="#shop"><figure class="arch"><b>Software</b></figure><small class="lab">01 Produkt</small></a><a class="ca" href="#shop"><figure class="arch"><b>Business Tools</b></figure><small class="lab">02 Produkte</small></a><a class="ca" href="#shop"><figure class="arch"><b>Marketing &amp; Design</b></figure><small class="lab">03 Produkte</small></a></section>
+<section class="shop" id="shop"><div class="shop-h"><span class="lab" style="color:var(--clay)">Der Shop</span><h2>Ausgewählt &amp; <br>ausgestellt</h2></div>
+<div class="disp"><a class="it" href="#"><div class="st"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i style="--h:35%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:68%"></i><i style="--h:86%"></i><i style="--h:58%"></i><i style="--h:74%"></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div></div><h3>EquiBill Manage</h3><p>Abrechnungs- und Verwaltungssoftware</p><span class="pr">ab 19 €/Monat<i>+</i></span></a><a class="it" href="#"><div class="st"><div class="mk mk-planner"><div class="sheet"><b class="top"></b><div class="g"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div><div class="sum"><i class="l a"></i><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div></div></div><h3>Tournament Planner</h3><p>Turnierplanung und Kostenkalkulation</p><span class="pr">29 €<i>+</i></span></a><a class="it" href="#"><div class="st"><div class="mk mk-rider"><div class="pg bk"></div><div class="pg"><i class="pic"></i><i class="nm"></i><div class="lg"><i></i><i></i><i></i></div></div></div></div><h3>Rider Portfolio</h3><p>Digitales Reiter- und Sponsorenportfolio</p><span class="pr">49 €<i>+</i></span></a><a class="it" href="#"><div class="st"><div class="mk mk-horse"><div class="ld"><i class="pic"></i><div class="sp"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l" style="width:60%"></i></div></div><span class="tag">ZU VERKAUFEN · DEMO</span></div></div><h3>Horse Portfolio</h3><p>Digitales Pferde- und Verkaufsportfolio</p><span class="pr">39 €<i>+</i></span></a><a class="it" href="#"><div class="st"><div class="mk mk-social"><b class="sq a">Aa</b><b class="sq b">26</b><b class="sq c">EQ</b></div></div><h3>Social Media Kit</h3><p>Professionelle Designvorlagen für Reiter</p><span class="pr">39 €<i>+</i></span></a><a class="it" href="#"><div class="st"><div class="mk mk-biz"><div class="dc d1"><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><div class="dc d2"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><div class="dc d3"><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><b class="stamp">VORLAGE</b></div></div><h3>Equestrian Business Kit</h3><p>Digitale Business-Vorlagen</p><span class="pr">99 €<i>+</i></span></a></div><p class="demo lab">Demo-Preise · fiktives Unternehmen · keine echte Bestellung</p></section>
+<section class="feat" id="manage"><div><span class="lab">Featured · Software</span><h2>EquiBill<br>Manage</h2><p>Rechnungen und Verwaltung in einem ruhigen Werkzeug. Die Tarife Basic, Professional und Business zeigt die Produktseite.</p><div class="pr">ab 19 €<small>/ Monat · Demo-Preis</small></div><a class="btn" href="#">Produktdetails</a></div><figure class="arch" style="margin:0"><span style="position:absolute;inset:0;z-index:2"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i style="--h:35%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:68%"></i><i style="--h:86%"></i><i style="--h:58%"></i><i style="--h:74%"></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div></span></figure></section>
+<section class="about" id="about"><figure class="arch"><figcaption class="cap">Foto-Platzhalter · Stall im Seitenlicht, Staub in der Luft</figcaption><svg class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg></figure><div><span class="lab" style="color:var(--clay)">Über uns</span><h2>Eine fiktive Marke mit viel Gespür für Pferde.</h2><p>EquiBill ist ein fiktives Unternehmen aus einer Weiterbildung. Es soll zeigen, wie digitale Produkte für Reitsport-Profis aussehen können, die man gern ansieht.</p><p>Alle Angebote, Preise und Profile sind erfunden.</p></div></section>
+<footer><a class="wm lg" href="#"><span class="ar"></span>equibill</a><div class="rw"><div class="demo-b lab">Demo-Hinweis · fiktives Unternehmen · Demo-Preise · keine echte Bestellung</div><div class="lab">Impressum (Platzhalter) · Datenschutz (Platzhalter)</div></div></footer>
+
+<section class="dsx-dossier" id="studienblatt"><h2>Studienblatt · TERRA</h2><p class="sub">Warmer Concept Store: Bögen, Erdtöne, ausgestellte Objekte. Alles oberhalb dieses Blattes ist der visuelle Entwurf; dieses Blatt gehört nicht zur späteren Website.</p>
+<div class="grid"><div class="box "><h3>Kreatives Leitkonzept</h3><p><b>„Ein Concept Store, in dem Software wie Objekte ausgestellt wird.“</b> Die Marke übersetzt Reitsport in Wärme und Ruhe: Erdtöne, weiche Bögen (Reithallen-Fenster, Hufeisen-Form, Dünenhorizont) und Podeste. Selbstbewusst, aber nahbar, wie ein modernes Interior-Label.</p></div><div class="box "><h3>Typografie</h3><p><b>Display:</b> weiche kursive Serif (Hoefler Text / Baskerville) in großen Größen. <b>Text &amp; Labels:</b> Avenir Next, Versalien mit Laufweite. Preise fett in Pillen.</p><p>Final: moderne, warme Serif plus Humanist-Sans als lokale Fontdateien.</p></div><div class="box "><h3>Bildsprache</h3><p>Goldene Stunde, Erdtöne, Staub im Gegenlicht, Pferde im Schritt, ruhige Alltagsmomente im Stall; Körnung leicht, Wärme hoch, Kontrast moderat. Produkte stehen auf Podesten wie in einer Ausstellung.</p></div>
+<div class="box wide"><h3>Farbpalette</h3><div class="dsx-sw"><div><i style="background:#F1E9DD"></i><b>#F1E9DD</b><small>Bone</small></div><div><i style="background:#C4623B"></i><b>#C4623B</b><small>Clay</small></div><div><i style="background:#2B1D16"></i><b>#2B1D16</b><small>Espresso</small></div><div><i style="background:#F3B58E"></i><b>#F3B58E</b><small>Apricot</small></div><div><i style="background:#D9C6AB"></i><b>#D9C6AB</b><small>Dune</small></div></div></div>
+<div class="box "><h3>Layout &amp; Komposition</h3><p>Zentrale Bogenform als Leitmotiv: Hero-Foto, Kategorien (drei Bögen unterschiedlicher Höhe), Featured-Fenster. Weiche Radien, großzügiger Weißraum, gegeneinander versetzte Produktpodeste. Dunkle Espresso-Abschnitte als Kontrast.</p></div><div class="box "><h3>Logo- / Wortmarkenidee</h3><p><b>equibill</b> in kursiver Serif, davor ein Bogen-Symbol (Fenster/Hufeisen), das als Rahmen für Fotos und als Icon wiederkehrt. Alternativ nur der Bogen in Clay.</p></div><div class="box "><h3>Produktkarten</h3><p>Keine Kartenrahmen: Objekt auf farbigem Podest mit Schatten, Name in Serif, Preis-Pille mit Plus-Knopf. Hover: Objekt hebt sich leicht ab. Zwei Produkte sind höher versetzt, damit ein lebendiger Rhythmus entsteht.</p></div><div class="box "><h3>Hero-Bereich</h3><p>Zentraler Bogen mit Foto-Platzhalter, links „Weniger Büro.“, rechts „Mehr Pferd.“ in großer Serif; Sonne als Kreis, ein CTA.</p></div></div>
+<p class="dsx-note">Hinweise zur Studie: Alle Fotoflächen sind <b>Platzhalter</b> mit Regieanweisung (Art Direction), keine echten Fotos. Schriften sind lokale Systemschriften (keine Google Fonts, Vorgabe der Weiterbildung); eine finale Hausschrift käme erst nach der Designentscheidung. Produkt-Mockups sind gezeichnete Platzhalter, Preise und Produkte sind fiktive Demo-Konzeptpreise. Es ist keine vollständige Website und keine Shop-Funktion implementiert.</p></section>
+<nav class="dsx-bar" aria-label="Designstudien"><a href="00_uebersicht.html">Übersicht</a><span><a href="studie-1-stride.html" title="Stride">1</a><a href="studie-2-atelier.html" title="Atelier">2</a><a href="studie-3-takt.html" title="Takt">3</a><a href="studie-4-terra.html" aria-current="page" title="Terra">4</a><a href="studie-5-floodlight.html" title="Floodlight">5</a></span><em>Studie 4/5 · Terra</em></nav>
+</body></html>

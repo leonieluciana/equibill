@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EquiBill – The Equestrian Business Platform (Demo)</title>
+  <meta name="description" content="EquiBill Manage: Abrechnung und Verwaltung für Berufsreiter. Demo-Website eines fiktiven Unternehmens.">
+  <meta name="robots" content="noindex">
+
+  <style>
+    /* ==========================================================
+       EquiBill – Startseite (Demo, fiktives Unternehmen)
+       Designrichtung: Heritage Modern
+       Aufbau dieser Datei:
+         1. Design Tokens (Farben, Typografie, Abstände)
+         2. Basis und Hilfsklassen
+         3. Komponenten (Button, Badge, Karte, Preiskarte)
+         4. Abschnitte (Header bis Footer)
+         5. Responsive Anpassungen
+       ========================================================== */
+
+    /* 1. DESIGN TOKENS ------------------------------------------ */
+    :root {
+      /* Farben */
+      --color-navy: #1B2433;          /* Primär, dunkle Flächen */
+      --color-navy-raised: #212C40;   /* Karten auf Navy */
+      --color-ivory: #FAF7F2;         /* Hintergrund hell */
+      --color-stone-light: #F0ECE3;   /* Alternativ-Hintergrund */
+      --color-stone: #D8D2C6;         /* Linien, Rahmen */
+      --color-cognac: #9A5B34;        /* Aktionsfarbe (Buttons, Links) */
+      --color-cognac-dark: #7F4A29;   /* Hover */
+      --color-brass: #B08D57;         /* Akzent, NUR auf Navy als Text */
+      --color-text: #1B2433;          /* Text auf hell */
+      --color-text-muted: #5E5A52;    /* Gedämpfter Text auf hell */
+      --color-on-dark: #FAF7F2;       /* Text auf Navy */
+      --color-on-dark-muted: #B9BFCB; /* Gedämpfter Text auf Navy */
+
+      /* Typografie (lokale Systemschriften, keine externen Fonts) */
+      --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --text-xs: 0.8125rem;
+      --text-sm: 0.9375rem;
+      --text-base: 1rem;
+      --text-lg: clamp(1.125rem, 1.4vw, 1.3rem);
+      --text-h3: clamp(1.15rem, 1.6vw, 1.35rem);
+      --text-h2: clamp(1.9rem, 3.6vw, 3rem);
+      --text-h1: clamp(2.6rem, 6.4vw, 4.75rem);
+
+      /* Abstände */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 5rem;
+      --section-y: clamp(3.5rem, 8vw, 6.5rem);
+
+      /* Form */
+      --radius: 2px;
+      --container: 72rem;
+      --gutter: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    /* 2. BASIS -------------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: var(--text-base);
+      line-height: 1.65;
+      color: var(--color-text);
+      background: var(--color-ivory);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; margin: 0; }
+    h1 { font-size: var(--text-h1); line-height: 1.05; letter-spacing: -0.01em; }
+    h2 { font-size: var(--text-h2); line-height: 1.15; }
+    h3 { font-size: var(--text-h3); line-height: 1.3; }
+    p { margin: 0; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    a { color: var(--color-cognac); }
+    img, svg { max-width: 100%; display: block; }
+    :focus-visible { outline: 3px solid var(--color-brass); outline-offset: 3px; }
+
+    .container { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
+    .section { padding-block: var(--section-y); }
+    .section--alt { background: var(--color-stone-light); }
+    .section--dark { background: var(--color-navy); color: var(--color-on-dark); }
+    .section--dark a { color: var(--color-on-dark); }
+    .section-head { max-width: 40rem; margin-bottom: var(--space-7); }
+    .section-head p { margin-top: var(--space-4); font-size: var(--text-lg); color: var(--color-text-muted); }
+    .section--dark .section-head p { color: var(--color-on-dark-muted); }
+    .eyebrow {
+      display: block; margin-bottom: var(--space-3);
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--color-cognac);
+    }
+    .section--dark .eyebrow, .hero .eyebrow { color: var(--color-brass); }
+    .skip-link {
+      position: absolute; left: var(--space-4); top: -4rem; z-index: 100;
+      background: var(--color-ivory); color: var(--color-navy); padding: var(--space-3) var(--space-4);
+    }
+    .skip-link:focus { top: var(--space-4); }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap;
+    }
+
+    /* 3. KOMPONENTEN ------------------------------------------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 2.9rem; padding: 0.7rem 1.5rem;
+      font: 600 var(--text-sm)/1.2 var(--font-sans); letter-spacing: 0.02em;
+      text-decoration: none; cursor: pointer;
+      border: 1px solid transparent; border-radius: var(--radius);
+      transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .btn--primary { background: var(--color-cognac); color: var(--color-ivory); }
+    .btn--primary:hover { background: var(--color-cognac-dark); }
+    .btn--outline { background: transparent; color: var(--color-navy); border-color: var(--color-navy); }
+    .btn--outline:hover { background: var(--color-navy); color: var(--color-ivory); }
+    .btn--outline-light { background: transparent; color: var(--color-on-dark); border-color: var(--color-on-dark); }
+    .btn--outline-light:hover { background: var(--color-on-dark); color: var(--color-navy); }
+    .btn--block { width: 100%; }
+    .btn--small { min-height: 2.4rem; padding: 0.5rem 1.1rem; }
+
+    .badge {
+      display: inline-block; padding: 0.15rem 0.55rem;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid currentColor; border-radius: var(--radius);
+    }
+    .badge--planned { color: var(--color-text-muted); background: var(--color-ivory); }
+    .section--dark .badge--planned { color: var(--color-brass); background: transparent; }
+    .badge--demo { color: var(--color-cognac); background: var(--color-ivory); }
+
+    /* 4. ABSCHNITTE -------------------------------------------- */
+
+    /* Demo-Leiste */
+    .demo-bar { background: var(--color-stone); color: var(--color-navy); font-size: var(--text-xs); text-align: center; padding: 0.5rem var(--gutter); }
+    .demo-bar strong { letter-spacing: 0.08em; text-transform: uppercase; margin-right: var(--space-2); }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 50; background: var(--color-navy); color: var(--color-on-dark); border-bottom: 1px solid #34405A; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); min-height: 4.25rem; }
+    .wordmark { font: 400 1.15rem/1 var(--font-serif); letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-on-dark); text-decoration: none; }
+    .nav-list { display: flex; align-items: center; gap: var(--space-5); }
+    .nav-list a { color: var(--color-on-dark); text-decoration: none; font-size: var(--text-sm); }
+    .nav-list a:hover { text-decoration: underline; text-underline-offset: 6px; }
+    .nav-list .badge { margin-left: var(--space-1); }
+    .header-actions { display: flex; align-items: center; gap: var(--space-4); }
+    .link-button { background: none; border: 0; padding: 0; font: inherit; font-size: var(--text-sm); color: var(--color-on-dark); cursor: pointer; text-decoration: underline; text-underline-offset: 5px; }
+    .nav-toggle { display: none; background: none; border: 1px solid var(--color-on-dark-muted); color: var(--color-on-dark); border-radius: var(--radius); min-height: 2.5rem; padding: 0 var(--space-4); font: 600 var(--text-sm) var(--font-sans); cursor: pointer; }
+
+    /* Hero */
+    .hero { background: var(--color-navy); color: var(--color-on-dark); padding-block: clamp(3rem, 8vw, 6rem) clamp(3.5rem, 8vw, 6.5rem); }
+    .hero-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-7); align-items: center; }
+    .hero h1 em { font-style: italic; color: var(--color-brass); }
+    .hero-lead { margin-top: var(--space-5); max-width: 34rem; font-size: var(--text-lg); color: var(--color-on-dark-muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
+    .hero-note { margin-top: var(--space-5); font-size: var(--text-xs); color: var(--color-on-dark-muted); }
+
+    /* Dashboard-Vorschau (rein visuelle Simulation mit fiktiven Daten) */
+    .mock { background: var(--color-ivory); color: var(--color-text); border-radius: var(--radius); padding: var(--space-5); box-shadow: 0 0 0 1px #34405A; }
+    .mock-top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-stone); font-size: var(--text-xs); }
+    .mock-title { font: 400 1.05rem var(--font-serif); }
+    .mock-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin-block: var(--space-4); }
+    .mock-kpi { border: 1px solid var(--color-stone); padding: var(--space-3); }
+    .mock-kpi span { display: block; font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); }
+    .mock-kpi strong { font: 400 1.35rem var(--font-serif); }
+    .mock-chart { display: flex; align-items: flex-end; gap: var(--space-2); height: 5.5rem; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-stone); }
+    .mock-chart i { flex: 1; background: var(--color-navy); height: var(--h); }
+    .mock-chart i.is-current { background: var(--color-cognac); }
+    .mock-table { width: 100%; border-collapse: collapse; font-size: var(--text-xs); margin-top: var(--space-3); }
+    .mock-table th { text-align: left; font-weight: 600; color: var(--color-text-muted); padding: var(--space-2) 0; }
+    .mock-table td { padding: var(--space-2) 0; border-top: 1px solid var(--color-stone); }
+    .mock-table td:last-child, .mock-table th:last-child { text-align: right; }
+    .status { font-weight: 600; }
+    .mock-caption { margin-top: var(--space-4); font-size: 0.6875rem; color: var(--color-text-muted); }
+
+    /* Problem */
+    .problem-grid { display: grid; gap: var(--space-6); grid-template-columns: 1fr; }
+    .problem-item { border-top: 1px solid var(--color-navy); padding-top: var(--space-4); }
+    .problem-item p { margin-top: var(--space-3); color: var(--color-text-muted); }
+
+    /* Manage: Funktionen */
+    .feature-grid { display: grid; gap: var(--space-5); grid-template-columns: 1fr; }
+    .feature { background: var(--color-ivory); border: 1px solid var(--color-stone); border-top: 3px solid var(--color-navy); padding: var(--space-5); }
+    .feature-num { display: block; margin-bottom: var(--space-4); font: 400 var(--text-sm) var(--font-serif); letter-spacing: 0.12em; color: var(--color-cognac); }
+    .feature p { margin-top: var(--space-3); color: var(--color-text-muted); }
+    .note { margin-top: var(--space-6); font-size: var(--text-xs); color: var(--color-text-muted); }
+
+    /* So funktioniert's */
+    .steps { display: grid; gap: var(--space-5); grid-template-columns: 1fr; counter-reset: step; }
+    .step { counter-increment: step; position: relative; padding-top: var(--space-5); border-top: 1px solid var(--color-on-dark-muted); }
+    .step::before { content: "0" counter(step); display: block; margin-bottom: var(--space-3); font: 400 1.6rem var(--font-serif); color: var(--color-brass); }
+    .step p { margin-top: var(--space-2); color: var(--color-on-dark-muted); }
+
+    /* Shop */
+    .shop-intro { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-7); }
+    .shop-intro .section-head { margin-bottom: 0; }
+    .demo-callout { border: 1px solid var(--color-cognac); padding: var(--space-3) var(--space-4); font-size: var(--text-xs); max-width: 22rem; background: var(--color-ivory); }
+    .plans { display: grid; gap: var(--space-5); grid-template-columns: 1fr; align-items: stretch; }
+    .plan { display: flex; flex-direction: column; background: var(--color-ivory); border: 1px solid var(--color-stone); border-top: 3px solid var(--color-brass); padding: var(--space-6) var(--space-5); }
+    .plan--featured { background: var(--color-navy); color: var(--color-on-dark); border-color: var(--color-navy); }
+    .plan-flag { margin-bottom: var(--space-3); min-height: 1.4rem; font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); font-weight: 600; }
+    .plan-for { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
+    .plan--featured .plan-for { color: var(--color-on-dark-muted); }
+    .price { margin-block: var(--space-5); display: flex; align-items: baseline; gap: var(--space-2); }
+    .price-amount { font: 400 3rem/1 var(--font-serif); }
+    .price-unit { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .plan--featured .price-unit { color: var(--color-on-dark-muted); }
+    .plan-features { flex: 1; margin-bottom: var(--space-6); font-size: var(--text-sm); }
+    .plan-features li { padding: var(--space-2) 0; border-top: 1px solid var(--color-stone); }
+    .plan--featured .plan-features li { border-color: #3A4763; }
+    .plan-features .badge { margin-left: var(--space-2); }
+    .plan--featured .badge--planned { background: transparent; color: var(--color-brass); }
+    .plan--featured .btn--primary { background: var(--color-cognac); }
+    .plan-note { margin-top: var(--space-2); font-size: 0.6875rem; text-align: center; color: var(--color-text-muted); }
+    .plan--featured .plan-note { color: var(--color-on-dark-muted); }
+
+    .shop-sub { margin-top: var(--space-8); }
+    .shop-sub h3 { font-size: var(--text-h2); line-height: 1.15; margin-bottom: var(--space-6); }
+    .products { display: grid; gap: var(--space-5); grid-template-columns: 1fr; }
+    .product { display: flex; flex-direction: column; background: var(--color-stone-light); border: 1px solid var(--color-stone); padding: var(--space-5); }
+    .section--alt .product { background: var(--color-ivory); }
+    .product-type { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; color: var(--color-cognac); margin-bottom: var(--space-3); }
+    .product p { flex: 1; margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-text-muted); }
+    .product .product-price { flex: none; margin-block: var(--space-4); font: 400 1.9rem/1 var(--font-serif); color: var(--color-text); }
+
+    /* Plattform */
+    .roadmap { display: grid; gap: var(--space-5); grid-template-columns: 1fr; }
+    .module { background: var(--color-navy-raised); border: 1px solid #3A4763; border-top: 3px solid var(--color-brass); padding: var(--space-5); }
+    .module--planned { border-top-style: dashed; }
+    .module-state { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brass); font-weight: 600; }
+    .module p { margin-top: var(--space-3); color: var(--color-on-dark-muted); font-size: var(--text-sm); }
+    .module-claim { font-family: var(--font-serif); font-style: italic; color: var(--color-on-dark); }
+    .platform-note { margin-top: var(--space-6); font-size: var(--text-xs); color: var(--color-on-dark-muted); max-width: 40rem; }
+
+    /* Über uns */
+    .about-grid { display: grid; gap: var(--space-7); grid-template-columns: 1fr; align-items: center; }
+    .placeholder-image { aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: var(--space-4); background: var(--color-stone); border: 1px solid var(--color-stone); color: var(--color-navy); font-size: var(--text-xs); }
+    .about-text p { margin-top: var(--space-4); color: var(--color-text-muted); }
+    .values { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-5); }
+    .values li { border: 1px solid var(--color-navy); padding: 0.2rem 0.7rem; font-size: var(--text-xs); }
+
+    /* FAQ */
+    .faq { max-width: 46rem; }
+    .faq details { border-top: 1px solid var(--color-navy); padding-block: var(--space-4); }
+    .faq details:last-child { border-bottom: 1px solid var(--color-navy); }
+    .faq summary { cursor: pointer; font: 400 var(--text-h3) var(--font-serif); list-style: none; display: flex; justify-content: space-between; gap: var(--space-4); }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font-family: var(--font-sans); color: var(--color-cognac); }
+    .faq details[open] summary::after { content: "–"; }
+    .faq p { margin-top: var(--space-3); color: var(--color-text-muted); }
+
+    /* Abschluss-CTA */
+    .cta { text-align: center; }
+    .cta h2 { max-width: 38rem; margin-inline: auto; }
+    .cta .hero-actions { justify-content: center; }
+    .cta-note { margin-top: var(--space-5); font-size: var(--text-xs); color: var(--color-on-dark-muted); }
+
+    /* Footer */
+    .site-footer { background: #141B27; color: var(--color-on-dark-muted); padding-block: var(--space-8) var(--space-6); font-size: var(--text-sm); }
+    .site-footer a { color: var(--color-on-dark); }
+    .site-footer .badge--planned { background: transparent; color: var(--color-brass); }
+    .footer-demo { border: 1px solid var(--color-brass); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-7); color: var(--color-on-dark); }
+    .footer-demo strong { color: var(--color-brass); letter-spacing: 0.08em; text-transform: uppercase; font-size: var(--text-xs); }
+    .footer-grid { display: grid; gap: var(--space-6); grid-template-columns: 1fr; }
+    .footer-grid h2 { font: 600 0.75rem var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-on-dark); margin-bottom: var(--space-3); }
+    .footer-grid li { margin-bottom: var(--space-2); }
+    .footer-claim { margin-top: var(--space-3); max-width: 18rem; }
+    .legal { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid #34405A; display: grid; gap: var(--space-5); font-size: var(--text-xs); }
+    .legal h2 { font: 600 var(--text-sm) var(--font-sans); color: var(--color-on-dark); margin-bottom: var(--space-2); }
+    .copyright { margin-top: var(--space-5); font-size: var(--text-xs); }
+
+    /* Demo-Dialog */
+    dialog { max-width: 28rem; width: calc(100% - 2rem); border: 1px solid var(--color-navy); border-radius: var(--radius); padding: var(--space-6); background: var(--color-ivory); color: var(--color-text); }
+    dialog::backdrop { background: rgba(27, 36, 51, 0.7); }
+    dialog h2 { font-size: 1.5rem; margin-bottom: var(--space-3); }
+    dialog p { color: var(--color-text-muted); margin-bottom: var(--space-5); }
+
+    /* 5. RESPONSIVE (mobile first, Erweiterung nach oben) ---------- */
+    @media (max-width: 62rem) {
+      .header-actions { gap: var(--space-2); }
+      .header-actions .btn { white-space: nowrap; padding-inline: 1rem; }
+      .nav-toggle { display: inline-block; }
+      .header-actions .link-button { display: none; }
+      .site-nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--color-navy); border-bottom: 1px solid #34405A; padding: var(--space-4) var(--gutter) var(--space-5); }
+      .nav-list { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+      .js .site-nav[hidden] { display: none; }
+      .site-nav .mobile-login { display: block; }
+    }
+    @media (max-width: 24rem) {
+      .wordmark { font-size: 1rem; letter-spacing: 0.14em; }
+      .header-actions .btn { padding-inline: 0.75rem; }
+      .nav-toggle { padding-inline: 0.7rem; }
+    }
+    @media (max-width: 21rem) {
+      .wordmark { letter-spacing: 0.06em; font-size: 0.95rem; }
+      .header-inner { gap: var(--space-2); }
+      .header-actions .btn { padding-inline: 0.55rem; font-size: 0.8125rem; }
+    }
+    @media (min-width: 62.01rem) {
+      .site-nav .mobile-login { display: none; }
+      .site-nav { display: block !important; }
+    }
+    @media (min-width: 40rem) {
+      .problem-grid, .steps { grid-template-columns: repeat(2, 1fr); }
+      .feature-grid, .products { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+      .legal { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 62rem) {
+      .hero-grid { grid-template-columns: 1.05fr 1fr; }
+      .problem-grid { grid-template-columns: repeat(3, 1fr); }
+      .feature-grid, .roadmap { grid-template-columns: repeat(3, 1fr); }
+      .steps { grid-template-columns: repeat(4, 1fr); }
+      .plans { grid-template-columns: repeat(3, 1fr); }
+      .products { grid-template-columns: repeat(4, 1fr); }
+      .about-grid { grid-template-columns: 1fr 1.1fr; }
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <!-- Demo-Hinweis, immer sichtbar ganz oben -->
+  <div class="demo-bar" role="note">
+    <strong>Demo</strong> Fiktives Unternehmen · Demo-Preise · keine echte Bestellung
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="#top" aria-label="EquiBill, zum Seitenanfang">EquiBill</a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li><a href="#manage">Software</a></li>
+          <li><a href="#preise">Preise</a></li>
+          <li><a href="#shop">Shop</a></li>
+          <li><a href="#plattform">Plattform</a> <span class="badge badge--planned">Geplant</span></li>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li class="mobile-login"><button class="link-button" type="button" data-demo>Anmelden</button></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="link-button" type="button" data-demo>Anmelden</button>
+        <a class="btn btn--primary btn--small" href="#preise">Jetzt starten</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menü</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">EquiBill Manage</span>
+          <h1 id="hero-title">Weniger Büro.<br><em>Mehr Pferd.</em></h1>
+          <p class="hero-lead">Verwalte deine Pferde, automatisiere deine Abrechnungen und organisiere dein Reitsportbusiness – einfach, professionell und an einem Ort.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#preise">Jetzt starten</a>
+            <a class="btn btn--outline-light" href="#manage">Software entdecken</a>
+          </div>
+          <p class="hero-note">Demo-Website eines fiktiven Unternehmens. Preise und Inhalte sind Konzeptdarstellungen.</p>
+        </div>
+
+        <!-- Dashboard-Vorschau: visuelle Simulation, keine echte Software -->
+        <figure class="mock" role="img" aria-label="Simulierte Dashboard-Vorschau von EquiBill Manage mit fiktiven Beispieldaten: Kennzahlen, Monatsverlauf und Rechnungsliste." style="margin:0">
+          <div aria-hidden="true">
+            <div class="mock-top">
+              <span class="mock-title">Monatsübersicht</span>
+              <span class="badge badge--demo">Beispieldaten</span>
+            </div>
+            <div class="mock-kpis">
+              <div class="mock-kpi"><span>Umsatz</span><strong>8.450 €</strong></div>
+              <div class="mock-kpi"><span>Offen</span><strong>2.120 €</strong></div>
+              <div class="mock-kpi"><span>Pferde</span><strong>12</strong></div>
+            </div>
+            <div class="mock-chart">
+              <i style="--h:45%"></i><i style="--h:60%"></i><i style="--h:52%"></i><i style="--h:70%"></i><i style="--h:64%"></i><i class="is-current" style="--h:88%"></i>
+            </div>
+            <table class="mock-table">
+              <thead><tr><th>Pferd (fiktiv)</th><th>Leistung</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Beispielpferd A</td><td>Berittpauschale</td><td class="status">Versendet</td></tr>
+                <tr><td>Beispielpferd B</td><td>Turnierkosten</td><td class="status">Entwurf</td></tr>
+                <tr><td>Beispielpferd C</td><td>Sammelrechnung</td><td class="status">Bezahlt</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figcaption class="mock-caption">Simulierte Darstellung · alle Namen und Werte frei erfunden</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PROBLEM -> NUTZEN -->
+    <section class="section" aria-labelledby="problem-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Der Alltag</span>
+          <h2 id="problem-title">Dein Business ist Pferdearbeit. Nicht Büroarbeit.</h2>
+          <p>Viele Berufsreiter rechnen noch mit Word, Excel und Einzelbelegen ab. EquiBill Manage soll genau diesen Aufwand verkleinern.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-item">
+            <h3>Rechnungen von Hand</h3>
+            <p>Monat für Monat Leistungen zusammensuchen, Belege sortieren und Rechnungen schreiben.</p>
+          </article>
+          <article class="problem-item">
+            <h3>Kosten pro Pferd</h3>
+            <p>Beritt, Turnier, Transport, Tierarzt: Alles muss dem richtigen Pferd und Besitzer zugeordnet werden.</p>
+          </article>
+          <article class="problem-item">
+            <h3>Kein Überblick</h3>
+            <p>Offene Forderungen, Auslastung und Umsatz liegen verstreut in Ordnern und Tabellen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANAGE: FUNKTIONEN -->
+    <section class="section section--alt" id="manage" aria-labelledby="manage-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">EquiBill Manage</span>
+          <h2 id="manage-title">Alles für dein Pferdebusiness an einem Ort.</h2>
+          <p>Die Business-Software für selbstständige Berufsreiter und Pferdebetriebe. Sie bringt auch ohne Netzwerk oder Marktplatz Mehrwert.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><span class="feature-num">01</span><h3>Pferde und Kunden</h3><p>Stammdaten, Besitzer-Zuordnung und individuelle Preise pro Pferd übersichtlich verwaltet.</p></article>
+          <article class="feature"><span class="feature-num">02</span><h3>Kostenerfassung</h3><p>Beritt-, Turnier-, Transport- und Fremdkosten erfassen, verteilen und weiterberechnen.</p></article>
+          <article class="feature"><span class="feature-num">03</span><h3>Monatsabrechnung</h3><p>Einzel- und Sammelrechnungen als PDF, mit Status und Rechnungshistorie.</p></article>
+          <article class="feature"><span class="feature-num">04</span><h3>Turniermanagement</h3><p>Turniere, Nenngelder und Zusatzkosten den passenden Pferden zuordnen.</p></article>
+          <article class="feature"><span class="feature-num">05</span><h3>Belege und Mahnungen</h3><p>Belege ablegen und Zahlungserinnerungen vorbereiten, damit nichts untergeht.</p></article>
+          <article class="feature"><span class="feature-num">06</span><h3>Auswertungen</h3><p>Umsatz, Kosten, offene Rechnungen und Auslastung im Dashboard im Blick.</p></article>
+        </div>
+        <p class="note">Konzeptdarstellung für die Demo. Der Funktionsumfang ist nicht verbindlich und nicht als fertig umgesetzte Software zu verstehen.</p>
+      </div>
+    </section>
+
+    <!-- SO FUNKTIONIERT'S -->
+    <section class="section section--dark" aria-labelledby="steps-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">So funktioniert EquiBill</span>
+          <h2 id="steps-title">Vier Schritte zur fertigen Abrechnung.</h2>
+        </div>
+        <ol class="steps" style="list-style:none;margin:0;padding:0">
+          <li class="step"><h3>Erfassen</h3><p>Pferde und Kunden einmal anlegen.</p></li>
+          <li class="step"><h3>Dokumentieren</h3><p>Leistungen und Kosten laufend eintragen.</p></li>
+          <li class="step"><h3>Abrechnen</h3><p>Monatsabrechnung und Rechnungen erstellen.</p></li>
+          <li class="step"><h3>Auswerten</h3><p>Entwicklung von Umsatz und Kosten verfolgen.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section class="section" id="shop" aria-labelledby="shop-title">
+      <div class="container">
+        <div class="shop-intro">
+          <div class="section-head">
+            <span class="eyebrow">EquiBill Shop</span>
+            <h2 id="shop-title">Wähle dein Paket.</h2>
+            <p>Software-Abonnements, digitale Produkte und Dienstleistungen an einem Ort.</p>
+          </div>
+          <p class="demo-callout"><strong>Demo-Preise.</strong> Fiktives Unternehmen, keine echte Bestellung, keine Zahlung.</p>
+        </div>
+
+        <h3 class="sr-only" id="preise">Software-Abonnements</h3>
+        <div class="plans" aria-labelledby="preise">
+          <article class="plan">
+            <div class="plan-flag">&nbsp;</div>
+            <h3>EquiBill Basic</h3>
+            <p class="plan-for">Für Bereiter mit kleinem Bestand</p>
+            <p class="price"><span class="price-amount">19 €</span><span class="price-unit">/Monat</span></p>
+            <ul class="plan-features">
+              <li>Bis 5 Pferde</li>
+              <li>Pferde- und Kundenverwaltung</li>
+              <li>Kostenerfassung</li>
+              <li>Monatsabrechnung</li>
+              <li>PDF-Rechnungen</li>
+              <li>Einfaches Dashboard</li>
+            </ul>
+            <button class="btn btn--outline btn--block" type="button" data-demo>Basic wählen (Demo)</button>
+            <p class="plan-note">Demo-Preis</p>
+          </article>
+
+          <article class="plan plan--featured">
+            <div class="plan-flag">Empfohlen bei mehreren Kunden</div>
+            <h3>EquiBill Professional</h3>
+            <p class="plan-for">Für Berufsreiter mit mehreren Pferden und Kunden</p>
+            <p class="price"><span class="price-amount">39 €</span><span class="price-unit">/Monat</span></p>
+            <ul class="plan-features">
+              <li>Bis 25 Pferde</li>
+              <li>Alle Funktionen von Basic</li>
+              <li>Sammelrechnungen</li>
+              <li>Turniermanagement und -kosten</li>
+              <li>Belegmanagement</li>
+              <li>Zahlungserinnerungen</li>
+              <li>Erweiterte Auswertungen</li>
+              <li>KI-Belegerkennung <span class="badge badge--planned">Geplant</span></li>
+            </ul>
+            <button class="btn btn--primary btn--block" type="button" data-demo>Professional wählen (Demo)</button>
+            <p class="plan-note">Demo-Preis</p>
+          </article>
+
+          <article class="plan">
+            <div class="plan-flag">&nbsp;</div>
+            <h3>EquiBill Business</h3>
+            <p class="plan-for">Für größere Ausbildungsställe und Pferdebetriebe</p>
+            <p class="price"><span class="price-amount">79 €</span><span class="price-unit">/Monat</span></p>
+            <ul class="plan-features">
+              <li>Pferdeanzahl für größere Betriebe (Demo-Annahme)</li>
+              <li>Alle Funktionen von Professional</li>
+              <li>Mehrere Benutzer, Rollen und Rechte</li>
+              <li>Management-Dashboard</li>
+              <li>Erweiterte Automatisierungen und Reports</li>
+              <li>Kundenportal <span class="badge badge--planned">Geplant</span></li>
+            </ul>
+            <button class="btn btn--outline btn--block" type="button" data-demo>Business wählen (Demo)</button>
+            <p class="plan-note">Demo-Preis</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="produkte" aria-labelledby="produkte-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">EquiBill Shop</span>
+          <h2 id="produkte-title">Digitale Produkte und Services.</h2>
+          <p>Einzelne Werkzeuge ohne Abo und persönliche Unterstützung beim Einstieg.</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <span class="product-type">Digitales Produkt</span>
+            <h3>Digitaler Turnierkostenrechner</h3>
+            <p>Turnierkosten pro Pferd und Besitzer übersichtlich berechnen.</p>
+            <p class="product-price">19 €</p>
+            <button class="btn btn--outline btn--block" type="button" data-demo>Auswählen (Demo)</button>
+          </article>
+          <article class="product">
+            <span class="product-type">Digitales Produkt</span>
+            <h3>Kostendashboard-Vorlage</h3>
+            <p>Vorlage zur Auswertung deiner Kosten als Einzelprodukt, ohne Zugang zur Software.</p>
+            <p class="product-price">49 €</p>
+            <button class="btn btn--outline btn--block" type="button" data-demo>Auswählen (Demo)</button>
+          </article>
+          <article class="product">
+            <span class="product-type">Digitales Produkt</span>
+            <h3>Digitales Stallmanagement-Paket</h3>
+            <p>Vorlagen und Werkzeuge für die organisatorische Seite deines Betriebs.</p>
+            <p class="product-price">99 €</p>
+            <button class="btn btn--outline btn--block" type="button" data-demo>Auswählen (Demo)</button>
+          </article>
+          <article class="product">
+            <span class="product-type">Dienstleistung</span>
+            <h3>Persönliches Onboarding</h3>
+            <p>Gemeinsamer Einstieg in EquiBill Manage, abgestimmt auf deinen Betrieb.</p>
+            <p class="product-price">99 €</p>
+            <button class="btn btn--outline btn--block" type="button" data-demo>Auswählen (Demo)</button>
+          </article>
+        </div>
+        <p class="note">Alle Preise sind Demo-Preise des fiktiven Unternehmens. Es findet keine echte Bestellung statt.</p>
+      </div>
+    </section>
+
+    <!-- PLATTFORM-AUSBLICK -->
+    <section class="section section--dark" id="plattform" aria-labelledby="plattform-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Plattformvision</span>
+          <h2 id="plattform-title">Erst das Werkzeug. Dann das Netzwerk.</h2>
+          <p>EquiBill Manage steht im Mittelpunkt. Connect und Discover sind spätere Erweiterungen, die Manage nicht voraussetzt.</p>
+        </div>
+        <div class="roadmap">
+          <article class="module">
+            <div class="module-state"><span>Modul 1</span><span>Im Mittelpunkt dieser Demo</span></div>
+            <h3>EquiBill Manage</h3>
+            <p class="module-claim">Weniger Büro. Mehr Pferd.</p>
+            <p>Abrechnung und Verwaltung für Berufsreiter und Pferdebetriebe.</p>
+          </article>
+          <article class="module module--planned">
+            <div class="module-state"><span>Modul 2</span><span class="badge badge--planned">Geplant</span></div>
+            <h3>EquiBill Connect</h3>
+            <p class="module-claim">Dein Profil. Deine Erfolge. Dein Netzwerk.</p>
+            <p>Ein professionelles Netzwerk für Reiter und Betriebe. Noch nicht verfügbar.</p>
+          </article>
+          <article class="module module--planned">
+            <div class="module-state"><span>Modul 3</span><span class="badge badge--planned">Geplant</span></div>
+            <h3>EquiBill Discover</h3>
+            <p class="module-claim">Die richtigen Menschen für dein Pferd.</p>
+            <p>Ein Marktplatz für Beritt- und Stallplätze. Noch nicht verfügbar.</p>
+          </article>
+        </div>
+        <p class="platform-note">Connect und Discover existieren in dieser Demo nicht. Eine spätere Kontakt- oder Platzanfrage wäre keine verbindliche Buchung. Der EquiBill Shop ist die gemeinsame Vertriebsebene für alle Module.</p>
+      </div>
+    </section>
+
+    <!-- ÜBER UNS -->
+    <section class="section" id="ueber-uns" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="placeholder-image" role="img" aria-label="Platzhalter für ein späteres Foto">Bildplatzhalter: authentisches Porträt oder Einblick in den Stallalltag</div>
+        <div class="about-text">
+          <span class="eyebrow">Über uns · fiktives Unternehmen</span>
+          <h2 id="about-title">Entstanden aus dem Alltag einer Berufsreiterin.</h2>
+          <p>EquiBill begann als digitales Abrechnungstool für eine selbstständige Berufsreiterin im Springreitsport. Daraus wurde die Idee einer Plattform für den professionellen Reitsport: zuerst Software, später Netzwerk und Marktplatz.</p>
+          <p>Dieses Unternehmen ist für eine Weiterbildung erfunden. Es gibt keine echten Kunden, Referenzen oder Zahlen.</p>
+          <ul class="values" aria-label="Werte">
+            <li>Professionalität</li><li>Transparenz</li><li>Verlässlichkeit</li><li>Einfachheit</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--alt" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head"><h2 id="faq-title">Häufige Fragen</h2></div>
+        <div class="faq">
+          <details>
+            <summary>Ist das ein echtes Angebot?</summary>
+            <p>Nein. EquiBill ist ein fiktives Unternehmen für eine Weiterbildung. Preise sind Demo-Preise, es gibt keine echte Bestellung und keine Zahlung.</p>
+          </details>
+          <details>
+            <summary>Für wen ist EquiBill Manage gedacht?</summary>
+            <p>Für selbstständige Berufsreiter, Bereiter, Ausbildungs- und Turnierställe sowie kleine und mittlere Pferdebetriebe.</p>
+          </details>
+          <details>
+            <summary>Brauche ich Connect oder Discover?</summary>
+            <p>Nein. EquiBill Manage ist unabhängig nutzbar. Connect und Discover sind geplante Erweiterungen und noch nicht verfügbar.</p>
+          </details>
+          <details>
+            <summary>Was bedeutet „Geplant“?</summary>
+            <p>Funktionen oder Module mit diesem Hinweis sind Teil der Vision, aber in dieser Demo nicht umgesetzt.</p>
+          </details>
+          <details>
+            <summary>Werden echte Daten verarbeitet?</summary>
+            <p>Nein. Alle Beispieldaten sind frei erfunden. Es gibt keine Zahlungsabwicklung und keine Speicherung von Kundendaten.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABSCHLUSS-CTA -->
+    <section class="section section--dark cta" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 id="cta-title">Mach dein Pferdebusiness fit für die Zukunft.</h2>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#preise">Jetzt starten</a>
+          <a class="btn btn--outline-light" href="#manage">Software entdecken</a>
+        </div>
+        <p class="cta-note">Demo: fiktives Unternehmen, keine echte Bestellung.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-demo" role="note"><strong>Demo-Hinweis</strong><br>EquiBill ist ein fiktives Unternehmen im Rahmen einer Weiterbildung. Alle Preise sind Demo-Preise, es gibt keine echte Bestellung, keine Zahlung und keine Verarbeitung echter Kundendaten.</p>
+
+      <div class="footer-grid">
+        <div>
+          <a class="wordmark" href="#top">EquiBill</a>
+          <p class="footer-claim">The Equestrian Business Platform. Connecting horses, people &amp; business.</p>
+        </div>
+        <nav aria-label="Produkt">
+          <h2>Produkt</h2>
+          <ul>
+            <li><a href="#manage">EquiBill Manage</a></li>
+            <li><a href="#preise">Software-Abonnements</a></li>
+            <li><a href="#produkte">Produkte und Services</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Plattform">
+          <h2>Plattform</h2>
+          <ul>
+            <li>EquiBill Connect <span class="badge badge--planned">Geplant</span></li>
+            <li>EquiBill Discover <span class="badge badge--planned">Geplant</span></li>
+          </ul>
+        </nav>
+        <nav aria-label="Rechtliches">
+          <h2>Rechtliches</h2>
+          <ul>
+            <li><a href="#impressum">Impressum (Platzhalter)</a></li>
+            <li><a href="#datenschutz">Datenschutz (Platzhalter)</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="legal">
+        <section id="impressum" aria-labelledby="impressum-title">
+          <h2 id="impressum-title">Impressum (Platzhalter)</h2>
+          <p>Hier steht in einer echten Version das Impressum. Diese Demo behauptet keine rechtliche Konformität.</p>
+        </section>
+        <section id="datenschutz" aria-labelledby="datenschutz-title">
+          <h2 id="datenschutz-title">Datenschutzerklärung (Platzhalter)</h2>
+          <p>Hier steht in einer echten Version die Datenschutzerklärung. Diese Demo erhebt und verarbeitet keine personenbezogenen Daten.</p>
+        </section>
+      </div>
+      <p class="copyright">© 2026 EquiBill (fiktives Unternehmen, Weiterbildungsprojekt)</p>
+    </div>
+  </footer>
+
+  <!-- Demo-Dialog für Aktionen ohne Funktion -->
+  <dialog id="demo-dialog" aria-labelledby="demo-dialog-title">
+    <h2 id="demo-dialog-title">Das ist eine Demo</h2>
+    <p>Anmeldung und Bestellung sind in dieser Demo nicht aktiv. Es werden keine Daten verarbeitet und keine Zahlungen ausgelöst.</p>
+    <button class="btn btn--primary" type="button" id="demo-dialog-close">Verstanden</button>
+  </dialog>
+
+  <script>
+    /* Minimales JavaScript, nur für zwei Dinge:
+       1. Mobiles Menü auf- und zuklappen
+       2. Demo-Hinweis zeigen, wenn jemand auf Anmelden oder Kaufen klickt */
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+
+      var toggle = document.querySelector('.nav-toggle');
+      var nav = document.getElementById('site-nav');
+      var mq = window.matchMedia('(max-width: 62rem)');
+
+      function syncNav() {
+        if (mq.matches) {
+          nav.hidden = toggle.getAttribute('aria-expanded') !== 'true';
+        } else {
+          nav.hidden = false;
+        }
+      }
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        syncNav();
+      });
+      nav.addEventListener('click', function (e) {
+        if (e.target.closest('a') && mq.matches) {
+          toggle.setAttribute('aria-expanded', 'false');
+          syncNav();
+        }
+      });
+      mq.addEventListener('change', syncNav);
+      syncNav();
+
+      var dialog = document.getElementById('demo-dialog');
+      document.querySelectorAll('[data-demo]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          if (typeof dialog.showModal === 'function') { dialog.showModal(); }
+        });
+      });
+      document.getElementById('demo-dialog-close').addEventListener('click', function () { dialog.close(); });
+    })();
+  </script>
+</body>
+</html>

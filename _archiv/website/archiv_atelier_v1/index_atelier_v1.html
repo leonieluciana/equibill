@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EquiBill – The Equestrian Business Edit (Demo)</title>
+  <meta name="description" content="EquiBill ist ein fiktives Unternehmen aus einer Weiterbildung: ein Demo-Shop für digitale Werkzeuge im professionellen Reitsport.">
+  <!-- Gestaltung: atelier_v1.css. Neue Datei; die bisherige index.html bleibt unverändert als Referenz. -->
+  <link rel="stylesheet" href="atelier_v1.css">
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+  <!-- 1) HEADER (minimalistisch). Navigation und CTA-Texte sind vorläufig. -->
+  <header class="site-header">
+    <nav class="nav-desktop label" aria-label="Hauptnavigation">
+      <a href="#shop">Shop</a><a href="#kategorien">Kategorien</a><a href="#manage">Manage</a><a href="#ueber-uns">Über uns</a>
+    </nav>
+    <details class="nav-mobile label">
+      <summary>Menü</summary>
+      <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
+        <a href="#shop">Shop</a><a href="#kategorien">Kategorien</a><a href="#manage">Manage</a><a href="#ueber-uns">Über uns</a>
+      </nav>
+    </details>
+    <a class="wordmark" href="#" aria-label="EquiBill, zur Startseite">Equi<i></i>Bill</a>
+    <!-- Warenkorb: nur Darstellung, noch keine Funktion (kommt später laut Unterrichtsvorgaben) -->
+    <a class="header-cart label" href="#">Warenkorb (0)</a>
+  </header>
+
+  <main id="inhalt">
+
+    <!-- 2) HERO. Fotos sind Platzhalter mit Regieanweisung. -->
+    <section class="hero" aria-labelledby="hero-titel">
+      <span class="hero__side label">Season 26 · The Equestrian Business Edit</span>
+      <figure class="photo hero__main"><figcaption>Foto-Platzhalter · Porträt: Berufsreiterin, Hand/Zügel, Fensterlicht, warme Hauttöne</figcaption></figure>
+      <figure class="photo hero__detail"><svg role="presentation" class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg><figcaption>Foto-Platzhalter · Detail: Stange im Streiflicht</figcaption></figure>
+      <div class="hero__intro">
+        <p>Digitale Werkzeuge für Menschen, die vom Reiten leben, kuratiert wie eine Kollektion.</p>
+        <a class="textlink" href="#shop">Kollektion ansehen</a>
+      </div>
+      <h1 id="hero-titel">The<em>Edit.</em></h1>
+    </section>
+    <div class="ticker" aria-hidden="true"><div><span>EquiBill Manage</span><span>✦</span><span>Tournament Planner</span><span>✦</span><span>Rider Portfolio</span><span>✦</span><span>Horse Portfolio</span><span>✦</span><span>Social Media Kit</span><span>✦</span><span>Equestrian Business Kit</span><span>✦</span><span>EquiBill Manage</span><span>✦</span><span>Tournament Planner</span><span>✦</span><span>Rider Portfolio</span><span>✦</span><span>Horse Portfolio</span><span>✦</span><span>Social Media Kit</span><span>✦</span><span>Equestrian Business Kit</span><span>✦</span></div></div>
+
+    <!-- 3) MARKENBOTSCHAFT (Entwurf; der Einsatz der Claims ist noch offen) -->
+    <section class="statement" aria-label="Markenbotschaft"><p>Weniger Büro. <em>Mehr Pferd.</em></p></section>
+
+    <!-- 4) PRODUKTKATEGORIEN (Zuordnung laut Briefing Kap. 10.2) -->
+    <section class="categories" id="kategorien" aria-labelledby="kat-titel">
+      <div>
+        <h2 id="kat-titel" class="label" style="opacity:.55;margin:0 0 18px">Index der Kollektion</h2>
+        <ul>
+          <li><a href="#shop"><span class="label">I</span><b>Software</b><span class="count label">1 Produkt</span></a></li>
+          <li><a href="#shop"><span class="label">II</span><b>Business Tools</b><span class="count label">2 Produkte</span></a></li>
+          <li><a href="#shop"><span class="label">III</span><b>Marketing &amp; Design</b><span class="count label">3 Produkte</span></a></li>
+        </ul>
+      </div>
+      <figure class="photo"><svg role="presentation" class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg><figcaption>Foto-Platzhalter · Stillleben: Reitstiefel, Mappe, Laptop auf Holzbank</figcaption></figure>
+    </section>
+
+    <!-- 5) SHOPBEREICH: fünf Produkte; EquiBill Manage folgt als Featured Product -->
+    <section class="shop" id="shop" aria-labelledby="shop-titel">
+      <div class="section-head"><h2 id="shop-titel">Die <em>Kollektion</em></h2><span class="label">Demo-Shop</span></div>
+      <div class="lookbook">
+      <article class="card card--1">
+        <a class="card__link" href="#" aria-label="Tournament Planner, 29 € (Demo-Preis)">
+          <div class="card__plate"><span class="card__no label">N°02</span><div class="mk mk-planner"><div class="sheet"><b class="top"></b><div class="g"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div><div class="sum"><i class="l a"></i><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div></div><span class="card__mock-note">Mockup</span></div>
+          <div class="card__meta"><h3>Tournament Planner</h3><p class="card__price"><span class="sr-only">Demo-Preis </span>29 €</p></div>
+          <p class="card__desc">Turnierplanung und Kostenkalkulation</p>
+        </a>
+      </article>
+      <article class="card card--2">
+        <a class="card__link" href="#" aria-label="Rider Portfolio, 49 € (Demo-Preis)">
+          <div class="card__plate"><span class="card__no label">N°03</span><div class="mk mk-rider"><div class="pg bk"></div><div class="pg"><i class="pic"></i><i class="nm"></i><div class="lg"><i></i><i></i><i></i></div></div></div><span class="card__mock-note">Mockup</span></div>
+          <div class="card__meta"><h3>Rider Portfolio</h3><p class="card__price"><span class="sr-only">Demo-Preis </span>49 €</p></div>
+          <p class="card__desc">Digitales Reiter- und Sponsorenportfolio</p>
+        </a>
+      </article>
+      <article class="card card--3">
+        <a class="card__link" href="#" aria-label="Horse Portfolio, 39 € (Demo-Preis)">
+          <div class="card__plate"><span class="card__no label">N°04</span><div class="mk mk-horse"><div class="ld"><i class="pic"></i><div class="sp"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l" style="width:60%"></i></div></div><span class="tag">ZU VERKAUFEN · DEMO</span></div><span class="card__mock-note">Mockup</span></div>
+          <div class="card__meta"><h3>Horse Portfolio</h3><p class="card__price"><span class="sr-only">Demo-Preis </span>39 €</p></div>
+          <p class="card__desc">Digitales Pferde- und Verkaufsportfolio</p>
+        </a>
+      </article>
+      <article class="card card--4">
+        <a class="card__link" href="#" aria-label="Social Media Kit, 39 € (Demo-Preis)">
+          <div class="card__plate"><span class="card__no label">N°05</span><div class="mk mk-social"><b class="sq a">Aa</b><b class="sq b">26</b><b class="sq c">EQ</b></div><span class="card__mock-note">Mockup</span></div>
+          <div class="card__meta"><h3>Social Media Kit</h3><p class="card__price"><span class="sr-only">Demo-Preis </span>39 €</p></div>
+          <p class="card__desc">Professionelle Designvorlagen für Reiter</p>
+        </a>
+      </article>
+      <article class="card card--5">
+        <a class="card__link" href="#" aria-label="Equestrian Business Kit, 99 € (Demo-Preis)">
+          <div class="card__plate"><span class="card__no label">N°06</span><div class="mk mk-biz"><div class="dc d1"><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><div class="dc d2"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><div class="dc d3"><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><b class="stamp">VORLAGE</b></div><span class="card__mock-note">Mockup</span></div>
+          <div class="card__meta"><h3>Equestrian Business Kit</h3><p class="card__price"><span class="sr-only">Demo-Preis </span>99 €</p></div>
+          <p class="card__desc">Digitale Business-Vorlagen</p>
+        </a>
+      </article>
+      </div>
+      <p class="demo-note label">Demo-Preise · fiktives Unternehmen · keine echte Bestellung. Die Produkte sind Konzept-Mockups, keine fertige Software.</p>
+    </section>
+
+    <!-- 6) FEATURED PRODUCT: EquiBill Manage. Tarifvergleich folgt später auf einer eigenen Unterseite. -->
+    <section class="featured" id="manage" aria-labelledby="manage-titel">
+      <div>
+        <span class="label">Das Signature-Stück · Software</span>
+        <h2 id="manage-titel">Manage</h2>
+        <p>Abrechnung und Verwaltung für Berufsreiter, so ruhig und klar gestaltet wie der Rest der Kollektion. Die Tarife Basic, Professional und Business zeigt eine eigene Produktseite.</p>
+        <p class="featured__price">ab 19 €/Monat<small>Demo-Preis</small></p>
+        <a class="textlink" href="#">Zum Produkt</a>
+      </div>
+      <div class="featured__stage"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i style="--h:35%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:68%"></i><i style="--h:86%"></i><i style="--h:58%"></i><i style="--h:74%"></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div><span class="mk-note">Mockup · Demo</span></div>
+    </section>
+
+    <!-- 7) KURZES MARKENSTATEMENT UND ÜBER UNS (fiktives Unternehmen) -->
+    <section class="about" id="ueber-uns" aria-labelledby="about-titel">
+      <figure class="photo"><svg role="presentation" class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg><figcaption>Foto-Platzhalter · Stallgasse, Morgendunst, Schwarz-Weiß</figcaption></figure>
+      <div>
+        <span class="label" style="opacity:.55">Maison EquiBill</span>
+        <h2 id="about-titel">Handwerk trifft Software.</h2>
+        <p>EquiBill ist ein fiktives Unternehmen, das im Rahmen einer Weiterbildung entstanden ist. Die Idee: Berufsreiter verdienen digitale Werkzeuge mit demselben Anspruch wie ihr Sport.</p>
+        <p>Alle Angebote, Preise und Profile auf dieser Seite sind erfunden.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8) FOOTER mit Pflichtangaben (Platzhalter) und Demo-Hinweis -->
+  <footer class="site-footer">
+    <a class="wordmark" href="#" aria-label="EquiBill, nach oben">Equi<i></i>Bill</a>
+    <div class="site-footer__row">
+      <p class="demo-box label"><strong>Demo-Hinweis:</strong> fiktives Unternehmen · Demo-Preise · keine echte Bestellung, keine Zahlung</p>
+      <ul class="label"><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul>
+    </div>
+  </footer>
+</body>
+</html>

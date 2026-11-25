@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EquiBill · Designstudie 2 – Atelier</title>
+<style>:root{--gr:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.mk{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.mk *{box-sizing:border-box}
+.mk i,.mk b{display:block;font-style:normal}
+.mk .l{height:5px;border-radius:9px;background:var(--mk-soft)}
+.mk-manage .scr{width:82%;aspect-ratio:16/10;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:7px;display:grid;grid-template-columns:20% 1fr;gap:6%;padding:5%;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}
+.mk-manage .sb{background:var(--mk-soft);border-radius:4px}
+.mk-manage .mn{display:grid;grid-template-rows:auto auto 1fr;gap:9%}
+.mk-manage .mh{height:6px;width:46%;background:var(--mk-ink);border-radius:9px}
+.mk-manage .st{display:grid;grid-template-columns:repeat(3,1fr);gap:6%}
+.mk-manage .st i{height:20px;background:var(--mk-soft);border-radius:3px}
+.mk-manage .st i:first-child{background:var(--mk-acc)}
+.mk-manage .bars{display:flex;align-items:flex-end;gap:5%}
+.mk-manage .bars i{flex:1;height:var(--h);background:var(--mk-ink);opacity:.8;border-radius:2px 2px 0 0}
+.mk-manage .bars i:nth-child(5){background:var(--mk-acc);opacity:1}
+.mk-manage .ph{position:absolute;right:6%;bottom:9%;width:19%;aspect-ratio:9/18;background:var(--mk-ink);border-radius:9px;padding:4px;box-shadow:0 14px 30px -10px rgba(0,0,0,.55)}
+.mk-manage .ph b{height:100%;border-radius:6px;background:var(--mk-bg);padding:12% 14%;display:grid;align-content:start;gap:8px}
+.mk-manage .ph b i{height:5px;border-radius:9px;background:var(--mk-soft)}
+.mk-manage .ph b i:first-child{background:var(--mk-acc);height:12px;border-radius:3px}
+.mk-planner .sheet{width:56%;aspect-ratio:4/5;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:6px;padding:7%;display:grid;grid-template-rows:auto 1fr;gap:6%;transform:rotate(-4deg);box-shadow:0 18px 36px -16px rgba(0,0,0,.4)}
+.mk-planner .top{height:14px;background:var(--mk-ink);border-radius:3px}
+.mk-planner .g{display:grid;grid-template-columns:repeat(5,1fr);gap:5%}
+.mk-planner .g i{background:var(--mk-soft);border-radius:2px}
+.mk-planner .g i.on{background:var(--mk-acc)}
+.mk-planner .g i.dk{background:var(--mk-ink)}
+.mk-planner .sum{position:absolute;right:7%;bottom:12%;width:34%;background:var(--mk-ink);border-radius:6px;padding:7%;display:grid;gap:7px;transform:rotate(5deg);box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
+.mk-planner .sum .l{background:var(--mk-bg);opacity:.35}
+.mk-planner .sum .l.a{background:var(--mk-acc);opacity:1;width:60%}
+.mk-rider .pg{width:46%;aspect-ratio:3/4.2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;display:grid;grid-template-rows:56% auto auto;gap:5%;padding:6%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);z-index:2}
+.mk-rider .pg.bk{position:absolute;transform:translate(34%,4%) rotate(7deg);z-index:1;opacity:.9;grid-template-rows:1fr;background:var(--mk-soft)}
+.mk-rider .pic{background:linear-gradient(160deg,var(--mk-acc),var(--mk-ink));border-radius:2px}
+.mk-rider .nm{height:9px;width:70%;background:var(--mk-ink);border-radius:2px}
+.mk-rider .lg{display:flex;gap:6%}
+.mk-rider .lg i{width:18%;aspect-ratio:1;background:var(--mk-soft);border:1px solid var(--mk-line)}
+.mk-horse .ld{width:78%;aspect-ratio:3/2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:4px;display:grid;grid-template-columns:58% 1fr;gap:5%;padding:5%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);transform:rotate(-2deg)}
+.mk-horse .pic{background:linear-gradient(200deg,var(--mk-soft),var(--mk-acc) 70%);border-radius:2px;position:relative}
+.mk-horse .pic::after{content:"";position:absolute;left:12%;right:12%;bottom:18%;height:38%;border:2px solid var(--mk-bg);border-bottom:none;border-radius:99px 99px 0 0;opacity:.8}
+.mk-horse .sp{display:grid;align-content:center;gap:9px}
+.mk-horse .sp .l:first-child{height:9px;background:var(--mk-ink);width:80%}
+.mk-horse .tag{position:absolute;right:8%;bottom:14%;background:var(--mk-acc);color:var(--mk-bg);font:700 9px/1 var(--mk-font,sans-serif);padding:6px 9px;border-radius:99px;letter-spacing:.08em;transform:rotate(-2deg)}
+.mk-social .sq{position:absolute;width:40%;aspect-ratio:1;border-radius:4px;box-shadow:0 16px 30px -14px rgba(0,0,0,.5);display:grid;place-items:center;font:800 clamp(22px,5cqi,44px)/1 var(--mk-font,sans-serif)}
+.mk-social .a{left:12%;top:16%;background:var(--mk-acc);color:var(--mk-bg);transform:rotate(-6deg)}
+.mk-social .b{right:12%;top:10%;background:var(--mk-ink);color:var(--mk-bg);transform:rotate(5deg)}
+.mk-social .c{left:30%;bottom:10%;background:var(--mk-bg);color:var(--mk-ink);border:1px solid var(--mk-line);transform:rotate(-1deg)}
+.mk-biz .dc{position:absolute;width:44%;aspect-ratio:3/4;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;padding:6%;display:grid;align-content:start;gap:8px;box-shadow:0 14px 28px -14px rgba(0,0,0,.5)}
+.mk-biz .d1{left:12%;top:12%;transform:rotate(-7deg);background:var(--mk-soft)}
+.mk-biz .d2{left:30%;top:8%;transform:rotate(2deg)}
+.mk-biz .d3{right:10%;top:16%;transform:rotate(8deg);background:var(--mk-ink)}
+.mk-biz .d3 .l{background:var(--mk-bg);opacity:.4}
+.mk-biz .d2 .l:first-child{background:var(--mk-ink);height:8px;width:60%}
+.mk-biz .stamp{position:absolute;left:36%;bottom:12%;width:22%;aspect-ratio:1;border-radius:50%;background:var(--mk-acc);color:var(--mk-bg);display:grid;place-items:center;font:800 9px/1 var(--mk-font,sans-serif);letter-spacing:.1em;transform:rotate(-12deg)}
+
+.dsx-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:999;display:flex;align-items:center;gap:14px;background:rgba(17,17,17,.92);color:#fff;border-radius:99px;padding:8px 10px 8px 16px;font:500 12px/1 -apple-system,"Helvetica Neue",Arial,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(8px)}
+.dsx-bar a{color:#fff;text-decoration:none}.dsx-bar>a{opacity:.75}
+.dsx-bar span{display:flex;gap:4px}.dsx-bar span a{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12)}
+.dsx-bar span a[aria-current]{background:#fff;color:#111}
+.dsx-bar em{font-style:normal;opacity:.6;padding-right:6px}
+@media(max-width:640px){.dsx-bar em{display:none}}
+.dsx-dossier{background:#ecebe7;color:#16161a;padding:clamp(40px,6vw,88px) clamp(20px,5vw,72px) 110px;font:400 15px/1.6 -apple-system,"Helvetica Neue",Arial,sans-serif}
+.dsx-dossier h2{font:800 clamp(26px,3.4vw,44px)/1.05 -apple-system,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em;margin:0 0 6px}
+.dsx-dossier .sub{margin:0 0 36px;opacity:.65;max-width:70ch}
+.dsx-dossier .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.dsx-dossier .box{background:#fff;border-radius:14px;padding:22px 24px}
+.dsx-dossier .box h3{margin:0 0 10px;font:700 11px/1 -apple-system,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.5}
+.dsx-dossier .box p{margin:0 0 8px}
+.dsx-dossier .wide{grid-column:1/-1}
+.dsx-sw{display:flex;flex-wrap:wrap;gap:10px}
+.dsx-sw div{width:112px}.dsx-sw i{display:block;height:64px;border-radius:10px;border:1px solid rgba(0,0,0,.08)}
+.dsx-sw b{display:block;font:700 12px/1.3 ui-monospace,Menlo,monospace;margin-top:6px}.dsx-sw small{display:block;opacity:.6;font-size:11px;line-height:1.3}
+.dsx-note{margin-top:22px;font-size:13px;opacity:.65;max-width:90ch}
+
+:root{--ivory:#F3EFE8;--ink:#151213;--ox:#6E1423;--blush:#E9C9C0;--stone:#BDB5AB;--mk-bg:#fbf8f3;--mk-ink:#151213;--mk-acc:#6E1423;--mk-soft:#e6ddd2;--mk-line:#d6ccbf;--mk-font:Didot,"Bodoni 72",Georgia,serif;--serif:Didot,"Bodoni 72","Bodoni MT","Times New Roman",serif;--sans:"Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font:400 15px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.cap-s{font:500 10.5px/1.3 var(--sans);letter-spacing:.24em;text-transform:uppercase}
+.hd{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px clamp(18px,4vw,56px);background:rgba(243,239,232,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,18,19,.12)}
+.hd nav{display:flex;gap:28px}.hd .r{justify-self:end}
+.wm{font:400 26px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:.5em}
+.wm i{display:inline-block;width:1.7em;height:1px;background:var(--ox)}
+@media(max-width:760px){.hd{grid-template-columns:auto 1fr}.hd nav{display:none}.wm{font-size:18px}}
+.ph{margin:0;position:relative;overflow:hidden}
+.ph::before{content:"";position:absolute;inset:0;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;z-index:1}
+.ph .cap{position:absolute;left:12px;bottom:12px;z-index:3;font:500 9.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.88);padding:6px 8px;max-width:80%}
+.hero{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:0 18px;padding:clamp(30px,5vw,70px) clamp(18px,4vw,56px) clamp(60px,8vw,120px);min-height:92vh}
+.hero .vt{grid-column:1;writing-mode:vertical-rl;transform:rotate(180deg);align-self:end;opacity:.6}
+.hero .p1{grid-column:2/6;grid-row:1/3;aspect-ratio:3/4;background:radial-gradient(70% 50% at 35% 30%,#e9c9c0,transparent 70%),linear-gradient(170deg,#b99b92,#4a2d2c 80%)}
+.hero .p2{grid-column:9/13;grid-row:1;aspect-ratio:4/5;align-self:start;margin-top:10%;background:linear-gradient(200deg,#d9d2c7,#8d8277)}
+.hero .p2 .jump{position:absolute;inset:20% 10% auto;color:var(--ink);opacity:.7}
+.hero h1{position:absolute;left:clamp(18px,18vw,320px);bottom:clamp(40px,8vw,110px);margin:0;z-index:5;font:400 clamp(70px,15vw,250px)/.8 var(--serif);letter-spacing:-.04em;mix-blend-mode:normal}
+.hero h1 em{font-style:italic;color:var(--ox);display:block;margin-left:.9em}
+.hero .intro{grid-column:8/13;grid-row:2;align-self:end;max-width:34ch;margin-bottom:12%}
+.hero .intro p{margin:0 0 18px;font:italic 400 22px/1.3 var(--serif)}
+.lnk{display:inline-flex;gap:14px;align-items:center;border-bottom:1px solid var(--ink);padding-bottom:6px;font:500 11px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase}
+.lnk::after{content:"→"}
+@media(max-width:800px){.hero{display:block}.hero .p1{width:80%}.hero .p2{width:50%;margin:-90px 0 0 auto}.hero h1{position:relative;left:0;bottom:0;margin-top:20px}.hero .vt{display:none}}
+.mq{border-block:1px solid rgba(21,18,19,.2);padding:16px 0;overflow:hidden;white-space:nowrap}
+.mq div{display:inline-block;animation:mq 40s linear infinite;font:italic 400 28px/1 var(--serif)}
+.mq span{margin:0 30px}.mq span:nth-child(even){color:var(--ox);font-style:normal}
+@keyframes mq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.mq div{animation:none}}
+.msg{padding:clamp(90px,13vw,200px) clamp(18px,4vw,56px);text-align:center}
+.msg p{margin:0 auto;max-width:21ch;font:400 clamp(36px,6vw,92px)/1 var(--serif);letter-spacing:-.025em}
+.msg p em{color:var(--ox)}
+.idx{padding:0 clamp(18px,4vw,56px) clamp(80px,10vw,150px);display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.idx .list{display:grid;align-content:start}
+.idx a{display:grid;grid-template-columns:50px 1fr auto;align-items:baseline;gap:10px;padding:26px 0;border-top:1px solid rgba(21,18,19,.25);transition:padding .35s}
+.idx a:last-child{border-bottom:1px solid rgba(21,18,19,.25)}
+.idx a:hover{padding-left:24px;color:var(--ox)}
+.idx a b{font:italic 400 clamp(34px,5vw,74px)/1 var(--serif);letter-spacing:-.02em}
+.idx .ph{aspect-ratio:4/5;background:linear-gradient(150deg,#e9c9c0,#6e1423)}
+.idx .ph .jump{position:absolute;inset:auto 14% 22%;color:var(--ivory);opacity:.85}
+@media(max-width:800px){.idx{grid-template-columns:1fr}}
+.shop{padding:0 clamp(18px,4vw,56px) 40px}
+.shop-h{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--ink);padding-bottom:20px;margin-bottom:50px}
+.shop-h h2{margin:0;font:400 clamp(44px,7vw,110px)/.85 var(--serif);letter-spacing:-.03em}.shop-h h2 em{color:var(--ox)}
+.look{display:grid;grid-template-columns:repeat(12,1fr);gap:60px 18px}
+.pc{display:block}
+.pc .pl{background:var(--blush);position:relative;overflow:hidden}
+.pc .pl .mk{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.pc:hover .pl .mk{transform:scale(1.06)}
+.pc .no{position:absolute;top:14px;left:16px;z-index:2}
+.pc .meta{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:16px}
+.pc h3{margin:0;font:400 clamp(24px,2.5vw,36px)/1 var(--serif);letter-spacing:-.01em}
+.pc .pr{font:500 12px/1 var(--sans);letter-spacing:.14em;white-space:nowrap}
+.pc p{margin:8px 0 0;opacity:.65;max-width:36ch}
+.pc.c1{grid-column:1/6}.pc.c1 .pl{aspect-ratio:4/5}
+.pc.c2{grid-column:7/11;margin-top:90px}.pc.c2 .pl{aspect-ratio:1/1;background:var(--stone)}
+.pc.c3{grid-column:2/6}.pc.c3 .pl{aspect-ratio:3/4;background:#d9c2b8}
+.pc.c4{grid-column:8/13;margin-top:-40px}.pc.c4 .pl{aspect-ratio:5/4;background:var(--ink);--mk-bg:#2a2527;--mk-soft:#3d3538;--mk-line:#4a4144;--mk-ink:#F3EFE8;--mk-acc:#E9C9C0}
+.pc.c5{grid-column:1/5;margin-top:30px}.pc.c5 .pl{aspect-ratio:1/1;background:var(--ox);--mk-bg:#8a2233;--mk-soft:#9c3345;--mk-line:#ad4656;--mk-ink:#F3EFE8;--mk-acc:#F3EFE8}
+.pc.c6{grid-column:6/12;margin-top:80px}.pc.c6 .pl{aspect-ratio:16/10;background:#e6ddd2}
+@media(max-width:800px){.look{display:block}.pc{margin:0 0 50px!important}}
+.demo{margin-top:60px;opacity:.6}
+.feat{margin-top:clamp(70px,9vw,140px);background:var(--ox);color:var(--ivory);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px;padding:clamp(40px,6vw,100px) clamp(18px,4vw,56px);position:relative;overflow:hidden}
+.feat h2{margin:12px 0 22px;font:italic 400 clamp(54px,9vw,150px)/.85 var(--serif);letter-spacing:-.035em}
+.feat p{max-width:40ch;opacity:.85;margin:0 0 28px}
+.feat .lnk{border-color:var(--ivory)}
+.feat .stage{aspect-ratio:1/1;background:var(--blush);--mk-ink:#151213;border-radius:50%;max-width:520px;justify-self:center;width:100%;position:relative;overflow:hidden}
+.feat .pr{font:400 40px/1 var(--serif);margin:0 0 24px}
+.feat .pr small{font:500 11px/1 var(--sans);letter-spacing:.2em;margin-left:10px;text-transform:uppercase}
+@media(max-width:800px){.feat{grid-template-columns:1fr}}
+.about{display:grid;grid-template-columns:5fr 6fr;gap:clamp(20px,5vw,80px);padding:clamp(90px,12vw,180px) clamp(18px,4vw,56px);align-items:center}
+.about .ph{aspect-ratio:4/5;background:linear-gradient(190deg,#cfc6ba,#6c6258)}
+.about .ph .jump{position:absolute;inset:auto 12% 25%;color:var(--ivory)}
+.about h2{margin:0 0 24px;font:italic 400 clamp(36px,5vw,74px)/1 var(--serif);letter-spacing:-.02em}
+.about p{max-width:46ch;opacity:.75;margin:0 0 12px}
+@media(max-width:800px){.about{grid-template-columns:1fr}}
+footer{background:var(--ink);color:var(--ivory);padding:clamp(50px,7vw,100px) clamp(18px,4vw,56px) 30px}
+footer .wm{font-size:clamp(34px,8vw,120px);justify-content:center;margin-bottom:50px}
+footer .row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(243,239,232,.25);padding-top:20px;opacity:.85}
+footer .demo-b{border:1px solid var(--blush);color:var(--blush);padding:12px 16px;max-width:620px}
+</style></head><body>
+
+<header class="hd"><nav class="cap-s"><a href="#shop">Shop</a><a href="#index">Kategorien</a><a href="#manage">Manage</a><a href="#about">Maison</a></nav><a class="wm" href="#">Equi<i></i>Bill</a><div class="r cap-s">Warenkorb (0)</div></header>
+<section class="hero"><span class="vt cap-s">Season 26 · The Equestrian Business Edit</span>
+<figure class="ph p1"><figcaption class="cap">Foto-Platzhalter · Porträt: Berufsreiterin, Nahaufnahme Hand/Zügel, Fensterlicht, Mittelformat-Look, warme Hauttöne</figcaption></figure>
+<figure class="ph p2"><svg class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg><figcaption class="cap">Foto-Platzhalter · Detail: Stange im Streiflicht</figcaption></figure>
+<h1>The<em>Edit.</em></h1>
+<div class="intro"><p>Digitale Werkzeuge für Menschen, die vom Reiten leben — kuratiert wie eine Kollektion.</p><a class="lnk" href="#shop">Kollektion ansehen</a></div></section>
+<div class="mq" aria-hidden="true"><div><span>EquiBill Manage</span><span>✦</span><span>Tournament Planner</span><span>✦</span><span>Rider Portfolio</span><span>✦</span><span>Horse Portfolio</span><span>✦</span><span>Social Media Kit</span><span>✦</span><span>Equestrian Business Kit</span><span>✦</span><span>EquiBill Manage</span><span>✦</span><span>Tournament Planner</span><span>✦</span><span>Rider Portfolio</span><span>✦</span><span>Horse Portfolio</span><span>✦</span><span>Social Media Kit</span><span>✦</span><span>Equestrian Business Kit</span><span>✦</span></div></div>
+<section class="msg"><p>Weniger Büro. <em>Mehr Pferd.</em></p></section>
+<section class="idx" id="index"><div class="list"><span class="cap-s" style="opacity:.55;margin-bottom:18px">Index der Kollektion</span>
+<a href="#shop"><span class="cap-s">I</span><b>Software</b><span class="cap-s">01 Produkt</span></a>
+<a href="#shop"><span class="cap-s">II</span><b>Business Tools</b><span class="cap-s">02 Produkte</span></a>
+<a href="#shop"><span class="cap-s">III</span><b>Marketing &amp; Design</b><span class="cap-s">03 Produkte</span></a></div>
+<figure class="ph"><svg class="jump" viewBox="0 0 400 260" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+<path d="M40 250V40M360 250V40" stroke-width="5"/>
+<path d="M40 70H360" stroke-width="9" stroke-dasharray="34 34"/>
+<path d="M40 120H360" stroke-width="9" stroke-dasharray="34 34" stroke-dashoffset="34"/>
+<path d="M0 235C90 235 120 40 200 40S310 235 400 235" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></svg><figcaption class="cap">Foto-Platzhalter · Stillleben: Reitstiefel, Mappe, Laptop auf Holzbank</figcaption></figure></section>
+<section class="shop" id="shop"><div class="shop-h"><h2>Die <em>Kollektion</em></h2><span class="cap-s">Sechs Stücke · Demo</span></div>
+<div class="look"><a class="pc c1" href="#"><div class="pl"><span class="no cap-s">N°01</span><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i style="--h:35%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:68%"></i><i style="--h:86%"></i><i style="--h:58%"></i><i style="--h:74%"></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div></div><div class="meta"><h3>EquiBill Manage</h3><span class="pr">ab 19 €/Monat</span></div><p>Abrechnungs- und Verwaltungssoftware</p></a><a class="pc c2" href="#"><div class="pl"><span class="no cap-s">N°02</span><div class="mk mk-planner"><div class="sheet"><b class="top"></b><div class="g"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div><div class="sum"><i class="l a"></i><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div></div></div><div class="meta"><h3>Tournament Planner</h3><span class="pr">29 €</span></div><p>Turnierplanung und Kostenkalkulation</p></a><a class="pc c3" href="#"><div class="pl"><span class="no cap-s">N°03</span><div class="mk mk-rider"><div class="pg bk"></div><div class="pg"><i class="pic"></i><i class="nm"></i><div class="lg"><i></i><i></i><i></i></div></div></div></div><div class="meta"><h3>Rider Portfolio</h3><span class="pr">49 €</span></div><p>Digitales Reiter- und Sponsorenportfolio</p></a><a class="pc c4" href="#"><div class="pl"><span class="no cap-s">N°04</span><div class="mk mk-horse"><div class="ld"><i class="pic"></i><div class="sp"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l" style="width:60%"></i></div></div><span class="tag">ZU VERKAUFEN · DEMO</span></div></div><div class="meta"><h3>Horse Portfolio</h3><span class="pr">39 €</span></div><p>Digitales Pferde- und Verkaufsportfolio</p></a><a class="pc c5" href="#"><div class="pl"><span class="no cap-s">N°05</span><div class="mk mk-social"><b class="sq a">Aa</b><b class="sq b">26</b><b class="sq c">EQ</b></div></div><div class="meta"><h3>Social Media Kit</h3><span class="pr">39 €</span></div><p>Professionelle Designvorlagen für Reiter</p></a><a class="pc c6" href="#"><div class="pl"><span class="no cap-s">N°06</span><div class="mk mk-biz"><div class="dc d1"><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><div class="dc d2"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><div class="dc d3"><i class="l"></i><i class="l"></i><i class="l" style="width:70%"></i></div><b class="stamp">VORLAGE</b></div></div><div class="meta"><h3>Equestrian Business Kit</h3><span class="pr">99 €</span></div><p>Digitale Business-Vorlagen</p></a></div>
+<p class="demo cap-s">Demo-Preise · fiktives Unternehmen · keine echte Bestellung</p></section>
+<section class="feat" id="manage"><div><span class="cap-s">Das Signature-Stück · Software</span><h2>Manage</h2><p>Abrechnung und Verwaltung, so ruhig und klar gestaltet wie der Rest der Kollektion. Tarife Basic, Professional und Business folgen auf der Produktseite.</p><div class="pr">ab 19 €<small>/ Monat · Demo-Preis</small></div><a class="lnk" href="#">Zum Produkt</a></div><div class="stage"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i style="--h:35%"></i><i style="--h:52%"></i><i style="--h:44%"></i><i style="--h:68%"></i><i style="--h:86%"></i><i style="--h:58%"></i><i style="--h:74%"></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div></div></section>
+<section class="about" id="about"><figure class="ph"><figcaption class="cap">Foto-Platzhalter · Stallgasse, Morgendunst, Schwarz-Weiß</figcaption></figure><div><span class="cap-s" style="opacity:.55">Maison EquiBill</span><h2>Handwerk trifft Software.</h2><p>EquiBill ist ein fiktives Unternehmen aus einer Weiterbildung. Die Idee: Berufsreiter verdienen Werkzeuge mit demselben Anspruch wie ihr Sport.</p><p>Alle Angebote, Preise und Profile sind erfunden.</p></div></section>
+<footer><a class="wm" href="#">Equi<i></i>Bill</a><div class="row"><div class="demo-b cap-s">Demo-Hinweis · fiktives Unternehmen · Demo-Preise · keine echte Bestellung</div><div class="cap-s">Impressum (Platzhalter) · Datenschutz (Platzhalter)</div></div></footer>
+
+<section class="dsx-dossier" id="studienblatt"><h2>Studienblatt · ATELIER</h2><p class="sub">Fashion-Lookbook: Reitsport als Kollektion. Alles oberhalb dieses Blattes ist der visuelle Entwurf; dieses Blatt gehört nicht zur späteren Website.</p>
+<div class="grid"><div class="box "><h3>Kreatives Leitkonzept</h3><p><b>„The Equestrian Business Edit.“</b> Digitale Produkte werden wie Stücke einer Modekollektion kuratiert: nummeriert, einzeln inszeniert, mit Weißraum zum Atmen. Die Marke wirkt wie ein Maison, nicht wie ein Software-Anbieter.</p></div><div class="box "><h3>Typografie</h3><p><b>Display:</b> hochkontrastige Didone (Didot / Bodoni 72), sehr groß, mit kursivem Gegenspieler in Oxblood. <b>Labels:</b> Helvetica Neue Versalien, Laufweite +24 %. Zahlen als „N°“.</p><p>Final: lizenzierte moderne Didone als lokale Fontdatei.</p></div><div class="box "><h3>Bildsprache</h3><p>Mittelformat-Look, Fensterlicht, warme Hauttöne, ruhige Porträts und Details (Hände, Zügel, Leder, Stangen im Streiflicht), Stillleben statt Action. Gelegentlich Schwarz-Weiß. Produkte auf Blush-/Stone-Flächen wie Packshots.</p></div>
+<div class="box wide"><h3>Farbpalette</h3><div class="dsx-sw"><div><i style="background:#F3EFE8"></i><b>#F3EFE8</b><small>Ivory</small></div><div><i style="background:#151213"></i><b>#151213</b><small>Ink</small></div><div><i style="background:#6E1423"></i><b>#6E1423</b><small>Oxblood</small></div><div><i style="background:#E9C9C0"></i><b>#E9C9C0</b><small>Blush</small></div><div><i style="background:#BDB5AB"></i><b>#BDB5AB</b><small>Stone</small></div></div></div>
+<div class="box "><h3>Layout &amp; Komposition</h3><p>12-Spalten-Raster, bewusst asymmetrisch: überlappende Fotos, Headline über Bildkanten, vertikaler Seitentext. Kategorien als Index-Liste. Produkte in versetztem Lookbook-Raster mit wechselnden Formaten und Hintergründen (kein gleichförmiges Kachelraster).</p></div><div class="box "><h3>Logo- / Wortmarkenidee</h3><p><b>EQUI—BILL</b> – gesperrte Didone-Versalien, der Mittelstrich in Oxblood als „Stange“/Querbalken. Monogramm „EB“ als Prägung für Verpackung und Siegel.</p></div><div class="box "><h3>Produktkarten</h3><p>Rahmenlose Packshot-Flächen mit eigener Hintergrundfarbe je Stück, Nummer „N°0x“, Name in Serif, Preis rechtsbündig in Versalien; Hover: sanfter Zoom. Kein Warenkorb-Button im Bild, nur Textlink.</p></div><div class="box "><h3>Hero-Bereich</h3><p>Zwei überlappende Foto-Platzhalter (Porträt groß, Detail klein) und die Schlagzeile „The Edit.“, die über die Bildkante läuft. Kurzer Satz plus Textlink statt Button.</p></div></div>
+<p class="dsx-note">Hinweise zur Studie: Alle Fotoflächen sind <b>Platzhalter</b> mit Regieanweisung (Art Direction), keine echten Fotos. Schriften sind lokale Systemschriften (keine Google Fonts, Vorgabe der Weiterbildung); eine finale Hausschrift käme erst nach der Designentscheidung. Produkt-Mockups sind gezeichnete Platzhalter, Preise und Produkte sind fiktive Demo-Konzeptpreise. Es ist keine vollständige Website und keine Shop-Funktion implementiert.</p></section>
+<nav class="dsx-bar" aria-label="Designstudien"><a href="00_uebersicht.html">Übersicht</a><span><a href="studie-1-stride.html" title="Stride">1</a><a href="studie-2-atelier.html" aria-current="page" title="Atelier">2</a><a href="studie-3-takt.html" title="Takt">3</a><a href="studie-4-terra.html" title="Terra">4</a><a href="studie-5-floodlight.html" title="Floodlight">5</a></span><em>Studie 2/5 · Atelier</em></nav>
+</body></html>

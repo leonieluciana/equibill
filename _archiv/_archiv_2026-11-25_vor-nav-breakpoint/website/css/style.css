@@ -1,0 +1,306 @@
+/* ==========================================================================
+   EquiBill – Startseite (Design „Atelier A / Maison“), Projektstruktur Tag 43
+   Gestaltung getrennt von Struktur (index.html) und Logik (js/app.js).
+   Mobile First: Basis = Smartphone, Erweiterungen per min-width.
+   Schriften: lokal aus fonts/ (keine Google Fonts, keine externen Server).
+   Alle Produkte/Preise sind fiktive Demo-Konzeptwerte.
+   ========================================================================== */
+
+/* 0) Lokale Schriften (fonts/, Lizenz: SIL OFL 1.1) ------------------ */
+@font-face{
+  font-family:"Bodoni Moda"; font-style:normal; font-weight:400 900; font-display:swap;
+  src:url("../fonts/BodoniModa-opsz-normal.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Bodoni Moda"; font-style:italic; font-weight:400 900; font-display:swap;
+  src:url("../fonts/BodoniModa-opsz-italic.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/Inter-400.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:500; font-display:swap;
+  src:url("../fonts/Inter-500.woff2") format("woff2");
+}
+
+/* 1) Design-Variablen ---------------------------------------------------- */
+:root{
+  --ivory:#F3EFE8; --ink:#151213; --ox:#6E1423; --blush:#E9C9C0; --stone:#BDB5AB;
+  --serif:"Bodoni Moda",Didot,"Bodoni 72","Bodoni MT","Times New Roman",serif;
+  --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --pad:clamp(18px,4vw,56px);
+  --plate-software:#E9C9C0; --plate-tools:#D9D2C7; --plate-design:#E0BFB3;
+  /* Farben der gezeichneten Produkt-Mockups */
+  --mk-bg:#fbf8f3; --mk-ink:#151213; --mk-acc:#6E1423; --mk-soft:#e6ddd2; --mk-line:#d6ccbf; --mk-font:var(--serif);
+  /* Filmkörnung der Foto-Platzhalter */
+  --gr:url("../assets/images/grain.svg");
+}
+
+/* 2) Grundlagen ------------------------------------------------------------ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--ivory);color:var(--ink);font:400 16px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ox);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--ivory);padding:10px 14px;z-index:100}
+.skip:focus{top:12px}
+.label{font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+/* Label in Akzentfarbe (Oxblood auf Ivory, Kontrast 10,25:1); ersetzt frühere Inline-Styles */
+.label--accent{color:var(--ox)}
+.textlink{display:inline-flex;gap:12px;align-items:center;border-bottom:1px solid currentColor;padding-bottom:5px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.textlink::after{content:"";width:16px;height:8px;background:currentColor;-webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);padding:16px 24px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:var(--ox);border-color:var(--ox)}
+.btn--light{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.btn--light:hover{background:var(--blush);border-color:var(--blush);color:var(--ink)}
+.section{padding:clamp(64px,9vw,130px) var(--pad)}
+.section-head{margin:0 0 clamp(28px,4vw,52px);max-width:62ch}
+.section-head h2{margin:10px 0 0;font:400 clamp(40px,6vw,88px)/.95 var(--serif);letter-spacing:-.03em}
+.section-head p{margin:16px 0 0;opacity:.75}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* 3) Foto-Platzhalter (keine echten Fotos!) ------------------------------- */
+.photo{margin:0;position:relative;overflow:hidden}
+.photo::before{content:"";position:absolute;inset:0;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;z-index:1}
+.photo figcaption{position:absolute;left:12px;bottom:12px;z-index:3;font:500 9.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.92);padding:6px 8px;max-width:84%}
+
+/* 4) Header ------------------------------------------------------------------ */
+.site-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px var(--pad);background:rgba(243,239,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,18,19,.12)}
+.wordmark{font:400 18px/1 var(--serif);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:.5em}
+.wordmark i{display:inline-block;width:1.4em;height:1px;background:var(--ox)}
+.nav-desktop{display:none}
+.nav-mobile summary{list-style:none;cursor:pointer;padding:8px 0}
+/* Größere Tipp-Fläche (ca. 44 px) ohne das Layout zu verändern */
+.nav-mobile summary{position:relative}
+.nav-mobile summary::after{content:"";position:absolute;inset:-8px -14px}
+.nav-mobile summary::-webkit-details-marker{display:none}
+.nav-mobile[open] .nav-mobile__panel{position:absolute;left:0;right:0;top:100%;background:var(--ivory);padding:20px var(--pad) 26px;border-bottom:1px solid rgba(21,18,19,.15);display:grid;gap:2px;max-height:calc(100vh - 64px);overflow-y:auto}
+.nav-mobile__panel a{padding:8px 0}
+.header-cart{white-space:nowrap}
+@media(min-width:900px){
+  .site-header{display:grid;grid-template-columns:1fr auto 1fr;padding:20px var(--pad)}
+  .wordmark{grid-column:2;grid-row:1;font-size:24px;letter-spacing:.2em}
+  .nav-desktop{display:flex;gap:26px;grid-column:1;grid-row:1}
+  .nav-mobile{display:none}
+  .header-cart{grid-column:3;justify-self:end}
+}
+.nav-desktop a:hover,.header-cart:hover{color:var(--ox)}
+
+/* 5) Hero -------------------------------------------------------------------- */
+.hero{padding:clamp(28px,4vw,56px) var(--pad) 0;display:grid;gap:36px}
+.hero__eyebrow{margin:0 0 22px;color:var(--ox)}
+.hero h1{margin:0;font:400 clamp(50px,13vw,112px)/.95 var(--serif);letter-spacing:-.035em}
+.hero h1 em{color:var(--ox)}
+.hero__claim{margin:24px 0 0;font:italic 400 clamp(24px,3.2vw,36px)/1.15 var(--serif)}
+.hero__lead{margin:20px 0 0;max-width:46ch;font-size:17px}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:30px}
+.hero__audience{margin:30px 0 0;opacity:.65}
+.hero__visual{position:relative;padding-bottom:70px}
+.hero__photo figcaption{top:12px;bottom:auto}
+.hero__photo{aspect-ratio:4/5;background:radial-gradient(70% 50% at 35% 30%,#e9c9c0,transparent 70%),linear-gradient(170deg,#b99b92,#4a2d2c 80%)}
+.hero__product{position:absolute;left:-4%;bottom:0;width:62%;aspect-ratio:4/3;background:var(--blush);border:6px solid var(--ivory);box-shadow:0 22px 44px -22px rgba(21,18,19,.5)}
+.hero__product span{position:absolute;right:8px;bottom:8px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);padding:4px 6px}
+.hero__values{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--ink)}
+.hero__values li{padding:20px 0;border-bottom:1px solid rgba(21,18,19,.22)}
+.hero__values b{display:block;font:italic 400 28px/1 var(--serif);margin-bottom:6px}
+.hero__values span{opacity:.75}
+@media(min-width:900px){
+  .hero{grid-template-columns:repeat(12,1fr);gap:0 24px;align-items:center}
+  .hero__text{grid-column:1/8}
+  .hero h1{font-size:clamp(70px,7.6vw,122px)}
+  .hero__visual{grid-column:8/13}
+  .hero__values{grid-column:1/13;grid-template-columns:repeat(3,1fr);gap:0 24px;margin-top:clamp(40px,5vw,70px);border-bottom:1px solid rgba(21,18,19,.22)}
+  .hero__values li{border-bottom:none;padding:24px 0 28px}
+}
+
+/* 6) Kategorien ------------------------------------------------------------- */
+.categories__grid{display:grid;gap:34px}
+.cat{display:block;min-width:0}
+.cat__plate{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--c)}
+.cat--software{--c:var(--plate-software)}.cat--tools{--c:var(--plate-tools)}.cat--design{--c:var(--plate-design)}
+.cat__m{position:absolute}
+.cat--software .cat__m--a{inset:0}
+.cat--tools .cat__m--a{left:-4%;top:4%;width:62%;height:92%}
+.cat--tools .cat__m--b{right:-6%;top:4%;width:62%;height:92%}
+.cat--design .cat__m--a{left:-6%;top:6%;width:52%;height:88%}
+.cat--design .cat__m--b{left:24%;top:2%;width:52%;height:88%}
+.cat--design .cat__m--c{right:-6%;top:8%;width:52%;height:88%}
+.cat__plate .mk{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.cat:hover .cat__plate .mk{transform:scale(1.05)}
+.cat__body{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:end;margin-top:16px}
+.cat h3{margin:0;font:400 clamp(30px,3.4vw,44px)/1 var(--serif);letter-spacing:-.02em}
+.cat p{margin:8px 0 0;opacity:.75;max-width:34ch}
+.cat__count{white-space:nowrap;opacity:.6}
+.cat .textlink{margin-top:14px}
+@media(min-width:760px){
+  .categories__grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+  .cat--design .cat__plate{aspect-ratio:3/4}.cat--tools .cat__plate{aspect-ratio:4/5}.cat--software .cat__plate{aspect-ratio:1/1}
+}
+
+/* 7) Shop ----------------------------------------------------------------------- */
+.shop{background:#ebe5db}
+.filter{display:none;flex-wrap:wrap;gap:10px;margin:0 0 34px}
+.js .filter{display:flex}
+.filter button{border:1px solid var(--ink);background:transparent;color:var(--ink);padding:11px 16px;font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:99px}
+.filter button[aria-pressed="true"]{background:var(--ink);color:var(--ivory)}
+.filter button:hover{background:var(--ox);color:var(--ivory);border-color:var(--ox)}
+.products{display:grid;gap:30px}
+.product{background:var(--ivory);display:flex;flex-direction:column}
+.product[hidden]{display:none}
+.product__plate{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--c)}
+.product[data-category="software"]{--c:var(--plate-software)}
+.product[data-category="tools"]{--c:var(--plate-tools)}
+.product[data-category="design"]{--c:var(--plate-design)}
+.product__plate .mk{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.product:hover .product__plate .mk{transform:scale(1.05)}
+.product__note{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);padding:4px 6px}
+.product__body{display:flex;flex-direction:column;gap:14px;padding:22px 22px 24px;flex:1}
+.product__meta{display:flex;justify-content:space-between;gap:10px;margin:0;align-items:center}
+.product__meta .label{color:var(--ox)}
+.product__format{border:1px solid rgba(21,18,19,.35);border-radius:99px;padding:5px 10px;font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.product h3{margin:0;font:400 clamp(28px,2.6vw,36px)/1 var(--serif);letter-spacing:-.01em}
+.product__desc{margin:0;opacity:.85}
+.product__points{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14.5px;opacity:.8}
+.product__points li{padding-left:18px;position:relative}
+.product__points li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--ox)}
+.product__buy{margin-top:auto;padding-top:18px;border-top:1px solid rgba(21,18,19,.2);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.product__price{margin:0;font:400 32px/1 var(--serif);letter-spacing:-.01em}
+.product__price small{display:block;margin-top:4px;font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+.product__links{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.shop__note{margin:34px 0 0;opacity:.7}
+@media(min-width:700px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.products{grid-template-columns:repeat(3,1fr)}}
+
+/* 8) Featured Product: EquiBill Manage ------------------------------------------------ */
+.manage{background:var(--ox);color:var(--ivory);display:grid;gap:36px;align-items:center;overflow:hidden}
+.manage h2{margin:12px 0 18px;font:italic 400 clamp(54px,9vw,120px)/.9 var(--serif);letter-spacing:-.035em}
+.manage__lead{margin:0 0 26px;max-width:44ch;font-size:18px}
+.manage__features{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:0}
+.manage__features li{border-top:1px solid rgba(243,239,232,.3);padding:14px 0;display:grid;gap:4px}
+.manage__features li:last-child{border-bottom:1px solid rgba(243,239,232,.3)}
+.manage__features b{font:italic 400 22px/1.1 var(--serif)}
+.manage__features span{opacity:.85;font-size:15px}
+.manage__price{font:400 clamp(34px,4vw,48px)/1 var(--serif);margin:0 0 6px}
+.manage__price small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-left:10px;opacity:.85}
+.manage__tarife{margin:0 0 24px;opacity:.85;font-size:14.5px}
+.manage__stage{aspect-ratio:1/1;background:var(--blush);border-radius:50%;max-width:540px;width:100%;justify-self:center;position:relative;overflow:hidden;--mk-ink:#151213}
+.manage__stage span{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);z-index:3;font:500 9px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+@media(min-width:900px){.manage{grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,80px)}}
+
+/* 9) Vorteile ----------------------------------------------------------------------------- */
+.benefits__grid{display:grid;border-top:1px solid var(--ink)}
+.benefit{padding:26px 0 30px;border-bottom:1px solid rgba(21,18,19,.22)}
+.benefit .label{color:var(--ox)}
+.benefit h3{margin:10px 0 12px;font:italic 400 clamp(30px,3.2vw,42px)/1.05 var(--serif);letter-spacing:-.02em}
+.benefit p{margin:0 0 18px;max-width:40ch;opacity:.85}
+.benefit ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.benefit li{border:1px solid rgba(21,18,19,.35);border-radius:99px;padding:6px 11px;font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+@media(min-width:860px){
+  .benefits__grid{grid-template-columns:repeat(3,1fr);gap:0 clamp(24px,4vw,56px)}
+  .benefit{border-bottom:none;padding-top:30px}
+}
+
+/* 10) Über EquiBill --------------------------------------------------------------------------- */
+.about{display:grid;gap:30px;align-items:center;background:#ebe5db}
+.about__photo{aspect-ratio:4/5;background:linear-gradient(190deg,#cfc6ba,#6c6258)}
+.about h2{margin:10px 0 22px;font:italic 400 clamp(40px,5.4vw,76px)/1 var(--serif);letter-spacing:-.025em}
+.about p{max-width:50ch;margin:0 0 14px;opacity:.85}
+.about__demo{border:1px solid var(--ox);color:var(--ox);padding:14px 16px;margin-top:24px;max-width:50ch}
+@media(min-width:860px){.about{grid-template-columns:5fr 6fr;gap:clamp(30px,6vw,90px)}}
+
+/* 11) FAQ ------------------------------------------------------------------------------------- */
+.faq{display:grid;gap:30px}
+.faq__list{border-top:1px solid var(--ink)}
+.faq details{border-bottom:1px solid rgba(21,18,19,.25);padding:20px 0}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:400 clamp(20px,2vw,26px)/1.25 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 28px/1 var(--sans);color:var(--ox)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:14px 0 0;max-width:60ch;opacity:.85}
+@media(min-width:860px){.faq{grid-template-columns:4fr 7fr;gap:clamp(30px,6vw,90px);align-items:start}.faq .section-head{position:sticky;top:100px}}
+
+/* 12) Footer ------------------------------------------------------------------------------------ */
+.site-footer{background:var(--ink);color:var(--ivory);padding:clamp(50px,7vw,100px) var(--pad) 30px}
+.site-footer .wordmark{font-size:clamp(30px,8vw,100px);justify-content:center;margin-bottom:46px}
+.site-footer__cols{display:grid;gap:28px;grid-template-columns:repeat(2,minmax(0,1fr));padding:30px 0;border-top:1px solid rgba(243,239,232,.25)}
+.site-footer h2{margin:0 0 12px;opacity:.6}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.site-footer a:hover{color:var(--blush)}
+.demo-box{border:1px solid var(--blush);color:var(--blush);padding:14px 18px;margin:0;max-width:640px}
+.site-footer__legal{margin:22px 0 0;opacity:.6;font-size:12.5px;max-width:80ch}
+@media(min-width:760px){.site-footer__cols{grid-template-columns:repeat(4,1fr)}}
+.site-footer__cols>*{min-width:0;overflow-wrap:anywhere}
+
+/* 13) Rückmeldung Demo-Warenkorb ------------------------------------------------------------------- */
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--ivory);padding:14px 20px;max-width:min(92vw,520px);font-size:14px;z-index:200;transition:opacity .25s,transform .25s}
+.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+.mk{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.mk *{box-sizing:border-box}
+.mk i,.mk b{display:block;font-style:normal}
+.mk .l{height:5px;border-radius:9px;background:var(--mk-soft)}
+.mk-manage .scr{width:82%;aspect-ratio:16/10;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:7px;display:grid;grid-template-columns:20% 1fr;gap:6%;padding:5%;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}
+.mk-manage .sb{background:var(--mk-soft);border-radius:4px}
+.mk-manage .mn{display:grid;grid-template-rows:auto auto 1fr;gap:9%}
+.mk-manage .mh{height:6px;width:46%;background:var(--mk-ink);border-radius:9px}
+.mk-manage .st{display:grid;grid-template-columns:repeat(3,1fr);gap:6%}
+.mk-manage .st i{height:20px;background:var(--mk-soft);border-radius:3px}
+.mk-manage .st i:first-child{background:var(--mk-acc)}
+.mk-manage .bars{display:flex;align-items:flex-end;gap:5%}
+.mk-manage .bars i{flex:1;height:var(--h);background:var(--mk-ink);opacity:.8;border-radius:2px 2px 0 0}
+.mk-manage .bars i:nth-child(5){background:var(--mk-acc);opacity:1}
+/* Balkenhöhen des Dashboard-Mockups (vorher als Inline-Style im HTML) */
+.mk-manage .bars i:nth-child(1){--h:35%}
+.mk-manage .bars i:nth-child(2){--h:52%}
+.mk-manage .bars i:nth-child(3){--h:44%}
+.mk-manage .bars i:nth-child(4){--h:68%}
+.mk-manage .bars i:nth-child(5){--h:86%}
+.mk-manage .bars i:nth-child(6){--h:58%}
+.mk-manage .bars i:nth-child(7){--h:74%}
+/* Verkürzte Textzeilen in Mockups (vorher Inline-Style); doppelte Klasse für Vorrang */
+.mk .l.l--70{width:70%}
+.mk .l.l--60{width:60%}
+.mk-manage .ph{position:absolute;right:6%;bottom:9%;width:19%;aspect-ratio:9/18;background:var(--mk-ink);border-radius:9px;padding:4px;box-shadow:0 14px 30px -10px rgba(0,0,0,.55)}
+.mk-manage .ph b{height:100%;border-radius:6px;background:var(--mk-bg);padding:12% 14%;display:grid;align-content:start;gap:8px}
+.mk-manage .ph b i{height:5px;border-radius:9px;background:var(--mk-soft)}
+.mk-manage .ph b i:first-child{background:var(--mk-acc);height:12px;border-radius:3px}
+.mk-planner .sheet{width:56%;aspect-ratio:4/5;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:6px;padding:7%;display:grid;grid-template-rows:auto 1fr;gap:6%;transform:rotate(-4deg);box-shadow:0 18px 36px -16px rgba(0,0,0,.4)}
+.mk-planner .top{height:14px;background:var(--mk-ink);border-radius:3px}
+.mk-planner .g{display:grid;grid-template-columns:repeat(5,1fr);gap:5%}
+.mk-planner .g i{background:var(--mk-soft);border-radius:2px}
+.mk-planner .g i.on{background:var(--mk-acc)}
+.mk-planner .g i.dk{background:var(--mk-ink)}
+.mk-planner .sum{position:absolute;right:7%;bottom:12%;width:34%;background:var(--mk-ink);border-radius:6px;padding:7%;display:grid;gap:7px;transform:rotate(5deg);box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
+.mk-planner .sum .l{background:var(--mk-bg);opacity:.35}
+.mk-planner .sum .l.a{background:var(--mk-acc);opacity:1;width:60%}
+.mk-rider .pg{width:46%;aspect-ratio:3/4.2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;display:grid;grid-template-rows:56% auto auto;gap:5%;padding:6%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);z-index:2}
+.mk-rider .pg.bk{position:absolute;transform:translate(34%,4%) rotate(7deg);z-index:1;opacity:.9;grid-template-rows:1fr;background:var(--mk-soft)}
+.mk-rider .pic{background:linear-gradient(160deg,var(--mk-acc),var(--mk-ink));border-radius:2px}
+.mk-rider .nm{height:9px;width:70%;background:var(--mk-ink);border-radius:2px}
+.mk-rider .lg{display:flex;gap:6%}
+.mk-rider .lg i{width:18%;aspect-ratio:1;background:var(--mk-soft);border:1px solid var(--mk-line)}
+.mk-horse .ld{width:78%;aspect-ratio:3/2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:4px;display:grid;grid-template-columns:58% 1fr;gap:5%;padding:5%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);transform:rotate(-2deg)}
+.mk-horse .pic{background:linear-gradient(200deg,var(--mk-soft),var(--mk-acc) 70%);border-radius:2px;position:relative}
+.mk-horse .pic::after{content:"";position:absolute;left:12%;right:12%;bottom:18%;height:38%;border:2px solid var(--mk-bg);border-bottom:none;border-radius:99px 99px 0 0;opacity:.8}
+.mk-horse .sp{display:grid;align-content:center;gap:9px}
+.mk-horse .sp .l:first-child{height:9px;background:var(--mk-ink);width:80%}
+.mk-horse .tag{position:absolute;right:8%;bottom:14%;background:var(--mk-acc);color:var(--mk-bg);font:700 9px/1 var(--mk-font,sans-serif);padding:6px 9px;border-radius:99px;letter-spacing:.08em;transform:rotate(-2deg)}
+.mk-social .sq{position:absolute;width:40%;aspect-ratio:1;border-radius:4px;box-shadow:0 16px 30px -14px rgba(0,0,0,.5);display:grid;place-items:center;font:800 clamp(22px,5cqi,44px)/1 var(--mk-font,sans-serif)}
+.mk-social .a{left:12%;top:16%;background:var(--mk-acc);color:var(--mk-bg);transform:rotate(-6deg)}
+.mk-social .b{right:12%;top:10%;background:var(--mk-ink);color:var(--mk-bg);transform:rotate(5deg)}
+.mk-social .c{left:30%;bottom:10%;background:var(--mk-bg);color:var(--mk-ink);border:1px solid var(--mk-line);transform:rotate(-1deg)}
+.mk-biz .dc{position:absolute;width:44%;aspect-ratio:3/4;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;padding:6%;display:grid;align-content:start;gap:8px;box-shadow:0 14px 28px -14px rgba(0,0,0,.5)}
+.mk-biz .d1{left:12%;top:12%;transform:rotate(-7deg);background:var(--mk-soft)}
+.mk-biz .d2{left:30%;top:8%;transform:rotate(2deg)}
+.mk-biz .d3{right:10%;top:16%;transform:rotate(8deg);background:var(--mk-ink)}
+.mk-biz .d3 .l{background:var(--mk-bg);opacity:.4}
+.mk-biz .d2 .l:first-child{background:var(--mk-ink);height:8px;width:60%}
+.mk-biz .stamp{position:absolute;left:36%;bottom:12%;width:22%;aspect-ratio:1;border-radius:50%;background:var(--mk-acc);color:var(--mk-bg);display:grid;place-items:center;font:800 9px/1 var(--mk-font,sans-serif);letter-spacing:.1em;transform:rotate(-12deg)}
+
+/* 14) Sehr schmale Smartphones (< 360 px): Header und Footer verhindern horizontales Scrollen */
+@media(max-width:359px){
+  .site-header{gap:8px}
+  .wordmark{font-size:15px;letter-spacing:.1em}
+  .header-cart{letter-spacing:.08em}
+}

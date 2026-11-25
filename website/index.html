@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EquiBill – The Business Behind the Sport (Demo)</title>
+  <meta name="description" content="EquiBill ist ein fiktives Unternehmen (Weiterbildungsprojekt): Demo-Shop für Software, Business-Tools und Designvorlagen im professionellen Pferdesport.">
+  <!-- Struktur: index.html · Gestaltung: css/style.css · Logik: js/app.js · Schriften: fonts/ · Bilder: assets/images/ -->
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+  <!-- 1) HEADER: Shop-Navigation (Texte vorläufig) -->
+  <header class="site-header">
+    <nav class="nav-desktop label" aria-label="Hauptnavigation">
+      <a href="#shop">Shop</a><a href="#manage">EquiBill Manage</a><a href="#vorteile">Vorteile</a><a href="#ueber-uns">Über uns</a><a href="#faq">FAQ</a>
+    </nav>
+    <details class="nav-mobile label">
+      <summary>Menü</summary>
+      <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
+        <a href="#shop">Shop</a><a href="#manage">EquiBill Manage</a><a href="#vorteile">Vorteile</a><a href="#ueber-uns">Über uns</a><a href="#faq">FAQ</a>
+      </nav>
+    </details>
+    <a class="wordmark" href="#" aria-label="EquiBill, nach oben">Equi<i></i>Bill</a>
+    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
+    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+  </header>
+
+  <main id="inhalt">
+
+    <!-- 2) HERO: Headline, Claim, Leistungsversprechen, CTA -->
+    <section class="hero" aria-labelledby="hero-titel">
+      <div class="hero__text">
+        <p class="hero__eyebrow label">Software, Business-Tools und Vorlagen für den Pferdesport</p>
+        <h1 id="hero-titel">The <em>Business</em> Behind the Sport.</h1>
+        <p class="hero__claim">Weniger Büro. Mehr Pferd.</p>
+        <p class="hero__lead">Abrechnung, Turnierplanung und Auftritt für dein Pferdebusiness: Software und digitale Vorlagen für Berufsreiter, Bereiter, Trainer und Pferdebetriebe.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#shop">Produkte entdecken</a>
+          <a class="textlink" href="#manage">EquiBill Manage ansehen</a>
+        </div>
+        <p class="hero__audience label">Für Berufsreiter · Bereiter · Trainer · Pferdebetriebe</p>
+      </div>
+      <div class="hero__visual">
+        <figure class="photo hero__photo"><figcaption>Foto-Platzhalter · Berufsreiterin im Stallalltag, Fensterlicht, warme Hauttöne</figcaption></figure>
+        <div class="hero__product"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div><span>Mockup · Demo</span></div>
+      </div>
+      <ul class="hero__values">
+        <li><b>Organisieren</b><span>Betrieb, Turniere und Abläufe an einem Ort planen.</span></li>
+        <li><b>Abrechnen</b><span>Kosten kalkulieren, Rechnungen erstellen, Überblick behalten.</span></li>
+        <li><b>Auftreten</b><span>Sponsoren, Käufer und Follower professionell ansprechen.</span></li>
+      </ul>
+    </section>
+
+    <!-- 3) KATEGORIEN: Zuordnung laut Briefing Kap. 10.2; Klick filtert den Shop (js/app.js) -->
+    <section class="section categories" id="kategorien" aria-labelledby="kat-titel">
+      <div class="section-head"><span class="label label--accent">Sortiment</span><h2 id="kat-titel">Das Sortiment in drei Bereichen</h2></div>
+      <div class="categories__grid">
+        <a class="cat cat--software" href="#shop" data-filter="software">
+          <div class="cat__plate"><div class="cat__m cat__m--a"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div></div></div>
+          <div class="cat__body"><div><h3>Software</h3><p>Verwaltung und Abrechnung für Berufsreiter und Pferdebetriebe.</p></div><span class="cat__count label">1 Produkt</span></div>
+          <span class="textlink">Produkte ansehen</span>
+        </a>
+        <a class="cat cat--tools" href="#shop" data-filter="tools">
+          <div class="cat__plate"><div class="cat__m cat__m--a"><div class="mk mk-planner"><div class="sheet"><b class="top"></b><div class="g"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div><div class="sum"><i class="l a"></i><i class="l"></i><i class="l"></i><i class="l l--70"></i></div></div></div><div class="cat__m cat__m--b"><div class="mk mk-biz"><div class="dc d1"><i class="l"></i><i class="l"></i><i class="l l--70"></i></div><div class="dc d2"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l l--70"></i></div><div class="dc d3"><i class="l"></i><i class="l"></i><i class="l l--70"></i></div><b class="stamp">VORLAGE</b></div></div></div>
+          <div class="cat__body"><div><h3>Business Tools</h3><p>Vorlagen für Turnierplanung, Kalkulation und Betriebsorganisation.</p></div><span class="cat__count label">2 Produkte</span></div>
+          <span class="textlink">Produkte ansehen</span>
+        </a>
+        <a class="cat cat--design" href="#shop" data-filter="design">
+          <div class="cat__plate"><div class="cat__m cat__m--a"><div class="mk mk-rider"><div class="pg bk"></div><div class="pg"><i class="pic"></i><i class="nm"></i><div class="lg"><i></i><i></i><i></i></div></div></div></div><div class="cat__m cat__m--b"><div class="mk mk-horse"><div class="ld"><i class="pic"></i><div class="sp"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l l--60"></i></div></div><span class="tag">ZU VERKAUFEN · DEMO</span></div></div><div class="cat__m cat__m--c"><div class="mk mk-social"><b class="sq a">Aa</b><b class="sq b">26</b><b class="sq c">EQ</b></div></div></div>
+          <div class="cat__body"><div><h3>Marketing &amp; Design</h3><p>Vorlagen für Sponsoren, Pferdeverkauf und Social Media.</p></div><span class="cat__count label">3 Produkte</span></div>
+          <span class="textlink">Produkte ansehen</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4) SHOP: alle sechs Produkte. Preise = Demo-Preise. Produkte sind Mockups. -->
+    <section class="section shop" id="shop" aria-labelledby="shop-titel">
+      <div class="section-head"><span class="label label--accent">Shop</span><h2 id="shop-titel">Produkte</h2><p>Software und Vorlagen für den Alltag im Pferdebetrieb. Alle Preise sind Demo-Preise.</p></div>
+      <div class="filter" role="group" aria-label="Produkte filtern">
+        <button type="button" data-filter="all" aria-pressed="true">Alle</button>
+        <button type="button" data-filter="software" aria-pressed="false">Software</button>
+        <button type="button" data-filter="tools" aria-pressed="false">Business Tools</button>
+        <button type="button" data-filter="design" aria-pressed="false">Marketing &amp; Design</button>
+      </div>
+      <div class="products">
+        <article class="product" data-category="software">
+          <div class="product__plate"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div><span class="product__note">Mockup</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Software</span><span class="product__format">Software-Abo</span></p>
+            <h3>EquiBill Manage</h3>
+            <p class="product__desc">Verwaltungs- und Abrechnungssoftware für Berufsreiter und Pferdebetriebe.</p>
+            <ul class="product__points"><li>Pferde, Kunden und Kosten an einem Ort</li><li>Monatsabrechnung und PDF-Rechnungen</li><li>Dashboard mit offenen Rechnungen</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>ab 19 €/Monat<small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="#manage">Details</a><button class="btn" type="button" data-add="EquiBill Manage">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="tools">
+          <div class="product__plate"><div class="mk mk-planner"><div class="sheet"><b class="top"></b><div class="g"><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class="dk"></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="dk"></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div><div class="sum"><i class="l a"></i><i class="l"></i><i class="l"></i><i class="l l--70"></i></div></div><span class="product__note">Mockup</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlage</span></p>
+            <h3>Tournament Planner</h3>
+            <p class="product__desc">Digitale Vorlage für Turnierplanung und Kostenkalkulation.</p>
+            <ul class="product__points"><li>Turniertermine und Starts planen</li><li>Nenngelder, Transport und Zusatzkosten kalkulieren</li><li>Kosten je Turnier im Überblick</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>29 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Tournament Planner">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="design">
+          <div class="product__plate"><div class="mk mk-rider"><div class="pg bk"></div><div class="pg"><i class="pic"></i><i class="nm"></i><div class="lg"><i></i><i></i><i></i></div></div></div><span class="product__note">Mockup</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
+            <h3>Rider Portfolio</h3>
+            <p class="product__desc">Canva-Vorlage für Reiter- und Sponsorenpräsentationen.</p>
+            <ul class="product__points"><li>Profil, Erfolge und Leistungen übersichtlich darstellen</li><li>Bereich für Sponsorenanfragen</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>49 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Rider Portfolio">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="design">
+          <div class="product__plate"><div class="mk mk-horse"><div class="ld"><i class="pic"></i><div class="sp"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l l--60"></i></div></div><span class="tag">ZU VERKAUFEN · DEMO</span></div><span class="product__note">Mockup</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
+            <h3>Horse Portfolio</h3>
+            <p class="product__desc">Canva-Vorlage für Pferdeverkaufsexposés.</p>
+            <ul class="product__points"><li>Exposé mit Fotos, Daten und Ausbildungsstand</li><li>Für Verkauf und Vorstellung bei Interessenten</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>39 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Horse Portfolio">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="design">
+          <div class="product__plate"><div class="mk mk-social"><b class="sq a">Aa</b><b class="sq b">26</b><b class="sq c">EQ</b></div><span class="product__note">Mockup</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Designvorlagen</span></p>
+            <h3>Social Media Kit</h3>
+            <p class="product__desc">Designvorlagen für den Social-Media-Auftritt von Reitern.</p>
+            <ul class="product__points"><li>Einheitlicher Look für den Social-Media-Auftritt</li><li>Vorlagen für regelmäßige Beiträge</li><li>Mit eigenen Fotos, Farben und Texten anpassbar</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>39 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Social Media Kit">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="tools">
+          <div class="product__plate"><div class="mk mk-biz"><div class="dc d1"><i class="l"></i><i class="l"></i><i class="l l--70"></i></div><div class="dc d2"><i class="l"></i><i class="l"></i><i class="l"></i><i class="l l--70"></i></div><div class="dc d3"><i class="l"></i><i class="l"></i><i class="l l--70"></i></div><b class="stamp">VORLAGE</b></div><span class="product__note">Mockup</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlagen</span></p>
+            <h3>Equestrian Business Kit</h3>
+            <p class="product__desc">Digitale Vorlagen für die Betriebsorganisation.</p>
+            <ul class="product__points"><li>Vorlagen für den Büroalltag im Pferdebetrieb</li><li>Einheitliche Dokumente statt Einzellösungen</li><li>Eine Sammlung statt vieler einzelner Dateien</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>99 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Equestrian Business Kit">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="shop__note label">Demo-Preise · fiktives Unternehmen · keine echte Bestellung. Die Produkte sind Konzept-Mockups.</p>
+    </section>
+
+    <!-- 5) FEATURED: EquiBill Manage (Tarifvergleich folgt auf einer eigenen Seite) -->
+    <section class="section manage" id="manage" aria-labelledby="manage-titel">
+      <div>
+        <span class="label">Software · Kernprodukt</span>
+        <h2 id="manage-titel">EquiBill Manage</h2>
+        <p class="manage__lead">Die Verwaltungs- und Abrechnungssoftware für Berufsreiter und Pferdebetriebe. Weniger Büro, mehr Zeit für Pferde und Kunden.</p>
+        <ul class="manage__features">
+          <li><b>Pferde und Kunden</b><span>Stammdaten, Besitzer und individuelle Preise an einem Ort.</span></li>
+          <li><b>Kosten</b><span>Beritt-, Turnier-, Tierarzt- und Transportkosten erfassen.</span></li>
+          <li><b>Rechnungen</b><span>Monatsabrechnung und Einzelrechnungen als PDF, mit Status und Historie.</span></li>
+          <li><b>Überblick</b><span>Dashboard mit Umsatz, Kosten und offenen Rechnungen.</span></li>
+        </ul>
+        <p class="manage__price">ab 19 €/Monat<small>Demo-Preis</small></p>
+        <p class="manage__tarife">Tarife: Basic · Professional · Business. Der Tarifvergleich folgt auf einer eigenen Seite.</p>
+        <button class="btn btn--light" type="button" data-add="EquiBill Manage">In den Warenkorb</button>
+      </div>
+      <div class="manage__stage"><div class="mk mk-manage"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="ph"><b><i></i><i class="l"></i><i class="l"></i><i class="l"></i></b></div></div><span>Mockup · in dieser Demo nicht nutzbar</span></div>
+    </section>
+
+    <!-- 6) VORTEILE: organisatorisch, finanziell, kommunikativ -->
+    <section class="section benefits" id="vorteile" aria-labelledby="vorteile-titel">
+      <div class="section-head"><span class="label label--accent">Vorteile</span><h2 id="vorteile-titel">Was EquiBill dir bringt</h2></div>
+      <div class="benefits__grid">
+        <div class="benefit"><span class="label">Organisatorisch</span><h3>Ordnung im Betrieb</h3><p>Pferde, Kunden, Turniere und Abläufe planst du an einem Ort statt in verstreuten Listen.</p><ul><li>Manage</li><li>Tournament Planner</li><li>Business Kit</li></ul></div>
+        <div class="benefit"><span class="label">Finanziell</span><h3>Kosten und Rechnungen im Griff</h3><p>Kosten erfassen, Turniere kalkulieren, Rechnungen erstellen und offene Posten sehen.</p><ul><li>Manage</li><li>Tournament Planner</li></ul></div>
+        <div class="benefit"><span class="label">Kommunikativ</span><h3>Ein Auftritt, der zum Sport passt</h3><p>Sponsoren, Käufer und Follower erreichst du mit klar gestalteten Unterlagen und Beiträgen.</p><ul><li>Rider Portfolio</li><li>Horse Portfolio</li><li>Social Media Kit</li></ul></div>
+      </div>
+    </section>
+
+    <!-- 7) ÜBER EQUIBILL (fiktives Unternehmen) -->
+    <section class="section about" id="ueber-uns" aria-labelledby="about-titel">
+      <figure class="photo about__photo"><figcaption>Foto-Platzhalter · Stallgasse am Morgen, Schwarz-Weiß</figcaption></figure>
+      <div>
+        <span class="label label--accent">Über EquiBill</span>
+        <h2 id="about-titel">Wer vom Pferdesport lebt, führt ein Unternehmen.</h2>
+        <p>EquiBill ist eine digitale Premium-Marke für Business-Tools, Software und Designvorlagen im professionellen Pferdesport. Wir richten uns an Berufsreiter, Bereiter, Trainer und Pferdebetriebe.</p>
+        <p>EquiBill liefert die Werkzeuge dafür: organisatorisch, finanziell und kommunikativ.</p>
+        <p class="about__demo label">EquiBill ist ein fiktives Unternehmen und entsteht im Rahmen einer Weiterbildung. Produkte, Preise und Angebote sind Demo-Konzepte.</p>
+      </div>
+    </section>
+
+    <!-- 8) FAQ -->
+    <section class="section faq" id="faq" aria-labelledby="faq-titel">
+      <div class="section-head"><span class="label label--accent">FAQ</span><h2 id="faq-titel">Häufige Fragen</h2></div>
+      <div class="faq__list"><details><summary>Für wen ist EquiBill gedacht?</summary><p>Für Berufsreiter, Bereiter, Trainer und Pferdebetriebe, die ihren Berufsalltag organisatorisch, finanziell und kommunikativ vereinfachen möchten.</p></details><details><summary>Was ist EquiBill Manage und was kostet es?</summary><p>Eine Verwaltungs- und Abrechnungssoftware, ab 19 €/Monat (Demo-Preis). Es gibt die Tarife Basic, Professional und Business; der Vergleich folgt auf einer eigenen Seite.</p></details><details><summary>Was sind die Canva-Vorlagen?</summary><p>Rider Portfolio und Horse Portfolio sind Vorlagen für Canva. Du passt sie dort mit deinen eigenen Fotos und Texten an. EquiBill steht in keiner Verbindung zu Canva; Canva ist eine Marke der jeweiligen Inhaberin.</p></details><details><summary>Kann ich die Produkte tatsächlich kaufen?</summary><p>Nein. EquiBill ist ein fiktives Unternehmen. Der Warenkorb ist eine Demonstration; es gibt keine Bestellung und keine Zahlung.</p></details><details><summary>Sind die Produkte schon fertig?</summary><p>Die Produkte sind Konzepte. Die Abbildungen sind gezeichnete Mockups und zeigen, wie die Produkte aussehen könnten.</p></details><details><summary>Werden Daten von mir gespeichert?</summary><p>Diese Demo-Seite verarbeitet keine personenbezogenen Daten. Impressum und Datenschutzerklärung sind Platzhalter.</p></details></div>
+    </section>
+  </main>
+
+  <!-- 9) FOOTER: Navigation, Platzhalter für Pflichtangaben, Demo-Hinweis -->
+  <footer class="site-footer">
+    <a class="wordmark" href="#" aria-label="EquiBill, nach oben">Equi<i></i>Bill</a>
+    <div class="site-footer__cols label">
+      <div><h2>Shop</h2><ul><li><a href="#shop" data-filter="software">Software</a></li><li><a href="#shop" data-filter="tools">Business Tools</a></li><li><a href="#shop" data-filter="design">Marketing &amp; Design</a></li></ul></div>
+      <div><h2>EquiBill</h2><ul><li><a href="#ueber-uns">Über uns</a></li><li><a href="#vorteile">Vorteile</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h2>Rechtliches</h2><ul><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
+      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+    </div>
+    <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

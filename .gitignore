@@ -1,0 +1,15 @@
+# .gitignore – Dateien, die Git NICHT speichern und NICHT zu GitHub hochladen soll
+
+# Geheimnisse: API-Schlüssel, Passwörter, Zugangsdaten gehören nur in .env-Dateien
+.env
+.env.*
+!.env.example
+
+# Systemdateien von macOS (Ordneransicht, keine Projektinhalte)
+.DS_Store
+
+# Kursunterlagen der DSP Academy: nur lokal, nicht veröffentlichen (Urheberrecht)
+_archiv/*.pdf
+
+# Persönliche Claude-Code-Einstellungen
+.claude/settings.local.json
