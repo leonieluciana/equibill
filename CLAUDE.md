@@ -2,7 +2,7 @@
 
 Diese Datei gilt dauerhaft und verbindlich für jede Zusammenarbeit an EquiBill (Claude-Projekt und Claude Code).
 Ausführliche Inhalte: `PROJECT_BRIEFING.md` (Konzept, Entscheidungen) und `ROADMAP.md` (Planung). Bei Widersprüchen gilt diese Datei, danach das Briefing, danach die Roadmap.
-Stand: 24.11.2026 (Strategische und gestalterische Neuausrichtung, Designentscheidung Atelier; siehe Änderungsvermerk am Ende).
+Stand: 26.11.2026 (Produktseiten, Kap. 14); Grundlage 24.11.2026 (Strategische und gestalterische Neuausrichtung, Designentscheidung Atelier; siehe Änderungsvermerk am Ende).
 
 ## 1. Rolle
 
@@ -78,7 +78,7 @@ Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kon
 - **Bildsprache:** Mittelformat-Look, Fensterlicht, warme Hauttöne, ruhige Porträts und Details (Hände, Zügel, Leder, Stangen im Streiflicht), Stillleben statt Action; Produkte als Packshots auf farbigen Flächen. **Bildstil (Entscheidung 25.11.2026):** hochwertige **Schwarz-Weiß-Fotografie** (Low-Key, Gegenlicht, Körnung, ruhige, intime Momente, Menschen eher von hinten/angeschnitten); auch Software-/Vorlagenfotos in S/W, Markenfarbe nur als Akzent (z. B. Mockup auf dem Display). **Fotos (Entscheidung 25.11.2026):** echte Fotos mit freier Lizenz (Unsplash-Lizenz, keine Unsplash+-Bilder) als **gekennzeichnete Symbolbilder**; jedes Foto mit Fotograf, Link und Lizenz in `website/assets/images/fotos/BILDNACHWEIS.txt`. Eigene Fotos sind langfristig vorzuziehen.
 - **Layout:** asymmetrisches 12-Spalten-Raster, überlappende Bilder, Headline über Bildkanten, Kategorien als Index-Liste, Produkte im versetzten Lookbook-Raster (kein gleichförmiges Kachelraster). Produktkarten als abgerundete Rahmen-Kacheln (Entscheidung 26.11.2026, inspiriert von landing.love), Name in Serif, Hover: Kachel hebt sich leicht, Bild zoomt sanft. **Sortiment (26.11.2026):** keine Kacheln, sondern Editorial Category Navigation – drei große Serifen-Kategorien 01–03 mit Haarlinien links, rechts eine Bildfläche, die bei Hover/Fokus per Fade wechselt; Handy: Bild bleibt oben stehen, die Kategorie in der Mitte des freien Bereichs steuert das Bild; Links filtern weiterhin den Shop. **Effekte (26.11.2026):** Cinematic Hero (Foto großflächig auf Ink, langsamer Zoom, Headline blendet ein; Akzent auf Dunkel = Blush), Scroll-Reveal, Text Reveal aller Abschnitts-Überschriften Wort für Wort, animierte Beispielrechnung (fiktive Werte) und horizontal laufende Manage-Funktionen (ab 900 px; Handy: wischbar), Magnetic Buttons (nur Maus); alle Effekte entfallen bei „Bewegung reduzieren“ und ohne JavaScript bleibt alles sichtbar.
 - **Wortmarke (Idee):** EQUI—BILL in gesperrten Didone-Versalien, Mittelstrich in Akzentfarbe; Monogramm „EB“.
-- **Hell/Dunkel:** A ist der Standard. B kommt ergänzend zum Einsatz, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush und wirken dadurch verwandt. **Offen:** Welche Seiten dunkel gestaltet werden und wie der Wechsel aussieht. Bis zur Festlegung nicht innerhalb einer Seite mischen.
+- **Hell/Dunkel:** A ist der Standard. B kommt ergänzend zum Einsatz, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush und wirken dadurch verwandt. **Entscheidung 26.11.2026:** Die Produktseiten (`website/produkte/`) sind in Variante B „Noir“ gestaltet, ganze Seite inkl. Kopf und Fuß (`<body class="theme-noir">`). **Offen:** Gestaltung weiterer Unterseiten (Warenkorb, Checkout usw.) und wie der Wechsel aussieht. Nicht innerhalb einer Seite mischen.
 - **Referenz (im Archiv):** `_archiv/design-studien/runde-2/studie-2-atelier.html` (Startseite), `_archiv/design-studien/runde-3/atelier-varianten.html` (Varianten A/B/C), `atelier-produkt.html`, `atelier-warenkorb.html` (Entwürfe). Referenz, kein Produktivcode; nicht verändern.
 
 **Die Website vereint:** modern · premium · sportlich · selbstbewusst · editorial · minimalistisch · luftig · emotional · produktorientiert · visuell außergewöhnlich.
@@ -183,8 +183,9 @@ Die aktuelle Startseite liegt als professionelle Projektstruktur direkt in `webs
 
 ```
 website/
-├─ index.html        Struktur und Inhalte (semantisches HTML, Texte)
-├─ css/style.css     vollständiges Styling inkl. @font-face (Design „Atelier A / Maison“)
+├─ index.html        Startseite: Struktur und Inhalte (semantisches HTML, Texte)
+├─ produkte/         eine Seite je Produkt (z. B. tournament-planner.html), siehe Kap. 14
+├─ css/style.css     vollständiges Styling inkl. @font-face (Atelier A „Maison“, B „Noir“ über .theme-noir)
 ├─ js/app.js         Interaktion: mobiles Menü, Shop-Filter, Demo-Warenkorb-Zähler
 ├─ fonts/            lokale Schriften (.woff2) + LIZENZ.txt (Name, Quelle, Lizenz)
 └─ assets/
@@ -201,6 +202,21 @@ Regeln:
 - **Kein horizontales Scrollen:** vor jeder Abgabe bei 320, 390, 768 und 1440 px prüfen.
 - **Weiterhin gültig:** nur fiktive Daten, sichtbarer Demo-Hinweis, keine Zahlung, kein Backend; alles in `_archiv/` (alte Startseite, frühere Entwürfe, Designstudien, Atelier-Vorlage, frühere Fassungen der Projektdateien) bleibt unverändert.
 - **Git eingerichtet** (25.11.2026), Hauptzweig `main`, gesichert in einem **privaten** GitHub-Repository. Regelmäßig committen (aussagekräftige Commit-Messages) und hochladen. `.gitignore` schließt `.env`-Dateien, `.DS_Store` und Kursunterlagen (`_archiv/*.pdf`) aus. Commits verwenden die GitHub-Ersatzadresse (noreply), nicht die private E-Mail.
+
+## 14. Mehrere Seiten (Stand 26.11.2026)
+
+Seit dem 26.11.2026 hat die Website neben der Startseite eigene Unterseiten. Es gibt kein Template-System; jede Seite ist eine vollständige, statische HTML-Datei.
+
+- **Ordner und Dateinamen:** ein Ordner je Seitentyp (`produkte/`, später z. B. `warenkorb/`); Dateinamen klein, Wörter mit Bindestrich, keine Umlaute oder Leerzeichen (`equestrian-business-kit.html`). Produktseite = Produktname aus Kap. 5 in dieser Schreibweise.
+- **Eine Gestaltung, eine Logik:** alle Seiten binden dieselbe `css/style.css` und `js/app.js` ein, keine seitenspezifischen CSS- oder JS-Dateien, keine Inline-Styles oder -Skripte. Neue Bausteine bekommen einen eigenen, kommentierten Abschnitt in `style.css`.
+- **Relative Pfade je Ebene:** Unterseiten eine Ebene tiefer verwenden `../` (`../css/style.css`, `../js/app.js`, `../assets/images/…`). Seiten müssen per Doppelklick und über localhost funktionieren.
+- **Kopf, Menü und Fuß identisch** zur Startseite (gleiche Punkte, gleiche Reihenfolge, gleicher Demo-Hinweis). Anker der Startseite werden auf Unterseiten zu `../index.html#shop` usw.; Logo und Wortmarke führen zu `../index.html`. **Jede Änderung an Kopf oder Fuß in allen Seiten nachziehen** und per Suche prüfen.
+- **Produktdaten fest im HTML**, keine Datendatei und kein Nachladen per JavaScript. Name, Preis und Kategorie müssen auf Startseite, Produktseite und in Kap. 5 übereinstimmen (vor jeder Abgabe abgleichen).
+- **Pflichtinhalte jeder Produktseite:** Bild mit Alternativtext und Kennzeichnung „Symbolbild“, Name als einziges `<h1>`, kurze Beschreibung, Preis mit „inkl. MwSt., zzgl. Versand“ und „Demo-Preis“, Versandkosten (digitale Produkte: 0 €, kein Versand), Schaltfläche „In den Warenkorb“ (noch ohne Funktion), Demo-Hinweis nahe Preis, Beschreibung, technische Daten (als „Vorläufige Konzeptangaben“ gekennzeichnet), Brotkrumen und Link „Zurück zur Übersicht“.
+- **Jede Seite** hat einen eigenen `<title>` („Produktname – EquiBill (Demo)“) und eine eigene `meta description`.
+- **JavaScript seitenübergreifend:** jeder Teil von `app.js` prüft, ob seine Elemente auf der Seite vorhanden sind, und läuft sonst fehlerfrei weiter. Der Shop-Filter wirkt nur auf der Startseite (auf Unterseiten ohne `data-filter`).
+- **Hell/Dunkel:** Variante je ganzer Seite über eine Klasse am `<body>` (`theme-noir`), nie einzelne Abschnitte umfärben.
+- **Prüfung bei neuen Seiten:** alle Links (hin und zurück), Konsole ohne Fehler, kein horizontales Scrollen bei 320/390/768/1440 px, Kontraste der jeweiligen Variante.
 
 ## Änderungsvermerk (24.11.2026)
 
@@ -233,3 +249,11 @@ Regeln:
 - Neu: Git eingerichtet und privates GitHub-Repository angelegt (Kap. 13); `.gitignore` ergänzt. Sicherung: `_archiv/_archiv_2026-11-25_vor-git/CLAUDE.md`.
 - Neu (Designrunden 2–4): echte Fotos statt Platzhaltern (Unsplash-Lizenz, Symbolbilder, Bildnachweis in `website/assets/images/fotos/BILDNACHWEIS.txt`); Laptop/Smartphone mit eingeblendetem Mockup. Kap. 6 und 13 angepasst.
 - Offen: Anzahl der Startseitenbereiche (Kap. 7: acht; Positionierung vom 25.11.: neun), Entscheidung steht aus.
+
+## Änderungsvermerk (26.11.2026, Produktseiten)
+
+- Neu: sechs Produktseiten in `website/produkte/` (Variante B „Noir“), Produktkarten der Startseite verlinken per Bild, Name und „Details“ darauf (Bild-Link ohne Tastaturfokus, da doppelt).
+- Neu: Kap. 14 „Mehrere Seiten“; Kap. 6 (Entscheidung Noir für Produktseiten) und Kap. 13 (Ordnerbaum) angepasst.
+- Neu: `style.css` Abschnitte 14 (Noir) und 15 (Produktseite); Zusatzfarben Wine und Smoke als Variablen.
+- Vorläufig: technische Daten der Produkte sind Konzeptangaben (Briefing Kap. 19, Produktform offen).
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-produktseiten/` (CLAUDE.md, `website/index.html`, `website/css/style.css`).

@@ -107,7 +107,7 @@
       </div>
     </section>
 
-    <!-- 4) SHOP: alle sechs Produkte. Preise = Demo-Preise. Produkte sind Konzepte, Fotos = Symbolbilder (Unsplash, siehe assets/images/fotos/BILDNACHWEIS.txt). -->
+    <!-- 4) SHOP: alle sechs Produkte, Name und „Details“ führen zur Produktseite in produkte/. Preise = Demo-Preise. Produkte sind Konzepte, Fotos = Symbolbilder (Unsplash, siehe assets/images/fotos/BILDNACHWEIS.txt). -->
     <section class="section shop" id="shop" aria-labelledby="shop-titel">
       <div class="section-head"><span class="label label--accent">Shop</span><h2 id="shop-titel">Produkte</h2><p>Software und Vorlagen für den Alltag im Pferdebetrieb. Alle Preise sind Demo-Preise.</p></div>
       <div class="filter" role="group" aria-label="Produkte filtern">
@@ -118,80 +118,86 @@
       </div>
       <div class="products">
         <article class="product" data-category="software">
-          <div class="product__plate"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666" loading="lazy"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div></div><span class="product__note">Symbolbild</span></div>
+          <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
+          <a class="product__plate" href="produkte/equibill-manage.html" tabindex="-1" aria-hidden="true"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666" loading="lazy"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div></div><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Software</span><span class="product__format">Software-Abo</span></p>
-            <h3>EquiBill Manage</h3>
+            <h3><a class="product__link" href="produkte/equibill-manage.html">EquiBill Manage</a></h3>
             <p class="product__desc">Verwaltungs- und Abrechnungssoftware für Berufsreiter und Pferdebetriebe.</p>
             <ul class="product__points"><li>Pferde, Kunden und Kosten an einem Ort</li><li>Monatsabrechnung und PDF-Rechnungen</li><li>Dashboard mit offenen Rechnungen</li></ul>
             <div class="product__buy">
               <p class="product__price"><span class="sr-only">Demo-Preis </span>ab 19 €/Monat<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="#manage">Details</a><button class="btn" type="button" data-add="EquiBill Manage">In den Warenkorb</button></div>
+              <div class="product__links"><a class="textlink" href="produkte/equibill-manage.html" aria-label="Details zu EquiBill Manage">Details</a><button class="btn" type="button" data-add="EquiBill Manage">In den Warenkorb</button></div>
             </div>
           </div>
         </article>
         <article class="product" data-category="tools">
-          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/tournament-planner-notizbuch.jpg" alt="Aufgeschlagenes kariertes Notizbuch mit Bleistift auf einem Holztisch" width="1000" height="650" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
+          <a class="product__plate" href="produkte/tournament-planner.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/tournament-planner-notizbuch.jpg" alt="Aufgeschlagenes kariertes Notizbuch mit Bleistift auf einem Holztisch" width="1000" height="650" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlage</span></p>
-            <h3>Tournament Planner</h3>
+            <h3><a class="product__link" href="produkte/tournament-planner.html">Tournament Planner</a></h3>
             <p class="product__desc">Digitale Vorlage für Turnierplanung und Kostenkalkulation.</p>
             <ul class="product__points"><li>Turniertermine und Starts planen</li><li>Nenngelder, Transport und Zusatzkosten kalkulieren</li><li>Kosten je Turnier im Überblick</li></ul>
             <div class="product__buy">
               <p class="product__price"><span class="sr-only">Demo-Preis </span>29 €<small>Demo-Preis</small></p>
-              <div class="product__links"><button class="btn" type="button" data-add="Tournament Planner">In den Warenkorb</button></div>
+              <div class="product__links"><a class="textlink" href="produkte/tournament-planner.html" aria-label="Details zu Tournament Planner">Details</a><button class="btn" type="button" data-add="Tournament Planner">In den Warenkorb</button></div>
             </div>
           </div>
         </article>
         <article class="product" data-category="design">
-          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="Reiterin im Sattel, Detail mit Schabracke und Reitstiefel, Schwarz-Weiß" width="1000" height="666" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
+          <a class="product__plate" href="produkte/rider-portfolio.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="Reiterin im Sattel, Detail mit Schabracke und Reitstiefel, Schwarz-Weiß" width="1000" height="666" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
-            <h3>Rider Portfolio</h3>
+            <h3><a class="product__link" href="produkte/rider-portfolio.html">Rider Portfolio</a></h3>
             <p class="product__desc">Canva-Vorlage für Reiter- und Sponsorenpräsentationen.</p>
             <ul class="product__points"><li>Profil, Erfolge und Leistungen übersichtlich darstellen</li><li>Bereich für Sponsorenanfragen</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
             <div class="product__buy">
               <p class="product__price"><span class="sr-only">Demo-Preis </span>49 €<small>Demo-Preis</small></p>
-              <div class="product__links"><button class="btn" type="button" data-add="Rider Portfolio">In den Warenkorb</button></div>
+              <div class="product__links"><a class="textlink" href="produkte/rider-portfolio.html" aria-label="Details zu Rider Portfolio">Details</a><button class="btn" type="button" data-add="Rider Portfolio">In den Warenkorb</button></div>
             </div>
           </div>
         </article>
         <article class="product" data-category="design">
-          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/horse-portfolio-stall.jpg" alt="Pferdekopf mit Auge in Nahaufnahme im dunklen Stall, Gegenlicht, Schwarz-Weiß" width="666" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
+          <a class="product__plate" href="produkte/horse-portfolio.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/horse-portfolio-stall.jpg" alt="Pferdekopf mit Auge in Nahaufnahme im dunklen Stall, Gegenlicht, Schwarz-Weiß" width="666" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
-            <h3>Horse Portfolio</h3>
+            <h3><a class="product__link" href="produkte/horse-portfolio.html">Horse Portfolio</a></h3>
             <p class="product__desc">Canva-Vorlage für Pferdeverkaufsexposés.</p>
             <ul class="product__points"><li>Exposé mit Fotos, Daten und Ausbildungsstand</li><li>Für Verkauf und Vorstellung bei Interessenten</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
             <div class="product__buy">
               <p class="product__price"><span class="sr-only">Demo-Preis </span>39 €<small>Demo-Preis</small></p>
-              <div class="product__links"><button class="btn" type="button" data-add="Horse Portfolio">In den Warenkorb</button></div>
+              <div class="product__links"><a class="textlink" href="produkte/horse-portfolio.html" aria-label="Details zu Horse Portfolio">Details</a><button class="btn" type="button" data-add="Horse Portfolio">In den Warenkorb</button></div>
             </div>
           </div>
         </article>
         <article class="product" data-category="design">
-          <div class="product__plate"><div class="shot shot--phone"><img src="assets/images/fotos/social-media-kit-smartphone.jpg" alt="Hand hält ein Smartphone, auf dem Display Beitragsvorlagen des Social Media Kit (Mockup)" width="1000" height="636" loading="lazy"><div class="shot__screen"><div class="feed"><b class="feed__bar"></b><div class="feed__grid"><i class="feed__t1">EQ</i><i class="feed__t2"></i><i class="feed__t3">26</i><i class="feed__t4"></i><i class="feed__t5">Aa</i><i class="feed__t6"></i></div></div></div></div><span class="product__note">Symbolbild</span></div>
+          <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
+          <a class="product__plate" href="produkte/social-media-kit.html" tabindex="-1" aria-hidden="true"><div class="shot shot--phone"><img src="assets/images/fotos/social-media-kit-smartphone.jpg" alt="Hand hält ein Smartphone, auf dem Display Beitragsvorlagen des Social Media Kit (Mockup)" width="1000" height="636" loading="lazy"><div class="shot__screen"><div class="feed"><b class="feed__bar"></b><div class="feed__grid"><i class="feed__t1">EQ</i><i class="feed__t2"></i><i class="feed__t3">26</i><i class="feed__t4"></i><i class="feed__t5">Aa</i><i class="feed__t6"></i></div></div></div></div><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Designvorlagen</span></p>
-            <h3>Social Media Kit</h3>
+            <h3><a class="product__link" href="produkte/social-media-kit.html">Social Media Kit</a></h3>
             <p class="product__desc">Designvorlagen für den Social-Media-Auftritt von Reitern.</p>
             <ul class="product__points"><li>Einheitlicher Look für den Social-Media-Auftritt</li><li>Vorlagen für regelmäßige Beiträge</li><li>Mit eigenen Fotos, Farben und Texten anpassbar</li></ul>
             <div class="product__buy">
               <p class="product__price"><span class="sr-only">Demo-Preis </span>39 €<small>Demo-Preis</small></p>
-              <div class="product__links"><button class="btn" type="button" data-add="Social Media Kit">In den Warenkorb</button></div>
+              <div class="product__links"><a class="textlink" href="produkte/social-media-kit.html" aria-label="Details zu Social Media Kit">Details</a><button class="btn" type="button" data-add="Social Media Kit">In den Warenkorb</button></div>
             </div>
           </div>
         </article>
         <article class="product" data-category="tools">
-          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/business-kit-notizbuch.jpg" alt="Dunkles Notizbuch mit Stift auf einem Schreibblock, Holztisch" width="667" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
+          <a class="product__plate" href="produkte/equestrian-business-kit.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/business-kit-notizbuch.jpg" alt="Dunkles Notizbuch mit Stift auf einem Schreibblock, Holztisch" width="667" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlagen</span></p>
-            <h3>Equestrian Business Kit</h3>
+            <h3><a class="product__link" href="produkte/equestrian-business-kit.html">Equestrian Business Kit</a></h3>
             <p class="product__desc">Digitale Vorlagen für die Betriebsorganisation.</p>
             <ul class="product__points"><li>Vorlagen für den Büroalltag im Pferdebetrieb</li><li>Einheitliche Dokumente statt Einzellösungen</li><li>Eine Sammlung statt vieler einzelner Dateien</li></ul>
             <div class="product__buy">
               <p class="product__price"><span class="sr-only">Demo-Preis </span>99 €<small>Demo-Preis</small></p>
-              <div class="product__links"><button class="btn" type="button" data-add="Equestrian Business Kit">In den Warenkorb</button></div>
+              <div class="product__links"><a class="textlink" href="produkte/equestrian-business-kit.html" aria-label="Details zu Equestrian Business Kit">Details</a><button class="btn" type="button" data-add="Equestrian Business Kit">In den Warenkorb</button></div>
             </div>
           </div>
         </article>

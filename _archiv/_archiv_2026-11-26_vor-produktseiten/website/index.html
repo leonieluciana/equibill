@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EquiBill – The Business Behind the Sport (Demo)</title>
+  <meta name="description" content="EquiBill ist ein fiktives Unternehmen (Weiterbildungsprojekt): Demo-Shop für Software, Business-Tools und Designvorlagen im professionellen Pferdesport.">
+  <!-- Struktur: index.html · Gestaltung: css/style.css · Logik: js/app.js · Schriften: fonts/ · Bilder: assets/images/ -->
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+  <!-- 1) HEADER: Shop-Navigation (Texte vorläufig) -->
+  <header class="site-header">
+    <nav class="nav-desktop label" aria-label="Hauptnavigation">
+      <a href="#shop">Shop</a><a href="#manage">EquiBill Manage</a><a href="#vorteile">Vorteile</a><a href="#ueber-uns">Über uns</a><a href="#faq">FAQ</a>
+    </nav>
+    <details class="nav-mobile label">
+      <summary>Menü</summary>
+      <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
+        <a href="#shop">Shop</a><a href="#manage">EquiBill Manage</a><a href="#vorteile">Vorteile</a><a href="#ueber-uns">Über uns</a><a href="#faq">FAQ</a>
+      </nav>
+    </details>
+    <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
+    <a class="logo-link" href="#" aria-label="EquiBill, nach oben">
+      <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2170 424" aria-hidden="true" focusable="false">
+        <g id="eb-wordmark-left">
+          <path pathLength="1" id="eb-letter-1" class="eb-letter eb-letter--e" fill-rule="evenodd" d="M47 129 L47 132 L69 132 L70 133 L70 314 L69 315 L47 315 L47 317 L184 317 L184 262 L183 260 L182 260 L181 274 L180 275 L180 279 L179 280 L179 283 L178 284 L177 289 L171 299 L161 308 L153 312 L147 313 L146 314 L142 314 L141 315 L97 315 L96 314 L96 223 L98 221 L99 222 L116 222 L117 223 L120 223 L124 225 L127 228 L128 228 L133 234 L133 236 L135 239 L136 248 L137 249 L139 248 L139 193 L138 192 L136 192 L135 201 L132 208 L125 215 L119 218 L115 218 L114 219 L98 219 L96 217 L97 216 L97 214 L96 213 L96 133 L97 132 L144 132 L145 133 L152 134 L160 138 L170 148 L171 151 L173 153 L176 160 L177 166 L178 167 L178 171 L179 172 L179 179 L180 180 L180 182 L182 182 L182 175 L181 174 L181 130 L180 129 Z"/>
+          <path pathLength="1" id="eb-letter-2" class="eb-letter eb-letter--q" fill-rule="evenodd" d="M311 129 L310 130 L308 130 L307 131 L305 131 L302 133 L298 134 L296 136 L291 138 L284 144 L283 144 L270 158 L270 159 L264 167 L259 177 L259 179 L256 185 L256 188 L255 189 L255 192 L254 193 L254 196 L253 197 L253 200 L252 201 L252 204 L251 205 L251 214 L250 215 L250 234 L251 235 L251 243 L253 247 L253 251 L254 252 L255 259 L256 260 L257 265 L259 268 L259 270 L265 282 L267 284 L271 291 L285 305 L298 313 L300 313 L303 315 L305 315 L312 318 L315 318 L316 319 L317 346 L318 347 L318 351 L319 352 L320 357 L324 364 L330 370 L342 376 L345 376 L349 378 L354 378 L355 379 L374 379 L374 377 L366 376 L359 373 L353 367 L350 361 L349 355 L348 354 L348 348 L347 347 L347 327 L346 326 L346 319 L347 318 L351 318 L352 317 L355 317 L361 314 L363 314 L379 305 L392 292 L392 291 L399 282 L404 272 L405 267 L407 264 L408 258 L409 257 L409 254 L410 253 L410 250 L411 249 L411 245 L412 244 L412 234 L413 233 L413 214 L412 213 L412 203 L411 202 L411 199 L410 198 L410 194 L409 193 L405 179 L403 176 L403 174 L395 160 L392 157 L392 156 L378 142 L377 142 L372 138 L369 137 L367 135 L361 132 L359 132 L352 129 L349 129 L348 128 L344 128 L343 127 L322 127 L321 128 Z M330 129 L333 129 L334 130 L340 130 L341 131 L344 131 L347 133 L349 133 L351 135 L354 136 L365 147 L365 148 L367 150 L373 162 L373 164 L376 171 L377 178 L378 179 L379 190 L380 191 L380 200 L381 201 L381 212 L382 213 L382 235 L381 236 L381 249 L380 250 L380 258 L379 259 L379 263 L378 264 L378 268 L377 269 L376 276 L375 277 L374 283 L372 286 L372 288 L365 300 L357 309 L351 312 L349 314 L343 315 L339 317 L324 317 L323 316 L320 316 L317 314 L312 313 L306 308 L305 308 L297 299 L291 288 L291 286 L289 283 L289 280 L287 276 L287 273 L285 269 L285 265 L284 264 L284 257 L283 256 L283 248 L282 247 L282 237 L281 236 L281 205 L282 204 L282 199 L283 198 L283 190 L284 189 L285 180 L286 179 L286 176 L287 175 L287 172 L288 171 L290 163 L296 151 L298 149 L300 145 L308 137 L319 131 L322 131 L323 130 L329 130 Z"/>
+          <path pathLength="1" id="eb-letter-3" class="eb-letter eb-letter--u" fill-rule="evenodd" d="M477 129 L477 132 L499 132 L500 133 L500 275 L501 276 L501 280 L502 281 L502 284 L503 285 L504 290 L511 302 L518 309 L528 315 L533 316 L536 318 L540 318 L541 319 L544 319 L545 320 L554 320 L555 321 L574 321 L575 320 L581 320 L582 319 L585 319 L586 318 L591 317 L603 310 L611 301 L615 293 L615 291 L618 284 L619 274 L620 273 L620 133 L621 132 L644 132 L645 130 L644 129 L595 129 L595 132 L617 132 L618 133 L618 261 L617 262 L617 272 L616 273 L616 279 L615 280 L615 283 L613 286 L612 291 L609 297 L604 303 L604 304 L597 310 L588 315 L585 315 L582 317 L577 317 L576 318 L563 318 L562 317 L554 316 L546 312 L538 305 L538 304 L534 299 L529 287 L528 279 L527 278 L527 271 L526 270 L526 262 L525 261 L525 133 L526 132 L550 132 L551 130 L550 129 Z"/>
+          <path pathLength="1" id="eb-letter-4" class="eb-letter eb-letter--i" fill-rule="evenodd" d="M704 129 L704 132 L729 132 L730 133 L730 314 L729 315 L704 315 L704 317 L783 317 L783 315 L757 315 L756 314 L756 133 L757 132 L783 132 L784 131 L783 129 Z"/>
+        </g>
+        <g id="eb-signet">
+          <path pathLength="1" id="eb-signet-body" class="eb-signet-body" fill-rule="evenodd" d="M977 154 L978 157 L979 157 L981 159 L981 298 L975 305 L969 308 L967 310 L962 312 L961 313 L961 315 L1007 315 L1008 314 L1007 312 L1005 312 L1001 310 L995 305 L994 305 L987 298 L987 268 L988 267 L1264 267 L1265 268 L1265 298 L1257 306 L1256 306 L1251 310 L1247 312 L1245 312 L1245 315 L1291 315 L1291 312 L1289 312 L1279 306 L1271 298 L1271 159 L1275 156 L1275 153 L1267 153 L1266 152 L1265 153 L1262 153 L1262 156 L1265 158 L1265 188 L1264 189 L988 189 L987 188 L987 159 L991 156 L991 153 L989 152 L988 153 L986 153 L985 152 L984 153 L978 153 Z M987 236 L988 235 L988 231 L989 230 L1046 230 L1047 231 L1072 231 L1073 230 L1096 230 L1097 231 L1112 231 L1113 230 L1128 230 L1129 231 L1151 231 L1152 230 L1163 230 L1164 231 L1166 230 L1168 230 L1169 231 L1170 230 L1205 230 L1206 231 L1210 231 L1211 230 L1264 230 L1265 231 L1265 261 L1263 263 L1262 262 L1174 262 L1173 263 L1172 262 L990 262 L989 263 L987 261 Z M987 195 L989 193 L990 194 L1041 194 L1042 193 L1044 194 L1262 194 L1264 193 L1265 194 L1265 225 L1264 226 L1155 226 L1154 225 L1149 225 L1148 226 L1084 226 L1083 225 L1082 226 L1016 226 L1015 225 L989 226 L987 224 L987 200 L988 199 L988 196 Z"/>
+          <path pathLength="1" id="eb-signet-knob-left" class="eb-signet-knob" d="M982 135 L980 136 L978 139 L978 144 L979 146 L983 149 L986 149 L990 145 L990 142 L991 141 L990 140 L990 138 L988 136 L986 135 Z"/>
+          <path pathLength="1" id="eb-signet-knob-right" class="eb-signet-knob" d="M1267 135 L1263 138 L1262 140 L1262 144 L1265 148 L1267 149 L1270 149 L1272 147 L1273 147 L1275 143 L1275 141 L1274 140 L1274 138 L1272 136 L1270 135 Z"/>
+        </g>
+        <g id="eb-wordmark-right">
+          <path pathLength="1" id="eb-letter-5" class="eb-letter eb-letter--b" fill-rule="evenodd" d="M1445 129 L1445 132 L1466 132 L1467 133 L1467 314 L1466 315 L1445 315 L1445 317 L1539 317 L1540 316 L1547 316 L1548 315 L1551 315 L1558 312 L1561 312 L1573 305 L1581 297 L1581 296 L1585 291 L1585 289 L1589 281 L1589 275 L1590 274 L1590 258 L1589 257 L1589 253 L1588 252 L1588 250 L1584 242 L1581 239 L1581 238 L1572 230 L1564 226 L1562 226 L1559 224 L1556 224 L1552 222 L1548 222 L1544 220 L1545 219 L1553 218 L1554 217 L1556 217 L1563 214 L1565 212 L1569 210 L1574 205 L1579 197 L1579 195 L1581 191 L1581 188 L1582 187 L1582 183 L1583 182 L1583 171 L1582 170 L1582 164 L1581 163 L1580 158 L1575 149 L1568 142 L1553 134 L1547 133 L1546 132 L1543 132 L1542 131 L1537 131 L1536 130 L1526 130 L1525 129 Z M1495 223 L1532 223 L1533 224 L1538 225 L1545 229 L1553 237 L1557 244 L1557 246 L1559 249 L1560 260 L1561 261 L1561 270 L1560 271 L1560 277 L1559 278 L1559 281 L1558 282 L1558 284 L1557 285 L1555 292 L1548 301 L1548 302 L1540 309 L1535 312 L1533 312 L1529 314 L1525 314 L1524 315 L1495 315 L1494 314 L1494 224 Z M1495 132 L1523 132 L1524 133 L1528 133 L1539 139 L1547 148 L1552 157 L1552 159 L1554 163 L1554 166 L1555 167 L1555 172 L1556 173 L1556 184 L1555 185 L1554 193 L1548 205 L1540 213 L1533 217 L1527 218 L1526 219 L1495 219 L1494 218 L1494 133 Z"/>
+          <path pathLength="1" id="eb-letter-6" class="eb-letter eb-letter--i" fill-rule="evenodd" d="M1656 129 L1656 132 L1682 132 L1683 133 L1683 314 L1682 315 L1656 315 L1656 317 L1736 317 L1736 315 L1709 315 L1708 314 L1708 133 L1709 132 L1735 132 L1736 131 L1736 129 Z"/>
+          <path pathLength="1" id="eb-letter-7" class="eb-letter eb-letter--l" fill-rule="evenodd" d="M1796 129 L1795 130 L1796 132 L1818 132 L1819 133 L1818 134 L1818 170 L1819 171 L1819 206 L1818 207 L1818 209 L1819 210 L1819 216 L1818 217 L1818 314 L1817 315 L1796 315 L1795 317 L1931 317 L1931 263 L1930 262 L1928 262 L1927 281 L1926 282 L1925 288 L1919 299 L1908 309 L1899 313 L1895 313 L1894 314 L1890 314 L1889 315 L1846 315 L1845 314 L1845 133 L1846 132 L1866 132 L1867 131 L1867 129 Z"/>
+          <path pathLength="1" id="eb-letter-8" class="eb-letter eb-letter--l" fill-rule="evenodd" d="M1989 129 L1989 131 L1990 132 L2011 132 L2012 133 L2012 313 L2010 315 L1989 315 L1989 317 L2124 317 L2124 262 L2122 262 L2122 265 L2121 266 L2121 276 L2120 277 L2120 283 L2119 284 L2119 287 L2117 290 L2117 292 L2112 300 L2103 308 L2095 312 L2093 312 L2089 314 L2084 314 L2083 315 L2039 315 L2038 314 L2038 133 L2039 132 L2060 132 L2060 129 Z"/>
+        </g>
+      </svg>
+    </a>
+    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
+    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+  </header>
+
+  <main id="inhalt">
+
+    <!-- 2) HERO: Headline, Claim, Leistungsversprechen, CTA -->
+    <section class="hero" aria-labelledby="hero-titel">
+      <!-- Cinematic Hero: Foto füllt die Bühne, Text liegt unten links darüber -->
+      <div class="hero__stage">
+        <figure class="photo hero__photo"><img src="assets/images/fotos/hero-schimmel-boxentuer.jpg" alt="Schimmel schaut mit gesenktem Kopf über eine dunkle Boxentür, Schwarz-Weiß" width="1066" height="1600"><figcaption>Symbolbild · Foto: Artur Aldyrkhanov / Unsplash</figcaption></figure>
+        <div class="hero__text">
+          <p class="hero__eyebrow label">Software, Business-Tools und Vorlagen für den Pferdesport</p>
+          <h1 id="hero-titel">The <em>Business</em> Behind the Sport.</h1>
+          <p class="hero__claim">Weniger Büro. Mehr Pferd.</p>
+          <p class="hero__lead">Abrechnung, Turnierplanung und Auftritt für dein Pferdebusiness: Software und digitale Vorlagen für Berufsreiter, Bereiter, Trainer und Pferdebetriebe.</p>
+          <div class="hero__cta">
+            <a class="btn btn--light" href="#shop">Produkte entdecken</a>
+            <a class="textlink" href="#manage">EquiBill Manage ansehen</a>
+          </div>
+          <p class="hero__audience label">Für Berufsreiter · Bereiter · Trainer · Pferdebetriebe</p>
+        </div>
+      </div>
+      <ul class="hero__values">
+        <li><b>Organisieren</b><span>Betrieb, Turniere und Abläufe an einem Ort planen.</span></li>
+        <li><b>Abrechnen</b><span>Kosten kalkulieren, Rechnungen erstellen, Überblick behalten.</span></li>
+        <li><b>Auftreten</b><span>Sponsoren, Käufer und Follower professionell ansprechen.</span></li>
+      </ul>
+    </section>
+
+    <!-- 3) KATEGORIEN: Zuordnung laut Briefing Kap. 10.2; Klick filtert den Shop (js/app.js) -->
+    <section class="section categories" id="kategorien" aria-labelledby="kat-titel">
+      <div class="section-head"><span class="label label--accent">Sortiment</span><h2 id="kat-titel">Das Sortiment in drei Bereichen</h2></div>
+      <!-- Editorial Category Navigation: links drei Kategorien (Links filtern den Shop, js/app.js),
+           rechts eine Bildfläche, deren Bild beim Hover/Fokus wechselt. Bilder sind dekorativ (alt=""),
+           die Inhalte stehen in der Liste. -->
+      <div class="catnav" data-catnav>
+        <ol class="catnav__list">
+          <li><a class="catnav__item is-active" href="#shop" data-filter="software" data-catnav-item="0">
+            <span class="catnav__num">01</span>
+            <div class="catnav__body"><h3 class="catnav__title">Software</h3><span class="catnav__desc">Verwaltung und Abrechnung für Berufsreiter und Pferdebetriebe.</span></div>
+            <span class="catnav__meta"><span class="catnav__count label">1 Produkt</span><span class="catnav__arrow" aria-hidden="true"></span></span>
+          </a></li>
+          <li><a class="catnav__item" href="#shop" data-filter="tools" data-catnav-item="1">
+            <span class="catnav__num">02</span>
+            <div class="catnav__body"><h3 class="catnav__title">Business Tools</h3><span class="catnav__desc">Vorlagen für Turnierplanung, Kalkulation und Betriebsorganisation.</span></div>
+            <span class="catnav__meta"><span class="catnav__count label">2 Produkte</span><span class="catnav__arrow" aria-hidden="true"></span></span>
+          </a></li>
+          <li><a class="catnav__item" href="#shop" data-filter="design" data-catnav-item="2">
+            <span class="catnav__num">03</span>
+            <div class="catnav__body"><h3 class="catnav__title">Marketing &amp; Design</h3><span class="catnav__desc">Vorlagen für Sponsoren, Pferdeverkauf und Social Media.</span></div>
+            <span class="catnav__meta"><span class="catnav__count label">3 Produkte</span><span class="catnav__arrow" aria-hidden="true"></span></span>
+          </a></li>
+        </ol>
+        <div class="catnav__visual" aria-hidden="true">
+          <figure class="catnav__img is-active" data-catnav-img="0"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="" width="1000" height="666"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div><figcaption>01 · Software · Symbolbild</figcaption></figure>
+          <figure class="catnav__img" data-catnav-img="1"><img src="assets/images/fotos/kategorie-tools-notizbuch.jpg" alt="" width="694" height="1000" loading="lazy"><figcaption>02 · Business Tools · Symbolbild</figcaption></figure>
+          <figure class="catnav__img" data-catnav-img="2"><img src="assets/images/fotos/kategorie-design-frau-hut.jpg" alt="" width="666" height="1000" loading="lazy"><figcaption>03 · Marketing &amp; Design · Symbolbild</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) SHOP: alle sechs Produkte. Preise = Demo-Preise. Produkte sind Konzepte, Fotos = Symbolbilder (Unsplash, siehe assets/images/fotos/BILDNACHWEIS.txt). -->
+    <section class="section shop" id="shop" aria-labelledby="shop-titel">
+      <div class="section-head"><span class="label label--accent">Shop</span><h2 id="shop-titel">Produkte</h2><p>Software und Vorlagen für den Alltag im Pferdebetrieb. Alle Preise sind Demo-Preise.</p></div>
+      <div class="filter" role="group" aria-label="Produkte filtern">
+        <button type="button" data-filter="all" aria-pressed="true">Alle</button>
+        <button type="button" data-filter="software" aria-pressed="false">Software</button>
+        <button type="button" data-filter="tools" aria-pressed="false">Business Tools</button>
+        <button type="button" data-filter="design" aria-pressed="false">Marketing &amp; Design</button>
+      </div>
+      <div class="products">
+        <article class="product" data-category="software">
+          <div class="product__plate"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666" loading="lazy"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div></div><span class="product__note">Symbolbild</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Software</span><span class="product__format">Software-Abo</span></p>
+            <h3>EquiBill Manage</h3>
+            <p class="product__desc">Verwaltungs- und Abrechnungssoftware für Berufsreiter und Pferdebetriebe.</p>
+            <ul class="product__points"><li>Pferde, Kunden und Kosten an einem Ort</li><li>Monatsabrechnung und PDF-Rechnungen</li><li>Dashboard mit offenen Rechnungen</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>ab 19 €/Monat<small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="#manage">Details</a><button class="btn" type="button" data-add="EquiBill Manage">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="tools">
+          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/tournament-planner-notizbuch.jpg" alt="Aufgeschlagenes kariertes Notizbuch mit Bleistift auf einem Holztisch" width="1000" height="650" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlage</span></p>
+            <h3>Tournament Planner</h3>
+            <p class="product__desc">Digitale Vorlage für Turnierplanung und Kostenkalkulation.</p>
+            <ul class="product__points"><li>Turniertermine und Starts planen</li><li>Nenngelder, Transport und Zusatzkosten kalkulieren</li><li>Kosten je Turnier im Überblick</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>29 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Tournament Planner">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="design">
+          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="Reiterin im Sattel, Detail mit Schabracke und Reitstiefel, Schwarz-Weiß" width="1000" height="666" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
+            <h3>Rider Portfolio</h3>
+            <p class="product__desc">Canva-Vorlage für Reiter- und Sponsorenpräsentationen.</p>
+            <ul class="product__points"><li>Profil, Erfolge und Leistungen übersichtlich darstellen</li><li>Bereich für Sponsorenanfragen</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>49 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Rider Portfolio">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="design">
+          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/horse-portfolio-stall.jpg" alt="Pferdekopf mit Auge in Nahaufnahme im dunklen Stall, Gegenlicht, Schwarz-Weiß" width="666" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
+            <h3>Horse Portfolio</h3>
+            <p class="product__desc">Canva-Vorlage für Pferdeverkaufsexposés.</p>
+            <ul class="product__points"><li>Exposé mit Fotos, Daten und Ausbildungsstand</li><li>Für Verkauf und Vorstellung bei Interessenten</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>39 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Horse Portfolio">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="design">
+          <div class="product__plate"><div class="shot shot--phone"><img src="assets/images/fotos/social-media-kit-smartphone.jpg" alt="Hand hält ein Smartphone, auf dem Display Beitragsvorlagen des Social Media Kit (Mockup)" width="1000" height="636" loading="lazy"><div class="shot__screen"><div class="feed"><b class="feed__bar"></b><div class="feed__grid"><i class="feed__t1">EQ</i><i class="feed__t2"></i><i class="feed__t3">26</i><i class="feed__t4"></i><i class="feed__t5">Aa</i><i class="feed__t6"></i></div></div></div></div><span class="product__note">Symbolbild</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Designvorlagen</span></p>
+            <h3>Social Media Kit</h3>
+            <p class="product__desc">Designvorlagen für den Social-Media-Auftritt von Reitern.</p>
+            <ul class="product__points"><li>Einheitlicher Look für den Social-Media-Auftritt</li><li>Vorlagen für regelmäßige Beiträge</li><li>Mit eigenen Fotos, Farben und Texten anpassbar</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>39 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Social Media Kit">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-category="tools">
+          <div class="product__plate"><img class="plate__img" src="assets/images/fotos/business-kit-notizbuch.jpg" alt="Dunkles Notizbuch mit Stift auf einem Schreibblock, Holztisch" width="667" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></div>
+          <div class="product__body">
+            <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlagen</span></p>
+            <h3>Equestrian Business Kit</h3>
+            <p class="product__desc">Digitale Vorlagen für die Betriebsorganisation.</p>
+            <ul class="product__points"><li>Vorlagen für den Büroalltag im Pferdebetrieb</li><li>Einheitliche Dokumente statt Einzellösungen</li><li>Eine Sammlung statt vieler einzelner Dateien</li></ul>
+            <div class="product__buy">
+              <p class="product__price"><span class="sr-only">Demo-Preis </span>99 €<small>Demo-Preis</small></p>
+              <div class="product__links"><button class="btn" type="button" data-add="Equestrian Business Kit">In den Warenkorb</button></div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="shop__note label">Demo-Preise · fiktives Unternehmen · keine echte Bestellung. Die Produkte sind Konzepte; Fotos sind Symbolbilder.</p>
+    </section>
+
+    <!-- 5) FEATURED: EquiBill Manage (Tarifvergleich folgt auf einer eigenen Seite) -->
+    <section class="section manage" id="manage" aria-labelledby="manage-titel">
+      <div class="manage__intro">
+        <span class="label">Software · Kernprodukt</span>
+        <h2 id="manage-titel">EquiBill Manage</h2>
+        <p class="manage__lead">Die Verwaltungs- und Abrechnungssoftware für Berufsreiter und Pferdebetriebe. Weniger Büro, mehr Zeit für Pferde und Kunden.</p>
+        <p class="manage__price">ab 19 €/Monat<small>Demo-Preis</small></p>
+        <p class="manage__tarife">Tarife: Basic · Professional · Business. Der Tarifvergleich folgt auf einer eigenen Seite.</p>
+        <button class="btn btn--light" type="button" data-add="EquiBill Manage">In den Warenkorb</button>
+      </div>
+
+      <!-- Animierte Produkt-Demo: Kostenpositionen erscheinen und ergeben eine Rechnung (js/app.js).
+           Alle Werte sind fiktive Beispielwerte; ohne JavaScript ist die fertige Rechnung sichtbar. -->
+      <div class="manage__stage">
+        <div class="invoice" data-invoice>
+          <p class="invoice__head"><span class="label">Rechnung · Beispiel</span><span class="invoice__nr">Nr. 2026-0042</span></p>
+          <p class="invoice__to">Kunde: Beispielkunde · Pferd: Beispielpferd</p>
+          <ul class="invoice__items">
+            <li><span>Beritt November</span><b data-amount="620">620,00 €</b></li>
+            <li><span>Nenngeld Turnier</span><b data-amount="85">85,00 €</b></li>
+            <li><span>Transport</span><b data-amount="140">140,00 €</b></li>
+            <li><span>Hufschmied</span><b data-amount="95">95,00 €</b></li>
+          </ul>
+          <p class="invoice__total"><span>Gesamt</span><b data-invoice-total>940,00 €</b></p>
+          <p class="invoice__status label">PDF erstellt · bereit zum Versand</p>
+        </div>
+        <span class="manage__note">Mockup · fiktive Beispielwerte · in dieser Demo nicht nutzbar</span>
+      </div>
+
+      <!-- Funktionen: auf großen Bildschirmen beim Scrollen horizontal (js/app.js), auf dem Handy wischbar -->
+      <div class="manage__scroller" data-hscroll>
+        <div class="manage__sticky">
+          <ul class="manage__features" data-hscroll-track>
+            <li><span class="label">Funktion 1/4</span><b>Pferde und Kunden</b><span>Stammdaten, Besitzer und individuelle Preise an einem Ort.</span></li>
+            <li><span class="label">Funktion 2/4</span><b>Kosten</b><span>Beritt-, Turnier-, Tierarzt- und Transportkosten erfassen.</span></li>
+            <li><span class="label">Funktion 3/4</span><b>Rechnungen</b><span>Monatsabrechnung und Einzelrechnungen als PDF, mit Status und Historie.</span></li>
+            <li><span class="label">Funktion 4/4</span><b>Überblick</b><span>Dashboard mit Umsatz, Kosten und offenen Rechnungen.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6) VORTEILE: organisatorisch, finanziell, kommunikativ -->
+    <section class="section benefits" id="vorteile" aria-labelledby="vorteile-titel">
+      <div class="section-head"><span class="label label--accent">Vorteile</span><h2 id="vorteile-titel">Was EquiBill dir bringt</h2></div>
+      <div class="benefits__grid">
+        <div class="benefit"><span class="label">Organisatorisch</span><h3>Ordnung im Betrieb</h3><p>Pferde, Kunden, Turniere und Abläufe planst du an einem Ort statt in verstreuten Listen.</p><ul><li>Manage</li><li>Tournament Planner</li><li>Business Kit</li></ul></div>
+        <div class="benefit"><span class="label">Finanziell</span><h3>Kosten und Rechnungen im Griff</h3><p>Kosten erfassen, Turniere kalkulieren, Rechnungen erstellen und offene Posten sehen.</p><ul><li>Manage</li><li>Tournament Planner</li></ul></div>
+        <div class="benefit"><span class="label">Kommunikativ</span><h3>Ein Auftritt, der zum Sport passt</h3><p>Sponsoren, Käufer und Follower erreichst du mit klar gestalteten Unterlagen und Beiträgen.</p><ul><li>Rider Portfolio</li><li>Horse Portfolio</li><li>Social Media Kit</li></ul></div>
+      </div>
+    </section>
+
+    <!-- 7) ÜBER EQUIBILL (fiktives Unternehmen) -->
+    <section class="section about" id="ueber-uns" aria-labelledby="about-titel">
+      <figure class="photo about__photo"><img src="assets/images/fotos/ueber-uns-reiterin-zaun.jpg" alt="Reiterin von hinten im Schritt an einem Holzzaun entlang, Schwarz-Weiß" width="900" height="1600" loading="lazy"><figcaption>Symbolbild · Foto: Philippe Oursel / Unsplash</figcaption></figure>
+      <div>
+        <span class="label label--accent">Über EquiBill</span>
+        <h2 id="about-titel">Wer vom Pferdesport lebt, führt ein Unternehmen.</h2>
+        <p>EquiBill ist eine digitale Premium-Marke für Business-Tools, Software und Designvorlagen im professionellen Pferdesport. Wir richten uns an Berufsreiter, Bereiter, Trainer und Pferdebetriebe.</p>
+        <p>EquiBill liefert die Werkzeuge dafür: organisatorisch, finanziell und kommunikativ.</p>
+        <p class="about__demo label">EquiBill ist ein fiktives Unternehmen und entsteht im Rahmen einer Weiterbildung. Produkte, Preise und Angebote sind Demo-Konzepte.</p>
+      </div>
+    </section>
+
+    <!-- 8) FAQ -->
+    <section class="section faq" id="faq" aria-labelledby="faq-titel">
+      <div class="section-head"><span class="label label--accent">FAQ</span><h2 id="faq-titel">Häufige Fragen</h2></div>
+      <div class="faq__list"><details><summary>Für wen ist EquiBill gedacht?</summary><p>Für Berufsreiter, Bereiter, Trainer und Pferdebetriebe, die ihren Berufsalltag organisatorisch, finanziell und kommunikativ vereinfachen möchten.</p></details><details><summary>Was ist EquiBill Manage und was kostet es?</summary><p>Eine Verwaltungs- und Abrechnungssoftware, ab 19 €/Monat (Demo-Preis). Es gibt die Tarife Basic, Professional und Business; der Vergleich folgt auf einer eigenen Seite.</p></details><details><summary>Was sind die Canva-Vorlagen?</summary><p>Rider Portfolio und Horse Portfolio sind Vorlagen für Canva. Du passt sie dort mit deinen eigenen Fotos und Texten an. EquiBill steht in keiner Verbindung zu Canva; Canva ist eine Marke der jeweiligen Inhaberin.</p></details><details><summary>Kann ich die Produkte tatsächlich kaufen?</summary><p>Nein. EquiBill ist ein fiktives Unternehmen. Der Warenkorb ist eine Demonstration; es gibt keine Bestellung und keine Zahlung.</p></details><details><summary>Sind die Produkte schon fertig?</summary><p>Die Produkte sind Konzepte. Die Abbildungen sind gezeichnete Mockups und zeigen, wie die Produkte aussehen könnten.</p></details><details><summary>Werden Daten von mir gespeichert?</summary><p>Diese Demo-Seite verarbeitet keine personenbezogenen Daten. Impressum und Datenschutzerklärung sind Platzhalter.</p></details></div>
+    </section>
+  </main>
+
+  <!-- 9) FOOTER: Navigation, Platzhalter für Pflichtangaben, Demo-Hinweis -->
+  <footer class="site-footer">
+    <a class="wordmark" href="#" aria-label="EquiBill, nach oben">Equi<i></i>Bill</a>
+    <div class="site-footer__cols label">
+      <div><h2>Shop</h2><ul><li><a href="#shop" data-filter="software">Software</a></li><li><a href="#shop" data-filter="tools">Business Tools</a></li><li><a href="#shop" data-filter="design">Marketing &amp; Design</a></li></ul></div>
+      <div><h2>EquiBill</h2><ul><li><a href="#ueber-uns">Über uns</a></li><li><a href="#vorteile">Vorteile</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h2>Rechtliches</h2><ul><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
+      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+    </div>
+    <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
