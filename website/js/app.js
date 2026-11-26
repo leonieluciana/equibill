@@ -1,5 +1,6 @@
 /* EquiBill – kleine Demo-Logik für alle Seiten (kein Backend, keine Übertragung an Server)
    1) Mobiles Menü   2) Kategorie-Filter im Shop   3) Warenkorb (lokal im Browser)   4) Effekte
+   5) Sortiment-Navigation (Shop)   6) Software-Seite: Tabs, abspielende Mockups, interaktive Demo
    Jeder Teil prüft, ob seine Elemente auf der aktuellen Seite vorkommen.
    Ohne JavaScript bleibt alles nutzbar: das Menü ist ein <details>-Element,
    alle Produkte sind sichtbar. */
@@ -297,7 +298,8 @@
   if (!reduceMotion && 'IntersectionObserver' in window) {
     var revealTargets = document.querySelectorAll(
       '.section-head p, .intro__body, .catnav__item, .product, .manage__intro, .manage__device, .manage__benefit, .manage__stage, ' +
-      '.step, .teaser__item, .about__photo, .about p, .faq__list details, .sw-hero__device, .feature-list li, .example, .tarif'
+      '.step, .teaser__item, .about__photo, .about p, .faq__list details, .tarif, ' +
+      '.swp-hero__device, .swp-pains li, .swp-feature, .swp-tabs, .swp-status, .demo, .swp-cases__photo, .swp-case, .compare'
     );
     // Geschwister in einer Reihe nacheinander einblenden (gestaffelt, max. 4 Stufen)
     revealTargets.forEach(function (el) {
@@ -486,5 +488,281 @@
       }, { rootMargin: '-70% 0px -26% 0px' });
       catItems.forEach(function (item) { catObserver.observe(item); });
     }
+  }
+
+  /* ---------- 6) Software-Seite (software.html) ---------- */
+
+  /* 6a) Tabs „Vom Eintrag zur Rechnung“ (Muster der WAI-ARIA Authoring Practices):
+     Klick oder Pfeiltasten wechseln den Reiter, Pos1/Ende springen an den Anfang/das Ende.
+     Ohne JavaScript bleibt die Reiterleiste versteckt und alle Inhalte stehen untereinander. */
+  document.querySelectorAll('[data-tabs]').forEach(function (tabsEl) {
+    var tablist = tabsEl.querySelector('[data-tablist]');
+    var tabs = Array.prototype.slice.call(tabsEl.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    if (!tablist || !tabs.length || panels.indexOf(null) !== -1) { return; }
+
+    function selectTab(index, moveFocus) {
+      tabs.forEach(function (tab, i) {
+        var active = i === index;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;   // nur der aktive Reiter ist per Tab-Taste erreichbar
+        panels[i].hidden = !active;
+      });
+      if (moveFocus) { tabs[index].focus(); }
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { selectTab(i, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') { next = (i + 1) % tabs.length; }
+        else if (e.key === 'ArrowLeft') { next = (i - 1 + tabs.length) % tabs.length; }
+        else if (e.key === 'Home') { next = 0; }
+        else if (e.key === 'End') { next = tabs.length - 1; }
+        if (next !== null) { e.preventDefault(); selectTab(next, true); }
+      });
+    });
+    tablist.hidden = false;
+    selectTab(0, false);
+  });
+
+  /* 6b) Mockups „abspielen“, sobald sie sichtbar werden (Zettel ordnen sich, Balken wachsen,
+     Rechnungen wechseln auf „Bezahlt“). Ablauf: .is-armed = Startzustand, .is-playing = Endzustand
+     mit Übergang (css/style.css). Zahlen mit data-count-from/-to (Cent) zählen dabei mit.
+     Ohne JS oder bei „Bewegung reduzieren“ bleibt einfach der Endzustand aus dem HTML stehen. */
+  function countCents(el, from, to, duration, delay) {
+    setTimeout(function () {
+      var start = null;
+      function step(now) {
+        if (!start) { start = now; }
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = formatCents(Math.round(from + (to - from) * eased));
+        if (t < 1) { window.requestAnimationFrame(step); }
+      }
+      window.requestAnimationFrame(step);
+    }, delay);
+  }
+
+  var playElements = document.querySelectorAll('[data-play]');
+  if (playElements.length && !reduceMotion && 'IntersectionObserver' in window) {
+    var playObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) { return; }
+        var el = entry.target;
+        playObserver.unobserve(el);
+        // Einen Frame warten, damit der Startzustand sicher gezeichnet ist
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(function () { el.classList.add('is-playing'); });
+        });
+        el.querySelectorAll('[data-count-to]').forEach(function (c) {
+          countCents(c, Number(c.getAttribute('data-count-from')), Number(c.getAttribute('data-count-to')), 1400, 1100);
+        });
+      });
+    }, { threshold: 0.35 });
+    playElements.forEach(function (el) {
+      el.classList.add('is-armed');
+      el.querySelectorAll('[data-count-to]').forEach(function (c) {
+        c.textContent = formatCents(Number(c.getAttribute('data-count-from')));
+      });
+      playObserver.observe(el);
+    });
+  }
+
+  /* 6c) Interaktive Demo: Pferd wählen, Leistung und Betrag erfassen, Rechnung aktualisiert sich.
+     - Die Startpositionen stehen im HTML (Listen mit data-demo-items, Beträge in Cent in data-cents);
+       das Skript liest sie ein und baut danach nur die Liste des gewählten Pferdes neu auf.
+     - Zustand nur im Arbeitsspeicher: nichts wird gespeichert oder übertragen; Neuladen setzt zurück.
+     - Gerechnet wird in Cent, Texte werden nur mit textContent gesetzt (nie als HTML).
+     - Rückmeldung für Screenreader über die Live-Region [data-demo-live]. */
+  var demo = document.querySelector('[data-demo]');
+  if (demo) {
+    var demoForm = demo.querySelector('[data-demo-form]');
+    var typeSelect = demo.querySelector('[data-demo-type]');
+    var amountInput = demo.querySelector('[data-demo-amount]');
+    var errorEl = demo.querySelector('[data-demo-error]');
+    var liveEl = demo.querySelector('[data-demo-live]');
+    var sumEl = demo.querySelector('[data-demo-sum]');
+    var totalEl = demo.querySelector('[data-demo-total]');
+    var nrEl = demo.querySelector('[data-demo-nr]');
+    var ownerEl = demo.querySelector('[data-demo-owner]');
+    var horseEl = demo.querySelector('[data-demo-horse]');
+    var overviewEls = demo.querySelectorAll('[data-demo-overview]');
+    var MAX_LINES = 12;          // Obergrenze je Beispielrechnung, damit die Ansicht übersichtlich bleibt
+    var lists = {}, seed = {}, state = {};
+    var shownSum = 0, sumFrame = null, liveTimer;
+
+    // Startpositionen aus dem HTML einlesen
+    demo.querySelectorAll('[data-demo-items]').forEach(function (list) {
+      var key = list.getAttribute('data-demo-items');
+      lists[key] = list;
+      seed[key] = Array.prototype.map.call(list.querySelectorAll('li'), function (li) {
+        return { label: li.querySelector('span').textContent, cents: parseInt(li.getAttribute('data-cents'), 10), added: false };
+      });
+    });
+
+    function resetState() {
+      Object.keys(seed).forEach(function (key) {
+        state[key] = seed[key].map(function (item) { return { label: item.label, cents: item.cents, added: false }; });
+      });
+    }
+    function currentHorse() { return demoForm.querySelector('input[name="pferd"]:checked'); }
+    function horseName(radio) { return radio.parentElement.querySelector('b').textContent; }
+    function sumOf(key) { return state[key].reduce(function (sum, item) { return sum + item.cents; }, 0); }
+    function centsToInput(cents) { return (cents / 100).toFixed(2).replace('.', ','); }   // 6000 → „60,00“
+
+    // Deutsche Eingabe in Cent umwandeln: „95,50“, „95.5“, „1.200,00“ und „1200“ sind gültig.
+    // Rückgabe null, wenn die Eingabe keine Zahl zwischen 0,01 und 9.999,99 ist.
+    function parseAmount(raw) {
+      var s = String(raw).replace(/[\s€]/g, '');
+      if (s.indexOf(',') !== -1) { s = s.replace(/\./g, '').replace(',', '.'); }   // Komma = Dezimaltrenner
+      else if (/^\d{1,3}(\.\d{3})+$/.test(s)) { s = s.replace(/\./g, ''); }         // „1.200“ = Tausenderpunkt
+      if (!/^\d{1,4}(\.\d{1,2})?$/.test(s)) { return null; }
+      var cents = Math.round(parseFloat(s) * 100);
+      return cents >= 1 && cents <= 999999 ? cents : null;
+    }
+
+    function announce(text) {
+      // Erst leeren, dann setzen: So wird auch eine gleichlautende Meldung erneut vorgelesen
+      liveEl.textContent = '';
+      clearTimeout(liveTimer);
+      liveTimer = setTimeout(function () { liveEl.textContent = text; }, 60);
+    }
+
+    function setError(text) {
+      errorEl.textContent = text;
+      amountInput.setAttribute('aria-invalid', text ? 'true' : 'false');
+    }
+
+    // Summe der Rechnung anzeigen; nach dem Hinzufügen zählt sie kurz hoch
+    function showSum(to, animate) {
+      if (sumFrame) { window.cancelAnimationFrame(sumFrame); sumFrame = null; }
+      if (!animate || reduceMotion) { shownSum = to; sumEl.textContent = formatCents(to); return; }
+      var from = shownSum, start = null;
+      function step(now) {
+        if (!start) { start = now; }
+        var t = Math.min(1, (now - start) / 600);
+        shownSum = Math.round(from + (to - from) * (1 - Math.pow(1 - t, 3)));
+        sumEl.textContent = formatCents(shownSum);
+        sumFrame = t < 1 ? window.requestAnimationFrame(step) : null;
+      }
+      sumFrame = window.requestAnimationFrame(step);
+    }
+
+    function render(newIndex, animate) {
+      var radio = currentHorse();
+      var key = radio.value;
+      Object.keys(lists).forEach(function (k) { lists[k].hidden = k !== key; });
+
+      var list = lists[key];
+      list.textContent = '';
+      state[key].forEach(function (item, index) {
+        var li = document.createElement('li');
+        var label = document.createElement('span');
+        label.textContent = item.label;
+        var amount = document.createElement('b');
+        amount.textContent = formatCents(item.cents);
+        li.appendChild(label);
+        li.appendChild(amount);
+        if (item.added) {   // nur selbst erfasste Positionen lassen sich entfernen
+          var remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'demo__remove';
+          remove.textContent = '×';
+          remove.setAttribute('aria-label', 'Position ' + item.label + ', ' + formatCents(item.cents) + ' entfernen');
+          remove.setAttribute('data-index', String(index));
+          li.appendChild(remove);
+        }
+        if (index === newIndex && !reduceMotion) { li.classList.add('is-new'); }
+        list.appendChild(li);
+      });
+
+      horseEl.textContent = horseName(radio);
+      ownerEl.textContent = radio.getAttribute('data-owner');
+      nrEl.textContent = 'Nr. ' + radio.getAttribute('data-nr');
+
+      var total = 0;
+      overviewEls.forEach(function (b) {
+        var k = b.getAttribute('data-demo-overview');
+        var sum = state[k] ? sumOf(k) : 0;
+        total += sum;
+        b.textContent = formatCents(sum);
+        b.parentElement.classList.toggle('is-current', k === key);
+      });
+      totalEl.textContent = formatCents(total);
+      showSum(sumOf(key), animate);
+    }
+
+    // Leistung gewählt → Vorschlagsbetrag aus der „Vereinbarung“ (data-suggest, Cent) eintragen
+    function applySuggestion() {
+      var option = typeSelect.options[typeSelect.selectedIndex];
+      var suggest = parseInt(option.getAttribute('data-suggest'), 10);
+      if (suggest > 0) { amountInput.value = centsToInput(suggest); }
+      setError('');
+    }
+
+    typeSelect.addEventListener('change', applySuggestion);
+    amountInput.addEventListener('input', function () {
+      if (amountInput.getAttribute('aria-invalid') === 'true') { setError(''); }
+    });
+
+    demoForm.querySelectorAll('input[name="pferd"]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        render(-1, false);
+        announce('Rechnung für ' + horseName(radio) + ', Kunde ' + radio.getAttribute('data-owner') + ': ' + formatCents(sumOf(radio.value)) + '.');
+      });
+    });
+
+    demoForm.addEventListener('submit', function (e) {
+      e.preventDefault();   // kein Absenden an einen Server
+      var cents = parseAmount(amountInput.value);
+      if (cents === null) {
+        setError('Bitte einen Betrag zwischen 0,01 € und 9.999,99 € eingeben, zum Beispiel 95,50.');
+        amountInput.focus();
+        return;
+      }
+      var radio = currentHorse();
+      var key = radio.value;
+      if (state[key].length >= MAX_LINES) {
+        setError('Diese Beispielrechnung hat schon ' + MAX_LINES + ' Positionen. Entferne eine oder setze die Demo zurück.');
+        return;
+      }
+      setError('');
+      var label = typeSelect.value;
+      state[key].push({ label: label, cents: cents, added: true });
+      render(state[key].length - 1, true);
+      announce(label + ', ' + formatCents(cents) + ', zur Abrechnung von ' + horseName(radio) + ' hinzugefügt. Neue Summe: ' + formatCents(sumOf(key)) + '.');
+    });
+
+    // Entfernen: ein Klick-Empfänger je Liste (die Zeilen werden neu aufgebaut)
+    Object.keys(lists).forEach(function (key) {
+      lists[key].addEventListener('click', function (e) {
+        var btn = e.target.closest('.demo__remove');
+        if (!btn) { return; }
+        var index = parseInt(btn.getAttribute('data-index'), 10);
+        var item = state[key][index];
+        if (!item || !item.added) { return; }
+        state[key].splice(index, 1);
+        render(-1, true);
+        announce(item.label + ', ' + formatCents(item.cents) + ', entfernt. Neue Summe: ' + formatCents(sumOf(key)) + '.');
+        // Fokus sinnvoll setzen: nächste Entfernen-Schaltfläche, sonst der Hinzufügen-Knopf
+        var buttons = lists[key].querySelectorAll('.demo__remove');
+        var target = buttons[Math.min(buttons.length - 1, Math.max(0, index - seed[key].length))] || demoForm.querySelector('[type="submit"]');
+        target.focus();
+      });
+    });
+
+    demo.querySelector('[data-demo-reset]').addEventListener('click', function () {
+      resetState();
+      typeSelect.selectedIndex = 0;
+      applySuggestion();
+      render(-1, false);
+      announce('Demo zurückgesetzt.');
+    });
+
+    resetState();
+    applySuggestion();
+    demoForm.hidden = false;
+    render(-1, false);
   }
 })();

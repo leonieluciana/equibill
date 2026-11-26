@@ -127,6 +127,7 @@ Customer Journeys (seit 26.11.2026): primär Marke entdecken → Software verste
 | Erledigt | Shopübersicht mit Kategorien und Filter (`shop.html`) |
 | Optional | Suche im Shop |
 | Erledigt | Seite EquiBill Manage mit Funktionen, Demo, Anwendungsbeispielen und Tarifvergleich (`software.html`) |
+| Erledigt (26.11.2026) | Software-Produktseite neu inszeniert: Problem/Lösung, Funktions-Mockups mit Tabs, anklickbare Demo (ohne Backend), Anwendungsfälle, Warenkorb je Tarif, Vergleichstabelle, Software-FAQ |
 | Optional | Demo-Kundenkonto, Abo-Verwaltung und Bestellübersicht als Simulation |
 | Optional | Fiktive Dashboard-Vorschau, einfache Rechner-Demo (z. B. Turnierkosten) |
 | Optional | Erste Prototyp-Analyse (nur Lesen, nichts verändern), falls im Unterricht vorgesehen |
@@ -270,3 +271,8 @@ Produktvalidierung · Datenschutz · Sicherheitskonzept · Rechnungsrecht · Zah
 - Geändert: Pflichtumfang der Startseite (Schritt 5–8) nach dem neuen Aufbau; Status der Schritte 5–9 aktualisiert.
 - Erledigt: Software-Seite, Shop-Seite mit Filter, Produktdetailseiten. Offen: Warenkorb, Demo-Checkout, Qualitätssicherung (Schritt 10).
 - Sicherung: `_archiv/_archiv_2026-11-26_vor-software-first/ROADMAP.md`.
+
+## Änderungsvermerk (26.11.2026, Software-Produktseite)
+
+- Erledigt: eigenständige Software-Produktseite mit interaktiver Demo (Schritt 9). Offen bleiben Demo-Checkout und Qualitätssicherung (Schritt 10).
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-software-seite/ROADMAP.md`.

@@ -248,6 +248,18 @@ Der Tarifvergleich steht auf der Software-Seite (`software.html`, Abschnitt „T
 
 „ab 19 €/Monat“ in der Produktkarte entspricht dem Tarif Basic.
 
+**Funktionsverteilung als Vergleichstabelle (Konzept, 26.11.2026, auf `software.html`):** abgeleitet aus der Tabelle oben. Neu zugeordnet und ebenfalls Konzept: „Rechnungsstatus und offene Posten“ in allen Tarifen; Basic und Professional mit 1 Benutzer.
+
+| Funktion | Basic | Professional | Business |
+|---|---|---|---|
+| Pferde | bis 5 | bis 25 | noch offen |
+| Benutzer | 1 | 1 | mehrere, Rollen und Rechte |
+| Pferde- und Kundenverwaltung, Leistungs-/Kostenerfassung, Monatsabrechnung, PDF, Rechnungsstatus | ja | ja | ja |
+| Dashboard | einfach | erweiterte Auswertungen | Management-Dashboard, Reports |
+| Sammelrechnungen, Turniermanagement, Belegmanagement, Zahlungserinnerungen | – | ja | ja |
+| KI-Belegerkennung | – | geplant | geplant |
+| Kundenportal | – | – | geplant |
+
 ### 10.5 Produktpriorisierung im Demo-Shop
 
 - **Priorität 1 (Beschlossen):** EquiBill Manage als **Kernprodukt**: größter Bereich der Startseite und eigene Landingpage `software.html`.
@@ -418,7 +430,7 @@ Nicht mehr auf der Startseite: Sortimentsbereich, vollständige Produktübersich
 ### 14.3 Navigation und Unterseiten (Beschlossen 26.11.2026)
 
 - **Navigation:** Software · Shop · Über uns; Warenkorb als eigenständiges Element rechts; FAQ im Fuß verlinkt.
-- **`software.html`** (Variante Noir): Landingpage EquiBill Manage mit Funktionen, Demo (Beispielrechnung), fiktiven Anwendungsbeispielen, Tarifvergleich Basic/Professional/Business, technischen Daten und Warenkorb-Schaltfläche. Ersetzt die frühere Produktseite von Manage.
+- **`software.html`** (Variante Noir, Aufbau seit 26.11.2026): Product Hero → Problem und Lösung → sechs Funktionen mit eigenen Mockups (alternierend, Tabs, Statusliste) → interaktive Demo (Pferd, Leistung, Betrag, Rechnung aktualisiert sich; ohne Backend, speichert nichts) → fiktive Anwendungsfälle für Berufsreiter, Bereiterin, Trainer, Pferdebetrieb → Tarife mit Warenkorb je Tarif, Vergleichstabelle und technischen Daten → Software-FAQ → Abschluss-CTA „Weniger Büro. Mehr Pferd.“. Ersetzt die frühere Produktseite von Manage.
 - **`shop.html`** (Variante Maison): alle Produkte mit Kategorien, Filter und Links zu den Produktdetailseiten (`produkte/`, Variante Noir).
 - **Über uns, FAQ:** zunächst Anker auf der Startseite.
 
@@ -606,3 +618,9 @@ Ergebnisse werden geprüft auf: Vollständigkeit, technische Funktionsfähigkeit
 
 - Kap. 8, 14.2, 14.3: Norddeutschland nur noch interne Annahme, nicht in der Markenkommunikation; Über uns als Markengeschichte; FAQ aus der Hauptnavigation in den Fuß.
 - Website: realistisches Software-Interface, Vorlagen-Mockups im Shop-Teaser, gebündelte Demo-Hinweise (Regeln in `CLAUDE.md` Kap. 6 und 7).
+
+## Änderungsvermerk (26.11.2026, Software-Produktseite)
+
+- Kap. 10.4: Funktionsverteilung je Tarif als Vergleichstabelle (Konzept) ergänzt.
+- Kap. 14.3: Aufbau der neuen Software-Produktseite mit interaktiver Demo.
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-software-seite/PROJECT_BRIEFING.md`.

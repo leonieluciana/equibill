@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EquiBill Manage – Software (Demo)</title>
-  <meta name="description" content="EquiBill Manage: Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Funktionen, Anwendungsbeispiele, Demo und Tarife. Fiktives Unternehmen, Demo-Preise.">
-  <!-- Software-Landingpage (ersetzt die frühere Produktseite produkte/equibill-manage.html).
-       Variante B „Noir“ über body.theme-noir. Inhalte fest im HTML; Tarife laut PROJECT_BRIEFING.md Kap. 10.4 (Demo-Annahmen). -->
+  <meta name="description" content="EquiBill Manage: Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Funktionen, interaktive Demo, Anwendungsfälle und Tarife. Fiktives Unternehmen, Demo-Preise.">
+  <!-- Software-Produktseite (Variante B „Noir“ über body.theme-noir).
+       Dramaturgie: Hero → Problem/Lösung → Funktionen → interaktive Demo → Anwendungsfälle → Tarife → FAQ → Abschluss.
+       Inhalte fest im HTML; Tarife laut PROJECT_BRIEFING.md Kap. 10.4 (Konzept, Demo-Preise). Alle Daten fiktiv. -->
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,12 +17,12 @@
   <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
+      <a href="software.html" aria-current="page">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
+        <a href="software.html" aria-current="page">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -50,31 +51,28 @@
     <a class="header-cart label" href="warenkorb.html" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
+
   <main id="inhalt">
     <nav class="breadcrumb label" aria-label="Brotkrumen">
       <ol><li><a href="index.html">Start</a></li><li aria-current="page">Software</li></ol>
     </nav>
 
-    <!-- 1) EINSTIEG: Name, Nutzen, Preis, Warenkorb + großes Geräte-Mockup -->
-    <section class="sw-hero" data-cart-product data-cart-variant="Basic" aria-labelledby="sw-titel">
-      <div class="sw-hero__text">
+    <!-- 1) PRODUCT HERO: Positionierung, Nutzen, Preis, zwei CTAs + breites App-Fenster (Mockup, fiktive Daten) -->
+    <section class="swp-hero" aria-labelledby="sw-titel">
+      <div class="swp-hero__text">
         <span class="label label--accent">Software · Kernprodukt</span>
-        <h1 class="sw-hero__title" id="sw-titel" data-cart-name>EquiBill <em>Manage</em></h1>
-        <p class="sw-hero__claim">Weniger Büro. Mehr Pferd.</p>
-        <p class="pdp__lead">Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Du erfasst, was im Stall passiert, EquiBill macht daraus die Abrechnung.</p>
-        <div class="pdp__buy">
-          <p class="pdp__price"><span class="sr-only">Demo-Preis </span><data value="1900" data-cart-price data-cart-interval="monat">ab 19&nbsp;€/Monat</data></p>
-          <p class="pdp__tax">inkl. MwSt., zzgl. Versand · Demo-Preis</p>
-          <p class="pdp__shipping"><b>Versandkosten:</b> 0&nbsp;€ · Lieferung als Online-Zugang, kein Versand</p>
-          <div class="sw-hero__cta">
-            <!-- Legt den Artikel in den Warenkorb (js/app.js liest Name und Preis aus diesem Abschnitt) -->
-            <button class="btn" type="button" data-cart-add aria-describedby="kauf-hinweis">In den Warenkorb</button>
-            <a class="textlink" href="#tarife">Tarife vergleichen</a>
+        <h1 class="swp-hero__title" id="sw-titel">EquiBill <em>Manage</em></h1>
+        <p class="swp-hero__claim">Alles, was im Stall passiert. In einer Rechnung.</p>
+        <div class="swp-hero__side">
+          <p class="swp-hero__lead">Die Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Du erfasst Beritt, Training und Kosten pro Pferd, EquiBill macht daraus am Monatsende die Rechnung für jeden Besitzer.</p>
+          <p class="swp-hero__price">ab 19&nbsp;€/Monat <small>Demo-Preis</small></p>
+          <div class="swp-hero__cta">
+            <a class="btn" href="#demo">Interaktive Demo entdecken</a>
+            <a class="textlink" href="#tarife">Tarife ansehen</a>
           </div>
-          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung. EquiBill Manage ist ein Konzept und in dieser Demo nicht nutzbar; Abbildungen sind Mockups mit fiktiven Daten.</p>
         </div>
       </div>
-      <figure class="sw-hero__device">
+      <figure class="swp-hero__device">
         <div class="app" role="img" aria-label="Oberfläche von EquiBill Manage (Mockup mit fiktiven Daten): Übersicht mit Umsatz, offenen Beträgen, letzten Einträgen je Pferd und Rechnungsstatus">
           <div class="app__win" aria-hidden="true">
             <div class="app__bar"><i></i><i></i><i></i><span class="app__url">equibill.demo/uebersicht</span></div>
@@ -116,137 +114,495 @@
             </div>
           </div>
         </div>
+        <!-- Schwebende Interface-Hinweise (dekorativ, blenden versetzt ein) -->
+        <span class="swp-chip swp-chip--a" aria-hidden="true"><b>+ Hufschmied</b> Fiora · 95,00 €</span>
+        <span class="swp-chip swp-chip--b" aria-hidden="true"><i></i>Rechnung 2026-0039 · Bezahlt</span>
+        <figcaption class="swp-note">Mockup · fiktive Daten · in dieser Demo nicht nutzbar</figcaption>
       </figure>
     </section>
 
-    <!-- 2) FUNKTIONEN: nummerierte Index-Liste mit Haarlinien (keine Kacheln) -->
-    <section class="section" id="funktionen" aria-labelledby="funktionen-titel">
+    <!-- 2) PROBLEM UND LÖSUNG: gezeichnete „Zettelwirtschaft“, die sich beim Hineinscrollen zu einer Rechnung ordnet -->
+    <section class="section swp-problem" id="loesung" aria-labelledby="loesung-titel">
+      <div class="section-head">
+        <span class="label label--accent">Problem und Lösung</span>
+        <h2 id="loesung-titel">Vom Zettelchaos zur Rechnung</h2>
+        <p>Der Tag gehört den Pferden. Die Abrechnung passiert oft abends, aus Belegen, Listen und Erinnerungen. EquiBill Manage bringt das an einen Ort.</p>
+      </div>
+      <div class="swp-problem__grid">
+        <figure class="swp-board" data-play role="img" aria-label="Illustration: verstreute Belege, eine Tabellenliste und ein Notizzettel ordnen sich zu einer übersichtlichen Rechnung (fiktive Beträge)">
+          <div class="swp-board__plate" aria-hidden="true">
+            <span class="swp-board__head"><b>Rechnung · November</b><small>Lavinia · Hof Beispiel</small></span>
+            <span class="slip slip--receipt"><small>Beleg</small><b>Hufschmied</b><i>95,00 €</i></span>
+            <span class="slip slip--sheet"><small>Beritt_Nov_final_v3.xlsx</small><b>Beritt November</b><i>620,00 €</i></span>
+            <span class="slip slip--note"><small>Notiz</small><b>Nenngeld weiterberechnen?</b><i>85,00 €</i></span>
+            <span class="slip slip--fuel"><small>Quittung</small><b>Transport Turnier</b><i>140,00 €</i></span>
+            <span class="slip slip--vet"><small>Rechnung Tierarzt</small><b>Tierarzt (weiterberechnet)</b><i>118,50 €</i></span>
+            <span class="swp-board__total"><span>Gesamt</span><b>1.058,50 €</b></span>
+          </div>
+          <figcaption class="swp-note">Illustration · fiktive Beträge</figcaption>
+        </figure>
+        <ol class="swp-pains">
+          <li>
+            <p class="swp-pains__before"><span class="label">Heute</span> Belege in Jackentasche, Handschuhfach und Postfach.</p>
+            <h3>Jeder Beleg gehört zu einem Pferd.</h3>
+            <p>Kosten werden direkt dem Pferd und seinem Besitzer zugeordnet. Belege lassen sich am Eintrag ablegen (ab Professional).</p>
+          </li>
+          <li>
+            <p class="swp-pains__before"><span class="label">Heute</span> Excel-Listen in mehreren Versionen, von Hand gepflegt.</p>
+            <h3>Eine Liste, die mitrechnet.</h3>
+            <p>Leistungen einmal erfassen. Preise kommen aus der Vereinbarung mit dem jeweiligen Besitzer.</p>
+          </li>
+          <li>
+            <p class="swp-pains__before"><span class="label">Heute</span> Die Monatsabrechnung kostet Abende.</p>
+            <h3>Rechnungen aus dem, was schon da ist.</h3>
+            <p>Am Monatsende entsteht aus allen Einträgen eine Rechnung pro Besitzer, als PDF.</p>
+          </li>
+          <li>
+            <p class="swp-pains__before"><span class="label">Heute</span> Unklar, was offen ist und was der Monat gebracht hat.</p>
+            <h3>Wissen, wo du stehst.</h3>
+            <p>Umsatz, weiterberechnete Kosten und offene Posten auf einen Blick.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 3) FUNKTIONEN: sechs Funktionen in drei Kompositionen (alternierend, Tabs, breite Statusliste) -->
+    <section class="section swp-features" id="funktionen" aria-labelledby="funktionen-titel">
       <div class="section-head">
         <span class="label label--accent">Funktionen</span>
-        <h2 id="funktionen-titel">Was EquiBill Manage abdeckt</h2>
-        <p>Funktionsumfang als Konzept. Mit „geplant“ gekennzeichnete Punkte gehören zu einer späteren Ausbaustufe.</p>
+        <h2 id="funktionen-titel">Was EquiBill Manage für dich erledigt</h2>
+        <p>Funktionsumfang als Konzept. Alle Abbildungen sind Mockups mit fiktiven Daten; der Hinweis an jeder Funktion zeigt, ab welchem Tarif sie geplant ist.</p>
       </div>
-      <ol class="feature-list">
-        <li><span class="feature-list__num">01</span><h3>Pferde und Kunden</h3><p>Stammdaten der Pferde, Besitzer und individuelle Preise an einem Ort.</p></li>
-        <li><span class="feature-list__num">02</span><h3>Kosten erfassen</h3><p>Beritt-, Trainings-, Turnier-, Tierarzt- und Transportkosten pro Pferd erfassen.</p></li>
-        <li><span class="feature-list__num">03</span><h3>Rechnungen</h3><p>Monatsabrechnung, Einzel- und Sammelrechnungen als PDF, mit Status und Historie.</p></li>
-        <li><span class="feature-list__num">04</span><h3>Überblick</h3><p>Dashboard mit Umsatz, Kosten und offenen Rechnungen.</p></li>
-        <li><span class="feature-list__num">05</span><h3>Belege <small class="feature-list__tag">teils geplant</small></h3><p>Belege dem Pferd zuordnen; automatische Belegerkennung ist für später geplant.</p></li>
-      </ol>
-    </section>
 
-    <!-- 3) DEMO: animierte Beispielrechnung (js/app.js), fiktive Werte -->
-    <section class="section sw-demo" id="demo" aria-labelledby="demo-titel">
-      <div class="sw-demo__text">
-        <span class="label label--accent">Demo</span>
-        <h2 id="demo-titel">So entsteht eine Rechnung</h2>
-        <p>Die Beispielrechnung zeigt, wie aus einzelnen Einträgen eines Monats eine Rechnung wird: Positionen kommen nacheinander dazu, die Summe rechnet sich mit, am Ende steht das PDF.</p>
-        <p class="specs__note">Animiertes Mockup mit fiktiven Werten, keine echte Software.</p>
-      </div>
-      <div class="manage__stage">
-        <div class="invoice" data-invoice>
-          <p class="invoice__head"><span class="label">Rechnung · Beispiel</span><span class="invoice__nr">Nr. 2026-0042</span></p>
-          <p class="invoice__to">Kunde: Beispielkunde · Pferd: Beispielpferd</p>
-          <ul class="invoice__items">
-            <li><span>Beritt November</span><b data-amount="620">620,00&nbsp;€</b></li>
-            <li><span>Nenngeld Turnier</span><b data-amount="85">85,00&nbsp;€</b></li>
-            <li><span>Transport</span><b data-amount="140">140,00&nbsp;€</b></li>
-            <li><span>Hufschmied</span><b data-amount="95">95,00&nbsp;€</b></li>
-          </ul>
-          <p class="invoice__total"><span>Gesamt</span><b data-invoice-total>940,00&nbsp;€</b></p>
-          <p class="invoice__status label">PDF erstellt · bereit zum Versand</p>
+      <!-- 01 Dashboard: Text links, Mockup rechts -->
+      <article class="swp-feature" aria-labelledby="f1-titel">
+        <div class="swp-feature__text">
+          <span class="swp-feature__num">N° 01</span>
+          <h3 id="f1-titel">Dashboard und Finanzübersicht</h3>
+          <p>Umsatz, weiterberechnete Kosten und offene Beträge des Monats auf einer Seite. Der Verlauf zeigt, wie sich dein Betrieb über das Jahr entwickelt.</p>
+          <p class="swp-tier">Basic: einfaches Dashboard · ab Professional: erweiterte Auswertungen</p>
         </div>
-        <span class="manage__note">Mockup · fiktive Beispielwerte · in dieser Demo nicht nutzbar</span>
+        <div class="ui" data-play role="img" aria-label="Mockup Finanzübersicht mit fiktiven Werten: Einnahmen 6.240 Euro, weiterberechnete Kosten 1.385,50 Euro, offene Posten 1.245 Euro, Monatsverlauf und Anteile nach Bereich">
+          <div class="ui__win" aria-hidden="true">
+            <div class="ui__top"><b>Finanzen</b><span>November 2026</span></div>
+            <div class="ui__kpis">
+              <div><small>Einnahmen</small><b>6.240,00 €</b></div>
+              <div><small>Weiterberechnet</small><b>1.385,50 €</b></div>
+              <div><small>Offene Posten</small><b class="is-accent">1.245,00 €</b></div>
+            </div>
+            <div class="ui__split">
+              <div class="ui__bars">
+                <small>Einnahmen Jun–Nov</small>
+                <div class="ui__bars-row"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="ui__bars-axis"><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Okt</span><span>Nov</span></div>
+              </div>
+              <div class="ui__shares">
+                <small>Nach Bereich</small>
+                <p><span>Beritt</span><i></i><em>62 %</em></p>
+                <p><span>Turniere</span><i></i><em>21 %</em></p>
+                <p><span>Training</span><i></i><em>17 %</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 Pferde und Kunden: Mockup links, Text rechts (gespiegelt) -->
+      <article class="swp-feature swp-feature--flip" aria-labelledby="f2-titel">
+        <div class="swp-feature__text">
+          <span class="swp-feature__num">N° 02</span>
+          <h3 id="f2-titel">Pferde- und Kundenverwaltung</h3>
+          <p>Jedes Pferd mit Besitzer, Vereinbarung und individuellen Preisen. Was einmal hinterlegt ist, rechnet EquiBill bei jedem Eintrag mit, ohne Nachschlagen.</p>
+          <p class="swp-tier">In allen Tarifen · Basic bis 5, Professional bis 25 Pferde</p>
+        </div>
+        <div class="ui" role="img" aria-label="Mockup Pferdeprofil mit fiktiven Daten: Quintus, Besitzerin A. Muster, Vereinbarung Beritt 620 Euro pro Monat, Training 60 Euro je Einheit, letzte Einträge">
+          <div class="ui__win ui__win--horse" aria-hidden="true">
+            <div class="ui__list">
+              <small>Pferde · 8</small>
+              <span class="is-active">Quintus</span><span>Lavinia</span><span>Fiora</span><span>Aurelio</span><span>Bellini</span><span class="ui__more">+ 3 weitere</span>
+            </div>
+            <div class="ui__profile">
+              <div class="ui__profile-head">
+                <span class="ui__avatar">Q</span>
+                <div><b>Quintus</b><small>Wallach · 9 Jahre · Springen</small></div>
+                <em class="ui__pill">Aktiv</em>
+              </div>
+              <dl class="ui__facts">
+                <div><dt>Besitzerin</dt><dd>A. Muster</dd></div>
+                <div><dt>Beritt</dt><dd>620,00 € / Monat</dd></div>
+                <div><dt>Training</dt><dd>60,00 € / Einheit</dd></div>
+                <div><dt>Zusatzkosten</dt><dd>werden weiterberechnet</dd></div>
+              </dl>
+              <small>Historie</small>
+              <div class="ui__row"><span>24.11.</span><span>Nenngeld S*</span><span>85,00 €</span></div>
+              <div class="ui__row"><span>21.11.</span><span>Training</span><span>60,00 €</span></div>
+              <div class="ui__row"><span>01.11.</span><span>Beritt November</span><span>620,00 €</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03–05 Tabs: „Vom Eintrag zur Rechnung“ (ohne JavaScript stehen alle drei untereinander) -->
+      <div class="swp-tabs" data-tabs>
+        <div class="swp-tabs__head">
+          <span class="label label--accent">Vom Eintrag zur Rechnung</span>
+          <div class="swp-tabs__list" role="tablist" aria-label="Funktionen vom Eintrag zur Rechnung" data-tablist hidden>
+            <button class="swp-tabs__tab" type="button" role="tab" id="tab-erfassen" aria-controls="panel-erfassen" aria-selected="true"><span>03</span>Erfassen</button>
+            <button class="swp-tabs__tab" type="button" role="tab" id="tab-turniere" aria-controls="panel-turniere" aria-selected="false" tabindex="-1"><span>04</span>Turniere</button>
+            <button class="swp-tabs__tab" type="button" role="tab" id="tab-abrechnung" aria-controls="panel-abrechnung" aria-selected="false" tabindex="-1"><span>05</span>Abrechnen</button>
+          </div>
+        </div>
+
+        <article class="swp-tabs__panel" role="tabpanel" id="panel-erfassen" aria-labelledby="tab-erfassen f3-titel" tabindex="0">
+          <div class="swp-feature__text">
+            <span class="swp-feature__num">N° 03</span>
+            <h3 id="f3-titel">Leistungs- und Kostenerfassung</h3>
+            <p>Beritt, Training, Nenngeld, Transport, Hufschmied oder Tierarzt: Pferd wählen, Leistung wählen, Betrag prüfen, fertig. Wiederkehrende Leistungen wie der monatliche Beritt laufen automatisch mit.</p>
+            <p class="swp-tier">In allen Tarifen · Belege anhängen ab Professional</p>
+          </div>
+          <div class="ui" role="img" aria-label="Mockup Erfassungsmaske mit fiktiven Daten: Pferd Fiora, Leistung Hufschmied, Betrag 95 Euro, Datum 22.11.2026, Beleg angehängt">
+            <div class="ui__win ui__win--form" aria-hidden="true">
+              <div class="ui__top"><b>Leistung erfassen</b><span>Neu</span></div>
+              <div class="ui__field"><small>Pferd</small><span>Fiora <em>K. Beispiel</em></span></div>
+              <div class="ui__field"><small>Leistung</small><span>Hufschmied <em>weiterberechnen</em></span></div>
+              <div class="ui__field-row">
+                <div class="ui__field"><small>Betrag</small><span class="ui__typed">95,00 €</span></div>
+                <div class="ui__field"><small>Datum</small><span>22.11.2026</span></div>
+              </div>
+              <div class="ui__file"><i></i>hufschmied_2211.pdf</div>
+              <div class="ui__actions"><span>Abbrechen</span><b>Speichern</b></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="swp-tabs__panel" role="tabpanel" id="panel-turniere" aria-labelledby="tab-turniere f4-titel" tabindex="0">
+          <div class="swp-feature__text">
+            <span class="swp-feature__num">N° 04</span>
+            <h3 id="f4-titel">Turniermanagement</h3>
+            <p>Turniere planen, Pferde zuordnen und Nenngelder, Transport und Boxenmiete pro Start erfassen. Beim Monatsabschluss landen die Kosten auf der Rechnung des richtigen Besitzers.</p>
+            <p class="swp-tier">ab Professional</p>
+          </div>
+          <div class="ui" role="img" aria-label="Mockup Turnierübersicht mit fiktiven Daten: Turnier Beispielstadt, drei Pferde mit Nenngeld, Transport und Boxenmiete, Summe 760 Euro zur Weiterberechnung">
+            <div class="ui__win" aria-hidden="true">
+              <div class="ui__top"><b>Turnier Beispielstadt</b><span>28.–30.11.2026</span></div>
+              <div class="ui__table">
+                <p class="ui__th"><span>Pferd</span><span>Prüfung</span><span>Nenngeld</span><span>Transport</span><span>Box</span></p>
+                <p><span>Quintus</span><span>S*</span><span>85,00 €</span><span>70,00 €</span><span>90,00 €</span></p>
+                <p><span>Lavinia</span><span>M**</span><span>65,00 €</span><span>70,00 €</span><span>90,00 €</span></p>
+                <p><span>Fiora</span><span>L</span><span>50,00 €</span><span>70,00 €</span><span>90,00 €</span></p>
+                <p class="ui__tf"><span>Weiterberechnen</span><span></span><span></span><span></span><span>760,00 €</span></p>
+              </div>
+              <div class="ui__note-line"><i></i>Kosten werden den Besitzern beim Monatsabschluss zugeordnet</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="swp-tabs__panel" role="tabpanel" id="panel-abrechnung" aria-labelledby="tab-abrechnung f5-titel" tabindex="0">
+          <div class="swp-feature__text">
+            <span class="swp-feature__num">N° 05</span>
+            <h3 id="f5-titel">Monatsabrechnung und PDF-Rechnungen</h3>
+            <p>Am Monatsende stellt EquiBill aus allen Einträgen eine Rechnung pro Besitzer zusammen. Du prüfst, gibst frei und erhältst ein sauberes PDF. Sammelrechnungen für mehrere Pferde eines Besitzers ab Professional.</p>
+            <p class="swp-tier">In allen Tarifen · Sammelrechnungen ab Professional</p>
+          </div>
+          <div class="ui ui--paper" role="img" aria-label="Mockup einer PDF-Rechnung mit fiktiven Daten: Rechnung 2026-0042 an Hof Beispiel für das Pferd Lavinia, fünf Positionen, Gesamt 1.058,50 Euro">
+            <div class="ui__pdf" aria-hidden="true">
+              <div class="ui__pdf-head"><b>Equi<i></i>Bill</b><span>Beispielstall<br>Musterweg 1 · 00000 Beispielstadt</span></div>
+              <p class="ui__pdf-to">Hof Beispiel<br>Pferd: Lavinia</p>
+              <p class="ui__pdf-title">Rechnung <span>Nr. 2026-0042 · 30.11.2026</span></p>
+              <div class="ui__pdf-rows">
+                <p><span>Beritt November</span><span>620,00 €</span></p>
+                <p><span>Transport Turnier</span><span>140,00 €</span></p>
+                <p><span>Tierarzt (weiterberechnet)</span><span>118,50 €</span></p>
+                <p><span>Hufschmied</span><span>95,00 €</span></p>
+                <p><span>Nenngeld M**</span><span>85,00 €</span></p>
+              </div>
+              <p class="ui__pdf-total"><span>Gesamt</span><span>1.058,50 €</span></p>
+              <span class="ui__stamp">PDF · Beispiel</span>
+            </div>
+          </div>
+        </article>
       </div>
+
+      <!-- 06 Rechnungsstatus: breite Statusliste; zwei Rechnungen wechseln animiert auf „Bezahlt“ -->
+      <article class="swp-status" aria-labelledby="f6-titel">
+        <div class="swp-status__text">
+          <div>
+            <span class="swp-feature__num">N° 06</span>
+            <h3 id="f6-titel">Rechnungsstatus und offene Posten</h3>
+          </div>
+          <div>
+          <p>Entwurf, offen, bezahlt, überfällig: Du siehst jederzeit, welche Rechnung wo steht und was noch aussteht. Zahlungserinnerungen ab Professional.</p>
+          <p class="swp-tier">In allen Tarifen · Zahlungserinnerungen ab Professional</p>
+          </div>
+        </div>
+        <div class="ui ui--wide" data-play role="img" aria-label="Mockup Rechnungsliste mit fiktiven Daten: sechs Rechnungen mit Status, zwei wechseln auf bezahlt, offene Posten sinken auf 1.245 Euro">
+          <div class="ui__win" aria-hidden="true">
+            <div class="ui__top"><b>Rechnungen</b><span>Offene Posten <strong class="ui__count" data-count-from="229000" data-count-to="124500">1.245,00 €</strong></span></div>
+            <div class="ui__status">
+              <p class="ui__th"><span>Nr.</span><span>Kunde</span><span>Fällig</span><span>Betrag</span><span>Status</span></p>
+              <p><span>2026-0038</span><span>A. Muster</span><span>15.11.</span><span>600,00 €</span><span><em class="st st--late">Überfällig</em></span></p>
+              <p><span>2026-0039</span><span>Hof Beispiel</span><span>20.11.</span><span>1.380,00 €</span><span><em class="st st--paid">Bezahlt</em></span></p>
+              <p class="is-switch is-switch--1"><span>2026-0040</span><span>T. Beispiel</span><span>25.11.</span><span>410,00 €</span><span><em class="st st--switch"><b>Offen</b><b>Bezahlt</b></em></span></p>
+              <p class="is-switch is-switch--2"><span>2026-0041</span><span>L. Beispiel</span><span>28.11.</span><span>635,00 €</span><span><em class="st st--switch"><b>Offen</b><b>Bezahlt</b></em></span></p>
+              <p><span>2026-0042</span><span>M. Muster</span><span>05.12.</span><span>340,00 €</span><span><em class="st st--open">Offen</em></span></p>
+              <p><span>2026-0043</span><span>K. Beispiel</span><span>10.12.</span><span>305,00 €</span><span><em class="st st--open">Offen</em></span></p>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
 
-    <!-- 4) ANWENDUNGSBEISPIELE: erfundene Szenarien, klar als Beispiel gekennzeichnet (keine Kundenstimmen) -->
-    <section class="section" id="beispiele" aria-labelledby="beispiele-titel">
+    <!-- 4) INTERAKTIVE DEMO: echte, anklickbare Mini-App (js/app.js, Abschnitt 6c). Nichts wird gespeichert. -->
+    <section class="section swp-demo" id="demo" aria-labelledby="demo-titel">
       <div class="section-head">
-        <span class="label label--accent">Anwendungsbeispiele</span>
-        <h2 id="beispiele-titel">Wie Manage in den Alltag passt</h2>
+        <span class="label label--accent">Interaktive Demo</span>
+        <h2 id="demo-titel">Probier es aus</h2>
+        <p>Wähle ein Pferd, erfasse eine Leistung und sieh zu, wie sich die Rechnung aktualisiert. Interaktive Demo mit fiktiven Daten: Nichts wird gespeichert oder übertragen.</p>
+      </div>
+
+      <div class="demo" data-demo>
+        <div class="demo__bar" aria-hidden="true"><i></i><i></i><i></i><span>equibill.demo/abrechnung</span></div>
+        <div class="demo__body">
+          <!-- Formular: wird erst mit JavaScript eingeblendet -->
+          <form class="demo__form" data-demo-form hidden novalidate>
+            <h3 class="demo__title">Leistung erfassen</h3>
+            <fieldset class="demo__horses">
+              <legend class="demo__label">1 · Pferd wählen</legend>
+              <div class="demo__horse-row">
+              <label class="demo__horse"><input type="radio" name="pferd" value="quintus" data-owner="A. Muster" data-nr="2026-0041" checked><span><b>Quintus</b><small>A. Muster</small></span></label>
+              <label class="demo__horse"><input type="radio" name="pferd" value="lavinia" data-owner="Hof Beispiel" data-nr="2026-0042"><span><b>Lavinia</b><small>Hof Beispiel</small></span></label>
+              <label class="demo__horse"><input type="radio" name="pferd" value="fiora" data-owner="K. Beispiel" data-nr="2026-0043"><span><b>Fiora</b><small>K. Beispiel</small></span></label>
+              </div>
+            </fieldset>
+            <div class="demo__field">
+              <label class="demo__label" for="demo-leistung">2 · Leistung oder Ausgabe</label>
+              <select id="demo-leistung" name="leistung" data-demo-type>
+                <option value="Training" data-suggest="6000">Training</option>
+                <option value="Beritt Zusatztag" data-suggest="3500">Beritt Zusatztag</option>
+                <option value="Nenngeld" data-suggest="8500">Nenngeld</option>
+                <option value="Transport" data-suggest="14000">Transport</option>
+                <option value="Hufschmied" data-suggest="9500">Hufschmied</option>
+                <option value="Tierarzt (weiterberechnet)" data-suggest="12000">Tierarzt (weiterberechnet)</option>
+              </select>
+            </div>
+            <div class="demo__field">
+              <label class="demo__label" for="demo-betrag">3 · Betrag in Euro</label>
+              <div class="demo__amount"><input id="demo-betrag" name="betrag" type="text" inputmode="decimal" autocomplete="off" value="60,00" aria-describedby="demo-betrag-hinweis demo-betrag-fehler" data-demo-amount><span aria-hidden="true">€</span></div>
+              <p class="demo__hint" id="demo-betrag-hinweis">Vorschlag aus der Vereinbarung, änderbar. Zum Beispiel 95,50</p>
+              <p class="demo__error" id="demo-betrag-fehler" data-demo-error></p>
+            </div>
+            <button class="btn demo__submit" type="submit">Zur Abrechnung hinzufügen</button>
+            <button class="demo__reset" type="button" data-demo-reset>Demo zurücksetzen</button>
+          </form>
+          <noscript><p class="demo__nojs">Die interaktive Demo braucht JavaScript. Rechts siehst du eine Beispielrechnung.</p></noscript>
+
+          <!-- Rechnungsübersicht: Startwerte stehen hier im HTML; js/app.js liest sie ein und baut die Liste neu auf -->
+          <div class="demo__out">
+            <div class="demo__invoice">
+              <p class="demo__inv-head"><span class="demo__label">Rechnungsvorschau · Entwurf</span><span data-demo-nr>Nr. 2026-0041</span></p>
+              <p class="demo__inv-to">Kunde: <b data-demo-owner>A. Muster</b> · Pferd: <b data-demo-horse>Quintus</b></p>
+              <ol class="demo__items" data-demo-items="quintus">
+                <li data-cents="62000"><span>Beritt November</span><b>620,00&nbsp;€</b></li>
+                <li data-cents="6000"><span>Training</span><b>60,00&nbsp;€</b></li>
+                <li data-cents="8500"><span>Nenngeld S*</span><b>85,00&nbsp;€</b></li>
+              </ol>
+              <ol class="demo__items" data-demo-items="lavinia" hidden>
+                <li data-cents="62000"><span>Beritt November</span><b>620,00&nbsp;€</b></li>
+                <li data-cents="14000"><span>Transport Turnier</span><b>140,00&nbsp;€</b></li>
+                <li data-cents="11850"><span>Tierarzt (weiterberechnet)</span><b>118,50&nbsp;€</b></li>
+              </ol>
+              <ol class="demo__items" data-demo-items="fiora" hidden>
+                <li data-cents="54000"><span>Beritt November</span><b>540,00&nbsp;€</b></li>
+                <li data-cents="9500"><span>Hufschmied</span><b>95,00&nbsp;€</b></li>
+              </ol>
+              <p class="demo__inv-total"><span>Gesamt</span><b data-demo-sum>765,00&nbsp;€</b></p>
+            </div>
+            <div class="demo__overview">
+              <p class="demo__label">Übersicht November</p>
+              <ul>
+                <li><span>Quintus <small>A. Muster</small></span><b data-demo-overview="quintus">765,00&nbsp;€</b></li>
+                <li><span>Lavinia <small>Hof Beispiel</small></span><b data-demo-overview="lavinia">878,50&nbsp;€</b></li>
+                <li><span>Fiora <small>K. Beispiel</small></span><b data-demo-overview="fiora">635,00&nbsp;€</b></li>
+              </ul>
+              <p class="demo__all"><span>Alle Rechnungen</span><b data-demo-total>2.278,50&nbsp;€</b></p>
+            </div>
+          </div>
+        </div>
+        <p class="sr-only" role="status" aria-live="polite" data-demo-live></p>
+      </div>
+      <p class="swp-note swp-note--left">Interaktive Demo · fiktive Pferde, Kunden und Beträge · keine echte Software</p>
+    </section>
+
+    <!-- 5) ZIELGRUPPEN UND ANWENDUNGSFÄLLE: erfundene Alltagsszenen, keine Kundenberichte -->
+    <section class="section swp-cases" id="anwendung" aria-labelledby="anwendung-titel">
+      <div class="section-head">
+        <span class="label label--accent">Für wen</span>
+        <h2 id="anwendung-titel">Vier Momente aus dem Alltag</h2>
         <p>Fiktive Beispiele zur Veranschaulichung, keine Kundenberichte.</p>
       </div>
-      <div class="examples">
-        <article class="example">
-          <span class="example__tag label">Beispiel · Basic</span>
-          <h3>Selbstständige Bereiterin</h3>
-          <p>Fünf Berittpferde von vier Besitzern. Sie trägt Beritt und Zusatzkosten nach jedem Tag ein und erstellt am Monatsende für jeden Besitzer eine Rechnung.</p>
-        </article>
-        <article class="example">
-          <span class="example__tag label">Beispiel · Professional</span>
-          <h3>Turnierreiter mit Kundenpferden</h3>
-          <p>Nenngelder, Transport und Startkosten fallen für mehrere Pferde an. Die Kosten werden pro Turnier erfasst und dem jeweiligen Besitzer weiterberechnet.</p>
-        </article>
-        <article class="example">
-          <span class="example__tag label">Beispiel · Business</span>
-          <h3>Ausbildungsstall mit Team</h3>
-          <p>Mehrere Mitarbeitende erfassen Leistungen, die Betriebsleitung sieht Umsatz, Kosten und offene Rechnungen im Dashboard.</p>
-        </article>
+      <div class="swp-cases__grid">
+        <figure class="photo swp-cases__photo"><img src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="Reiterin im Sattel, Detailaufnahme in Schwarz-Weiß" width="1000" height="666" loading="lazy"><figcaption>Symbolbild · Foto: Louise Pilgaard / Unsplash</figcaption></figure>
+        <ol class="swp-cases__list">
+          <li class="swp-case">
+            <p class="swp-case__time">So., 21:40</p>
+            <div>
+              <span class="label label--accent">Berufsreiter</span>
+              <h3>Nach dem Turnierwochenende</h3>
+              <p>Nenngelder, Transport und Boxenmiete für drei Kundenpferde. Statt Quittungen zu sortieren, sind die Kosten pro Start schon erfasst und landen beim Monatsabschluss beim richtigen Besitzer.</p>
+              <p class="swp-case__tier">Passt zu: Professional</p>
+            </div>
+          </li>
+          <li class="swp-case">
+            <p class="swp-case__time">Di., 7:15</p>
+            <div>
+              <span class="label label--accent">Bereiterin</span>
+              <h3>Zwischen zwei Pferden</h3>
+              <p>Fünf Berittpferde, vier Besitzer. Der Hufschmied war da: kurz auf dem Tablet eingetragen, Betrag aus der Vereinbarung übernommen, weiter geht’s.</p>
+              <p class="swp-case__tier">Passt zu: Basic</p>
+            </div>
+          </li>
+          <li class="swp-case">
+            <p class="swp-case__time">Do., 18:30</p>
+            <div>
+              <span class="label label--accent">Trainer</span>
+              <h3>Nach der letzten Stunde</h3>
+              <p>Einzelstunden und Trainingstage für wechselnde Reiter und Pferde. Jede Einheit ist dem Kunden zugeordnet, am Monatsende steht für jeden eine Rechnung bereit.</p>
+              <p class="swp-case__tier">Passt zu: Basic oder Professional</p>
+            </div>
+          </li>
+          <li class="swp-case">
+            <p class="swp-case__time">30.11.</p>
+            <div>
+              <span class="label label--accent">Pferdebetrieb</span>
+              <h3>Monatsabschluss im Ausbildungsstall</h3>
+              <p>Drei Mitarbeitende haben im Laufe des Monats Leistungen erfasst. Die Betriebsleitung prüft Umsatz und offene Posten im Management-Dashboard und gibt die Rechnungen frei.</p>
+              <p class="swp-case__tier">Passt zu: Business</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- 5) TARIFVERGLEICH: Werte aus PROJECT_BRIEFING.md Kap. 10.4 (Demo-Annahmen, Grenzen nicht final) -->
-    <section class="section" id="tarife" aria-labelledby="tarife-titel">
+    <!-- 6) TARIFE: Werte laut PROJECT_BRIEFING.md Kap. 10.4 (Konzept, Demo-Preise).
+         Jeder Tarif kann in den Warenkorb (js/app.js, Abschnitt 3: Name aus data-cart-name + data-cart-variant). -->
+    <section class="section swp-pricing" id="tarife" aria-labelledby="tarife-titel">
       <div class="section-head">
         <span class="label label--accent">Tarife</span>
-        <h2 id="tarife-titel">Drei Tarife, ein Werkzeug</h2>
-        <p>Alle Preise sind Demo-Preise inkl. MwSt. Leistungsgrenzen sind Konzeptannahmen und nicht endgültig.</p>
+        <h2 id="tarife-titel">Ein Werkzeug, drei Größen</h2>
+        <p>Alle Preise sind Demo-Preise inkl. MwSt. pro Monat. Funktionsverteilung und Leistungsgrenzen sind ein Konzept und nicht endgültig.</p>
       </div>
       <div class="tarife">
-        <article class="tarif">
-          <h3>Basic</h3>
-          <p class="tarif__price">19&nbsp;€<small>/Monat · Demo-Preis</small></p>
+        <article class="tarif" data-cart-product data-cart-variant="Basic" aria-labelledby="tarif-basic">
+          <p class="tarif__product label" data-cart-name>EquiBill Manage</p>
+          <h3 id="tarif-basic">Basic</h3>
+          <p class="tarif__price"><data value="1900" data-cart-price data-cart-interval="monat">19&nbsp;€</data><small>/Monat · Demo-Preis</small></p>
           <p class="tarif__for">Für selbstständige Bereiter mit kleinem Bestand</p>
           <ul class="tarif__list">
-            <li>bis 5 Pferde</li><li>Pferde- und Kundenverwaltung</li><li>Kostenerfassung</li><li>Monatsabrechnung und PDF-Rechnungen</li><li>einfaches Dashboard</li>
+            <li>bis 5 Pferde, 1 Benutzer</li><li>Pferde- und Kundenverwaltung</li><li>Leistungs- und Kostenerfassung</li><li>Monatsabrechnung und PDF-Rechnungen</li><li>Rechnungsstatus und offene Posten</li><li>einfaches Dashboard</li>
           </ul>
+          <button class="btn tarif__btn" type="button" data-cart-add aria-describedby="tarif-hinweis">In den Warenkorb<span class="sr-only">: Tarif Basic</span></button>
         </article>
-        <article class="tarif tarif--focus">
-          <h3>Professional</h3>
-          <p class="tarif__price">39&nbsp;€<small>/Monat · Demo-Preis</small></p>
-          <p class="tarif__for">Für Berufsreiter mit mehreren Pferden und Kunden</p>
+        <article class="tarif tarif--focus" data-cart-product data-cart-variant="Professional" aria-labelledby="tarif-pro">
+          <p class="tarif__product label" data-cart-name>EquiBill Manage</p>
+          <h3 id="tarif-pro">Professional</h3>
+          <p class="tarif__price"><data value="3900" data-cart-price data-cart-interval="monat">39&nbsp;€</data><small>/Monat · Demo-Preis</small></p>
+          <p class="tarif__for">Für Berufsreiter mit mehreren Pferden, Kunden und Turnieren</p>
           <ul class="tarif__list">
-            <li>bis 25 Pferde</li><li>alle Basic-Funktionen</li><li>Sammelrechnungen</li><li>Turniermanagement und Turnierkosten</li><li>Belegmanagement</li><li>Zahlungserinnerungen</li><li>erweiterte Auswertungen</li><li>KI-Belegerkennung <em>(geplant)</em></li>
+            <li>bis 25 Pferde, 1 Benutzer</li><li>alle Basic-Funktionen</li><li>Turniermanagement und Turnierkosten</li><li>Sammelrechnungen</li><li>Belegmanagement</li><li>Zahlungserinnerungen</li><li>erweiterte Auswertungen</li><li>KI-Belegerkennung <em>(geplant)</em></li>
           </ul>
+          <button class="btn tarif__btn" type="button" data-cart-add aria-describedby="tarif-hinweis">In den Warenkorb<span class="sr-only">: Tarif Professional</span></button>
         </article>
-        <article class="tarif">
-          <h3>Business</h3>
-          <p class="tarif__price">79&nbsp;€<small>/Monat · Demo-Preis</small></p>
-          <p class="tarif__for">Für Ausbildungsställe und Pferdebetriebe</p>
+        <article class="tarif" data-cart-product data-cart-variant="Business" aria-labelledby="tarif-business">
+          <p class="tarif__product label" data-cart-name>EquiBill Manage</p>
+          <h3 id="tarif-business">Business</h3>
+          <p class="tarif__price"><data value="7900" data-cart-price data-cart-interval="monat">79&nbsp;€</data><small>/Monat · Demo-Preis</small></p>
+          <p class="tarif__for">Für Ausbildungsställe und Pferdebetriebe mit Team</p>
           <ul class="tarif__list">
-            <li>Pferdeanzahl noch offen</li><li>alle Professional-Funktionen</li><li>mehrere Benutzer, Rollen und Rechte</li><li>Management-Dashboard</li><li>erweiterte Reports</li><li>Kundenportal <em>(geplant)</em></li>
+            <li>Pferdeanzahl noch offen</li><li>alle Professional-Funktionen</li><li>mehrere Benutzer, Rollen und Rechte</li><li>Management-Dashboard und erweiterte Reports</li><li>Kundenportal für Besitzer <em>(geplant)</em></li>
           </ul>
+          <button class="btn tarif__btn" type="button" data-cart-add aria-describedby="tarif-hinweis">In den Warenkorb<span class="sr-only">: Tarif Business</span></button>
         </article>
+      </div>
+      <p class="swp-note swp-note--left" id="tarif-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung, keine Zahlung. Der Warenkorb speichert nur in deinem Browser.</p>
+
+      <!-- Vergleichstabelle bewusst aufklappbar, damit sie die Seite nicht dominiert -->
+      <details class="compare">
+        <summary>Alle Funktionen vergleichen</summary>
+        <div class="compare__scroll" role="region" aria-labelledby="compare-caption" tabindex="0">
+          <table class="compare__table">
+            <caption id="compare-caption">Funktionen je Tarif (Konzept, nicht endgültig)</caption>
+            <thead>
+              <tr><th scope="col">Funktion</th><th scope="col">Basic <span>19&nbsp;€</span></th><th scope="col">Professional <span>39&nbsp;€</span></th><th scope="col">Business <span>79&nbsp;€</span></th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Pferde</th><td>bis 5</td><td>bis 25</td><td>noch offen</td></tr>
+              <tr><th scope="row">Benutzer</th><td>1</td><td>1</td><td>mehrere, mit Rollen und Rechten</td></tr>
+              <tr><th scope="row">Pferde- und Kundenverwaltung, individuelle Preise</th><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Leistungs- und Kostenerfassung</th><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Monatsabrechnung, PDF-Rechnungen</th><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Rechnungsstatus und offene Posten</th><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Dashboard</th><td>einfach</td><td>erweiterte Auswertungen</td><td>Management-Dashboard, Reports</td></tr>
+              <tr><th scope="row">Sammelrechnungen</th><td><span class="no">Nein</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Turniermanagement und Turnierkosten</th><td><span class="no">Nein</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Belegmanagement</th><td><span class="no">Nein</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">Zahlungserinnerungen</th><td><span class="no">Nein</span></td><td><span class="yes">Ja</span></td><td><span class="yes">Ja</span></td></tr>
+              <tr><th scope="row">KI-Belegerkennung</th><td><span class="no">Nein</span></td><td>geplant</td><td>geplant</td></tr>
+              <tr><th scope="row">Kundenportal für Besitzer</th><td><span class="no">Nein</span></td><td><span class="no">Nein</span></td><td>geplant</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <!-- Technische Daten (vorläufige Konzeptangaben), kompakt -->
+      <div class="pdp-details swp-specs">
+        <div>
+          <span class="label label--accent">Technische Daten</span>
+          <h3 class="swp-specs__title">Auf einen Blick</h3>
+          <p>EquiBill Manage ist als webbasierte Software geplant. Die Angaben beschreiben das Konzept.</p>
+        </div>
+        <div>
+          <dl class="specs">
+            <div><dt>Produktart</dt><dd>Software-Abo, webbasiert</dd></div>
+            <div><dt>Nutzung</dt><dd>im Browser auf Computer und Tablet</dd></div>
+            <div><dt>Tarife</dt><dd>Basic · Professional · Business</dd></div>
+            <div><dt>Sprache</dt><dd>Deutsch</dd></div>
+            <div><dt>Lieferung</dt><dd>Online-Zugang, kein Versand, Versandkosten 0&nbsp;€</dd></div>
+            <div><dt>Status</dt><dd>Konzept, in dieser Demo nicht nutzbar</dd></div>
+          </dl>
+          <p class="specs__note">Vorläufige Konzeptangaben: Die Software existiert noch nicht, Umfang und Technik sind nicht endgültig festgelegt.</p>
+        </div>
       </div>
     </section>
 
-    <!-- 6) TECHNISCHE DATEN (vorläufige Konzeptangaben) -->
-    <section class="section pdp-details" aria-labelledby="daten-titel">
-      <div>
-        <span class="label label--accent">Technische Daten</span>
-        <h2 id="daten-titel">Auf einen Blick</h2>
-        <p>EquiBill Manage ist als webbasierte Software geplant. Die Angaben beschreiben das Konzept.</p>
-      </div>
-      <div>
-        <dl class="specs">
-          <div><dt>Produktart</dt><dd>Software-Abo, webbasiert</dd></div>
-          <div><dt>Nutzung</dt><dd>im Browser auf Computer und Tablet</dd></div>
-          <div><dt>Tarife</dt><dd>Basic · Professional · Business</dd></div>
-          <div><dt>Sprache</dt><dd>Deutsch</dd></div>
-          <div><dt>Lieferung</dt><dd>Online-Zugang, kein Versand</dd></div>
-          <div><dt>Status</dt><dd>Konzept, in dieser Demo nicht nutzbar</dd></div>
-        </dl>
-        <p class="specs__note">Vorläufige Konzeptangaben: Die Software existiert noch nicht, Umfang und Technik sind nicht endgültig festgelegt.</p>
+    <!-- 7) FAQ zur Software -->
+    <section class="section faq" id="faq-software" aria-labelledby="faq-titel">
+      <div class="section-head"><span class="label label--accent">FAQ</span><h2 id="faq-titel">Fragen zu EquiBill Manage</h2></div>
+      <div class="faq__list">
+        <details><summary>Was genau ist EquiBill Manage?</summary><p>Eine Verwaltungs- und Abrechnungssoftware für den Pferdesport: Pferde, Besitzer und Kunden verwalten, Leistungen und Kosten erfassen, Monatsrechnungen als PDF erstellen und offene Posten im Blick behalten.</p></details>
+        <details><summary>Brauche ich Vorkenntnisse in Buchhaltung?</summary><p>Das Konzept setzt auf Begriffe aus dem Stallalltag: Pferd, Besitzer, Beritt, Turnier. Buchhaltungswissen soll nicht nötig sein. Steuerliche Fragen ersetzt EquiBill nicht.</p></details>
+        <details><summary>Wie verwalte ich Pferde, Besitzer und individuelle Preise?</summary><p>Jedes Pferd bekommt ein Profil mit Besitzer und Vereinbarung, zum Beispiel Beritt pro Monat und Training pro Einheit. Diese Preise werden beim Erfassen automatisch vorgeschlagen und bleiben änderbar.</p></details>
+        <details><summary>Wie funktioniert die Monatsabrechnung?</summary><p>Alle Einträge eines Monats werden pro Besitzer zu einer Rechnung zusammengefasst. Du prüfst sie, gibst sie frei und erhältst ein PDF. In der <a class="inline-link" href="#demo">interaktiven Demo</a> kannst du das Prinzip ausprobieren.</p></details>
+        <details><summary>Kann ich Turnierkosten an Besitzer weiterberechnen?</summary><p>Ja, das ist im Tarif Professional und Business geplant: Nenngelder, Transport und Boxenmiete werden pro Start erfasst und beim Monatsabschluss dem Besitzer zugeordnet.</p></details>
+        <details><summary>Welcher Tarif passt zu mir, und kann ich wechseln?</summary><p>Grob: Basic für einen kleinen Bestand bis 5 Pferde, Professional für mehrere Kunden und Turniere, Business für Betriebe mit Team. Die Bedingungen für einen Tarifwechsel sind noch nicht festgelegt.</p></details>
+        <details><summary>Gibt es eine Testphase?</summary><p>Das ist noch nicht entschieden. In dieser Demo kannst du die <a class="inline-link" href="#demo">interaktive Demo</a> ausprobieren.</p></details>
+        <details><summary>Auf welchen Geräten läuft EquiBill Manage?</summary><p>Geplant ist eine webbasierte Software für den Browser auf Computer und Tablet.</p></details>
+        <details><summary>Wie ist der aktuelle Entwicklungsstand?</summary><p>EquiBill ist ein fiktives Unternehmen aus einem Weiterbildungsprojekt. EquiBill Manage ist ein Konzept: Die Abbildungen sind Mockups, die interaktive Demo läuft nur in deinem Browser und speichert nichts. Preise sind Demo-Preise; es gibt keine Bestellung, keine Registrierung und keine Zahlung.</p></details>
+        <details><summary>Gibt es neben der Software noch etwas?</summary><p>Ja, ergänzend gibt es digitale Vorlagen für Turnierplanung, Auftritt und Büro, einzeln erhältlich im <a class="inline-link" href="shop.html">Shop</a>.</p></details>
       </div>
     </section>
 
-    <!-- 7) HINWEIS SHOP: ergänzendes Angebot, bewusst klein -->
-    <section class="sw-more" aria-labelledby="mehr-titel">
-      <span class="label label--accent">Ergänzend</span>
-      <h2 id="mehr-titel">Mehr als Software</h2>
-      <p>Digitale Vorlagen für Turnierplanung, Auftritt und Büro, einzeln erhältlich.</p>
-      <a class="textlink" href="shop.html">Zum Shop</a>
+    <!-- 8) ABSCHLUSS-CTA: zurück zum Produktversprechen und zur Demo -->
+    <section class="swp-closing" aria-labelledby="closing-titel">
+      <figure class="photo swp-closing__photo"><img src="assets/images/fotos/horse-portfolio-stall.jpg" alt="" width="666" height="1000" loading="lazy"><figcaption>Symbolbild · Foto: Oleksii Rozanov / Unsplash</figcaption></figure>
+      <div class="swp-closing__text">
+        <span class="label label--accent">EquiBill Manage</span>
+        <h2 id="closing-titel">Weniger Büro. <em>Mehr Pferd.</em></h2>
+        <p>Probier aus, wie aus einem Eintrag im Stall eine fertige Rechnung wird.</p>
+        <div class="swp-hero__cta">
+          <a class="btn" href="#demo">Interaktive Demo entdecken</a>
+          <a class="textlink" href="#tarife">Tarife ansehen</a>
+        </div>
+      </div>
     </section>
   </main>
 
