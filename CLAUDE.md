@@ -2,7 +2,7 @@
 
 Diese Datei gilt dauerhaft und verbindlich für jede Zusammenarbeit an EquiBill (Claude-Projekt und Claude Code).
 Ausführliche Inhalte: `PROJECT_BRIEFING.md` (Konzept, Entscheidungen) und `ROADMAP.md` (Planung). Bei Widersprüchen gilt diese Datei, danach das Briefing, danach die Roadmap.
-Stand: 26.11.2026 (Produktseiten, Kap. 14); Grundlage 24.11.2026 (Strategische und gestalterische Neuausrichtung, Designentscheidung Atelier; siehe Änderungsvermerk am Ende).
+Stand: 26.11.2026 (Neupositionierung Software-first, Kap. 2, 3, 7; Seitenstruktur Kap. 13, 14); Grundlage 24.11.2026 (Designentscheidung Atelier; siehe Änderungsvermerke am Ende).
 
 ## 1. Rolle
 
@@ -12,17 +12,19 @@ Arbeite nicht nur ausführend, sondern beratend, kritisch und vorausschauend: Id
 ## 2. Ziel und Kontext
 
 - **Langfristig:** Professionelle, skalierbare, potenziell marktfähige digitale Plattform für den professionellen Reitsport (Software-first).
-- **Aktuell:** Projekt der Weiterbildung zur KI-Managerin (DSP Academy, KI-Manager, Baustein 3: KI-gestützte Webentwicklung mit Claude Code). Ergebnis ist ein **fiktives** Unternehmen mit professioneller Website und Demo-Shop (Shop-first). Abschluss der Weiterbildung: März 2027.
-- **Aktuelle Positionierung:** EquiBill wird zunächst als hochwertiger digitaler **Concept Store für den professionellen Reitsport** aufgebaut: Software, digitale Business-Tools, Marketing- und Designprodukte, perspektivisch ergänzende Dienstleistungen.
-- **Claims (vorläufig, Einsatz im neuen Design offen):** Connecting horses, people & business. · Weniger Büro. Mehr Pferd. · Dein Pferdebusiness. Einfach digital.
+- **Aktuell:** Projekt der Weiterbildung zur KI-Managerin (DSP Academy, KI-Manager, Baustein 3: KI-gestützte Webentwicklung mit Claude Code). Ergebnis ist ein **fiktives** Unternehmen mit professioneller Website, Software-Landingpage und Demo-Shop (Software-first). Abschluss der Weiterbildung: März 2027.
+- **Aktuelle Positionierung (Entscheidung 26.11.2026):** EquiBill ist ein **Softwareunternehmen für den professionellen Pferdesport**. Herzstück ist **EquiBill Manage**, eine digitale Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Ergänzend bietet EquiBill digitale Business-Tools sowie Marketing- und Designvorlagen in einem **separaten Onlineshop** an. Die Software ist das Kerngeschäft; der Shop wird visuell und inhaltlich **nicht gleichwertig** behandelt. (Vorher: „Concept Store“ mit Shop im Mittelpunkt, nicht mehr gültig.)
+- **Claims:** „The Business Behind the Sport.“ und „Weniger Büro. Mehr Pferd.“ (beide im Hero, Beschlossen); Markeneinführung: „Du machst den Sport. Wir vereinfachen das Business dahinter.“ Weitere (vorläufig, derzeit nicht eingesetzt): Connecting horses, people & business. · Dein Pferdebusiness. Einfach digital.
 - **Zielgruppe (primär):** selbstständige Berufsreiter, Bereiter, Ausbildungs- und Turnierställe, kleine/mittlere Pferdebetriebe, zunächst Norddeutschland (SH, HH, NI), Fokus Spring- und Ausbildungsreitsport.
 
-## 3. Zwei strategische Ebenen (verbindlich)
+## 3. Strategische Ebenen (verbindlich)
+
+Seit 26.11.2026 gilt **Software-first auf beiden Ebenen** (vorher Shop-first im Weiterbildungsprojekt).
 
 | Ebene | Gilt für | Grundsatz |
 |---|---|---|
-| **Shop-first** | Aktuelles Weiterbildungsprojekt (Website, Demo-Shop) | Der Shop ist früh sichtbar und steht im Mittelpunkt der Startseite. |
-| **Software-first** | Langfristige Produktentwicklung | Die Plattformarchitektur bleibt unverändert; Manage ist das Kernprodukt. |
+| **Software-first (Website)** | Aktuelles Weiterbildungsprojekt (Website, Software-Seite, Demo-Shop) | EquiBill Manage ist der größte und prominenteste Bereich der Startseite und hat eine eigene Landingpage. Der Shop ist ein ergänzendes Angebot auf einer eigenen Seite; auf der Startseite nur als kleiner Teaser. |
+| **Software-first (Produkt)** | Langfristige Produktentwicklung | Die Plattformarchitektur bleibt unverändert; Manage ist das Kernprodukt. |
 
 **Plattformarchitektur (unverändert):**
 
@@ -55,7 +57,8 @@ Alle Preise und Produkte sind **vorläufige Konzeptentscheidungen** und während
 | Equestrian Business Kit | Digitale Business-Vorlagen | 99 € |
 
 - **Produktkategorien:** Software · Business Tools · Marketing & Design.
-- **Software-Tarife:** Basic, Professional und Business bleiben als Teil von EquiBill Manage erhalten, bilden aber nicht mehr den zentralen Inhalt der Startseite. Der Tarifvergleich gehört auf eine spätere Unterseite.
+- **Software-Tarife:** Basic 19 €/Monat, Professional 39 €/Monat, Business 79 €/Monat (Demo-Preise, Leistungsgrenzen laut Briefing Kap. 10.4 sind Demo-Annahmen). Der Tarifvergleich steht auf `software.html`; die Startseite nennt nur „ab 19 €/Monat“.
+- **Gewichtung:** EquiBill Manage ist das Kernprodukt (Software-Seite). Die übrigen fünf Produkte sind ergänzende Shop-Produkte (`shop.html`, Produktseiten in `produkte/`).
 - **Einheitliche Schreibweise:** exakt die Produktnamen der Tabelle; Preise im Format „19 €/Monat“ bzw. „29 €“.
 - Frühere Sortimentsvorschläge (z. B. Turnierkostenrechner, Stallmanagement-Paket) sind **nicht mehr gültig**.
 
@@ -63,7 +66,7 @@ Alle Preise und Produkte sind **vorläufige Konzeptentscheidungen** und während
 
 Die Designrichtung ist entschieden (24.11.2026): **Atelier, Variante A „Maison“** ist der Hauptauftritt. **Variante B „Noir“** (dunkel) wird ergänzend eingesetzt und soll mit A kombiniert werden, z. B. für Unterseiten. Die bisherige Heritage-Modern-Ästhetik und alle früher vorgeschlagenen Farbwelten (inkl. Forest Green/Sage/Sand/Off-White/Charcoal) sind **nicht verbindlich**. Das finale Corporate Design (Logo, Schriften, Feinabstimmung) wird aus dieser Richtung ausgearbeitet.
 
-**Leitidee Atelier:** Der Reitsport-Concept-Store wird wie eine Mode-Kollektion kuratiert („The Equestrian Business Edit“): Produkte nummeriert und einzeln inszeniert, viel Weißraum, ausdrucksstarke Typografie. Eher Maison als Software-Anbieter.
+**Leitidee Atelier:** Editorial wie eine Mode-Kollektion: viel Weißraum, ausdrucksstarke Typografie, Produkte nummeriert und einzeln inszeniert. Seit der Neupositionierung (26.11.2026) inszeniert diese Ästhetik eine **Software-Marke**: EquiBill Manage mit großen Geräte-Mockups im Mittelpunkt, der Shop kuratiert als Ergänzung. Das Design bleibt unverändert; es wirkt bewusst nicht wie eine generische SaaS-Seite.
 
 | Rolle | Variante A „Maison“ (hell, Hauptauftritt) | Variante B „Noir“ (dunkel, Ergänzung) |
 |---|---|---|
@@ -76,9 +79,9 @@ Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kon
 
 - **Typografie:** hochkontrastige Didone (Didot / Bodoni 72) für Display, groß, mit kursivem Gegenspieler; Labels in Helvetica Neue Versalien mit weiter Laufweite (ca. +24 %); Nummern als „N°“. Umsetzung mit lokalen Schriftdateien mit offener Lizenz: Bodoni Moda (statt Didot) und Inter (statt Helvetica Neue), siehe Kap. 13; **keine Google Fonts**. Eine finale Hausschrift ist offen.
 - **Bildsprache:** Mittelformat-Look, Fensterlicht, warme Hauttöne, ruhige Porträts und Details (Hände, Zügel, Leder, Stangen im Streiflicht), Stillleben statt Action; Produkte als Packshots auf farbigen Flächen. **Bildstil (Entscheidung 25.11.2026):** hochwertige **Schwarz-Weiß-Fotografie** (Low-Key, Gegenlicht, Körnung, ruhige, intime Momente, Menschen eher von hinten/angeschnitten); auch Software-/Vorlagenfotos in S/W, Markenfarbe nur als Akzent (z. B. Mockup auf dem Display). **Fotos (Entscheidung 25.11.2026):** echte Fotos mit freier Lizenz (Unsplash-Lizenz, keine Unsplash+-Bilder) als **gekennzeichnete Symbolbilder**; jedes Foto mit Fotograf, Link und Lizenz in `website/assets/images/fotos/BILDNACHWEIS.txt`. Eigene Fotos sind langfristig vorzuziehen.
-- **Layout:** asymmetrisches 12-Spalten-Raster, überlappende Bilder, Headline über Bildkanten, Kategorien als Index-Liste, Produkte im versetzten Lookbook-Raster (kein gleichförmiges Kachelraster). Produktkarten als abgerundete Rahmen-Kacheln (Entscheidung 26.11.2026, inspiriert von landing.love), Name in Serif, Hover: Kachel hebt sich leicht, Bild zoomt sanft. **Sortiment (26.11.2026):** keine Kacheln, sondern Editorial Category Navigation – drei große Serifen-Kategorien 01–03 mit Haarlinien links, rechts eine Bildfläche, die bei Hover/Fokus per Fade wechselt; Handy: Bild bleibt oben stehen, die Kategorie in der Mitte des freien Bereichs steuert das Bild; Links filtern weiterhin den Shop. **Effekte (26.11.2026):** Cinematic Hero (Foto großflächig auf Ink, langsamer Zoom, Headline blendet ein; Akzent auf Dunkel = Blush), Scroll-Reveal, Text Reveal aller Abschnitts-Überschriften Wort für Wort, animierte Beispielrechnung (fiktive Werte) und horizontal laufende Manage-Funktionen (ab 900 px; Handy: wischbar), Magnetic Buttons (nur Maus); alle Effekte entfallen bei „Bewegung reduzieren“ und ohne JavaScript bleibt alles sichtbar.
+- **Layout:** asymmetrisches 12-Spalten-Raster, überlappende Bilder, Headline über Bildkanten, Kategorien als Index-Liste, Produkte im versetzten Lookbook-Raster (kein gleichförmiges Kachelraster). Produktkarten als abgerundete Rahmen-Kacheln (Entscheidung 26.11.2026, inspiriert von landing.love), Name in Serif, Hover: Kachel hebt sich leicht, Bild zoomt sanft. **Sortiment (26.11.2026, seit der Neupositionierung auf `shop.html`, nicht mehr auf der Startseite):** keine Kacheln, sondern Editorial Category Navigation – drei große Serifen-Kategorien 01–03 mit Haarlinien links, rechts eine Bildfläche, die bei Hover/Fokus per Fade wechselt; Handy: Bild bleibt oben stehen, die Kategorie in der Mitte des freien Bereichs steuert das Bild; Links filtern weiterhin den Shop. **Effekte (26.11.2026):** Cinematic Hero (Foto großflächig auf Ink, langsamer Zoom, Headline blendet ein; Akzent auf Dunkel = Blush), Scroll-Reveal, Text Reveal aller Abschnitts-Überschriften Wort für Wort, animierte Beispielrechnung (fiktive Werte) und horizontal laufende Manage-Funktionen (ab 900 px; Handy: wischbar), Magnetic Buttons (nur Maus); alle Effekte entfallen bei „Bewegung reduzieren“ und ohne JavaScript bleibt alles sichtbar.
 - **Wortmarke (Idee):** EQUI—BILL in gesperrten Didone-Versalien, Mittelstrich in Akzentfarbe; Monogramm „EB“.
-- **Hell/Dunkel:** A ist der Standard. B kommt ergänzend zum Einsatz, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush und wirken dadurch verwandt. **Entscheidung 26.11.2026:** Die Produktseiten (`website/produkte/`) sind in Variante B „Noir“ gestaltet, ganze Seite inkl. Kopf und Fuß (`<body class="theme-noir">`). **Offen:** Gestaltung weiterer Unterseiten (Warenkorb, Checkout usw.) und wie der Wechsel aussieht. Nicht innerhalb einer Seite mischen.
+- **Hell/Dunkel:** A ist der Standard. B kommt ergänzend zum Einsatz, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush und wirken dadurch verwandt. **Entscheidung 26.11.2026:** Die Produktseiten (`website/produkte/`) und die Software-Seite (`software.html`) sind in Variante B „Noir“ gestaltet, ganze Seite inkl. Kopf und Fuß (`<body class="theme-noir">`). Startseite und Shop-Seite (`shop.html`) bleiben Variante A „Maison“. **Offen:** Gestaltung weiterer Unterseiten (Warenkorb, Checkout usw.) und wie der Wechsel aussieht. Nicht innerhalb einer Seite mischen.
 - **Referenz (im Archiv):** `_archiv/design-studien/runde-2/studie-2-atelier.html` (Startseite), `_archiv/design-studien/runde-3/atelier-varianten.html` (Varianten A/B/C), `atelier-produkt.html`, `atelier-warenkorb.html` (Entwürfe). Referenz, kein Produktivcode; nicht verändern.
 
 **Die Website vereint:** modern · premium · sportlich · selbstbewusst · editorial · minimalistisch · luftig · emotional · produktorientiert · visuell außergewöhnlich.
@@ -97,24 +100,29 @@ Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kon
 
 ## 7. Website-Umfang und Customer Journey
 
-**Die Startseite wird auf diese acht Bereiche reduziert:**
+**Aufbau der Startseite (Beschlossen 26.11.2026, Software-first, Kopf plus acht Bereiche):**
 
-1. Minimalistischer Header
-2. Emotionaler, hochwertiger Hero-Bereich
-3. Klare Markenbotschaft
-4. Visuelle Produktkategorien
-5. Attraktiver Shopbereich mit hochwertigen Produktkarten und Mockups
-6. EquiBill Manage als Featured Product
-7. Kurzes Markenstatement und Über-uns-Bereich
-8. Footer mit Pflichtangaben und Demo-Hinweis
+1. **Hero:** Cinematic Hero mit „The Business Behind the Sport.“ und „Weniger Büro. Mehr Pferd.“, klar als Software kommuniziert. Primärer CTA „Software entdecken“ (→ `software.html`), sekundärer CTA „Zum Shop“ (→ `shop.html`).
+2. **Markeneinführung:** „Du machst den Sport. Wir vereinfachen das Business dahinter.“ Was EquiBill ist, für wen, welches Problem.
+3. **EquiBill Manage:** größter Bereich; großes Geräte-Mockup, Kundennutzen, animierte Beispielrechnung, horizontal laufende Funktionen, Preis „ab 19 €/Monat“, CTAs „Software entdecken“ und „Tarife vergleichen“.
+4. **So funktioniert’s:** Erfassen → Verwalten → Abrechnen als versetzte Treppe.
+5. **Shop-Teaser „Mehr als Software“:** nur Tournament Planner und Rider Portfolio, kein Filter, keine Beschreibungslisten; CTA „Alle Produkte entdecken“ (→ `shop.html`). Bewusst kleiner als der Manage-Bereich.
+6. **Über EquiBill:** Vision und Zielgruppe, editorial mit Foto.
+7. **FAQ:** kompakt, zu Software und ergänzenden Produkten.
+8. **Abschluss-CTA und Fuß:** erneuter Fokus auf EquiBill Manage; Fuß mit Pflichtangaben (Platzhalter) und Demo-Hinweis.
 
-Der Shop soll frühzeitig sichtbar sein. Ausführliche Funktionsbeschreibungen, Software-Tarifvergleiche und langfristige Plattforminformationen werden bei Bedarf auf **separate Unterseiten** ausgelagert, nicht auf die Startseite.
+Entfallen von der Startseite: eigenständiger Sortimentsbereich, vollständige Produktübersicht mit Filter, Bereich „Vorteile“ (redundant).
 
-**Primäre Customer Journey:** Marke entdecken → Produkte entdecken → Produkt auswählen → Produktdetails → Warenkorb → Demo-Checkout.
+**Unterseiten und Navigation:** Kopf: Software · Shop · Über uns · FAQ · Warenkorb (eigenständig, rechts).
+- `software.html` – Landingpage EquiBill Manage: Funktionen, Demo (Beispielrechnung), Anwendungsbeispiele (fiktiv, keine Kundenstimmen), Tarifvergleich, technische Daten, Warenkorb-Schaltfläche. Ersetzt die frühere Produktseite `produkte/equibill-manage.html` (archiviert).
+- `shop.html` – alle Produkte, Kategorien (Editorial Category Navigation), Filter; Produktdetailseiten in `produkte/`.
+- Über uns und FAQ zunächst als Anker auf der Startseite.
 
-Die frühere Journey „Berufsreiter → Manage → Shop → Connect → Discover“ beschreibt die langfristige Produktentwicklung, nicht die aktuelle Startseite.
+**Customer Journeys:**
+- **Primär (Software):** Marke entdecken → Software verstehen (Startseite) → Software-Seite: Funktionen, Demo, Tarife → Warenkorb → Demo-Checkout.
+- **Ergänzend (Shop):** Shop-Teaser oder Navigation → Shop → Produktdetails → Warenkorb → Demo-Checkout.
 
-CTA-Texte und Navigationspunkte sind noch offen und werden shop-orientiert neu festgelegt; die früheren CTAs („Jetzt starten“, „Software entdecken“) sind nicht mehr verbindlich.
+Die langfristige Journey „Berufsreiter → Manage → Shop → Connect → Discover“ betrifft die Produktentwicklung, nicht die Website.
 
 ## 8. Arbeitsweise
 
@@ -184,9 +192,11 @@ Die aktuelle Startseite liegt als professionelle Projektstruktur direkt in `webs
 ```
 website/
 ├─ index.html        Startseite: Struktur und Inhalte (semantisches HTML, Texte)
-├─ produkte/         eine Seite je Produkt (z. B. tournament-planner.html), siehe Kap. 14
+├─ software.html     Landingpage EquiBill Manage (Noir)
+├─ shop.html         Shop: Kategorien, Filter, alle Produkte (Maison)
+├─ produkte/         eine Seite je Shop-Produkt (z. B. tournament-planner.html), siehe Kap. 14
 ├─ css/style.css     vollständiges Styling inkl. @font-face (Atelier A „Maison“, B „Noir“ über .theme-noir)
-├─ js/app.js         Interaktion: mobiles Menü, Shop-Filter, Demo-Warenkorb-Zähler
+├─ js/app.js         Interaktion für alle Seiten: Menü, Shop-Filter (auch per ?kategorie=…), Warenkorb-Zähler, Effekte
 ├─ fonts/            lokale Schriften (.woff2) + LIZENZ.txt (Name, Quelle, Lizenz)
 └─ assets/
    └─ images/        Körnungs-Textur, Pfeil-Symbol, Favicon
@@ -207,14 +217,14 @@ Regeln:
 
 Seit dem 26.11.2026 hat die Website neben der Startseite eigene Unterseiten. Es gibt kein Template-System; jede Seite ist eine vollständige, statische HTML-Datei.
 
-- **Ordner und Dateinamen:** ein Ordner je Seitentyp (`produkte/`, später z. B. `warenkorb/`); Dateinamen klein, Wörter mit Bindestrich, keine Umlaute oder Leerzeichen (`equestrian-business-kit.html`). Produktseite = Produktname aus Kap. 5 in dieser Schreibweise.
+- **Ordner und Dateinamen:** Hauptseiten direkt in `website/` (`index.html`, `software.html`, `shop.html`); gleichartige Seiten in einem Ordner je Seitentyp (`produkte/`, später z. B. `warenkorb/`). Dateinamen klein, Wörter mit Bindestrich, keine Umlaute oder Leerzeichen (`equestrian-business-kit.html`). Produktseite = Produktname aus Kap. 5 in dieser Schreibweise; EquiBill Manage hat statt einer Produktseite `software.html`.
 - **Eine Gestaltung, eine Logik:** alle Seiten binden dieselbe `css/style.css` und `js/app.js` ein, keine seitenspezifischen CSS- oder JS-Dateien, keine Inline-Styles oder -Skripte. Neue Bausteine bekommen einen eigenen, kommentierten Abschnitt in `style.css`.
 - **Relative Pfade je Ebene:** Unterseiten eine Ebene tiefer verwenden `../` (`../css/style.css`, `../js/app.js`, `../assets/images/…`). Seiten müssen per Doppelklick und über localhost funktionieren.
-- **Kopf, Menü und Fuß identisch** zur Startseite (gleiche Punkte, gleiche Reihenfolge, gleicher Demo-Hinweis). Anker der Startseite werden auf Unterseiten zu `../index.html#shop` usw.; Logo und Wortmarke führen zu `../index.html`. **Jede Änderung an Kopf oder Fuß in allen Seiten nachziehen** und per Suche prüfen.
-- **Produktdaten fest im HTML**, keine Datendatei und kein Nachladen per JavaScript. Name, Preis und Kategorie müssen auf Startseite, Produktseite und in Kap. 5 übereinstimmen (vor jeder Abgabe abgleichen).
+- **Kopf, Menü und Fuß identisch** zur Startseite (gleiche Punkte, gleiche Reihenfolge, gleicher Demo-Hinweis). Anker der Startseite werden auf anderen Seiten zu `index.html#ueber-uns` bzw. `../index.html#ueber-uns`; Logo und Wortmarke führen zur Startseite. Weg zurück von Produktseiten: Brotkrumen und „Zurück zur Übersicht“ → `../shop.html`. **Jede Änderung an Kopf oder Fuß in allen Seiten nachziehen** und per Suche prüfen.
+- **Produktdaten fest im HTML**, keine Datendatei und kein Nachladen per JavaScript. Name, Preis und Kategorie müssen auf Startseite, Software-Seite, Shop, Produktseite und in Kap. 5 übereinstimmen (vor jeder Abgabe abgleichen). Zwischen Betrag und €-Zeichen steht ein geschütztes Leerzeichen (`19&nbsp;€`), damit nichts umbricht.
 - **Pflichtinhalte jeder Produktseite:** Bild mit Alternativtext und Kennzeichnung „Symbolbild“, Name als einziges `<h1>`, kurze Beschreibung, Preis mit „inkl. MwSt., zzgl. Versand“ und „Demo-Preis“, Versandkosten (digitale Produkte: 0 €, kein Versand), Schaltfläche „In den Warenkorb“ (noch ohne Funktion), Demo-Hinweis nahe Preis, Beschreibung, technische Daten (als „Vorläufige Konzeptangaben“ gekennzeichnet), Brotkrumen und Link „Zurück zur Übersicht“.
 - **Jede Seite** hat einen eigenen `<title>` („Produktname – EquiBill (Demo)“) und eine eigene `meta description`.
-- **JavaScript seitenübergreifend:** jeder Teil von `app.js` prüft, ob seine Elemente auf der Seite vorhanden sind, und läuft sonst fehlerfrei weiter. Der Shop-Filter wirkt nur auf der Startseite (auf Unterseiten ohne `data-filter`).
+- **JavaScript seitenübergreifend:** jeder Teil von `app.js` prüft, ob seine Elemente auf der Seite vorhanden sind, und läuft sonst fehlerfrei weiter. Der Shop-Filter wirkt nur auf `shop.html`; andere Seiten verlinken gefiltert mit `shop.html?kategorie=tools#produkte` (Werte: `software`, `tools`, `design`).
 - **Hell/Dunkel:** Variante je ganzer Seite über eine Klasse am `<body>` (`theme-noir`), nie einzelne Abschnitte umfärben.
 - **Prüfung bei neuen Seiten:** alle Links (hin und zurück), Konsole ohne Fehler, kein horizontales Scrollen bei 320/390/768/1440 px, Kontraste der jeweiligen Variante.
 
@@ -257,3 +267,11 @@ Seit dem 26.11.2026 hat die Website neben der Startseite eigene Unterseiten. Es 
 - Neu: `style.css` Abschnitte 14 (Noir) und 15 (Produktseite); Zusatzfarben Wine und Smoke als Variablen.
 - Vorläufig: technische Daten der Produkte sind Konzeptangaben (Briefing Kap. 19, Produktform offen).
 - Sicherung: `_archiv/_archiv_2026-11-26_vor-produktseiten/` (CLAUDE.md, `website/index.html`, `website/css/style.css`).
+
+## Änderungsvermerk (26.11.2026, Neupositionierung Software-first)
+
+- Geändert: Positionierung von „Concept Store“ (Shop-first) zu **Softwareunternehmen** (Software-first) auch im Weiterbildungsprojekt; Kap. 2, 3, 5 und 6 (Leitidee, Sortiment, Hell/Dunkel) angepasst. Design, Typografie, Farben, Bildsprache und Logoanimation unverändert.
+- Neu: Startseitenaufbau mit acht Bereichen (Kap. 7), Unterseiten `software.html` (Noir) und `shop.html` (Maison), Navigation Software · Shop · Über uns · FAQ · Warenkorb, zwei Customer Journeys.
+- Entfallen: Sortimentsbereich, vollständige Produktübersicht und „Vorteile“ auf der Startseite; Produktseite `produkte/equibill-manage.html` (in `software.html` aufgegangen).
+- Erledigt: offene Frage „acht oder neun Startseitenbereiche“ (jetzt acht Bereiche nach Kopf). `STARTSEITE_Informationsarchitektur_und_Texte.md` beschreibt den früheren Stand.
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-software-first/` (CLAUDE.md, PROJECT_BRIEFING.md, ROADMAP.md, `website/index.html`, `css/style.css`, `js/app.js`, `produkte/equibill-manage.html`); außerdem Git-Commit 3edddc3.

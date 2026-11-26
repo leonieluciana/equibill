@@ -13,15 +13,15 @@
 <body class="theme-noir">
   <a class="skip" href="#inhalt">Zum Inhalt springen</a>
 
-  <!-- 1) HEADER: Shop-Navigation (Texte vorläufig) -->
+  <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="../index.html#shop">Shop</a><a href="../index.html#manage">EquiBill Manage</a><a href="../index.html#vorteile">Vorteile</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
+      <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="../index.html#shop">Shop</a><a href="../index.html#manage">EquiBill Manage</a><a href="../index.html#vorteile">Vorteile</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
+        <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -50,11 +50,10 @@
     <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
-
   <main id="inhalt">
     <!-- Brotkrumen: Weg zurück zur Übersicht -->
     <nav class="breadcrumb label" aria-label="Brotkrumen">
-      <ol><li><a href="../index.html#shop">Shop</a></li><li aria-current="page">Social Media Kit</li></ol>
+      <ol><li><a href="../shop.html">Shop</a></li><li aria-current="page">Social Media Kit</li></ol>
     </nav>
 
     <!-- Produktbereich: Bild + Name, Kurzbeschreibung, Preis, Versand, Warenkorb -->
@@ -69,9 +68,9 @@
         <h1 class="pdp__title" id="produkt-titel">Social Media Kit</h1>
         <p class="pdp__lead">Designvorlagen für den Social-Media-Auftritt von Reitern.</p>
         <div class="pdp__buy">
-          <p class="pdp__price"><span class="sr-only">Demo-Preis </span>39 €</p>
+          <p class="pdp__price"><span class="sr-only">Demo-Preis </span>39&nbsp;€</p>
           <p class="pdp__tax">inkl. MwSt., zzgl. Versand · Demo-Preis</p>
-          <p class="pdp__shipping"><b>Versandkosten:</b> 0 € · digitale Lieferung per Download, kein Versand</p>
+          <p class="pdp__shipping"><b>Versandkosten:</b> 0&nbsp;€ · digitale Lieferung per Download, kein Versand</p>
           <!-- Schaltfläche bewusst noch ohne Funktion (kein data-add); Warenkorb folgt -->
           <button class="btn" type="button" aria-describedby="kauf-hinweis">In den Warenkorb</button>
           <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung. Die Warenkorb-Funktion folgt.</p>
@@ -103,16 +102,16 @@
       </div>
     </section>
 
-    <p class="pdp-back"><a class="textlink" href="../index.html#shop">Zurück zur Übersicht</a></p>
+    <p class="pdp-back"><a class="textlink" href="../shop.html">Zurück zur Übersicht</a></p>
   </main>
 
-  <!-- 9) FOOTER: Navigation, Platzhalter für Pflichtangaben, Demo-Hinweis -->
+  <!-- FUSS: identisch auf allen Seiten; Pflichtangaben als Platzhalter, Demo-Hinweis -->
   <footer class="site-footer">
     <a class="wordmark" href="../index.html" aria-label="EquiBill, zur Startseite">Equi<i></i>Bill</a>
     <div class="site-footer__cols label">
-      <div><h2>Shop</h2><ul><li><a href="../index.html#shop">Software</a></li><li><a href="../index.html#shop">Business Tools</a></li><li><a href="../index.html#shop">Marketing &amp; Design</a></li></ul></div>
-      <div><h2>EquiBill</h2><ul><li><a href="../index.html#ueber-uns">Über uns</a></li><li><a href="../index.html#vorteile">Vorteile</a></li><li><a href="../index.html#faq">FAQ</a></li></ul></div>
-      <div><h2>Rechtliches</h2><ul><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
+      <div><h2>Software</h2><ul><li><a href="../software.html">EquiBill Manage</a></li><li><a href="../software.html#funktionen">Funktionen</a></li><li><a href="../software.html#tarife">Tarife</a></li></ul></div>
+      <div><h2>Shop</h2><ul><li><a href="../shop.html">Alle Produkte</a></li><li><a href="../shop.html?kategorie=tools#produkte">Business Tools</a></li><li><a href="../shop.html?kategorie=design#produkte">Marketing &amp; Design</a></li></ul></div>
+      <div><h2>EquiBill</h2><ul><li><a href="../index.html#ueber-uns">Über uns</a></li><li><a href="../index.html#faq">FAQ</a></li><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
       <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
     </div>
     <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="../assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>

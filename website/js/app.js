@@ -1,5 +1,6 @@
-/* EquiBill Startseite – kleine Demo-Logik (kein Backend, keine Datenspeicherung)
+/* EquiBill – kleine Demo-Logik für alle Seiten (kein Backend, keine Datenspeicherung)
    1) Mobiles Menü   2) Kategorie-Filter im Shop   3) Demo-Warenkorb-Zähler mit Rückmeldung
+   Jeder Teil prüft, ob seine Elemente auf der aktuellen Seite vorkommen.
    Ohne JavaScript bleibt alles nutzbar: das Menü ist ein <details>-Element,
    alle Produkte sind sichtbar. */
 (function () {
@@ -66,6 +67,9 @@
   document.querySelectorAll('a[data-filter]').forEach(function (a) {
     a.addEventListener('click', function () { applyFilter(a.getAttribute('data-filter')); });
   });
+  // Links von anderen Seiten (z. B. Fuß: shop.html?kategorie=tools) öffnen den Shop gefiltert
+  var startCategory = new URLSearchParams(window.location.search).get('kategorie');
+  if (products.length && /^(software|tools|design)$/.test(startCategory || '')) { applyFilter(startCategory); }
 
   document.querySelectorAll('[data-add]').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -91,7 +95,8 @@
      Die Klasse „reveal“ setzt erst JavaScript; ohne JS bleibt alles sichtbar. */
   if (!reduceMotion && 'IntersectionObserver' in window) {
     var revealTargets = document.querySelectorAll(
-      '.hero__values li, .section-head p, .catnav__item, .product, .manage__intro, .manage__stage, .benefit, .about__photo, .about p, .faq__list details'
+      '.section-head p, .intro__body, .catnav__item, .product, .manage__intro, .manage__device, .manage__benefit, .manage__stage, ' +
+      '.step, .teaser__item, .about__photo, .about p, .faq__list details, .sw-hero__device, .feature-list li, .example, .tarif'
     );
     // Geschwister in einer Reihe nacheinander einblenden (gestaffelt, max. 4 Stufen)
     revealTargets.forEach(function (el) {

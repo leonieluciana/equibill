@@ -27,7 +27,8 @@
 /* 1) Design-Variablen ---------------------------------------------------- */
 :root{
   --ivory:#F3EFE8; --ink:#151213; --ox:#6E1423; --blush:#E9C9C0; --stone:#BDB5AB;
-  --wine:#5B1A24; --smoke:#3A3231;  /* Zusatzfarben Variante B „Noir“ (Produktseiten) */
+  --wine:#5B1A24; --smoke:#3A3231;
+  --line:rgba(21,18,19,.16); --accent:var(--ox);  /* Haarlinien und Akzent; in .theme-noir umgestellt */  /* Zusatzfarben Variante B „Noir“ (Produktseiten) */
   --serif:"Bodoni Moda",Didot,"Bodoni 72","Bodoni MT","Times New Roman",serif;
   --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
   --pad:clamp(18px,4vw,56px);
@@ -150,10 +151,6 @@ a{color:inherit;text-decoration:none}
 .hero__cta .textlink{color:var(--ivory)}
 .hero__audience{margin:30px 0 0;opacity:.75}
 .hero__stage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Dunkel sichtbar halten */
-.hero__values{list-style:none;margin:0 var(--pad);padding:0;display:grid;border-top:1px solid var(--ink)}
-.hero__values li{padding:20px 0;border-bottom:1px solid rgba(21,18,19,.22)}
-.hero__values b{display:block;font:italic 400 28px/1 var(--serif);margin-bottom:6px}
-.hero__values span{opacity:.75}
 @media(min-width:900px){
   /* Desktop: Hochformat-Foto rechts in voller Höhe, links Tiefschwarz für den Text;
      ein Verlauf lässt Foto und Schwarz weich ineinanderlaufen (keine harte Kante). */
@@ -163,8 +160,6 @@ a{color:inherit;text-decoration:none}
   .hero__stage{align-items:center}
   .hero__photo figcaption{top:auto;bottom:12px}
   .hero h1{font-size:clamp(70px,7.6vw,122px)}
-  .hero__values{grid-template-columns:repeat(3,1fr);gap:0 24px;margin-top:clamp(40px,5vw,70px);border-bottom:1px solid rgba(21,18,19,.22)}
-  .hero__values li{border-bottom:none;padding:24px 0 28px}
 }
 /* Einstieg: Foto zoomt beim Laden ganz langsam heraus (Ken-Burns), Texte blenden nacheinander ein */
 .hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both}
@@ -178,7 +173,7 @@ a{color:inherit;text-decoration:none}
 @keyframes hero-kenburns{from{scale:1.12}to{scale:1}}
 @keyframes hero-in{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 
-/* 6) Sortiment: Editorial Category Navigation ------------------------------------
+/* 6) Sortiment (shop.html): Editorial Category Navigation ------------------------------------
    Links drei große Serifen-Kategorien (01–03) mit Haarlinien, rechts eine Bildfläche.
    js/app.js setzt .is-active (aktive Kategorie + Bild) und .is-engaged (Liste wird benutzt). */
 .catnav{display:grid;gap:28px}
@@ -314,7 +309,7 @@ a{color:inherit;text-decoration:none}
 .manage__price{font:400 clamp(34px,4vw,48px)/1 var(--serif);margin:0 0 6px}
 .manage__price small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-left:10px;opacity:.85}
 .manage__tarife{margin:0 0 24px;opacity:.85;font-size:14.5px}
-@media(min-width:900px){.manage{grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,80px)}.manage__scroller{grid-column:1/-1}}
+@media(min-width:900px){.manage{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(48px,6vw,100px) clamp(30px,5vw,80px)}.manage__scroller{grid-column:1/-1}}
 
 /* Animierte Rechnung (Produkt-Demo) ------------------------------------------------ */
 .manage__stage{background:var(--blush);border-radius:22px;padding:clamp(20px,4vw,48px);max-width:560px;width:100%;justify-self:center;color:var(--ink)}
@@ -355,18 +350,88 @@ a{color:inherit;text-decoration:none}
 .manage__scroller.is-hscroll .manage__features li{flex:0 0 clamp(340px,38vw,560px);min-height:min(56vh,440px);padding:40px 38px}
 
 
-/* 9) Vorteile ----------------------------------------------------------------------------- */
-.benefits__grid{display:grid;border-top:1px solid var(--ink)}
-.benefit{padding:26px 0 30px;border-bottom:1px solid rgba(21,18,19,.22)}
-.benefit .label{color:var(--ox)}
-.benefit h3{margin:10px 0 12px;font:italic 400 clamp(30px,3.2vw,42px)/1.05 var(--serif);letter-spacing:-.02em}
-.benefit p{margin:0 0 18px;max-width:40ch;opacity:.85}
-.benefit ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
-.benefit li{border:1px solid rgba(21,18,19,.35);border-radius:99px;padding:6px 11px;font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
-@media(min-width:860px){
-  .benefits__grid{grid-template-columns:repeat(3,1fr);gap:0 clamp(24px,4vw,56px)}
-  .benefit{border-bottom:none;padding-top:30px}
+/* 9) Startseite Software-first: Manage-Ergänzungen, Markeneinführung, Ablauf, Shop-Teaser, Abschluss
+   Reihenfolge der Flächen: Hero (Ink) → Einführung (Ivory) → Manage (Oxblood) → Ablauf (Sand)
+   → Teaser (Ivory) → Über uns (Sand) → FAQ (Ivory) → Abschluss (Blush). */
+
+/* Manage: CTA, großes Geräte-Mockup, Kundennutzen */
+.manage__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
+.manage__cta .textlink{color:var(--ivory)}
+.manage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Oxblood sichtbar halten */
+.manage__device,.sw-hero__device{position:relative;margin:0;aspect-ratio:1000/666;overflow:hidden;border-radius:14px;container-type:size;box-shadow:0 40px 80px -40px rgba(21,18,19,.7)}
+.manage__device figcaption,.sw-hero__device figcaption{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);color:var(--ink);padding:4px 6px}
+.manage__benefit h3{margin:12px 0 24px;font:italic 400 clamp(32px,3.6vw,50px)/1.02 var(--serif);letter-spacing:-.02em;max-width:16ch}
+.manage__gains{list-style:none;margin:0;padding:0;border-top:1px solid rgba(243,239,232,.4)}
+.manage__gains li{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid rgba(243,239,232,.25)}
+.manage__gains b{font:500 16px/1.3 var(--sans)}
+.manage__gains span{opacity:.88;font-size:15px;max-width:44ch}
+/* Desktop: Mockup läuft bis an den rechten Rand (Anschnitt wie im Editorial-Layout) */
+@media(min-width:900px){
+  .manage__device{margin-right:calc(var(--pad) * -1);border-radius:14px 0 0 14px}
 }
+
+/* Markeneinführung: großes Statement links, Text rechts unten */
+.intro{display:grid;gap:clamp(24px,4vw,60px)}
+.intro__head{margin:0;max-width:none}
+.intro__body{max-width:56ch}
+.intro__body p{margin:0 0 14px;opacity:.85}
+.intro__body .intro__lead{margin:0 0 20px;font:400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
+.intro__audience{list-style:none;margin:28px 0 0;padding:20px 0 0;border-top:1px solid var(--ink);display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--ox)}
+@media(min-width:900px){.intro{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end}}
+
+/* So funktioniert's: drei Schritte als versetzte Treppe (Desktop), Liste mit Haarlinien (Handy) */
+.steps{background:#ebe5db}
+.steps__list{list-style:none;margin:0;padding:0;display:grid}
+.step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 22px;padding:28px 0 30px;border-top:1px solid var(--ink)}
+.step__num{grid-row:span 2;font:italic 400 clamp(56px,8vw,120px)/.8 var(--serif);color:var(--ox)}
+.step h3{margin:0;font:400 clamp(30px,3.4vw,48px)/1 var(--serif);letter-spacing:-.02em}
+.step p{margin:0;max-width:34ch;opacity:.85}
+.steps__note{margin:30px 0 0;opacity:.7}
+@media(min-width:900px){
+  .steps__list{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
+  .step{grid-template-columns:1fr}
+  .step__num{grid-row:auto;margin-bottom:22px}
+  .step:nth-child(2){margin-top:clamp(60px,7vw,110px)}
+  .step:nth-child(3){margin-top:clamp(120px,14vw,220px)}
+}
+
+/* Shop-Teaser: zwei Produkte, asymmetrisch versetzt (kein Kachelraster) */
+.teaser__grid{display:grid;gap:48px}
+.teaser__item{display:grid;gap:10px;align-content:start}
+.teaser__img{position:relative;display:block;overflow:hidden;border-radius:14px;aspect-ratio:4/3;background:var(--plate-tools)}
+.teaser__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.teaser__item:hover .teaser__img img{scale:1.05}
+.teaser__meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:10px 0 0}
+.teaser__price{font:400 24px/1 var(--serif);white-space:nowrap}
+.teaser__price small{font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.65}
+.teaser__item h3{margin:0;font:400 clamp(30px,3.4vw,46px)/1 var(--serif);letter-spacing:-.02em}
+.teaser__item>p:last-child{margin:0;opacity:.8;max-width:40ch}
+.teaser__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:clamp(40px,5vw,70px)}
+.teaser__cta p{margin:0;opacity:.7}
+/* Desktop: Überschrift und CTA links (4 Spalten), zwei kleinere Produkte rechts (8 Spalten), zweites versetzt.
+   Bewusst kleiner als der Manage-Bereich: der Shop ist Ergänzung, nicht Hauptangebot. */
+@media(min-width:900px){
+  .teaser{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);grid-template-rows:auto 1fr;gap:0 clamp(40px,6vw,100px)}
+  .teaser .section-head{grid-column:1;grid-row:1}
+  .teaser__cta{grid-column:1;grid-row:2;align-self:end;margin-top:30px}
+  .teaser__grid{grid-column:2;grid-row:1 / span 2;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
+  .teaser__item:nth-child(2){margin-top:clamp(60px,8vw,140px)}
+  .teaser__item:nth-child(2) .teaser__img{aspect-ratio:4/5}
+}
+
+/* Über uns: Vision als Zitatzeile */
+.about .about__vision{font:italic 400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
+
+/* Abschluss-CTA: Blush-Fläche (Ink auf Blush 12,04:1, Oxblood auf Blush ca. 10:1) */
+.closing{background:var(--blush);color:var(--ink);text-align:center;padding:clamp(80px,11vw,160px) var(--pad);display:grid;justify-items:center;gap:18px}
+.closing .label{color:var(--ox)}
+.closing h2{margin:0;font:400 clamp(48px,8vw,120px)/.95 var(--serif);letter-spacing:-.035em}
+.closing h2 em{color:var(--ox)}
+.closing p{margin:0;max-width:44ch}
+.closing .btn{margin-top:10px}
+/* Link im Fließtext (z. B. FAQ) */
+.inline-link{border-bottom:1px solid currentColor}
+.inline-link:hover{color:var(--accent)}
 
 /* 10) Über EquiBill --------------------------------------------------------------------------- */
 .about{display:grid;gap:30px;align-items:center;background:#ebe5db}
@@ -468,7 +533,7 @@ a{color:inherit;text-decoration:none}
    Gilt nur für Seiten mit <body class="theme-noir"> (aktuell: Produktseiten in produkte/).
    Immer die ganze Seite, nie einzelne Abschnitte (Hell und Dunkel nicht innerhalb einer Seite mischen).
    Farben: Fläche Ink, Text Ivory (16,25:1), Akzent Blush (12,04:1 auf Ink); Linien in Smoke. */
-.theme-noir{background:var(--ink);color:var(--ivory)}
+.theme-noir{background:var(--ink);color:var(--ivory);--line:var(--smoke);--accent:var(--blush)}
 .theme-noir :focus-visible{outline-color:var(--blush)}
 .theme-noir .label--accent{color:var(--blush)}
 .theme-noir .skip{background:var(--ivory);color:var(--ink)}
@@ -491,7 +556,7 @@ a{color:inherit;text-decoration:none}
 .breadcrumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 10px;opacity:.75}
 .breadcrumb li+li::before{content:"/";margin-right:10px;opacity:.6}
 .breadcrumb a{border-bottom:1px solid currentColor}
-.breadcrumb a:hover{color:var(--blush)}
+.breadcrumb a:hover{color:var(--accent)}
 .pdp{display:grid;gap:30px;padding:22px var(--pad) clamp(50px,7vw,100px)}
 .pdp>*{min-width:0}
 .pdp__media{position:relative;margin:0}
@@ -530,7 +595,77 @@ a{color:inherit;text-decoration:none}
   .pdp-details{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,100px)}
 }
 
-/* 16) Sehr schmale Smartphones (< 360 px): Header und Footer verhindern horizontales Scrollen */
+/* 16) Unterseiten: Seitenkopf (Shop) und Software-Seite (software.html, Noir) ---------------------
+   Farben über --line und --accent, damit dieselben Bausteine hell und dunkel funktionieren. */
+.page-head{padding:clamp(30px,5vw,70px) var(--pad) 0;max-width:1100px}
+.page-head__title{margin:12px 0 0;font:400 clamp(56px,10vw,150px)/.9 var(--serif);letter-spacing:-.04em}
+.page-head__title em{color:var(--accent)}
+.page-head__lead{margin:24px 0 0;max-width:52ch;font-size:18px;opacity:.85}
+
+.sw-hero{display:grid;gap:40px;padding:22px var(--pad) clamp(60px,8vw,120px)}
+.sw-hero>*{min-width:0}
+.sw-hero__text{display:flex;flex-direction:column;gap:18px}
+.sw-hero__title{margin:0;font:400 clamp(56px,9vw,140px)/.9 var(--serif);letter-spacing:-.04em}
+.sw-hero__title em{color:var(--accent)}
+.sw-hero__claim{margin:0;font:italic 400 clamp(24px,3vw,34px)/1.15 var(--serif)}
+.sw-hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:10px}
+.sw-hero .pdp__buy .btn{margin-top:0}
+@media(min-width:1000px){
+  .sw-hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center}
+  .sw-hero__device{margin-right:calc(var(--pad) * -1);border-radius:14px 0 0 14px}
+}
+
+/* Funktionen als Index-Liste mit Haarlinien */
+.feature-list{list-style:none;margin:0;padding:0;border-top:1px solid currentColor}
+.feature-list li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px clamp(16px,3vw,44px);padding:clamp(22px,3vw,36px) 0;border-bottom:1px solid var(--line)}
+.feature-list__num{grid-row:span 2;padding-top:.7em;font:500 11px/1 var(--sans);letter-spacing:.2em;color:var(--accent)}
+.feature-list h3{margin:0;font:400 clamp(32px,4.6vw,68px)/1 var(--serif);letter-spacing:-.03em}
+.feature-list p{margin:0;max-width:52ch;opacity:.85}
+.feature-list__tag{display:inline-block;vertical-align:middle;margin-left:10px;border:1px solid currentColor;border-radius:99px;padding:5px 9px;font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+@media(min-width:900px){
+  .feature-list li{grid-template-columns:70px minmax(0,6fr) minmax(0,5fr);align-items:baseline}
+  .feature-list__num{grid-row:auto}
+}
+
+/* Demo: Text links, animierte Rechnung rechts */
+.sw-demo{display:grid;gap:36px;align-items:center;border-top:1px solid var(--line)}
+.sw-demo>*{min-width:0}
+.sw-demo h2{margin:10px 0 20px;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif);letter-spacing:-.02em}
+.sw-demo p{margin:0 0 14px;max-width:46ch;opacity:.88}
+@media(min-width:900px){.sw-demo{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,100px)}}
+
+/* Anwendungsbeispiele: drei Spalten mit senkrechten Haarlinien (keine Kacheln) */
+.examples{display:grid;border-top:1px solid currentColor}
+.example{padding:26px 0 30px;border-bottom:1px solid var(--line)}
+.example__tag{color:var(--accent)}
+.example h3{margin:12px 0;font:italic 400 clamp(28px,3vw,40px)/1.05 var(--serif)}
+.example p{margin:0;max-width:40ch;opacity:.85}
+@media(min-width:900px){
+  .examples{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .example{padding:30px clamp(20px,3vw,40px);border-bottom:none;border-left:1px solid var(--line)}
+  .example:first-child{padding-left:0;border-left:none}
+}
+
+/* Tarifvergleich: drei Spalten, Professional hervorgehoben */
+.tarife{display:grid;gap:20px}
+.tarif{border:1px solid var(--line);border-radius:22px;padding:clamp(24px,3vw,36px);display:grid;gap:10px;align-content:start}
+.tarif--focus{border-color:var(--accent)}
+.tarif h3{margin:0;font:italic 400 clamp(32px,3.4vw,46px)/1 var(--serif)}
+.tarif__price{margin:6px 0 0;font:400 clamp(40px,4.4vw,56px)/1 var(--serif)}
+.tarif__price small{margin-left:8px;font:500 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.tarif__for{margin:0;opacity:.8;font-size:15px}
+.tarif__list{list-style:none;margin:14px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:8px;font-size:15px}
+.tarif__list li{position:relative;padding-left:18px}
+.tarif__list li::before{content:"";position:absolute;left:0;top:.75em;width:8px;height:1px;background:var(--accent)}
+.tarif__list em{opacity:.75}
+@media(min-width:900px){.tarife{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Hinweis auf den Shop am Seitenende: bewusst klein gehalten */
+.sw-more{padding:clamp(60px,8vw,110px) var(--pad);border-top:1px solid var(--line);display:grid;gap:14px;justify-items:start}
+.sw-more h2{margin:0;font:italic 400 clamp(40px,5vw,72px)/1 var(--serif);letter-spacing:-.02em}
+.sw-more p{margin:0;max-width:44ch;opacity:.85}
+
+/* 17) Sehr schmale Smartphones (< 360 px): Header und Footer verhindern horizontales Scrollen */
 @media(max-width:359px){
   .site-header{gap:8px}
   .wordmark{font-size:15px;letter-spacing:.1em}

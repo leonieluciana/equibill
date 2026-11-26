@@ -5,7 +5,7 @@
 
 > Dieses Dokument ist die zentrale Wissensgrundlage für das Projekt EquiBill (Geschäftskonzept, Anforderungen, Entscheidungen).
 > Verbindliche Arbeitsregeln stehen in `CLAUDE.md`, die priorisierte Planung in `ROADMAP.md`.
-> Stand: 24.11.2026 (strategische und gestalterische Neuausrichtung, siehe Änderungsvermerk am Ende).
+> Stand: 26.11.2026 (Neupositionierung Software-first, Website-Architektur; siehe Änderungsvermerke am Ende).
 > **Wichtig:** Im Rahmen der Weiterbildung ist EquiBill ein **fiktives Unternehmen** mit fiktiven Angeboten, Preisen, Profilen und Kundendaten.
 
 ## Statuslegende
@@ -28,11 +28,11 @@
 | Projektname | EquiBill *(Arbeitsname, Beschlossen für die Weiterbildung; finaler Name Offen)* |
 | Arbeitstitel | The Equestrian Business Platform |
 | Übergeordneter Claim | Connecting horses, people & business. *(Vorläufig)* |
-| Produktclaim (Manage) | Weniger Büro. Mehr Pferd. *(Vorläufig)* |
+| Website-Claims | The Business Behind the Sport. · Weniger Büro. Mehr Pferd. *(im Hero eingesetzt)* · Du machst den Sport. Wir vereinfachen das Business dahinter. *(Markeneinführung)* |
 | Alternative Headline | Dein Pferdebusiness. Einfach digital. *(Vorläufig)* |
 | Branche | Reitsport, Digitalisierung, Software, digitale Produkte, Plattformökonomie |
-| Aktuelle Positionierung | Hochwertiger digitaler **Concept Store für den professionellen Reitsport** *(Beschlossen für die Weiterbildung)* |
-| Strategischer Ansatz | **Shop-first** im Weiterbildungsprojekt, **Software-first** in der langfristigen Produktentwicklung *(Beschlossen)* |
+| Aktuelle Positionierung | **Softwareunternehmen für den professionellen Pferdesport**: Kernprodukt EquiBill Manage, ergänzend ein separater Onlineshop mit digitalen Business-Tools sowie Marketing- und Designvorlagen *(Beschlossen 26.11.2026; vorher „Concept Store“)* |
+| Strategischer Ansatz | **Software-first** im Weiterbildungsprojekt und in der langfristigen Produktentwicklung *(Beschlossen 26.11.2026; vorher Shop-first im Weiterbildungsprojekt)* |
 | Geschäftsmodell | Digitale Produkte und Software-Abos (aktuell); perspektivisch Dienstleistungen, Netzwerk, Marktplatz |
 | Geografischer Fokus | Deutschland, zunächst Norddeutschland (Schleswig-Holstein, Hamburg, Niedersachsen) |
 | Markteinstieg | Professioneller Spring- und Ausbildungsreitsport |
@@ -46,19 +46,19 @@
 
 | | Aktuelles Weiterbildungsprojekt | Langfristige Produktentwicklung |
 |---|---|---|
-| **Leitprinzip** | **Shop-first** | **Software-first** |
-| **Inhalt** | EquiBill als digitaler Concept Store: Software, digitale Business-Tools, Marketing- und Designprodukte, perspektivisch ergänzende Dienstleistungen | Plattform aus Manage, Connect, Discover und Shop; Manage als Kernprodukt |
-| **Umfang** | Marke, Website, Demo-Shop; vollständig fiktiv; reduzierte Startseite | Vision; nicht Teil der aktuellen Umsetzung |
+| **Leitprinzip** | **Software-first** *(seit 26.11.2026; vorher Shop-first)* | **Software-first** |
+| **Inhalt** | EquiBill als Softwareunternehmen: EquiBill Manage als Kernprodukt mit eigener Landingpage; ergänzend ein separater Shop mit digitalen Business-Tools sowie Marketing- und Designvorlagen | Plattform aus Manage, Connect, Discover und Shop; Manage als Kernprodukt |
+| **Umfang** | Marke, Startseite, Software-Seite, Demo-Shop mit Produktseiten; vollständig fiktiv | Vision; nicht Teil der aktuellen Umsetzung |
 | **Connect / Discover** | Nicht auf der Startseite, nicht technisch umgesetzt | Bleiben Bestandteil der Produktvision |
 
-Die langfristige Geschäftsidee von EquiBill bleibt bestehen. Die Neuausrichtung betrifft die **Priorität und Darstellung** im Weiterbildungsprojekt, nicht die Plattformarchitektur.
+Die langfristige Geschäftsidee von EquiBill bleibt bestehen. Die Neupositionierung vom 26.11.2026 bringt die Website in Einklang mit der Produktstrategie: Die Software ist das Kerngeschäft, der Shop wird visuell und inhaltlich **nicht gleichwertig** behandelt. Die Plattformarchitektur bleibt unverändert.
 
 ### 2.2 Drei Ebenen, die nie vermischt werden dürfen
 
 | Ebene | Was ist das? | Stand |
 |---|---|---|
 | **1. Bestehender Prototyp** | Lokale HTML-Anwendung für Abrechnung/Verwaltung (bis Version 3.0), ursprünglich für eine selbstständige Berufsreiterin im Springreitsport | Existiert; Funktionsumfang **ungeprüft**; bleibt **separat und unverändert** |
-| **2. Aktuelles Weiterbildungsprojekt** | Marke, Concept Store / Demo-Shop, Website (reduzierte HTML-Startseite), später Shop-Funktionen mit Claude Code | **Aktuelle Priorität**; vollständig fiktiv |
+| **2. Aktuelles Weiterbildungsprojekt** | Marke, Website mit Software-Landingpage (EquiBill Manage) und separatem Demo-Shop, später Warenkorb und Demo-Checkout mit Claude Code | **Aktuelle Priorität**; vollständig fiktiv |
 | **3. Langfristige Plattformvision** | Business-Software + Netzwerk + Marktplatz + Shop als skalierbares Produkt | Vision; nicht Teil der aktuellen Umsetzung |
 
 **Grundsatz:** Die Vision soll groß sein, die erste Umsetzung bewusst klein. Es soll kein isoliertes Wegwerfprojekt entstehen; die Website soll langfristig wiederverwendbar sein.
@@ -123,7 +123,7 @@ Technischer Ansatz: lokale HTML-Anwendung. Konzipiert bzw. umgesetzt wurden in d
 | **Pferdebesitzer** | Transparente Kosten, übersichtliche Abrechnungen, einfachere Kommunikation, qualifizierte Berufsreiter finden, freie Berittplätze vergleichen, bessere Entscheidungsgrundlagen |
 | **Pferdebetriebe** | Zentrale Verwaltung, effiziente Prozesse, Überblick über Pferde/Kunden/Mitarbeiter, bessere Kapazitätsplanung, professionelle Präsentation, neue Kunden |
 
-**Nutzenversprechen des aktuellen Concept Stores (Vorläufig):** Berufsreiter finden an einem Ort hochwertige digitale Werkzeuge für ihr Business: Verwaltung und Abrechnung, Turnierplanung, professionelle Portfolios, Social-Media-Design und Business-Vorlagen.
+**Nutzenversprechen im Weiterbildungsprojekt (Vorläufig, seit 26.11.2026):** Mit EquiBill Manage erledigen Berufsreiter, Bereiter, Trainer und Pferdebetriebe Verwaltung und Abrechnung an einem Ort: weniger Büro, mehr Zeit für Pferde und Kunden. Ergänzend gibt es im Shop digitale Vorlagen für Turnierplanung, Auftritt und Büro.
 
 ---
 
@@ -160,7 +160,7 @@ Technischer Ansatz: lokale HTML-Anwendung. Konzipiert bzw. umgesetzt wurden in d
 
 **Begründung:** Manage bietet auch ohne große Nutzerbasis konkreten Mehrwert. Ein Marktplatz funktioniert nur mit genügend Anbietern und Nachfragern. Daher werden langfristig zunächst Berufsreiter und Betriebe über die Software gewonnen; diese erstellen später Profile und veröffentlichen freie Kapazitäten und bilden so die Anbieterseite des Marktplatzes. Connect und Discover sind Erweiterungen, **keine Voraussetzung** für den Nutzen von Manage.
 
-**Einordnung im Weiterbildungsprojekt:** Der Shop ist dort die sichtbare Hauptebene (Shop-first). Manage ist Featured Product und Teil des Sortiments. Connect und Discover sind **nicht** Bestandteil der Startseite und der technischen Umsetzung; die folgenden Beschreibungen dokumentieren die Produktvision.
+**Einordnung im Weiterbildungsprojekt:** Seit 26.11.2026 Software-first: Manage ist das Kernprodukt mit eigener Landingpage, der Shop ist ergänzend. Connect und Discover sind **nicht** Bestandteil der Startseite und der technischen Umsetzung; die folgenden Beschreibungen dokumentieren die Produktvision.
 
 ### 9.1 EquiBill Manage (Modul 1)
 
@@ -202,7 +202,7 @@ Digitaler Marktplatz für Suche und Vermittlung professioneller Reitsportdienstl
 
 ### 9.4 EquiBill Shop (modulübergreifend)
 
-Der Shop ist die Vertriebsebene der Plattform und im Weiterbildungsprojekt der **Schwerpunkt** (Concept Store). Er verkauft Software (EquiBill Manage), digitale Business-Tools sowie Marketing- und Designprodukte und perspektivisch ergänzende Dienstleistungen. Langfristig kommen Premium-Profile und -Inserate hinzu. Der Shop ist unabhängig von einem funktionierenden Netzwerk oder Marktplatz umsetzbar.
+Der Shop ist die Vertriebsebene der Plattform. Im Weiterbildungsprojekt ist er seit 26.11.2026 ein **ergänzendes Angebot** auf einer eigenen Seite (`shop.html`), nicht mehr der Schwerpunkt. Er verkauft Software (EquiBill Manage), digitale Business-Tools sowie Marketing- und Designprodukte und perspektivisch ergänzende Dienstleistungen. Langfristig kommen Premium-Profile und -Inserate hinzu. Der Shop ist unabhängig von einem funktionierenden Netzwerk oder Marktplatz umsetzbar.
 
 ---
 
@@ -234,11 +234,11 @@ Der Shop ist die Vertriebsebene der Plattform und im Weiterbildungsprojekt der *
 - **Business Tools**
 - **Marketing & Design**
 
-Die Zuordnung der Produkte zu den Kategorien (Spalte oben) ist ein **Vorschlag** und zur Bestätigung offen. Die Kategorien bilden die „visuellen Produktkategorien“ der Startseite.
+Die Zuordnung der Produkte zu den Kategorien (Spalte oben) ist ein **Vorschlag** und zur Bestätigung offen. Die Kategorien bilden die Editorial Category Navigation der Shop-Seite (`shop.html`).
 
 ### 10.4 EquiBill Manage – Software-Tarife (Vorläufig, Teil von Manage)
 
-Die Tarife Basic, Professional und Business bleiben erhalten, bilden aber **nicht mehr den zentralen Inhalt der Startseite**. Ihre ausführliche Darstellung und der Tarifvergleich gehören auf eine spätere Unterseite bzw. die Produktdetailseite von Manage.
+Der Tarifvergleich steht auf der Software-Seite (`software.html`, Abschnitt „Tarife“). Die Startseite nennt nur „ab 19 €/Monat“ und verlinkt auf den Vergleich.
 
 | Tarif | Preis | Zielgruppe | Leistungsumfang *(Demo-Annahme, Grenzen nicht final)* |
 |---|---:|---|---|
@@ -250,8 +250,8 @@ Die Tarife Basic, Professional und Business bleiben erhalten, bilden aber **nich
 
 ### 10.5 Produktpriorisierung im Demo-Shop
 
-- **Priorität 1 (Beschlossen):** EquiBill Manage als **Featured Product** (eigener Bereich der Startseite).
-- **Weitere Produkte (Vorläufig):** Tournament Planner, Rider Portfolio, Horse Portfolio, Social Media Kit, Equestrian Business Kit werden als gleichrangige Produktkarten im Shopbereich gezeigt. Die Darstellungsreihenfolge folgt zunächst der Reihenfolge in Kap. 10.2; eine feinere Priorisierung ist **Offen**.
+- **Priorität 1 (Beschlossen):** EquiBill Manage als **Kernprodukt**: größter Bereich der Startseite und eigene Landingpage `software.html`.
+- **Ergänzende Produkte (Vorläufig):** Tournament Planner, Rider Portfolio, Horse Portfolio, Social Media Kit, Equestrian Business Kit erscheinen auf `shop.html` mit eigenen Produktseiten in `produkte/`. Auf der Startseite stellt der Teaser „Mehr als Software“ nur Tournament Planner und Rider Portfolio vor (Beschlossen 26.11.2026). Eine feinere Priorisierung ist **Offen**.
 - **Spätere Shop-Funktionen (nach Unterrichtsvorgaben):** Produktdetailseiten, Warenkorb, Demo-Checkout, Kategorien, Preisfilter, Suche, Kundenkonto, Abo-Verwaltung, Bestellübersicht, digitale Downloads, Dienstleistungsbuchung.
 
 ### 10.6 Langfristige Konzeptwerte für Connect und Discover (Geplant, ungeprüft)
@@ -284,7 +284,7 @@ Annualisiert: 49.200 €. Nicht enthalten: digitale Einzelprodukte, Dienstleistu
 
 Kombination aus branchenspezifischer Business-Software, spezialisierter Rechnungsstellung, Turnierkostenmanagement, Pferde- und Kundenverwaltung, professionellen Reiterprofilen, sportlichen Referenzen, aktuellen Berittkapazitäten, Beritt- und Stallplatzvermittlung, digitaler Kundenkommunikation, KI-Funktionen und langfristiger digitaler Geschäftsbeziehung.
 
-Im aktuellen Concept Store zusätzlich: hochwertig gestaltete, branchenspezifische digitale Produkte (Portfolios, Design- und Business-Vorlagen) für professionelle Reiter an einem Ort.
+Im aktuellen Shop ergänzend: hochwertig gestaltete, branchenspezifische digitale Produkte (Portfolios, Design- und Business-Vorlagen) für professionelle Reiter an einem Ort.
 
 EquiBill soll weder nur Rechnungssoftware noch nur Anzeigenmarkt sein: Berufsreiter verwalten zuerst effizient ihren Betrieb und nutzen dieselbe Plattform später zur Kundengewinnung; Pferdebesitzer finden einen Reiter und begleiten die Zusammenarbeit digital.
 
@@ -384,7 +384,7 @@ Die Werte sind die vorläufige Basis aus den Studien. Berechnete Kontraste (WCAG
 - **Wortmarke (Idee):** EQUI—BILL in gesperrten Didone-Versalien, Mittelstrich in der Akzentfarbe; Monogramm „EB“ als Prägung/Siegel.
 - **Produktkarten:** rahmenlose Packshot-Flächen mit eigener Hintergrundfarbe je Produkt, „N°0x“, Name in Serif, Preis rechtsbündig; Hover als sanfter Zoom.
 - **Hero:** Zwei überlappende Foto-Platzhalter (Porträt groß, Detail klein) und die Schlagzeile „The Edit.“ über der Bildkante, kurzer Satz, Textlink statt Button.
-- **Hell und Dunkel kombinieren:** A ist der Standard, B ergänzt, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush. Offen: welche Seiten dunkel gestaltet werden, wie der Wechsel aussieht, ob die Startseite komplett hell bleibt.
+- **Hell und Dunkel kombinieren:** A ist der Standard, B ergänzt. Beide teilen Ink, Ivory und Blush. Beschlossen (26.11.2026): Startseite und `shop.html` hell (A), `software.html` und Produktseiten dunkel (B), immer als ganze Seite. Offen: Warenkorb, Checkout und weitere Unterseiten.
 - **Referenzdateien (nicht verändern):** `design-studien/runde-2/studie-2-atelier.html`, `design-studien/runde-3/atelier-varianten.html`, `atelier-produkt.html`, `atelier-warenkorb.html`. Der Warenkorb-Entwurf rechnet nur im Browserfenster, hat keine Zahlungsfelder und speichert nichts; die Texte der Produktseite sind Beispieltexte.
 
 ### 13.4 UX/UI-Prinzipien
@@ -395,32 +395,36 @@ Mobile First, responsive, intuitive Navigation, klare Informationshierarchie, gr
 
 ## 14. Website-Architektur, Startseite, Navigation, Customer Journey
 
-### 14.1 Ausrichtung (Beschlossen)
+### 14.1 Ausrichtung (Beschlossen 26.11.2026)
 
-Zunächst ein hochwertiger **Concept Store** (Shop-first). Die Website soll die Marke emotional vermitteln, Produkte attraktiv präsentieren und früh zum Shop führen. Sie ist bewusst **keine** klassische Software-Landingpage. Connect und Discover werden **nicht** auf der Startseite dargestellt.
+**Software-first.** Die Website stellt EquiBill als Softwareunternehmen vor: EquiBill Manage ist der größte und prominenteste Inhalt, der Shop ein ergänzendes Angebot auf einer eigenen Seite. Das Atelier-Design bleibt unverändert und verhindert den Look einer generischen SaaS-Landingpage. Connect und Discover werden **nicht** dargestellt. (Bis 25.11.2026: Concept Store, Shop-first.)
 
-### 14.2 Aufbau der Startseite (Beschlossen, reduziert auf acht Bereiche)
+### 14.2 Aufbau der Startseite (Beschlossen 26.11.2026, Kopf plus acht Bereiche)
 
 | # | Bereich | Inhalt |
 |---|---|---|
-| 1 | Minimalistischer Header | Wortmarke, reduzierte Navigation, Warenkorb |
-| 2 | Emotionaler, hochwertiger Hero-Bereich | Starke Bildwelt, Kernaussage, Einstieg in den Shop |
-| 3 | Klare Markenbotschaft | Kurze, prägnante Positionierung |
-| 4 | Visuelle Produktkategorien | Software · Business Tools · Marketing & Design |
-| 5 | Attraktiver Shopbereich | Hochwertige Produktkarten und Mockups (Sortiment, Kap. 10.2) |
-| 6 | EquiBill Manage als Featured Product | Hervorgehobene Präsentation; Tarife nur angedeutet („ab 19 €/Monat“) |
-| 7 | Kurzes Markenstatement und Über-uns-Bereich | Kurze, als fiktiv erkennbare Unternehmensbeschreibung |
-| 8 | Footer | Pflichtangaben (Impressum-/Datenschutz-Platzhalter) und deutlich sichtbarer Demo-Hinweis |
+| – | Kopf | Logo (animiert), Navigation Software · Shop · Über uns · FAQ, Warenkorb |
+| 1 | Hero | Cinematic Hero, „The Business Behind the Sport.“, „Weniger Büro. Mehr Pferd.“; CTA „Software entdecken“, sekundär „Zum Shop“ |
+| 2 | Markeneinführung | „Du machst den Sport. Wir vereinfachen das Business dahinter.“ Was, für wen, welches Problem |
+| 3 | EquiBill Manage | Größter Bereich: Geräte-Mockup, Kundennutzen, animierte Beispielrechnung (fiktiv), Funktionen, „ab 19 €/Monat“ |
+| 4 | So funktioniert’s | Erfassen → Verwalten → Abrechnen |
+| 5 | Shop-Teaser „Mehr als Software“ | Nur Tournament Planner und Rider Portfolio; CTA „Alle Produkte entdecken“ |
+| 6 | Über EquiBill | Vision und Zielgruppe, als fiktiv gekennzeichnet |
+| 7 | FAQ | Kompakte Fragen zu Software und Shop |
+| 8 | Abschluss-CTA und Footer | Fokus auf Manage; Impressum-/Datenschutz-Platzhalter und Demo-Hinweis |
 
-**Der Shop soll frühzeitig sichtbar sein.** Nicht auf die Startseite gehören: ausführliche Funktionsbeschreibungen, Software-Tarifvergleiche, Plattformvision mit Connect/Discover, FAQ, Teaser für Netzwerk und Marktplatz.
+Nicht mehr auf der Startseite: Sortimentsbereich, vollständige Produktübersicht mit Filter, Bereich „Vorteile“, Tarifvergleich.
 
-### 14.3 Navigation (Vorläufig, Offen)
+### 14.3 Navigation und Unterseiten (Beschlossen 26.11.2026)
 
-Minimalistisch und shop-orientiert. **Vorschlag zur Abstimmung:** Wortmarke · Shop · EquiBill Manage · Über uns · Warenkorb. Die finale Auswahl und die Texte der Handlungsaufforderungen (CTAs) sind **Offen**. Netzwerk und Marktplatz erscheinen nicht in der Navigation.
+- **Navigation:** Software · Shop · Über uns · FAQ; Warenkorb als eigenständiges Element rechts.
+- **`software.html`** (Variante Noir): Landingpage EquiBill Manage mit Funktionen, Demo (Beispielrechnung), fiktiven Anwendungsbeispielen, Tarifvergleich Basic/Professional/Business, technischen Daten und Warenkorb-Schaltfläche. Ersetzt die frühere Produktseite von Manage.
+- **`shop.html`** (Variante Maison): alle Produkte mit Kategorien, Filter und Links zu den Produktdetailseiten (`produkte/`, Variante Noir).
+- **Über uns, FAQ:** zunächst Anker auf der Startseite.
 
-### 14.4 Mögliche Unterseiten (später, nach Bedarf und Unterrichtsvorgaben)
+### 14.4 Mögliche weitere Unterseiten (später, nach Bedarf und Unterrichtsvorgaben)
 
-Produktdetailseiten · Shopübersicht · EquiBill Manage mit Funktionen und Tarifvergleich · Preise · Über uns (ausführlich) · FAQ · Kontakt · Impressum und Datenschutz (Platzhalter) · Warenkorb · Demo-Checkout · Bestellübersicht · ggf. Kundenkonto (simuliert).
+Warenkorb · Demo-Checkout · Bestellübersicht · Über uns (ausführlich) · Kontakt · Impressum und Datenschutz (Platzhalter) · ggf. Kundenkonto (simuliert).
 
 ### 14.5 Langfristige Zielarchitektur (nicht aktueller Umfang)
 
@@ -432,9 +436,11 @@ Produktdetailseiten · Shopübersicht · EquiBill Manage mit Funktionen und Tari
 
 ### 14.6 Customer Journey
 
-**Primäre Customer Journey (aktuelles Weiterbildungsprojekt, Beschlossen):**
+**Customer Journeys (aktuelles Weiterbildungsprojekt, Beschlossen 26.11.2026):**
 
-> Marke entdecken → Produkte entdecken → Produkt auswählen → Produktdetails → Warenkorb → Demo-Checkout
+> Primär (Software): Marke entdecken → Software verstehen (Startseite) → Software-Seite: Funktionen, Demo, Tarife → Warenkorb → Demo-Checkout
+>
+> Ergänzend (Shop): Shop-Teaser oder Navigation → Shop → Produktdetails → Warenkorb → Demo-Checkout
 
 Der Demo-Checkout ist eine **reine Simulation** ohne echte Zahlung und ohne echte Daten.
 
@@ -548,7 +554,7 @@ Entscheidungen werden schrittweise getroffen und hier dokumentiert. Vorläufige 
 
 ## 20. Leitprinzipien
 
-- **Shop-first** in der Weiterbildung, **Software-first** in der langfristigen Produktentwicklung; beide Ebenen klar trennen.
+- **Software-first** in der Weiterbildung und in der langfristigen Produktentwicklung (seit 26.11.2026); aktuelle Umsetzung und langfristige Vision trotzdem klar trennen.
 - Manage ist das Kernprodukt der Plattform und Featured Product im Shop; Connect und Discover sind spätere Erweiterungen.
 - Die Business-Software muss unabhängig vom Marktplatz Mehrwert bieten.
 - Nutzerbedürfnisse stehen vor technischer Komplexität.
@@ -587,3 +593,11 @@ Ergebnisse werden geprüft auf: Vollständigkeit, technische Funktionsfähigkeit
 **Unverändert erhalten:** Prototyp, Zielgruppen, Plattformmodule Manage/Connect/Discover mit Funktionsumfang, Wettbewerbsumfeld, SWOT, KI-Funktionen und Automatisierung, rechtliche Hinweise, Weiterbildungsanforderungen.
 
 **Hinweis:** Der Stand vor der Änderung liegt in `_archiv_2026-11-24/`.
+
+## Änderungsvermerk (26.11.2026, Neupositionierung Software-first)
+
+- Kap. 1, 2.1, 2.2, 9.4: Positionierung als **Softwareunternehmen** (Kernprodukt EquiBill Manage, Shop ergänzend); Software-first auch im Weiterbildungsprojekt; Website-Claims aktualisiert.
+- Kap. 10.3–10.5: Kategorien auf der Shop-Seite, Tarifvergleich auf `software.html`, Gewichtung Manage vs. Shop-Produkte, Startseiten-Teaser mit zwei Produkten.
+- Kap. 14.1–14.4, 14.6: neuer Startseitenaufbau, Navigation, Unterseiten `software.html` und `shop.html`, zwei Customer Journeys.
+- Unverändert: Plattformarchitektur, Sortiment und Preise, Designrichtung Atelier.
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-software-first/PROJECT_BRIEFING.md`.

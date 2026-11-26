@@ -1,8 +1,8 @@
 # EquiBill – Roadmap
 
-> Stand: 24.11.2026 · Grundlage: `PROJECT_BRIEFING.md` und `CLAUDE.md`
-> Die Roadmap trennt strikt zwischen **Spur 1 – Weiterbildungsprojekt (Shop-first, aktuell, fiktiv, endet mit der Weiterbildung im März 2027)** und **Spur 2 – Produktentwicklung (Software-first, langfristig, nur bei realer Weiterführung)**.
-> **Hinweis:** Zeitangaben gibt es nur für die Weiterbildung (Abschluss März 2027). Alle Phasen der Produktentwicklung sind **ohne Termine** und durch Entscheidungsschranken (Gates) gesteuert. Die Reihenfolge einzelner Aufgaben darf nach Analyse angepasst werden; Shop-first (Weiterbildung) und Software-first (langfristig) bleiben bestehen.
+> Stand: 26.11.2026 (Neupositionierung Software-first) · Grundlage: `PROJECT_BRIEFING.md` und `CLAUDE.md`
+> Die Roadmap trennt strikt zwischen **Spur 1 – Weiterbildungsprojekt (Software-first seit 26.11.2026, vorher Shop-first; aktuell, fiktiv, endet mit der Weiterbildung im März 2027)** und **Spur 2 – Produktentwicklung (Software-first, langfristig, nur bei realer Weiterführung)**.
+> **Hinweis:** Zeitangaben gibt es nur für die Weiterbildung (Abschluss März 2027). Alle Phasen der Produktentwicklung sind **ohne Termine** und durch Entscheidungsschranken (Gates) gesteuert. Die Reihenfolge einzelner Aufgaben darf nach Analyse angepasst werden; Software-first gilt seit 26.11.2026 für beide Spuren.
 
 ## Anforderungsstufen
 
@@ -16,10 +16,10 @@
 ## Übersicht
 
 ```
-SPUR 1  Weiterbildung (Shop-first, fiktiv)     SPUR 2  Produktentwicklung (Software-first, nur bei Weiterführung)
+SPUR 1  Weiterbildung (Software-first, fiktiv) SPUR 2  Produktentwicklung (Software-first, nur bei Weiterführung)
 ──────────────────────────────────────         ─────────────────────────────────────────────────────────────────
-Phase 1  Concept Store: Marke, Design,         Phase 2  Manage als MVP (Pilotkunden)
-         reduzierte Startseite, Demo-Shop      Phase 3  SaaS + Automatisierung
+Phase 1  Marke, Design, Startseite,           Phase 2  Manage als MVP (Pilotkunden)
+         Software-Seite, Demo-Shop             Phase 3  SaaS + Automatisierung
          (Schritte 1–10)                       Phase 4  Connect (Netzwerk)
                                                Phase 5  Discover (Marktplatz)
                                                Phase 6  Marktreife + Skalierung
@@ -29,7 +29,7 @@ Gemeinsame Basis: **Phase 1** ist zugleich Ergebnis der Weiterbildung und Fundam
 
 ---
 
-# SPUR 1 – Weiterbildungsprojekt, Phase 1: Concept Store (aktuelle Priorität)
+# SPUR 1 – Weiterbildungsprojekt, Phase 1: Marke, Website und Demo-Shop (aktuelle Priorität)
 
 ## Priorisierte Entwicklungsschritte
 
@@ -39,11 +39,11 @@ Gemeinsame Basis: **Phase 1** ist zugleich Ergebnis der Weiterbildung und Fundam
 | 2 | Produktsortiment definieren | Pflicht | Sechs Produkte, drei Kategorien, Preise (Briefing Kap. 10); Kategoriezuordnung bestätigen | Sortiment dokumentiert; Zuordnung zu Kategorien offen |
 | 3 | Neue visuelle Designrichtungen entwickeln | Pflicht | Mehrere Richtungen mit Begründung, eine ausgewählt | **Erledigt (24.11.2026):** Atelier, Variante A „Maison“; Variante B „Noir“ ergänzend kombinierbar (Briefing Kap. 13.3). Studien in `design-studien/runde-2/` und `runde-3/` als Referenz |
 | 4 | Corporate Design abstimmen | Pflicht | Farbwelt, Typografie, Logo-Richtung, Bildsprache, Kontrastprüfung | In Arbeit: Basis aus Atelier A/B festgelegt (Palette, Didone + Helvetica Neue, Wortmarkenidee); Kontraste teilweise berechnet; Offen: finale Werte, Hausschrift, Einsatzregeln für die dunkle Variante |
-| 5 | Reduzierte Startseite konzipieren | Pflicht | Struktur mit acht Bereichen, Navigation, CTAs, Produktkarten-Konzept | Struktur beschlossen; Details offen |
-| 6 | Professionellen HTML-Entwurf erstellen | Pflicht | Neue Datei in `website/`; lokal lauffähig; bisherige `index.html` unverändert | Erster Entwurf vorhanden: `website/index_atelier.html` + `website/css/atelier.css` (Atelier A, acht Bereiche, Mockups und Fotos als Platzhalter); von Teilnehmerin zu prüfen, Optimierungsrunden folgen |
-| 7 | Produktdarstellungen und Mockups integrieren | Pflicht | Hochwertige Produktkarten und Mockups (als Mockups gekennzeichnet) | Offen |
-| 8 | Responsive Design optimieren | Pflicht | Mobile First; Mobile, Tablet, Desktop geprüft | Offen |
-| 9 | Shop-Funktionalitäten entsprechend der weiteren Unterrichtsvorgaben entwickeln | Empfohlen | Je nach Vorgabe: Produktdetails, Warenkorb, Demo-Checkout (siehe Abschnitt „Schritt 9“ unten) | Offen; Umfang richtet sich nach dem Unterricht. Entwürfe für Produktseite und Warenkorb/Demo-Checkout im Atelier-Stil liegen in `design-studien/runde-3/` |
+| 5 | Startseite konzipieren | Pflicht | Struktur mit acht Bereichen, Navigation, CTAs | **Neu beschlossen (26.11.2026):** Software-first-Aufbau (CLAUDE.md Kap. 7), Navigation Software · Shop · Über uns · FAQ · Warenkorb, CTAs „Software entdecken“, „Zum Shop“, „Alle Produkte entdecken“ |
+| 6 | Professionellen HTML-Entwurf erstellen | Pflicht | Neue Datei in `website/`; lokal lauffähig; bisherige `index.html` unverändert | Umgesetzt: `website/index.html` mit `css/style.css` und `js/app.js` (Atelier A, echte Symbolfotos, Effekte); seit 26.11.2026 Software-first umgebaut; weitere Optimierungsrunden möglich |
+| 7 | Produktdarstellungen und Mockups integrieren | Pflicht | Hochwertige Software-Mockups und Produktdarstellungen (als Mockups/Symbolbilder gekennzeichnet) | Umgesetzt: Laptop-Mockup mit Dashboard, animierte Beispielrechnung, Produktfotos; Feinschliff offen |
+| 8 | Responsive Design optimieren | Pflicht | Mobile First; Mobile, Tablet, Desktop geprüft | Geprüft bei 320/390/768/1440 px (26.11.2026), kein horizontales Scrollen |
+| 9 | Shop-Funktionalitäten entsprechend der weiteren Unterrichtsvorgaben entwickeln | Empfohlen | Je nach Vorgabe: Produktdetails, Warenkorb, Demo-Checkout (siehe Abschnitt „Schritt 9“ unten) | Teilweise umgesetzt (26.11.2026): Software-Seite, Shop-Seite mit Filter, fünf Produktseiten. Offen: Warenkorb und Demo-Checkout (Entwürfe in `_archiv/design-studien/runde-3/`) |
 | 10 | Qualitätssicherung | Pflicht | Prüfung nach `CLAUDE.md` Kap. 11; ehrliche Aussage, was implementiert und was simuliert ist | Offen |
 
 Abhängigkeiten: 3 → 4 → 5 → 6; 7 und 8 gehören zum HTML-Entwurf und werden in Optimierungsrunden verfeinert; 9 baut auf einem freigegebenen Entwurf auf; 10 begleitet jede Runde und schließt ab.
@@ -53,7 +53,7 @@ Abhängigkeiten: 3 → 4 → 5 → 6; 7 und 8 gehören zum HTML-Entwurf und werd
 | Stufe | Aufgabe | Details |
 |---|---|---|
 | Pflicht | Dokumente prüfen und freigeben | Teilnehmerin liest, versteht und gibt `CLAUDE.md`, `PROJECT_BRIEFING.md`, `ROADMAP.md` frei |
-| Pflicht | Projektanweisungen im Claude-Projekt aktualisieren | Inhalt der neuen `CLAUDE.md` in „Anweisungen“ einfügen; Projektbeschreibung an Shop-first anpassen |
+| Pflicht | Projektanweisungen im Claude-Projekt aktualisieren | Inhalt der neuen `CLAUDE.md` in „Anweisungen“ einfügen; Projektbeschreibung an Software-first anpassen (Stand 26.11.2026) |
 | Pflicht | Dateien im Ordner `EquiBill` speichern | Ordner mit Unterordner `website` (Tag 42, B1) |
 | Empfohlen | Git-Grundlage | Ordner als Git-Repository, `.gitignore` inkl. `.env`, ersten Commit setzen; Repository nicht öffentlich, solange nicht geprüft |
 | Pflicht | Schutz bestehender Dateien | `website/index.html`, `index_v1_backup.html`, `index_v2_arena.html`, `design-studien/`, Prototyp unverändert lassen; kein echtes Datenmaterial im Projekt |
@@ -76,16 +76,16 @@ Abhängigkeiten: 3 → 4 → 5 → 6; 7 und 8 gehören zum HTML-Entwurf und werd
 
 ## Schritt 5–8: Startseite, HTML-Entwurf, Mockups, Responsive
 
-**Pflichtumfang der Startseite (acht Bereiche):**
+**Pflichtumfang der Startseite (Software-first, seit 26.11.2026; Kopf plus acht Bereiche):**
 
-1. Minimalistischer Header
-2. Emotionaler, hochwertiger Hero-Bereich
-3. Klare Markenbotschaft
-4. Visuelle Produktkategorien
-5. Attraktiver Shopbereich mit hochwertigen Produktkarten und Mockups
-6. EquiBill Manage als Featured Product
-7. Kurzes Markenstatement und Über-uns-Bereich (als fiktiv erkennbar; deckt den Bonus der Aufgabe ab)
-8. Footer mit Pflichtangaben und Demo-Hinweis
+1. Hero (Cinematic Hero, Claims, CTA „Software entdecken“ und „Zum Shop“)
+2. Markeneinführung („Du machst den Sport. Wir vereinfachen das Business dahinter.“)
+3. EquiBill Manage als größter Bereich (Mockup, Nutzen, animierte Rechnung, Funktionen)
+4. So funktioniert’s (Erfassen, Verwalten, Abrechnen)
+5. Shop-Teaser „Mehr als Software“ (zwei Produkte, CTA „Alle Produkte entdecken“)
+6. Über EquiBill (Vision, Zielgruppe; als fiktiv erkennbar; deckt den Bonus der Aufgabe ab)
+7. FAQ
+8. Abschluss-CTA und Footer mit Pflichtangaben und Demo-Hinweis
 
 | Stufe | Aufgabe |
 |---|---|
@@ -95,7 +95,8 @@ Abhängigkeiten: 3 → 4 → 5 → 6; 7 und 8 gehören zum HTML-Entwurf und werd
 | Pflicht | Responsive Design, Mobile First |
 | Empfohlen | Hochwertige Mockups je Produkt (klar als Mockup/Platzhalter gekennzeichnet) |
 | Optional | Dezente Interaktionen (nur wenn sie Nutzen bringen; keine unnötigen Animationen) |
-| Später | Software-Tarifvergleich, ausführliche Funktionsbeschreibungen, FAQ, Plattforminformationen (separate Unterseiten); Connect-/Discover-Informationen |
+| Erledigt (26.11.2026) | Tarifvergleich und Funktionen auf `software.html`, vollständiger Shop auf `shop.html` |
+| Später | Plattforminformationen, Connect-/Discover-Informationen |
 
 **Gate C (HTML-Entwurf):** Neue Startseite liegt in `website/`, öffnet fehlerfrei lokal (Tag 42: „Startseite liegt in website“).
 
@@ -116,15 +117,16 @@ Abhängigkeiten: 3 → 4 → 5 → 6; 7 und 8 gehören zum HTML-Entwurf und werd
 
 *Inhalte und Termine geben die Unterrichtsvorgaben vor; die Liste ist ein Vorschlag, keine Festlegung.*
 
-Primäre Customer Journey: Marke entdecken → Produkte entdecken → Produkt auswählen → Produktdetails → Warenkorb → Demo-Checkout.
+Customer Journeys (seit 26.11.2026): primär Marke entdecken → Software verstehen → Software-Seite (Funktionen, Demo, Tarife) → Warenkorb → Demo-Checkout; ergänzend Shop → Produktdetails → Warenkorb → Demo-Checkout.
 
 | Stufe | Möglicher Ausbau mit Claude Code |
 |---|---|
-| Empfohlen | Produktdetailseiten für die sechs Produkte |
+| Erledigt | Produktdetailseiten für die fünf Shop-Produkte (Manage: `software.html`) |
 | Empfohlen | Warenkorb und Demo-Checkout (ohne echte Zahlung, ohne echte Daten) |
 | Empfohlen | Gemeinsames Designsystem in wiederverwendbaren CSS-Dateien |
-| Optional | Shopübersicht mit Kategoriefilter, Suche |
-| Optional | Seite EquiBill Manage mit Funktionen und Tarifvergleich Basic/Professional/Business |
+| Erledigt | Shopübersicht mit Kategorien und Filter (`shop.html`) |
+| Optional | Suche im Shop |
+| Erledigt | Seite EquiBill Manage mit Funktionen, Demo, Anwendungsbeispielen und Tarifvergleich (`software.html`) |
 | Optional | Demo-Kundenkonto, Abo-Verwaltung und Bestellübersicht als Simulation |
 | Optional | Fiktive Dashboard-Vorschau, einfache Rechner-Demo (z. B. Turnierkosten) |
 | Optional | Erste Prototyp-Analyse (nur Lesen, nichts verändern), falls im Unterricht vorgesehen |
@@ -160,7 +162,7 @@ Primäre Customer Journey: Marke entdecken → Produkte entdecken → Produkt au
 
 Vor Phase 2 klären: Will die Initiatorin das Projekt real weiterführen? Bestehen Zeit und Budget? Gibt es mindestens **ein bis drei Pilotkunden** (Zugang über die Schwestern) mit echtem Interesse? Sind Name, Domain und Markenrecht geprüft? Ist Zahlungsbereitschaft zumindest durch Gespräche erkundet?
 
-## Phase 1 (Fundament, siehe Spur 1) – Marke, Concept Store, Demo-Shop
+## Phase 1 (Fundament, siehe Spur 1) – Marke, Website, Software-Seite, Demo-Shop
 **Ergebnis:** Professionelle Marke und Website mit Demo-Shop, wiederverwendbar.
 
 ## Phase 2 – EquiBill Manage als funktionsfähiges MVP
@@ -241,7 +243,7 @@ Produktvalidierung · Datenschutz · Sicherheitskonzept · Rechnungsrecht · Zah
 | Risiko | Gegenmaßnahme |
 |---|---|
 | Umfang der Vision überfordert die Ressourcen | Spuren und Gates trennen; kleine Schritte; reduzierte Startseite |
-| Startseite wird wieder zu voll oder zu software-lastig | Acht Bereiche als Pflichtumfang; Details auf Unterseiten |
+| Startseite wird zu voll oder wirkt wie eine generische SaaS-Seite | Acht Bereiche als Pflichtumfang; Details auf `software.html` und `shop.html`; Atelier-Design und Vermeidungsliste beibehalten |
 | Neue Designrichtung bleibt beliebig oder wirkt generisch | Mehrere Richtungen begründet vergleichen; Vermeidungsliste prüfen; Runden mit je einer Änderung |
 | Produktabgrenzung unklar (Tournament Planner / Manage; Portfolios / Connect) | Abgrenzung im Shop festlegen (Briefing Kap. 19) |
 | Zahlungsbereitschaft nicht validiert | Pilotkunden und Interviews vor Phase 3 |
@@ -261,3 +263,10 @@ Produktvalidierung · Datenschutz · Sicherheitskonzept · Rechnungsrecht · Zah
 - Ergänzung (24.11.2026): Designentscheidung **Atelier** (Variante A „Maison“ Hauptauftritt, Variante B „Noir“ ergänzend kombinierbar); Schritt 3 erledigt, Schritt 4 in Arbeit, Gate B für die Richtung erreicht.
 - Entfallen: frühere 14-Bereiche-Startseite, Software-Tarife als zentraler Startseiteninhalt, Connect-/Discover-Teaser und Plattformvision auf der Startseite, alte Designvorauswahl (Heritage Modern, frühere Farbwelt).
 - Unverändert erhalten: Spur 2 mit Phasen und Gates für Manage, Connect und Discover (nur Phase 1 und Tarifnennung angepasst), Querschnittsthemen, Risiken.
+
+## Änderungsvermerk (26.11.2026, Neupositionierung Software-first)
+
+- Geändert: Spur 1 von Shop-first (Concept Store) auf **Software-first**; Übersicht, Phase-1-Titel und Risiken angepasst.
+- Geändert: Pflichtumfang der Startseite (Schritt 5–8) nach dem neuen Aufbau; Status der Schritte 5–9 aktualisiert.
+- Erledigt: Software-Seite, Shop-Seite mit Filter, Produktdetailseiten. Offen: Warenkorb, Demo-Checkout, Qualitätssicherung (Schritt 10).
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-software-first/ROADMAP.md`.
