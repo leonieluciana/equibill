@@ -51,7 +51,7 @@ a{color:inherit;text-decoration:none}
 .label--accent{color:var(--ox)}
 .textlink{display:inline-flex;gap:12px;align-items:center;border-bottom:1px solid currentColor;padding-bottom:5px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
 .textlink::after{content:"";width:16px;height:8px;background:currentColor;-webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);padding:16px 24px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);padding:16px 24px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,translate .45s cubic-bezier(.2,.8,.2,1)}
 .btn:hover{background:var(--ox);border-color:var(--ox)}
 .btn--light{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
 .btn--light:hover{background:var(--blush);border-color:var(--blush);color:var(--ink)}
@@ -59,6 +59,22 @@ a{color:inherit;text-decoration:none}
 .section-head{margin:0 0 clamp(28px,4vw,52px);max-width:62ch}
 .section-head h2{margin:10px 0 0;font:400 clamp(40px,6vw,88px)/.95 var(--serif);letter-spacing:-.03em}
 .section-head p{margin:16px 0 0;opacity:.75}
+/* Scroll-Reveal (js/app.js setzt .reveal und beim Sichtbarwerden .is-visible) */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0s)}
+.reveal.is-visible{opacity:1;transform:none}
+/* Hero-Zoom (Scroll-Driven Animation, reines CSS): Beim Herausscrollen zoomt das Foto
+   langsam heran und verschiebt sich leicht (Parallaxe), der Text tritt zurück.
+   Nur in Browsern, die „animation-timeline“ kennen; sonst bleibt der Hero ruhig. */
+@supports (animation-timeline: view()){
+  .hero{view-timeline-name:--hero}  /* benannte Zeitleiste: wie weit der Hero schon aus dem Bild gescrollt ist */
+  .hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both,hero-zoom linear both;animation-timeline:auto,--hero;animation-range:normal,exit 0% exit 100%}
+  .hero__text{animation:hero-fade linear both;animation-timeline:--hero;animation-range:exit 0% exit 80%}
+}
+@keyframes hero-zoom{from{transform:scale(1) translateY(0)}to{transform:scale(1.14) translateY(6%)}}
+@keyframes hero-fade{from{opacity:1;transform:none}to{opacity:.35;transform:translateY(-40px)}}
+/* Statement „Über uns“: Wörter leuchten nacheinander auf (js/app.js setzt .is-lit) */
+.statement--split .word{opacity:.16;transition:opacity .45s ease}
+.statement--split .word.is-lit{opacity:1}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 /* 3) Foto-Platzhalter (keine echten Fotos!) ------------------------------- */
@@ -70,6 +86,24 @@ a{color:inherit;text-decoration:none}
 .site-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px var(--pad);background:rgba(243,239,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,18,19,.12)}
 .wordmark{font:400 18px/1 var(--serif);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:.5em}
 .wordmark i{display:inline-block;width:1.4em;height:1px;background:var(--ox)}
+
+/* Logo im Header: Inline-SVG, Farben über Variablen (hell: Ink + Oxblood).
+   SVG Line Animation beim Laden: Eine feine Linie zeichnet die Umrisse nach
+   (EQUI → Steilsprung-Signet → BILL), danach füllen sich die Formen und die Linie verschwindet.
+   Technik: pathLength="1" im HTML macht jede Pfadlänge = 1; stroke-dasharray/-dashoffset
+   von 1 auf 0 „zieht“ die Linie. Ohne Animation (Bewegung reduzieren) steht das Logo sofort da. */
+.logo-link{display:block;width:136px;line-height:0}
+.logo{display:block;width:100%;height:auto;overflow:visible;--eb-text:var(--ink);--eb-accent:var(--ox)}
+.eb-letter{fill:var(--eb-text);stroke:var(--eb-text)}
+.eb-signet-body,.eb-signet-knob{fill:var(--eb-accent);stroke:var(--eb-accent)}
+.logo path{stroke-width:9;stroke-dasharray:1;stroke-dashoffset:0;stroke-opacity:0;stroke-linejoin:round;
+  animation:eb-draw 1.3s cubic-bezier(.6,.1,.3,1) both,eb-fill .7s ease both;
+  animation-delay:var(--d,0s),calc(var(--d,0s) + 1.15s)}
+#eb-letter-1{--d:.05s}#eb-letter-2{--d:.13s}#eb-letter-3{--d:.21s}#eb-letter-4{--d:.29s}
+.eb-signet-body{--d:.4s}.eb-signet-knob{--d:1.1s}
+#eb-letter-5{--d:.55s}#eb-letter-6{--d:.63s}#eb-letter-7{--d:.71s}#eb-letter-8{--d:.79s}
+@keyframes eb-draw{from{stroke-dashoffset:1;stroke-opacity:1}to{stroke-dashoffset:0;stroke-opacity:1}}
+@keyframes eb-fill{from{fill-opacity:0;stroke-opacity:1}to{fill-opacity:1;stroke-opacity:0}}
 .nav-desktop{display:none}
 .nav-mobile summary{list-style:none;cursor:pointer;padding:8px 0}
 /* Größere Tipp-Fläche (ca. 44 px) ohne das Layout zu verändern */
@@ -85,57 +119,114 @@ a{color:inherit;text-decoration:none}
 @media(min-width:1240px){
   .site-header{display:grid;grid-template-columns:1fr auto 1fr;padding:20px var(--pad)}
   .wordmark{grid-column:2;grid-row:1;font-size:24px;letter-spacing:.2em}
+  .logo-link{grid-column:2;grid-row:1;width:230px}
   .nav-desktop{display:flex;gap:26px;grid-column:1;grid-row:1}
   .nav-mobile{display:none}
   .header-cart{grid-column:3;justify-self:end}
 }
 .nav-desktop a:hover,.header-cart:hover{color:var(--ox)}
 
-/* 5) Hero -------------------------------------------------------------------- */
-.hero{padding:clamp(28px,4vw,56px) var(--pad) 0;display:grid;gap:36px}
-.hero__eyebrow{margin:0 0 22px;color:var(--ox)}
+/* 5) Hero: Cinematic Hero -------------------------------------------------------
+   Großflächiges Foto als Bühne (fast volle Bildschirmhöhe), dunkler Verlauf für Lesbarkeit,
+   Text in Ivory unten links. Akzent auf Dunkel = Blush (Kontrast 12:1), nicht Oxblood. */
+.hero{display:grid}
+.hero__stage{position:relative;min-height:calc(100svh - 64px);display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);color:var(--ivory)}
+.hero__photo{position:absolute;inset:0}
+/* Körnung über die ganze Bühne statt nur über das Foto, sonst entsteht an der Fotokante ein sichtbarer Helligkeitssprung */
+.hero__photo::before{display:none}
+.hero__stage::before{content:"";position:absolute;inset:0;z-index:1;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;pointer-events:none}
+.hero__photo::after{content:"";position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(21,18,19,.35) 0%,rgba(21,18,19,0) 22%,rgba(21,18,19,.62) 45%,rgba(21,18,19,.9) 100%),
+             linear-gradient(90deg,rgba(21,18,19,.55) 0%,rgba(21,18,19,0) 70%)}
+.hero__photo figcaption{top:12px;bottom:auto;left:auto;right:12px}  /* Handy: oben, damit der Text unten frei bleibt */
+.hero__text{position:relative;z-index:3;padding:clamp(28px,6vw,72px) var(--pad);max-width:900px}
+.hero__eyebrow{margin:0 0 22px;color:var(--blush)}
 .hero h1{margin:0;font:400 clamp(50px,13vw,112px)/.95 var(--serif);letter-spacing:-.035em}
-.hero h1 em{color:var(--ox)}
+.hero h1 em{color:var(--blush)}
 .hero__claim{margin:24px 0 0;font:italic 400 clamp(24px,3.2vw,36px)/1.15 var(--serif)}
-.hero__lead{margin:20px 0 0;max-width:46ch;font-size:17px}
+.hero__lead{margin:20px 0 0;max-width:46ch;font-size:17px;opacity:.92}
 .hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:30px}
-.hero__audience{margin:30px 0 0;opacity:.65}
-.hero__visual{position:relative}
-.hero__photo figcaption{top:12px;bottom:auto}
-.hero__photo{aspect-ratio:4/5;background:radial-gradient(70% 50% at 35% 30%,#e9c9c0,transparent 70%),linear-gradient(170deg,#b99b92,#4a2d2c 80%)}
-.hero__values{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--ink)}
+.hero__cta .textlink{color:var(--ivory)}
+.hero__audience{margin:30px 0 0;opacity:.75}
+.hero__stage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Dunkel sichtbar halten */
+.hero__values{list-style:none;margin:0 var(--pad);padding:0;display:grid;border-top:1px solid var(--ink)}
 .hero__values li{padding:20px 0;border-bottom:1px solid rgba(21,18,19,.22)}
 .hero__values b{display:block;font:italic 400 28px/1 var(--serif);margin-bottom:6px}
 .hero__values span{opacity:.75}
 @media(min-width:900px){
-  .hero{grid-template-columns:repeat(12,1fr);gap:0 24px;align-items:center}
-  .hero__text{grid-column:1/8}
+  /* Desktop: Hochformat-Foto rechts in voller Höhe, links Tiefschwarz für den Text;
+     ein Verlauf lässt Foto und Schwarz weich ineinanderlaufen (keine harte Kante). */
+  .hero__photo{left:auto;width:62%}
+  .hero__photo::after{background:linear-gradient(90deg,var(--ink) 0%,rgba(21,18,19,.6) 22%,rgba(21,18,19,0) 55%),
+                                 linear-gradient(180deg,rgba(21,18,19,0) 60%,rgba(21,18,19,.6) 100%)}
+  .hero__stage{align-items:center}
+  .hero__photo figcaption{top:auto;bottom:12px}
   .hero h1{font-size:clamp(70px,7.6vw,122px)}
-  .hero__visual{grid-column:8/13}
-  .hero__values{grid-column:1/13;grid-template-columns:repeat(3,1fr);gap:0 24px;margin-top:clamp(40px,5vw,70px);border-bottom:1px solid rgba(21,18,19,.22)}
+  .hero__values{grid-template-columns:repeat(3,1fr);gap:0 24px;margin-top:clamp(40px,5vw,70px);border-bottom:1px solid rgba(21,18,19,.22)}
   .hero__values li{border-bottom:none;padding:24px 0 28px}
 }
+/* Einstieg: Foto zoomt beim Laden ganz langsam heraus (Ken-Burns), Texte blenden nacheinander ein */
+.hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both}
+.hero__text>*{animation:hero-in 1.3s cubic-bezier(.2,.8,.2,1) both}
+.hero__text>:nth-child(1){animation-delay:.3s}
+.hero__text>:nth-child(2){animation-delay:.5s}
+.hero__text>:nth-child(3){animation-delay:.8s}
+.hero__text>:nth-child(4){animation-delay:1s}
+.hero__text>:nth-child(5){animation-delay:1.2s}
+.hero__text>:nth-child(6){animation-delay:1.4s}
+@keyframes hero-kenburns{from{scale:1.12}to{scale:1}}
+@keyframes hero-in{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 
-/* 6) Kategorien ------------------------------------------------------------- */
-.categories__grid{display:grid;gap:34px}
-.cat{display:block;min-width:0}
-.cat__plate{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--c)}
-.cat--software{--c:var(--plate-software)}.cat--tools{--c:var(--plate-tools)}.cat--design{--c:var(--plate-design)}
-.cat__m{position:absolute}
-.cat--software .cat__m--a{inset:0}
-.cat--tools .cat__m--a{left:-4%;top:4%;width:62%;height:92%}
-.cat--tools .cat__m--b{right:-6%;top:4%;width:62%;height:92%}
-.cat--design .cat__m--a{left:-6%;top:6%;width:52%;height:88%}
-.cat--design .cat__m--b{left:24%;top:2%;width:52%;height:88%}
-.cat--design .cat__m--c{right:-6%;top:8%;width:52%;height:88%}
-.cat__body{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:end;margin-top:16px}
-.cat h3{margin:0;font:400 clamp(30px,3.4vw,44px)/1 var(--serif);letter-spacing:-.02em}
-.cat p{margin:8px 0 0;opacity:.75;max-width:34ch}
-.cat__count{white-space:nowrap;opacity:.6}
-.cat .textlink{margin-top:14px}
-@media(min-width:760px){
-  .categories__grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
-  .cat--design .cat__plate{aspect-ratio:3/4}.cat--tools .cat__plate{aspect-ratio:4/5}.cat--software .cat__plate{aspect-ratio:1/1}
+/* 6) Sortiment: Editorial Category Navigation ------------------------------------
+   Links drei große Serifen-Kategorien (01–03) mit Haarlinien, rechts eine Bildfläche.
+   js/app.js setzt .is-active (aktive Kategorie + Bild) und .is-engaged (Liste wird benutzt). */
+.catnav{display:grid;gap:28px}
+.catnav__list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.16)}
+.catnav__item{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 clamp(14px,3vw,44px);align-items:start;
+  padding:clamp(26px,3.6vw,46px) 0;border-bottom:1px solid rgba(21,18,19,.16);transition:opacity .5s ease}
+/* Linie in Oxblood wächst unter der aktiven Kategorie von links */
+.catnav__item::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--ox);transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.catnav__item.is-active::after{transform:scaleX(1)}
+.catnav__num{padding-top:.9em;font:500 11px/1 var(--sans);letter-spacing:.2em;color:var(--ox);font-variant-numeric:tabular-nums}
+.catnav__title{margin:0;font:400 clamp(42px,6.4vw,100px)/.95 var(--serif);letter-spacing:-.03em;transition:translate .7s cubic-bezier(.2,.8,.2,1)}
+.catnav__desc{display:block;margin-top:14px;max-width:38ch;font-size:15px;opacity:.72}
+.catnav__meta{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:18px;align-self:stretch;padding-top:.6em}
+.catnav__count{white-space:nowrap;opacity:.6}
+/* Pfeil im Kreis: dreht sich bei Aktivität von schräg (↗) nach rechts (→) und füllt sich */
+.catnav__arrow{position:relative;width:46px;height:46px;border:1px solid rgba(21,18,19,.35);border-radius:50%;flex:none;
+  transition:background .45s ease,border-color .45s ease,rotate .6s cubic-bezier(.2,.8,.2,1);rotate:-45deg}
+.catnav__arrow::before{content:"";position:absolute;inset:0;margin:auto;width:16px;height:8px;background:var(--ink);
+  -webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain;transition:background .45s ease,translate .45s ease}
+.catnav__item.is-active .catnav__arrow{background:var(--ink);border-color:var(--ink);rotate:0deg}
+.catnav__item.is-active .catnav__arrow::before{background:var(--ivory)}
+.catnav__item.is-active .catnav__title{translate:clamp(8px,1.4vw,22px) 0}
+/* Während die Liste benutzt wird, treten die anderen Kategorien zurück */
+.catnav__list.is-engaged .catnav__item:not(.is-active){opacity:.38}
+.catnav__item:focus-visible{outline-offset:6px}
+@media(hover:hover){.catnav__item:hover .catnav__arrow::before{translate:3px 0}}
+
+/* Bildfläche: drei übereinanderliegende Bilder, nur das aktive ist sichtbar (sanfter Fade + leichter Zoom) */
+.catnav__visual{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--ink);container-type:size}
+.catnav__img{position:absolute;inset:0;margin:0;opacity:0;scale:1.06;transition:opacity 1s ease,scale 1.6s cubic-bezier(.2,.8,.2,1)}
+.catnav__img.is-active{opacity:1;scale:1}
+.catnav__img>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.catnav__img figcaption{position:absolute;left:12px;top:12px;z-index:3;font:500 9.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.92);padding:6px 8px}
+
+/* Handy/Tablet (eigene Darstellung): Bildfläche oben, Liste darunter; das Bild folgt der
+   Kategorie, die gerade in der Bildschirmmitte steht (js/app.js). Pfeil kleiner. */
+@media(max-width:899px){
+  /* Bild bleibt unter dem Header stehen, die Kategorien scrollen darunter durch */
+  .catnav__visual{order:-1;position:sticky;top:63px;z-index:2;aspect-ratio:auto;height:40svh;width:100%;box-shadow:0 18px 30px -24px rgba(21,18,19,.5)}
+  .catnav__item{grid-template-columns:auto minmax(0,1fr) auto}
+  .catnav__count{display:none}
+  .catnav__arrow{width:38px;height:38px}
+  .catnav__meta{justify-content:flex-start}
+}
+/* Desktop: Liste links (7 Spalten), Bildfläche rechts (5 Spalten), bleibt beim Scrollen stehen */
+@media(min-width:900px){
+  .catnav{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,110px);align-items:start}
+  .catnav__visual{aspect-ratio:4/5;position:sticky;top:110px}
+}
 }
 
 /* 7) Shop ----------------------------------------------------------------------- */
@@ -155,13 +246,13 @@ a{color:inherit;text-decoration:none}
 /* ---------- Echte Fotos (Unsplash, Symbolbilder; Nachweis: assets/images/fotos/BILDNACHWEIS.txt) ---------- */
 /* Fotos in Hero und Über uns füllen die Bildfläche; die Körnung (.photo::before) liegt darüber */
 .photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.hero__photo>img{object-position:50% 35%}  /* Kopf des Schimmels im oberen Bilddrittel halten */
+.hero__photo>img{object-position:50% 30%}  /* Kopf des Schimmels im oberen Bilddrittel halten */
 .about__photo>img{object-position:50% 6%}   /* Kopf der Reiterin im Bild halten (Hochformat wird oben angesetzt) */
 /* Produkt- und Kategoriebilder: Foto füllt die Fläche, Hover = sanfter Zoom */
-.product__plate,.cat__plate{container-type:size}
+.product__plate{container-type:size}
 .plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .plate__img,.shot{transition:scale .7s cubic-bezier(.2,.8,.2,1)}
-.product:hover .plate__img,.product:hover .shot,.cat:hover .plate__img,.cat:hover .shot{scale:1.05}
+.product:hover .plate__img,.product:hover .shot{scale:1.05}
 /* Geräte-Foto mit eingeblendetem Bildschirm: Das Foto behält sein Seitenverhältnis (--ar)
    und füllt die Fläche wie „cover“; so bleibt der Bildschirm-Ausschnitt deckungsgleich. */
 .shot{position:absolute;left:50%;top:50%;width:max(100cqw,calc(100cqh * var(--ar)));aspect-ratio:var(--ar);translate:-50% -50%}
@@ -182,6 +273,15 @@ a{color:inherit;text-decoration:none}
 .feed__grid i{display:grid;place-items:center;aspect-ratio:1;font:400 clamp(7px,1.6cqw,12px)/1 var(--serif);font-style:normal;color:var(--ivory)}
 .feed__t1{background:var(--ox)}.feed__t2{background:var(--blush)}.feed__t3{background:var(--ink)}
 .feed__t4{background:#bdb5ab}.feed__t5{background:var(--ink)}.feed__t6{background:var(--ox)}
+/* ---------- Kacheln (inspiriert von landing.love) ----------
+   Abgerundete Rahmen-Kachel, Bild mit eigenem Radius eingerückt.
+   Hover: Kachel hebt sich (translate) mit weichem Schatten, das Bild zoomt (siehe oben). */
+.product{border-radius:22px;padding:10px;transition:translate .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s cubic-bezier(.2,.8,.2,1)}
+.product__plate{border-radius:14px}
+.product__body{padding:20px 14px 16px}
+.product:hover{translate:0 -6px;box-shadow:0 26px 50px -30px rgba(21,18,19,.5)}
+/* Während des Einblendens gilt der Reveal-Übergang (danach entfernt js/app.js die Klasse) */
+.product.reveal,.catnav__item.reveal{transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0s)}
 .product__note{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);padding:4px 6px}
 .product__body{display:flex;flex-direction:column;gap:14px;padding:22px 22px 24px;flex:1}
 .product__meta{display:flex;justify-content:space-between;gap:10px;margin:0;align-items:center}
@@ -201,20 +301,54 @@ a{color:inherit;text-decoration:none}
 @media(min-width:1100px){.products{grid-template-columns:repeat(3,1fr)}}
 
 /* 8) Featured Product: EquiBill Manage ------------------------------------------------ */
-.manage{background:var(--ox);color:var(--ivory);display:grid;gap:36px;align-items:center;overflow:hidden}
+/* „overflow:clip“ statt „hidden“: schneidet ab, blockiert aber nicht „position:sticky“ (Horizontal-Band) */
+.manage{background:var(--ox);color:var(--ivory);display:grid;gap:36px;align-items:center;overflow:clip}
+.manage>*{min-width:0}  /* Grid-Kinder dürfen schmaler als ihr Inhalt werden (sonst wird die Rechnung abgeschnitten) */
 .manage h2{margin:12px 0 18px;font:italic 400 clamp(54px,9vw,120px)/.9 var(--serif);letter-spacing:-.035em}
 .manage__lead{margin:0 0 26px;max-width:44ch;font-size:18px}
-.manage__features{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:0}
-.manage__features li{border-top:1px solid rgba(243,239,232,.3);padding:14px 0;display:grid;gap:4px}
-.manage__features li:last-child{border-bottom:1px solid rgba(243,239,232,.3)}
-.manage__features b{font:italic 400 22px/1.1 var(--serif)}
-.manage__features span{opacity:.85;font-size:15px}
 .manage__price{font:400 clamp(34px,4vw,48px)/1 var(--serif);margin:0 0 6px}
 .manage__price small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-left:10px;opacity:.85}
 .manage__tarife{margin:0 0 24px;opacity:.85;font-size:14.5px}
-.manage__stage{aspect-ratio:1/1;background:var(--blush);border-radius:50%;max-width:540px;width:100%;justify-self:center;position:relative;overflow:hidden;--mk-ink:#151213}
-.manage__stage span{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);z-index:3;font:500 9px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-@media(min-width:900px){.manage{grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,80px)}}
+@media(min-width:900px){.manage{grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,80px)}.manage__scroller{grid-column:1/-1}}
+
+/* Animierte Rechnung (Produkt-Demo) ------------------------------------------------ */
+.manage__stage{background:var(--blush);border-radius:22px;padding:clamp(20px,4vw,48px);max-width:560px;width:100%;justify-self:center;color:var(--ink)}
+.manage__note{display:block;margin-top:14px;text-align:center;font:500 9px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.invoice{background:var(--ivory);border-radius:12px;padding:clamp(18px,3vw,30px);box-shadow:0 30px 60px -34px rgba(21,18,19,.55);font-size:14.5px}
+.invoice__head{display:flex;justify-content:space-between;gap:12px;margin:0;align-items:baseline}
+.invoice__head .label{color:var(--ox)}
+.invoice__nr{font:400 15px/1 var(--serif)}
+.invoice__to{margin:10px 0 18px;opacity:.75;font-size:13.5px}
+.invoice__items{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.18)}
+.invoice__items li,.invoice__total{display:flex;justify-content:space-between;gap:12px;padding:11px 0}
+.invoice__items li{border-bottom:1px solid rgba(21,18,19,.12)}
+.invoice b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.invoice__total{margin:6px 0 0;font:400 clamp(24px,3vw,32px)/1 var(--serif);border-top:2px solid var(--ink)}
+.invoice__total b{font-weight:400}
+.invoice__status{display:inline-block;margin:14px 0 0;padding:7px 10px;border:1px solid var(--ox);color:var(--ox)}
+/* Ablauf: js/app.js setzt .invoice--ready (Startzustand) und beim Sichtbarwerden .is-playing */
+/* Startzustand ohne Übergang (sofort unsichtbar); animiert wird nur das Erscheinen */
+.invoice--ready .invoice__items li,.invoice--ready .invoice__total,.invoice--ready .invoice__status{opacity:0;transform:translateX(-14px)}
+.invoice--ready.is-playing .invoice__items li,.invoice--ready.is-playing .invoice__total,.invoice--ready.is-playing .invoice__status{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.invoice--ready.is-playing .invoice__items li:nth-child(1){transition-delay:.2s}
+.invoice--ready.is-playing .invoice__items li:nth-child(2){transition-delay:.75s}
+.invoice--ready.is-playing .invoice__items li:nth-child(3){transition-delay:1.3s}
+.invoice--ready.is-playing .invoice__items li:nth-child(4){transition-delay:1.85s}
+.invoice--ready.is-playing .invoice__total{transition-delay:2.4s}
+.invoice--ready.is-playing .invoice__status{transition-delay:3.6s}
+
+/* Funktionen: Horizontal-Band ------------------------------------------------------- */
+/* Handy/Standard: Karten nebeneinander, mit dem Finger wischbar (Scroll-Snap) */
+.manage__features{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.manage__features li{flex:0 0 min(82%,420px);scroll-snap-align:start;border:1px solid rgba(243,239,232,.35);border-radius:22px;padding:28px 26px 30px;display:grid;gap:10px;align-content:start;min-height:240px}
+.manage__features .label{opacity:.75}
+.manage__features b{font:italic 400 clamp(30px,3.4vw,46px)/1 var(--serif)}
+.manage__features li>span:last-child{opacity:.88;font-size:16px;max-width:32ch}
+/* Desktop mit JavaScript: Bühne klebt unter dem Header, Band wird beim Scrollen verschoben */
+.manage__scroller.is-hscroll .manage__sticky{position:sticky;top:64px;height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden}
+.manage__scroller.is-hscroll .manage__features{overflow:visible;scroll-snap-type:none;gap:24px;padding:0;will-change:transform}
+.manage__scroller.is-hscroll .manage__features li{flex:0 0 clamp(340px,38vw,560px);min-height:min(56vh,440px);padding:40px 38px}
+
 
 /* 9) Vorteile ----------------------------------------------------------------------------- */
 .benefits__grid{display:grid;border-top:1px solid var(--ink)}
