@@ -15,7 +15,7 @@ Arbeite nicht nur ausführend, sondern beratend, kritisch und vorausschauend: Id
 - **Aktuell:** Projekt der Weiterbildung zur KI-Managerin (DSP Academy, KI-Manager, Baustein 3: KI-gestützte Webentwicklung mit Claude Code). Ergebnis ist ein **fiktives** Unternehmen mit professioneller Website, Software-Landingpage und Demo-Shop (Software-first). Abschluss der Weiterbildung: März 2027.
 - **Aktuelle Positionierung (Entscheidung 26.11.2026):** EquiBill ist ein **Softwareunternehmen für den professionellen Pferdesport**. Herzstück ist **EquiBill Manage**, eine digitale Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Ergänzend bietet EquiBill digitale Business-Tools sowie Marketing- und Designvorlagen in einem **separaten Onlineshop** an. Die Software ist das Kerngeschäft; der Shop wird visuell und inhaltlich **nicht gleichwertig** behandelt. (Vorher: „Concept Store“ mit Shop im Mittelpunkt, nicht mehr gültig.)
 - **Claims:** „The Business Behind the Sport.“ und „Weniger Büro. Mehr Pferd.“ (beide im Hero, Beschlossen); Markeneinführung: „Du machst den Sport. Wir vereinfachen das Business dahinter.“ Weitere (vorläufig, derzeit nicht eingesetzt): Connecting horses, people & business. · Dein Pferdebusiness. Einfach digital.
-- **Zielgruppe (primär):** selbstständige Berufsreiter, Bereiter, Ausbildungs- und Turnierställe, kleine/mittlere Pferdebetriebe, zunächst Norddeutschland (SH, HH, NI), Fokus Spring- und Ausbildungsreitsport.
+- **Zielgruppe (primär):** selbstständige Berufsreiter, Bereiter, Trainer, Ausbildungs- und Turnierställe, kleine/mittlere Pferdebetriebe, Fokus Spring- und Ausbildungsreitsport. Der geografische Startfokus (Norddeutschland) ist eine **interne** Planungsannahme und wird in der Markenkommunikation nicht genannt (Entscheidung 26.11.2026).
 
 ## 3. Strategische Ebenen (verbindlich)
 
@@ -79,6 +79,7 @@ Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kon
 
 - **Typografie:** hochkontrastige Didone (Didot / Bodoni 72) für Display, groß, mit kursivem Gegenspieler; Labels in Helvetica Neue Versalien mit weiter Laufweite (ca. +24 %); Nummern als „N°“. Umsetzung mit lokalen Schriftdateien mit offener Lizenz: Bodoni Moda (statt Didot) und Inter (statt Helvetica Neue), siehe Kap. 13; **keine Google Fonts**. Eine finale Hausschrift ist offen.
 - **Bildsprache:** Mittelformat-Look, Fensterlicht, warme Hauttöne, ruhige Porträts und Details (Hände, Zügel, Leder, Stangen im Streiflicht), Stillleben statt Action; Produkte als Packshots auf farbigen Flächen. **Bildstil (Entscheidung 25.11.2026):** hochwertige **Schwarz-Weiß-Fotografie** (Low-Key, Gegenlicht, Körnung, ruhige, intime Momente, Menschen eher von hinten/angeschnitten); auch Software-/Vorlagenfotos in S/W, Markenfarbe nur als Akzent (z. B. Mockup auf dem Display). **Fotos (Entscheidung 25.11.2026):** echte Fotos mit freier Lizenz (Unsplash-Lizenz, keine Unsplash+-Bilder) als **gekennzeichnete Symbolbilder**; jedes Foto mit Fotograf, Link und Lizenz in `website/assets/images/fotos/BILDNACHWEIS.txt`. Eigene Fotos sind langfristig vorzuziehen.
+- **Software- und Produkt-Mockups (26.11.2026):** EquiBill Manage wird mit einem detaillierten Interface in HTML/CSS gezeigt (`.app`, fiktive Daten, skaliert über Container-Einheiten; im Laptop-Foto als `.app--fixed`), nicht mit abstrakten Grafiken. Die Vorlagen im Shop-Teaser zeigen ihren tatsächlichen Aufbau (Tabellenblatt Tournament Planner, Seiten des Rider Portfolio) als gezeichnete Packshots auf farbiger Fläche, gekennzeichnet als „Mockup“.
 - **Layout:** asymmetrisches 12-Spalten-Raster, überlappende Bilder, Headline über Bildkanten, Kategorien als Index-Liste, Produkte im versetzten Lookbook-Raster (kein gleichförmiges Kachelraster). Produktkarten als abgerundete Rahmen-Kacheln (Entscheidung 26.11.2026, inspiriert von landing.love), Name in Serif, Hover: Kachel hebt sich leicht, Bild zoomt sanft. **Sortiment (26.11.2026, seit der Neupositionierung auf `shop.html`, nicht mehr auf der Startseite):** keine Kacheln, sondern Editorial Category Navigation – drei große Serifen-Kategorien 01–03 mit Haarlinien links, rechts eine Bildfläche, die bei Hover/Fokus per Fade wechselt; Handy: Bild bleibt oben stehen, die Kategorie in der Mitte des freien Bereichs steuert das Bild; Links filtern weiterhin den Shop. **Effekte (26.11.2026):** Cinematic Hero (Foto großflächig auf Ink, langsamer Zoom, Headline blendet ein; Akzent auf Dunkel = Blush), Scroll-Reveal, Text Reveal aller Abschnitts-Überschriften Wort für Wort, animierte Beispielrechnung (fiktive Werte) und horizontal laufende Manage-Funktionen (ab 900 px; Handy: wischbar), Magnetic Buttons (nur Maus); alle Effekte entfallen bei „Bewegung reduzieren“ und ohne JavaScript bleibt alles sichtbar.
 - **Wortmarke (Idee):** EQUI—BILL in gesperrten Didone-Versalien, Mittelstrich in Akzentfarbe; Monogramm „EB“.
 - **Hell/Dunkel:** A ist der Standard. B kommt ergänzend zum Einsatz, z. B. für Unterseiten. Beide teilen Ink, Ivory und Blush und wirken dadurch verwandt. **Entscheidung 26.11.2026:** Die Produktseiten (`website/produkte/`) und die Software-Seite (`software.html`) sind in Variante B „Noir“ gestaltet, ganze Seite inkl. Kopf und Fuß (`<body class="theme-noir">`). Startseite und Shop-Seite (`shop.html`) bleiben Variante A „Maison“. **Offen:** Gestaltung weiterer Unterseiten (Warenkorb, Checkout usw.) und wie der Wechsel aussieht. Nicht innerhalb einer Seite mischen.
@@ -107,16 +108,18 @@ Alle Werte stammen aus den Designstudien und sind die **vorläufige Basis**. Kon
 3. **EquiBill Manage:** größter Bereich; großes Geräte-Mockup, Kundennutzen, animierte Beispielrechnung, horizontal laufende Funktionen, Preis „ab 19 €/Monat“, CTAs „Software entdecken“ und „Tarife vergleichen“.
 4. **So funktioniert’s:** Erfassen → Verwalten → Abrechnen als versetzte Treppe.
 5. **Shop-Teaser „Mehr als Software“:** nur Tournament Planner und Rider Portfolio, kein Filter, keine Beschreibungslisten; CTA „Alle Produkte entdecken“ (→ `shop.html`). Bewusst kleiner als der Manage-Bereich.
-6. **Über EquiBill:** Vision und Zielgruppe, editorial mit Foto.
+6. **Über EquiBill:** emotionale Markengeschichte unter „Aus dem Pferdesport. Für den Pferdesport.“ (Ursprung laut Briefing Kap. 4), editorial mit Foto.
 7. **FAQ:** kompakt, zu Software und ergänzenden Produkten.
 8. **Abschluss-CTA und Fuß:** erneuter Fokus auf EquiBill Manage; Fuß mit Pflichtangaben (Platzhalter) und Demo-Hinweis.
 
 Entfallen von der Startseite: eigenständiger Sortimentsbereich, vollständige Produktübersicht mit Filter, Bereich „Vorteile“ (redundant).
 
-**Unterseiten und Navigation:** Kopf: Software · Shop · Über uns · FAQ · Warenkorb (eigenständig, rechts).
+**Unterseiten und Navigation:** Kopf: Software · Shop · Über uns · Warenkorb (eigenständig, rechts). FAQ nur im Fuß verlinkt (seit 26.11.2026).
 - `software.html` – Landingpage EquiBill Manage: Funktionen, Demo (Beispielrechnung), Anwendungsbeispiele (fiktiv, keine Kundenstimmen), Tarifvergleich, technische Daten, Warenkorb-Schaltfläche. Ersetzt die frühere Produktseite `produkte/equibill-manage.html` (archiviert).
 - `shop.html` – alle Produkte, Kategorien (Editorial Category Navigation), Filter; Produktdetailseiten in `produkte/`.
 - Über uns und FAQ zunächst als Anker auf der Startseite.
+
+**Demo-Hinweise (gebündelt, seit 26.11.2026):** ausführlich an **einer** Stelle im Fuß („Über diese Demo“) auf jeder Seite; zusätzlich nur kurz, wo es nötig ist: „Demo-Preis“ an jedem Preis, ein Satz zum Mockup je Software-Bereich, kurzer Hinweis an der Warenkorb-Schaltfläche, „Symbolbild“/„Mockup“ an Bildern, „Fiktives Unternehmen“ im Über-uns-Bereich. Keine gerahmten Hinweis-Kästen, keine Wiederholungen in jedem Abschnitt.
 
 **Customer Journeys:**
 - **Primär (Software):** Marke entdecken → Software verstehen (Startseite) → Software-Seite: Funktionen, Demo, Tarife → Warenkorb → Demo-Checkout.
@@ -194,9 +197,10 @@ website/
 ├─ index.html        Startseite: Struktur und Inhalte (semantisches HTML, Texte)
 ├─ software.html     Landingpage EquiBill Manage (Noir)
 ├─ shop.html         Shop: Kategorien, Filter, alle Produkte (Maison)
+├─ warenkorb.html    Warenkorb mit Mengen, Summen und Demo-Bestellung (Maison), siehe Kap. 15
 ├─ produkte/         eine Seite je Shop-Produkt (z. B. tournament-planner.html), siehe Kap. 14
 ├─ css/style.css     vollständiges Styling inkl. @font-face (Atelier A „Maison“, B „Noir“ über .theme-noir)
-├─ js/app.js         Interaktion für alle Seiten: Menü, Shop-Filter (auch per ?kategorie=…), Warenkorb-Zähler, Effekte
+├─ js/app.js         Interaktion für alle Seiten: Menü, Shop-Filter (auch per ?kategorie=…), Warenkorb (Kap. 15), Effekte
 ├─ fonts/            lokale Schriften (.woff2) + LIZENZ.txt (Name, Quelle, Lizenz)
 └─ assets/
    └─ images/        Körnungs-Textur, Pfeil-Symbol, Favicon
@@ -222,11 +226,26 @@ Seit dem 26.11.2026 hat die Website neben der Startseite eigene Unterseiten. Es 
 - **Relative Pfade je Ebene:** Unterseiten eine Ebene tiefer verwenden `../` (`../css/style.css`, `../js/app.js`, `../assets/images/…`). Seiten müssen per Doppelklick und über localhost funktionieren.
 - **Kopf, Menü und Fuß identisch** zur Startseite (gleiche Punkte, gleiche Reihenfolge, gleicher Demo-Hinweis). Anker der Startseite werden auf anderen Seiten zu `index.html#ueber-uns` bzw. `../index.html#ueber-uns`; Logo und Wortmarke führen zur Startseite. Weg zurück von Produktseiten: Brotkrumen und „Zurück zur Übersicht“ → `../shop.html`. **Jede Änderung an Kopf oder Fuß in allen Seiten nachziehen** und per Suche prüfen.
 - **Produktdaten fest im HTML**, keine Datendatei und kein Nachladen per JavaScript. Name, Preis und Kategorie müssen auf Startseite, Software-Seite, Shop, Produktseite und in Kap. 5 übereinstimmen (vor jeder Abgabe abgleichen). Zwischen Betrag und €-Zeichen steht ein geschütztes Leerzeichen (`19&nbsp;€`), damit nichts umbricht.
-- **Pflichtinhalte jeder Produktseite:** Bild mit Alternativtext und Kennzeichnung „Symbolbild“, Name als einziges `<h1>`, kurze Beschreibung, Preis mit „inkl. MwSt., zzgl. Versand“ und „Demo-Preis“, Versandkosten (digitale Produkte: 0 €, kein Versand), Schaltfläche „In den Warenkorb“ (noch ohne Funktion), Demo-Hinweis nahe Preis, Beschreibung, technische Daten (als „Vorläufige Konzeptangaben“ gekennzeichnet), Brotkrumen und Link „Zurück zur Übersicht“.
+- **Pflichtinhalte jeder Produktseite:** Bild mit Alternativtext und Kennzeichnung „Symbolbild“ (bzw. gezeichnetes Vorlagen-Mockup mit `role="img"`, `aria-label` und Kennzeichnung „Mockup“, wie bei Tournament Planner und Rider Portfolio; Teaser und Produktseite zeigen dasselbe Mockup), Name als einziges `<h1>`, kurze Beschreibung, Preis mit „inkl. MwSt., zzgl. Versand“ und „Demo-Preis“, Versandkosten (digitale Produkte: 0 €, kein Versand), Schaltfläche „In den Warenkorb“ mit `data-cart-add` (Kap. 15), Demo-Hinweis nahe Preis, Beschreibung, technische Daten (als „Vorläufige Konzeptangaben“ gekennzeichnet), Brotkrumen und Link „Zurück zur Übersicht“.
 - **Jede Seite** hat einen eigenen `<title>` („Produktname – EquiBill (Demo)“) und eine eigene `meta description`.
 - **JavaScript seitenübergreifend:** jeder Teil von `app.js` prüft, ob seine Elemente auf der Seite vorhanden sind, und läuft sonst fehlerfrei weiter. Der Shop-Filter wirkt nur auf `shop.html`; andere Seiten verlinken gefiltert mit `shop.html?kategorie=tools#produkte` (Werte: `software`, `tools`, `design`).
 - **Hell/Dunkel:** Variante je ganzer Seite über eine Klasse am `<body>` (`theme-noir`), nie einzelne Abschnitte umfärben.
 - **Prüfung bei neuen Seiten:** alle Links (hin und zurück), Konsole ohne Fehler, kein horizontales Scrollen bei 320/390/768/1440 px, Kontraste der jeweiligen Variante.
+
+## 15. Warenkorb (Stand 26.11.2026)
+
+Demo-Warenkorb ohne Server: `warenkorb.html` (Variante A „Maison“) und Abschnitt 3 in `js/app.js`. Keine zusätzlichen Pakete.
+
+- **Speicherort:** `localStorage` des Browsers, Schlüssel `equibill-warenkorb`. Bleibt bei Seitenwechsel und Neuladen erhalten, nur in diesem Browser auf diesem Gerät; nichts wird übertragen.
+- **Datenschutz:** gespeichert werden **nur Artikel**, Form `[{ "name": "Tournament Planner", "cents": 2900, "monthly": false, "qty": 1 }]`. Keine persönlichen Daten, keine Kennungen, keine Zeitstempel, kein Tracking. Gespeichert wird **erst beim Hineinlegen**; ein bloßer Besuch legt nichts an. Wird der Warenkorb leer (alles entfernt oder Demo-Bestellung), wird der Schlüssel gelöscht. Die FAQ „Werden Daten von mir gespeichert?“ beschreibt das.
+- **Name und Preis aus dem HTML, keine Produktliste im Skript:** Der Abschnitt mit dem Artikel trägt `data-cart-product`, darin der Name mit `data-cart-name` und der Preis als `<data value="2900" data-cart-price>29&nbsp;€</data>` (Wert in Cent). Abo-Preise zusätzlich `data-cart-interval="monat"`; `data-cart-variant="Basic"` am Abschnitt hängt „ – Basic“ an den Namen. Die Schaltfläche hat `data-cart-add`. Neue Produkte nur so auszeichnen; der angezeigte Preis und `value` müssen übereinstimmen.
+- **Rechnen und Anzeigen:** immer in **Cent** (ganze Zahlen), Anzeige mit `Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' })`, z. B. „19,99 €“. Einmalige Preise und Abo-Preise werden **getrennt summiert** („Einmalig“, „Monatlich“), nie vermischt. Darunter „inkl. MwSt., zzgl. Versand“ und „Versandkosten: 0,00 €“.
+- **Menge:** 1 bis 99 je Artikel; „−“ ist bei 1 gesperrt, „+“ bei 99. Gleicher Name und Preis erhöhen die Menge statt einer neuen Zeile.
+- **Rückmeldung:** nach jedem Hineinlegen, Ändern und Entfernen eine kurze Meldung im Element `#toast` (`role="status"`), damit Screenreader sie ansagen. Zähler im Kopf (`data-cart-count`) zeigt die Gesamtmenge auf allen Seiten; der Link führt zu `warenkorb.html` bzw. `../warenkorb.html`.
+- **Demo-Bestellung:** „Demo-Bestellung absenden“ fragt **keine Daten** ab (kein Formular), zeigt nur eine Bestätigung (bekommt den Fokus), leert den Warenkorb und setzt den Zähler auf 0. Keine Zahlung, keine echte Bestellung.
+- **Sicherheit:** gespeicherte Daten werden beim Lesen geprüft (Typen, Grenzen) und nur bekannte Felder übernommen; Texte werden ausschließlich mit `textContent` eingesetzt, nie mit `innerHTML`. Ist der Speicher blockiert (z. B. privater Modus), erscheint eine Meldung statt eines Fehlers.
+- **Ohne JavaScript:** `warenkorb.html` zeigt einen Hinweis (`<noscript>`); alle anderen Seiten bleiben lesbar.
+- **Testliste bei Änderungen:** Besuch ohne Hineinlegen legt nichts an · Hineinlegen von Shop, Produktseite und Software-Seite · Seitenwechsel und Neuladen · Menge ändern (auch per Tastatur) · Entfernen bis leer (Schlüssel gelöscht) · Summen nachrechnen · Demo-Bestellung · manipulierte Speicherdaten · 320/390/768/1440 px ohne horizontales Scrollen.
 
 ## Änderungsvermerk (24.11.2026)
 
@@ -275,3 +294,18 @@ Seit dem 26.11.2026 hat die Website neben der Startseite eigene Unterseiten. Es 
 - Entfallen: Sortimentsbereich, vollständige Produktübersicht und „Vorteile“ auf der Startseite; Produktseite `produkte/equibill-manage.html` (in `software.html` aufgegangen).
 - Erledigt: offene Frage „acht oder neun Startseitenbereiche“ (jetzt acht Bereiche nach Kopf). `STARTSEITE_Informationsarchitektur_und_Texte.md` beschreibt den früheren Stand.
 - Sicherung: `_archiv/_archiv_2026-11-26_vor-software-first/` (CLAUDE.md, PROJECT_BRIEFING.md, ROADMAP.md, `website/index.html`, `css/style.css`, `js/app.js`, `produkte/equibill-manage.html`); außerdem Git-Commit 3edddc3.
+
+## Änderungsvermerk (26.11.2026, Feinschliff Markenauftritt)
+
+- Geändert: Hero-Texte nutzenorientiert; Markeneinführung gekürzt; Über uns als Markengeschichte („Aus dem Pferdesport. Für den Pferdesport.“); Norddeutschland aus der Markenkommunikation entfernt (Kap. 2).
+- Neu: realistisches Software-Interface statt abstrakter Dashboard-Grafik (Startseite, Software-Seite, Laptop-Bilder im Shop); Vorlagen-Mockups im Shop-Teaser (Kap. 6).
+- Geändert: Demo-Hinweise gebündelt (Regel in Kap. 7); FAQ aus der Hauptnavigation in den Fuß.
+- Entfernt: nicht mehr genutzte CSS-Regeln der früheren Mockup-Grafiken (`.mk-*`).
+- Geändert: Produktseiten Tournament Planner und Rider Portfolio zeigen dieselben Vorlagen-Mockups wie der Teaser (statt Symbolfoto); Regel in Kap. 14.
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-feinschliff/` und Git-Commit 2fb2158.
+
+## Änderungsvermerk (26.11.2026, Warenkorb)
+
+- Neu: Kap. 15 „Warenkorb“ (Speicherung im Browser, Datenschutz, Auszeichnung im HTML, Cent-Rechnung, getrennte Summen, Demo-Bestellung, Sicherheit, Testliste); `warenkorb.html` in Kap. 13.
+- Geändert: „In den Warenkorb“ auf Shop-, Produkt- und Software-Seite legt Artikel hinein (Kap. 14); Warenkorb-Link im Kopf führt zu `warenkorb.html`; FAQ zur Datenspeicherung angepasst.
+- Sicherung: `_archiv/_archiv_2026-11-26_vor-warenkorb/`.

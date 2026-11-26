@@ -16,12 +16,12 @@
   <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="#ueber-uns">Über uns</a><a href="#faq">FAQ</a>
+      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="#ueber-uns">Über uns</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="#ueber-uns">Über uns</a><a href="#faq">FAQ</a>
+        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="#ueber-uns">Über uns</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -46,8 +46,8 @@
         </g>
       </svg>
     </a>
-    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
-    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+    <!-- Warenkorb: Zähler aus dem Browser-Speicher (js/app.js, Abschnitt 3) -->
+    <a class="header-cart label" href="warenkorb.html" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
   <main id="inhalt">
@@ -57,15 +57,14 @@
       <div class="hero__stage">
         <figure class="photo hero__photo"><img src="assets/images/fotos/hero-schimmel-boxentuer.jpg" alt="Schimmel schaut mit gesenktem Kopf über eine dunkle Boxentür, Schwarz-Weiß" width="1066" height="1600"><figcaption>Symbolbild · Foto: Artur Aldyrkhanov / Unsplash</figcaption></figure>
         <div class="hero__text">
-          <p class="hero__eyebrow label">Verwaltungs- und Abrechnungssoftware für den Pferdesport</p>
+          <p class="hero__eyebrow label">Software für Berufsreiter und Pferdebetriebe</p>
           <h1 id="hero-titel">The <em>Business</em> Behind the Sport.</h1>
           <p class="hero__claim">Weniger Büro. Mehr Pferd.</p>
-          <p class="hero__lead">EquiBill Manage verwaltet Pferde, Kunden und Kosten und macht daraus deine Rechnungen. Software für Berufsreiter, Bereiter, Trainer und Pferdebetriebe.</p>
+          <p class="hero__lead">Beritt, Turniere, Kosten und Rechnungen: EquiBill Manage nimmt dir die Verwaltung ab. Damit dein Tag wieder den Pferden gehört.</p>
           <div class="hero__cta">
             <a class="btn btn--light" href="software.html">Software entdecken</a>
             <a class="textlink" href="shop.html">Zum Shop</a>
           </div>
-          <p class="hero__audience label">Demo · fiktives Unternehmen · Software als Konzept</p>
         </div>
       </div>
     </section>
@@ -78,11 +77,7 @@
       </div>
       <div class="intro__body">
         <p class="intro__lead">EquiBill entwickelt Software für den professionellen Pferdesport.</p>
-        <p>Wer Pferde reitet, ausbildet und betreut, führt nebenbei ein Unternehmen: Leistungen notieren, Kosten weiterberechnen, Rechnungen schreiben, Belege sammeln. Das passiert oft abends, verteilt auf Zettel, Tabellen und Nachrichten.</p>
-        <p>EquiBill Manage bringt diese Arbeit an einen Ort. Ergänzend gibt es im Shop digitale Vorlagen für Turnierplanung und Auftritt.</p>
-        <ul class="intro__audience label" aria-label="Zielgruppen">
-          <li>Berufsreiter</li><li>Bereiter</li><li>Trainer</li><li>Pferdebetriebe</li>
-        </ul>
+        <p>Wer vom Pferdesport lebt, führt nebenbei ein Unternehmen. Leistungen, Kosten und Belege landen oft abends auf Zetteln und in Tabellen. Genau dort setzen wir an.</p>
       </div>
     </section>
 
@@ -99,10 +94,49 @@
         </div>
       </div>
 
-      <!-- Großes Geräte-Mockup: echtes Foto (Symbolbild), Dashboard per HTML/CSS auf den Bildschirm gelegt -->
+      <!-- Software-Interface als HTML/CSS-Mockup (fiktive Daten, maßstabsgerecht über Container-Einheiten) -->
       <figure class="manage__device">
-        <div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div></div>
-        <figcaption>Mockup · Symbolbild</figcaption>
+        <div class="app" role="img" aria-label="Oberfläche von EquiBill Manage (Mockup mit fiktiven Daten): Übersicht mit Umsatz, offenen Beträgen, letzten Einträgen je Pferd und Rechnungsstatus">
+          <div class="app__win" aria-hidden="true">
+            <div class="app__bar"><i></i><i></i><i></i><span class="app__url">equibill.demo/uebersicht</span></div>
+            <div class="app__body">
+              <div class="app__nav">
+                <b class="app__brand">Equi<i></i>Bill</b>
+                <span class="is-active">Übersicht</span><span>Pferde</span><span>Kunden</span><span>Leistungen</span><span>Rechnungen</span><span>Turniere</span>
+                <span class="app__user">Beispielstall</span>
+              </div>
+              <div class="app__main">
+                <div class="app__head"><div><small>November 2026</small><b>Übersicht</b></div><span class="app__btn">+ Leistung erfassen</span></div>
+                <div class="app__kpis">
+                  <div><small>Umsatz November</small><b>6.240,00 €</b><em>18 Rechnungen</em></div>
+                  <div><small>Offen</small><b>1.245,00 €</b><em>3 Rechnungen</em></div>
+                  <div><small>Pferde im Beritt</small><b>8</b><em>5 Besitzer</em></div>
+                </div>
+                <div class="app__grid">
+                  <div class="app__card">
+                    <div class="app__card-head"><small>Letzte Einträge</small><span>Alle anzeigen</span></div>
+                    <div class="app__row app__row--head"><span>Datum</span><span>Pferd</span><span>Leistung</span><span>Betrag</span></div>
+                    <div class="app__row"><span>24.11.</span><span>Quintus</span><span>Nenngeld S*</span><span>85,00 €</span></div>
+                    <div class="app__row"><span>23.11.</span><span>Lavinia</span><span>Transport Turnier</span><span>140,00 €</span></div>
+                    <div class="app__row"><span>22.11.</span><span>Fiora</span><span>Hufschmied</span><span>95,00 €</span></div>
+                    <div class="app__row"><span>21.11.</span><span>Quintus</span><span>Training</span><span>60,00 €</span></div>
+                    <div class="app__row"><span>20.11.</span><span>Lavinia</span><span>Tierarzt (weiterber.)</span><span>118,50 €</span></div>
+                  </div>
+                  <div class="app__card app__card--side">
+                    <div class="app__card-head"><small>Umsatz 2026</small><span>Jan–Nov</span></div>
+                    <div class="app__chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                    <div class="app__card-head"><small>Rechnungen</small></div>
+                    <ul class="app__invoices">
+                      <li><span>A. Muster</span><b>940,00 €</b><em class="is-open">Offen</em></li>
+                      <li><span>Hof Beispiel</span><b>1.380,00 €</b><em class="is-paid">Bezahlt</em></li>
+                      <li><span>K. Beispiel</span><b>305,00 €</b><em class="is-draft">Entwurf</em></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </figure>
 
       <!-- Kundennutzen neben der animierten Rechnung (Werte fiktiv, ohne JavaScript fertig sichtbar) -->
@@ -128,7 +162,6 @@
           <p class="invoice__total"><span>Gesamt</span><b data-invoice-total>940,00&nbsp;€</b></p>
           <p class="invoice__status label">PDF erstellt · bereit zum Versand</p>
         </div>
-        <span class="manage__note">Mockup · fiktive Beispielwerte · in dieser Demo nicht nutzbar</span>
       </div>
 
       <!-- Funktionen: auf großen Bildschirmen beim Scrollen horizontal (js/app.js), auf dem Handy wischbar -->
@@ -142,6 +175,8 @@
           </ul>
         </div>
       </div>
+      <!-- Ein gebündelter Transparenzhinweis für den ganzen Bereich -->
+      <p class="manage__disclaimer">Interface und Rechnung sind Mockups mit fiktiven Daten. EquiBill Manage ist ein Konzept und in dieser Demo nicht nutzbar.</p>
     </section>
 
     <!-- 4) SO FUNKTIONIERT'S: drei Schritte als versetzte „Treppe“ mit Haarlinie -->
@@ -155,7 +190,6 @@
         <li class="step"><span class="step__num">02</span><h3>Verwalten</h3><p>Jede Leistung und jede Ausgabe ist einem Pferd und seinem Besitzer zugeordnet.</p></li>
         <li class="step"><span class="step__num">03</span><h3>Abrechnen</h3><p>Am Monatsende entsteht aus den Einträgen die Rechnung als PDF.</p></li>
       </ol>
-      <p class="steps__note label">Ablauf als Konzept · EquiBill Manage ist in dieser Demo nicht nutzbar</p>
     </section>
 
     <!-- 5) SHOP-TEASER: nur zwei ergänzende Produkte, kein Filter, keine Beschreibungslisten -->
@@ -167,34 +201,59 @@
       </div>
       <div class="teaser__grid">
         <article class="teaser__item">
-          <a class="teaser__img" href="produkte/tournament-planner.html" tabindex="-1" aria-hidden="true"><img src="assets/images/fotos/tournament-planner-notizbuch.jpg" alt="" width="1000" height="650" loading="lazy"><span class="product__note">Symbolbild</span></a>
+          <a class="teaser__img teaser__img--tools" href="produkte/tournament-planner.html" tabindex="-1" aria-hidden="true">
+          <span class="tpl" aria-hidden="true">
+            <span class="tpl__sheet">
+              <span class="tpl__head"><b>Turniersaison 2026</b><small>Tournament Planner</small></span>
+              <span class="tpl__row tpl__row--head"><span>Datum</span><span>Turnier</span><span>Pferd</span><span>Nenngeld</span><span>Transport</span><span>Summe</span></span>
+              <span class="tpl__row"><span>12.04.</span><span>Frühjahrsturnier</span><span>Lavinia</span><span>85 €</span><span>140 €</span><span>225 €</span></span>
+              <span class="tpl__row"><span>03.05.</span><span>Reitertage</span><span>Quintus</span><span>120 €</span><span>210 €</span><span>330 €</span></span>
+              <span class="tpl__row"><span>21.06.</span><span>Sommerturnier</span><span>Lavinia</span><span>95 €</span><span>160 €</span><span>255 €</span></span>
+              <span class="tpl__row"><span>16.08.</span><span>Springderby</span><span>Fiora</span><span>150 €</span><span>280 €</span><span>430 €</span></span>
+              <span class="tpl__row"><span>27.09.</span><span>Herbstturnier</span><span>Quintus</span><span>110 €</span><span>190 €</span><span>300 €</span></span>
+              <span class="tpl__row tpl__row--total"><span></span><span>Saison gesamt</span><span></span><span>560 €</span><span>980 €</span><span>1.540 €</span></span>
+            </span>
+          </span>
+          <span class="product__note">Mockup</span></a>
           <p class="teaser__meta"><span class="label label--accent">Business Tools</span><span class="teaser__price">29&nbsp;€ <small>Demo-Preis</small></span></p>
           <h3><a class="product__link" href="produkte/tournament-planner.html">Tournament Planner</a></h3>
-          <p>Turnierplanung und Kostenkalkulation als digitale Vorlage.</p>
+          <p>Saisonplan und Kostenkalkulation je Turnier als Tabellenvorlage.</p>
         </article>
         <article class="teaser__item">
-          <a class="teaser__img" href="produkte/rider-portfolio.html" tabindex="-1" aria-hidden="true"><img src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="" width="1000" height="666" loading="lazy"><span class="product__note">Symbolbild</span></a>
+          <a class="teaser__img teaser__img--design" href="produkte/rider-portfolio.html" tabindex="-1" aria-hidden="true">
+          <span class="rpf" aria-hidden="true">
+            <span class="rpf__cover"><img src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="" width="1000" height="666" loading="lazy"><span class="rpf__cover-title"><small>Rider Portfolio</small><b>Saison 2026</b></span></span>
+            <span class="rpf__page">
+              <small class="rpf__kicker">Profil</small>
+              <b class="rpf__name">Dein Name</b>
+              <span class="rpf__role">Springreiterin · Ausbildungsstall</span>
+              <span class="rpf__lines"><i></i><i></i><i></i></span>
+              <small class="rpf__kicker">Erfolge</small>
+              <span class="rpf__list"><i></i><i></i><i></i></span>
+              <span class="rpf__cta">Sponsoring anfragen</span>
+            </span>
+          </span>
+          <span class="product__note">Mockup</span></a>
           <p class="teaser__meta"><span class="label label--accent">Marketing &amp; Design</span><span class="teaser__price">49&nbsp;€ <small>Demo-Preis</small></span></p>
           <h3><a class="product__link" href="produkte/rider-portfolio.html">Rider Portfolio</a></h3>
-          <p>Canva-Vorlage für Reiter- und Sponsorenpräsentationen.</p>
+          <p>Canva-Vorlage für deinen Auftritt bei Sponsoren und Partnern.</p>
         </article>
       </div>
       <div class="teaser__cta">
         <a class="btn" href="shop.html">Alle Produkte entdecken</a>
-        <p class="label">Demo-Preise · keine echte Bestellung</p>
       </div>
     </section>
 
-    <!-- 6) ÜBER EQUIBILL (fiktives Unternehmen): Vision und Zielgruppe -->
+    <!-- 6) ÜBER EQUIBILL: Markengeschichte (fiktives Unternehmen; Ursprung laut PROJECT_BRIEFING.md Kap. 4) -->
     <section class="section about" id="ueber-uns" aria-labelledby="about-titel">
       <figure class="photo about__photo"><img src="assets/images/fotos/ueber-uns-reiterin-zaun.jpg" alt="Reiterin von hinten im Schritt an einem Holzzaun entlang, Schwarz-Weiß" width="900" height="1600" loading="lazy"><figcaption>Symbolbild · Foto: Philippe Oursel / Unsplash</figcaption></figure>
       <div>
         <span class="label label--accent">Über EquiBill</span>
-        <h2 id="about-titel">Wer vom Pferdesport lebt, führt ein Unternehmen.</h2>
-        <p class="about__vision">Unsere Vision: Wer Pferde ausbildet, reitet und betreut, soll seinen Betrieb mit wenig Büroarbeit führen können.</p>
-        <p>EquiBill entwickelt dafür Software und digitale Werkzeuge, die zum Alltag zwischen Stall, Reitplatz und Turnier passen. Im Mittelpunkt steht EquiBill Manage.</p>
-        <p>Wir richten uns an Berufsreiter, Bereiter, Trainer und Pferdebetriebe, zunächst in Norddeutschland und mit Schwerpunkt im Spring- und Ausbildungsreitsport.</p>
-        <p class="about__demo label">EquiBill ist ein fiktives Unternehmen und entsteht im Rahmen einer Weiterbildung. Produkte, Preise und Angebote sind Demo-Konzepte.</p>
+        <h2 id="about-titel">Aus dem Pferdesport. Für den Pferdesport.</h2>
+        <p class="about__vision">EquiBill beginnt nicht am Schreibtisch, sondern im Stall.</p>
+        <p>Am Anfang stand der Alltag einer selbstständigen Springreiterin: tagsüber Beritt, Training und Turniere, abends Belege, Listen und Rechnungen für jedes Pferd und jeden Besitzer. Aus diesem Alltag entstand ein erstes Werkzeug für die eigene Abrechnung und die Idee hinter EquiBill.</p>
+        <p>Heute entwickeln wir Software für alle, die vom Pferdesport leben: Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Unser Anspruch ist einfach: Die Arbeit mit dem Pferd gehört in den Mittelpunkt, nicht die Verwaltung.</p>
+        <p class="about__demo">Fiktives Unternehmen · Weiterbildungsprojekt</p>
       </div>
     </section>
 
@@ -207,7 +266,7 @@
         <details><summary>Kann ich EquiBill Manage schon nutzen?</summary><p>Nein. EquiBill Manage ist in dieser Demo ein Konzept. Abbildungen und die Beispielrechnung sind Mockups mit fiktiven Werten.</p></details>
         <details><summary>Brauche ich Manage, um Vorlagen aus dem Shop zu nutzen?</summary><p>Nein. Die Vorlagen im Shop sind einzeln erhältlich. Rider Portfolio, Horse Portfolio und Social Media Kit sind für Canva gedacht; EquiBill steht in keiner Verbindung zu Canva.</p></details>
         <details><summary>Kann ich die Produkte tatsächlich kaufen?</summary><p>Nein. EquiBill ist ein fiktives Unternehmen. Der Warenkorb ist eine Demonstration; es gibt keine Bestellung und keine Zahlung.</p></details>
-        <details><summary>Werden Daten von mir gespeichert?</summary><p>Diese Demo-Seite verarbeitet keine personenbezogenen Daten. Impressum und Datenschutzerklärung sind Platzhalter.</p></details>
+        <details><summary>Werden Daten von mir gespeichert?</summary><p>Diese Demo fragt keine persönlichen Daten ab. Legst du etwas in den Warenkorb, speichert nur dein Browser die Artikel (Name, Preis, Menge) auf deinem Gerät; nichts wird an einen Server übertragen. Nach der Demo-Bestellung wird der Warenkorb gelöscht. Impressum und Datenschutzerklärung sind Platzhalter.</p></details>
       </div>
     </section>
 
@@ -227,7 +286,7 @@
       <div><h2>Software</h2><ul><li><a href="software.html">EquiBill Manage</a></li><li><a href="software.html#funktionen">Funktionen</a></li><li><a href="software.html#tarife">Tarife</a></li></ul></div>
       <div><h2>Shop</h2><ul><li><a href="shop.html">Alle Produkte</a></li><li><a href="shop.html?kategorie=tools#produkte">Business Tools</a></li><li><a href="shop.html?kategorie=design#produkte">Marketing &amp; Design</a></li></ul></div>
       <div><h2>EquiBill</h2><ul><li><a href="#ueber-uns">Über uns</a></li><li><a href="#faq">FAQ</a></li><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
-      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+      <div><h2>Über diese Demo</h2><p class="demo-box">EquiBill ist ein fiktives Unternehmen aus einem Weiterbildungsprojekt. Alle Preise sind Demo-Preise, es gibt keine Bestellung und keine Zahlung. Software und Vorlagen sind Konzepte, Interface-Abbildungen sind Mockups mit fiktiven Daten.</p></div>
     </div>
     <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>
   </footer>

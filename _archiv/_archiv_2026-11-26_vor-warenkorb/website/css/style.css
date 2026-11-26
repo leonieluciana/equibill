@@ -1,0 +1,700 @@
+/* ==========================================================================
+   EquiBill – Startseite (Design „Atelier A / Maison“), Projektstruktur Tag 43
+   Gestaltung getrennt von Struktur (index.html) und Logik (js/app.js).
+   Mobile First: Basis = Smartphone, Erweiterungen per min-width.
+   Schriften: lokal aus fonts/ (keine Google Fonts, keine externen Server).
+   Alle Produkte/Preise sind fiktive Demo-Konzeptwerte.
+   ========================================================================== */
+
+/* 0) Lokale Schriften (fonts/, Lizenz: SIL OFL 1.1) ------------------ */
+@font-face{
+  font-family:"Bodoni Moda"; font-style:normal; font-weight:400 900; font-display:swap;
+  src:url("../fonts/BodoniModa-opsz-normal.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Bodoni Moda"; font-style:italic; font-weight:400 900; font-display:swap;
+  src:url("../fonts/BodoniModa-opsz-italic.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/Inter-400.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:500; font-display:swap;
+  src:url("../fonts/Inter-500.woff2") format("woff2");
+}
+
+/* 1) Design-Variablen ---------------------------------------------------- */
+:root{
+  --ivory:#F3EFE8; --ink:#151213; --ox:#6E1423; --blush:#E9C9C0; --stone:#BDB5AB;
+  --wine:#5B1A24; --smoke:#3A3231;
+  --line:rgba(21,18,19,.16); --accent:var(--ox);  /* Haarlinien und Akzent; in .theme-noir umgestellt */  /* Zusatzfarben Variante B „Noir“ (Produktseiten) */
+  --serif:"Bodoni Moda",Didot,"Bodoni 72","Bodoni MT","Times New Roman",serif;
+  --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --pad:clamp(18px,4vw,56px);
+  --plate-software:#E9C9C0; --plate-tools:#D9D2C7; --plate-design:#E0BFB3;
+  /* Farben der gezeichneten Produkt-Mockups */
+  --mk-bg:#fbf8f3; --mk-ink:#151213; --mk-acc:#6E1423; --mk-soft:#e6ddd2; --mk-line:#d6ccbf; --mk-font:var(--serif);
+  /* Filmkörnung der Foto-Platzhalter */
+  --gr:url("../assets/images/grain.svg");
+}
+
+/* 2) Grundlagen ------------------------------------------------------------ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--ivory);color:var(--ink);font:400 16px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ox);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--ivory);padding:10px 14px;z-index:100}
+.skip:focus{top:12px}
+.label{font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+/* Label in Akzentfarbe (Oxblood auf Ivory, Kontrast 10,25:1); ersetzt frühere Inline-Styles */
+.label--accent{color:var(--ox)}
+.textlink{display:inline-flex;gap:12px;align-items:center;border-bottom:1px solid currentColor;padding-bottom:5px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.textlink::after{content:"";width:16px;height:8px;background:currentColor;-webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);padding:16px 24px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,translate .45s cubic-bezier(.2,.8,.2,1)}
+.btn:hover{background:var(--ox);border-color:var(--ox)}
+.btn--light{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.btn--light:hover{background:var(--blush);border-color:var(--blush);color:var(--ink)}
+.section{padding:clamp(64px,9vw,130px) var(--pad)}
+.section-head{margin:0 0 clamp(28px,4vw,52px);max-width:62ch}
+.section-head h2{margin:10px 0 0;font:400 clamp(40px,6vw,88px)/.95 var(--serif);letter-spacing:-.03em}
+.section-head p{margin:16px 0 0;opacity:.75}
+/* Scroll-Reveal (js/app.js setzt .reveal und beim Sichtbarwerden .is-visible) */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0s)}
+.reveal.is-visible{opacity:1;transform:none}
+/* Hero-Zoom (Scroll-Driven Animation, reines CSS): Beim Herausscrollen zoomt das Foto
+   langsam heran und verschiebt sich leicht (Parallaxe), der Text tritt zurück.
+   Nur in Browsern, die „animation-timeline“ kennen; sonst bleibt der Hero ruhig. */
+@supports (animation-timeline: view()){
+  .hero{view-timeline-name:--hero}  /* benannte Zeitleiste: wie weit der Hero schon aus dem Bild gescrollt ist */
+  .hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both,hero-zoom linear both;animation-timeline:auto,--hero;animation-range:normal,exit 0% exit 100%}
+  .hero__text{animation:hero-fade linear both;animation-timeline:--hero;animation-range:exit 0% exit 80%}
+}
+@keyframes hero-zoom{from{transform:scale(1) translateY(0)}to{transform:scale(1.14) translateY(6%)}}
+@keyframes hero-fade{from{opacity:1;transform:none}to{opacity:.35;transform:translateY(-40px)}}
+/* Statement „Über uns“: Wörter leuchten nacheinander auf (js/app.js setzt .is-lit) */
+.statement--split .word{opacity:.16;transition:opacity .45s ease}
+.statement--split .word.is-lit{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* 3) Foto-Platzhalter (keine echten Fotos!) ------------------------------- */
+.photo{margin:0;position:relative;overflow:hidden}
+.photo::before{content:"";position:absolute;inset:0;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;z-index:1}
+.photo figcaption{position:absolute;left:12px;bottom:12px;z-index:3;font:500 9.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.92);padding:6px 8px;max-width:84%}
+
+/* 4) Header ------------------------------------------------------------------ */
+.site-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px var(--pad);background:rgba(243,239,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,18,19,.12)}
+.wordmark{font:400 18px/1 var(--serif);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:.5em}
+.wordmark i{display:inline-block;width:1.4em;height:1px;background:var(--ox)}
+
+/* Logo im Header: Inline-SVG, Farben über Variablen (hell: Ink + Oxblood).
+   SVG Line Animation beim Laden: Eine feine Linie zeichnet die Umrisse nach
+   (EQUI → Steilsprung-Signet → BILL), danach füllen sich die Formen und die Linie verschwindet.
+   Technik: pathLength="1" im HTML macht jede Pfadlänge = 1; stroke-dasharray/-dashoffset
+   von 1 auf 0 „zieht“ die Linie. Ohne Animation (Bewegung reduzieren) steht das Logo sofort da. */
+.logo-link{display:block;width:136px;line-height:0}
+.logo{display:block;width:100%;height:auto;overflow:visible;--eb-text:var(--ink);--eb-accent:var(--ox)}
+.eb-letter{fill:var(--eb-text);stroke:var(--eb-text)}
+.eb-signet-body,.eb-signet-knob{fill:var(--eb-accent);stroke:var(--eb-accent)}
+.logo path{stroke-width:9;stroke-dasharray:1;stroke-dashoffset:0;stroke-opacity:0;stroke-linejoin:round;
+  animation:eb-draw 1.3s cubic-bezier(.6,.1,.3,1) both,eb-fill .7s ease both;
+  animation-delay:var(--d,0s),calc(var(--d,0s) + 1.15s)}
+#eb-letter-1{--d:.05s}#eb-letter-2{--d:.13s}#eb-letter-3{--d:.21s}#eb-letter-4{--d:.29s}
+.eb-signet-body{--d:.4s}.eb-signet-knob{--d:1.1s}
+#eb-letter-5{--d:.55s}#eb-letter-6{--d:.63s}#eb-letter-7{--d:.71s}#eb-letter-8{--d:.79s}
+@keyframes eb-draw{from{stroke-dashoffset:1;stroke-opacity:1}to{stroke-dashoffset:0;stroke-opacity:1}}
+@keyframes eb-fill{from{fill-opacity:0;stroke-opacity:1}to{fill-opacity:1;stroke-opacity:0}}
+.nav-desktop{display:none}
+.nav-mobile summary{list-style:none;cursor:pointer;padding:8px 0}
+/* Größere Tipp-Fläche (ca. 44 px) ohne das Layout zu verändern */
+.nav-mobile summary{position:relative}
+.nav-mobile summary::after{content:"";position:absolute;inset:-8px -14px}
+.nav-mobile summary::-webkit-details-marker{display:none}
+.nav-mobile[open] .nav-mobile__panel{position:absolute;left:0;right:0;top:100%;background:var(--ivory);padding:20px var(--pad) 26px;border-bottom:1px solid rgba(21,18,19,.15);display:grid;gap:2px;max-height:calc(100vh - 64px);overflow-y:auto}
+.nav-mobile__panel a{padding:8px 0}
+.header-cart{white-space:nowrap}
+/* Desktop-Navigation erst ab 1240 px: Die fünf Menüpunkte brauchen nebeneinander ca. 450 px
+   pro Seite neben der zentrierten Wortmarke. Darunter würden sie zweizeilig umbrechen,
+   deshalb gilt bis 1239 px die Schaltfläche „Menü“. Wert muss zu js/app.js passen. */
+@media(min-width:1240px){
+  .site-header{display:grid;grid-template-columns:1fr auto 1fr;padding:20px var(--pad)}
+  .wordmark{grid-column:2;grid-row:1;font-size:24px;letter-spacing:.2em}
+  .logo-link{grid-column:2;grid-row:1;width:230px}
+  .nav-desktop{display:flex;gap:26px;grid-column:1;grid-row:1}
+  .nav-mobile{display:none}
+  .header-cart{grid-column:3;justify-self:end}
+}
+.nav-desktop a:hover,.header-cart:hover{color:var(--ox)}
+
+/* 5) Hero: Cinematic Hero -------------------------------------------------------
+   Großflächiges Foto als Bühne (fast volle Bildschirmhöhe), dunkler Verlauf für Lesbarkeit,
+   Text in Ivory unten links. Akzent auf Dunkel = Blush (Kontrast 12:1), nicht Oxblood. */
+.hero{display:grid}
+.hero__stage{position:relative;min-height:calc(100svh - 64px);display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);color:var(--ivory)}
+.hero__photo{position:absolute;inset:0}
+/* Körnung über die ganze Bühne statt nur über das Foto, sonst entsteht an der Fotokante ein sichtbarer Helligkeitssprung */
+.hero__photo::before{display:none}
+.hero__stage::before{content:"";position:absolute;inset:0;z-index:1;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;pointer-events:none}
+.hero__photo::after{content:"";position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(21,18,19,.35) 0%,rgba(21,18,19,0) 22%,rgba(21,18,19,.62) 45%,rgba(21,18,19,.9) 100%),
+             linear-gradient(90deg,rgba(21,18,19,.55) 0%,rgba(21,18,19,0) 70%)}
+.hero__photo figcaption{top:12px;bottom:auto;left:auto;right:12px}  /* Handy: oben, damit der Text unten frei bleibt */
+.hero__text{position:relative;z-index:3;padding:clamp(28px,6vw,72px) var(--pad);max-width:900px}
+.hero__eyebrow{margin:0 0 22px;color:var(--blush)}
+.hero h1{margin:0;font:400 clamp(50px,13vw,112px)/.95 var(--serif);letter-spacing:-.035em}
+.hero h1 em{color:var(--blush)}
+.hero__claim{margin:24px 0 0;font:italic 400 clamp(24px,3.2vw,36px)/1.15 var(--serif)}
+.hero__lead{margin:20px 0 0;max-width:46ch;font-size:17px;opacity:.92}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:30px}
+.hero__cta .textlink{color:var(--ivory)}
+.hero__stage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Dunkel sichtbar halten */
+@media(min-width:900px){
+  /* Desktop: Hochformat-Foto rechts in voller Höhe, links Tiefschwarz für den Text;
+     ein Verlauf lässt Foto und Schwarz weich ineinanderlaufen (keine harte Kante). */
+  .hero__photo{left:auto;width:62%}
+  .hero__photo::after{background:linear-gradient(90deg,var(--ink) 0%,rgba(21,18,19,.6) 22%,rgba(21,18,19,0) 55%),
+                                 linear-gradient(180deg,rgba(21,18,19,0) 60%,rgba(21,18,19,.6) 100%)}
+  .hero__stage{align-items:center}
+  .hero__photo figcaption{top:auto;bottom:12px}
+  .hero h1{font-size:clamp(70px,7.6vw,122px)}
+}
+/* Einstieg: Foto zoomt beim Laden ganz langsam heraus (Ken-Burns), Texte blenden nacheinander ein */
+.hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both}
+.hero__text>*{animation:hero-in 1.3s cubic-bezier(.2,.8,.2,1) both}
+.hero__text>:nth-child(1){animation-delay:.3s}
+.hero__text>:nth-child(2){animation-delay:.5s}
+.hero__text>:nth-child(3){animation-delay:.8s}
+.hero__text>:nth-child(4){animation-delay:1s}
+.hero__text>:nth-child(5){animation-delay:1.2s}
+.hero__text>:nth-child(6){animation-delay:1.4s}
+@keyframes hero-kenburns{from{scale:1.12}to{scale:1}}
+@keyframes hero-in{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* 6) Sortiment (shop.html): Editorial Category Navigation ------------------------------------
+   Links drei große Serifen-Kategorien (01–03) mit Haarlinien, rechts eine Bildfläche.
+   js/app.js setzt .is-active (aktive Kategorie + Bild) und .is-engaged (Liste wird benutzt). */
+.catnav{display:grid;gap:28px}
+.catnav__list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.16)}
+.catnav__item{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 clamp(14px,3vw,44px);align-items:start;
+  padding:clamp(26px,3.6vw,46px) 0;border-bottom:1px solid rgba(21,18,19,.16);transition:opacity .5s ease}
+/* Linie in Oxblood wächst unter der aktiven Kategorie von links */
+.catnav__item::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--ox);transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.catnav__item.is-active::after{transform:scaleX(1)}
+.catnav__num{padding-top:.9em;font:500 11px/1 var(--sans);letter-spacing:.2em;color:var(--ox);font-variant-numeric:tabular-nums}
+.catnav__title{margin:0;font:400 clamp(42px,6.4vw,100px)/.95 var(--serif);letter-spacing:-.03em;transition:translate .7s cubic-bezier(.2,.8,.2,1)}
+.catnav__desc{display:block;margin-top:14px;max-width:38ch;font-size:15px;opacity:.72}
+.catnav__meta{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:18px;align-self:stretch;padding-top:.6em}
+.catnav__count{white-space:nowrap;opacity:.6}
+/* Pfeil im Kreis: dreht sich bei Aktivität von schräg (↗) nach rechts (→) und füllt sich */
+.catnav__arrow{position:relative;width:46px;height:46px;border:1px solid rgba(21,18,19,.35);border-radius:50%;flex:none;
+  transition:background .45s ease,border-color .45s ease,rotate .6s cubic-bezier(.2,.8,.2,1);rotate:-45deg}
+.catnav__arrow::before{content:"";position:absolute;inset:0;margin:auto;width:16px;height:8px;background:var(--ink);
+  -webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain;transition:background .45s ease,translate .45s ease}
+.catnav__item.is-active .catnav__arrow{background:var(--ink);border-color:var(--ink);rotate:0deg}
+.catnav__item.is-active .catnav__arrow::before{background:var(--ivory)}
+.catnav__item.is-active .catnav__title{translate:clamp(8px,1.4vw,22px) 0}
+/* Während die Liste benutzt wird, treten die anderen Kategorien zurück */
+.catnav__list.is-engaged .catnav__item:not(.is-active){opacity:.38}
+.catnav__item:focus-visible{outline-offset:6px}
+@media(hover:hover){.catnav__item:hover .catnav__arrow::before{translate:3px 0}}
+
+/* Bildfläche: drei übereinanderliegende Bilder, nur das aktive ist sichtbar (sanfter Fade + leichter Zoom) */
+.catnav__visual{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--ink);container-type:size}
+.catnav__img{position:absolute;inset:0;margin:0;opacity:0;scale:1.06;transition:opacity 1s ease,scale 1.6s cubic-bezier(.2,.8,.2,1)}
+.catnav__img.is-active{opacity:1;scale:1}
+.catnav__img>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.catnav__img figcaption{position:absolute;left:12px;top:12px;z-index:3;font:500 9.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.92);padding:6px 8px}
+
+/* Handy/Tablet (eigene Darstellung): Bildfläche oben, Liste darunter; das Bild folgt der
+   Kategorie, die gerade in der Bildschirmmitte steht (js/app.js). Pfeil kleiner. */
+@media(max-width:899px){
+  /* Bild bleibt unter dem Header stehen, die Kategorien scrollen darunter durch */
+  .catnav__visual{order:-1;position:sticky;top:63px;z-index:2;aspect-ratio:auto;height:40svh;width:100%;box-shadow:0 18px 30px -24px rgba(21,18,19,.5)}
+  .catnav__item{grid-template-columns:auto minmax(0,1fr) auto}
+  .catnav__count{display:none}
+  .catnav__arrow{width:38px;height:38px}
+  .catnav__meta{justify-content:flex-start}
+}
+/* Desktop: Liste links (7 Spalten), Bildfläche rechts (5 Spalten), bleibt beim Scrollen stehen */
+@media(min-width:900px){
+  .catnav{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,110px);align-items:start}
+  .catnav__visual{aspect-ratio:4/5;position:sticky;top:110px}
+}
+}
+
+/* 7) Shop ----------------------------------------------------------------------- */
+.shop{background:#ebe5db}
+.filter{display:none;flex-wrap:wrap;gap:10px;margin:0 0 34px}
+.js .filter{display:flex}
+.filter button{border:1px solid var(--ink);background:transparent;color:var(--ink);padding:11px 16px;font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:99px}
+.filter button[aria-pressed="true"]{background:var(--ink);color:var(--ivory)}
+.filter button:hover{background:var(--ox);color:var(--ivory);border-color:var(--ox)}
+.products{display:grid;gap:30px}
+.product{background:var(--ivory);display:flex;flex-direction:column}
+.product[hidden]{display:none}
+/* Bildfläche ist ein Link zur Produktseite (<a>), deshalb display:block, sonst greift aspect-ratio nicht */
+.product__plate{display:block;position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--c)}
+.product[data-category="software"]{--c:var(--plate-software)}
+.product[data-category="tools"]{--c:var(--plate-tools)}
+.product[data-category="design"]{--c:var(--plate-design)}
+/* ---------- Echte Fotos (Unsplash, Symbolbilder; Nachweis: assets/images/fotos/BILDNACHWEIS.txt) ---------- */
+/* Fotos in Hero und Über uns füllen die Bildfläche; die Körnung (.photo::before) liegt darüber */
+.photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero__photo>img{object-position:50% 30%}  /* Kopf des Schimmels im oberen Bilddrittel halten */
+.about__photo>img{object-position:50% 6%}   /* Kopf der Reiterin im Bild halten (Hochformat wird oben angesetzt) */
+/* Produkt- und Kategoriebilder: Foto füllt die Fläche, Hover = sanfter Zoom */
+.product__plate{container-type:size}
+.plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.plate__img,.shot{transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.product:hover .plate__img,.product:hover .shot{scale:1.05}
+/* Geräte-Foto mit eingeblendetem Bildschirm: Das Foto behält sein Seitenverhältnis (--ar)
+   und füllt die Fläche wie „cover“; so bleibt der Bildschirm-Ausschnitt deckungsgleich. */
+.shot{position:absolute;left:50%;top:50%;width:max(100cqw,calc(100cqh * var(--ar)));aspect-ratio:var(--ar);translate:-50% -50%}
+.shot>img{width:100%;height:100%;display:block}
+.shot__screen{position:absolute;overflow:hidden;background:var(--mk-bg)}
+.shot--laptop{--ar:1000/666}
+.shot--laptop .shot__screen{left:29%;top:33.2%;width:42.2%;height:38.9%}   /* gemessen im Foto: Display 290–712 × 221–480 px */
+.shot--phone{--ar:1000/636}
+.shot--phone .shot__screen{left:41.6%;top:21%;width:13.1%;height:43.6%;border-radius:6%/3%}  /* Display 416–548 × 134–411 px */
+/* Social-Feed auf dem Smartphone-Display */
+.feed{position:absolute;inset:0;padding:22% 9% 8%;display:grid;grid-template-rows:auto 1fr;gap:6%}
+.feed__bar{display:block;height:4px;width:55%;background:var(--ink);border-radius:9px}
+.feed__grid{display:grid;grid-template-columns:1fr 1fr;gap:5%;align-content:start}
+.feed__grid i{display:grid;place-items:center;aspect-ratio:1;font:400 clamp(7px,1.6cqw,12px)/1 var(--serif);font-style:normal;color:var(--ivory)}
+.feed__t1{background:var(--ox)}.feed__t2{background:var(--blush)}.feed__t3{background:var(--ink)}
+.feed__t4{background:#bdb5ab}.feed__t5{background:var(--ink)}.feed__t6{background:var(--ox)}
+/* ---------- Kacheln (inspiriert von landing.love) ----------
+   Abgerundete Rahmen-Kachel, Bild mit eigenem Radius eingerückt.
+   Hover: Kachel hebt sich (translate) mit weichem Schatten, das Bild zoomt (siehe oben). */
+.product{border-radius:22px;padding:10px;transition:translate .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s cubic-bezier(.2,.8,.2,1)}
+.product__plate{border-radius:14px}
+.product__body{padding:20px 14px 16px}
+.product:hover{translate:0 -6px;box-shadow:0 26px 50px -30px rgba(21,18,19,.5)}
+/* Während des Einblendens gilt der Reveal-Übergang (danach entfernt js/app.js die Klasse) */
+.product.reveal,.catnav__item.reveal{transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0s)}
+.product__note{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);padding:4px 6px}
+.product__body{display:flex;flex-direction:column;gap:14px;padding:22px 22px 24px;flex:1}
+.product__meta{display:flex;justify-content:space-between;gap:10px;margin:0;align-items:center}
+.product__meta .label{color:var(--ox)}
+.product__format{border:1px solid rgba(21,18,19,.35);border-radius:99px;padding:5px 10px;font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.product h3{margin:0;font:400 clamp(28px,2.6vw,36px)/1 var(--serif);letter-spacing:-.01em}
+/* Produktname führt zur Produktseite (produkte/…); Unterstreichung erst beim Hover */
+.product__link{background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/0 1px;transition:background-size .5s cubic-bezier(.2,.8,.2,1)}
+.product__link:hover,.product__link:focus-visible{background-size:100% 1px;color:var(--ox)}
+.product__desc{margin:0;opacity:.85}
+.product__points{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14.5px;opacity:.8}
+.product__points li{padding-left:18px;position:relative}
+.product__points li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--ox)}
+.product__buy{margin-top:auto;padding-top:18px;border-top:1px solid rgba(21,18,19,.2);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.product__price{margin:0;font:400 32px/1 var(--serif);letter-spacing:-.01em}
+.product__price small{display:block;margin-top:4px;font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+.product__links{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.shop__note{margin:34px 0 0;opacity:.7}
+@media(min-width:700px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.products{grid-template-columns:repeat(3,1fr)}}
+
+/* 8) Featured Product: EquiBill Manage ------------------------------------------------ */
+/* „overflow:clip“ statt „hidden“: schneidet ab, blockiert aber nicht „position:sticky“ (Horizontal-Band) */
+.manage{background:var(--ox);color:var(--ivory);display:grid;gap:36px;align-items:center;overflow:clip}
+.manage>*{min-width:0}  /* Grid-Kinder dürfen schmaler als ihr Inhalt werden (sonst wird die Rechnung abgeschnitten) */
+.manage h2{margin:12px 0 18px;font:italic 400 clamp(54px,9vw,120px)/.9 var(--serif);letter-spacing:-.035em}
+.manage__lead{margin:0 0 26px;max-width:44ch;font-size:18px}
+.manage__price{font:400 clamp(34px,4vw,48px)/1 var(--serif);margin:0 0 6px}
+.manage__price small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-left:10px;opacity:.85}
+.manage__tarife{margin:0 0 24px;opacity:.85;font-size:14.5px}
+@media(min-width:900px){.manage{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(48px,6vw,100px) clamp(30px,5vw,80px)}.manage__scroller{grid-column:1/-1}}
+
+/* Animierte Rechnung (Produkt-Demo) ------------------------------------------------ */
+.manage__stage{background:var(--blush);border-radius:22px;padding:clamp(20px,4vw,48px);max-width:560px;width:100%;justify-self:center;color:var(--ink)}
+.manage__note{display:block;margin-top:14px;text-align:center;font:500 9px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.invoice{background:var(--ivory);border-radius:12px;padding:clamp(18px,3vw,30px);box-shadow:0 30px 60px -34px rgba(21,18,19,.55);font-size:14.5px}
+.invoice__head{display:flex;justify-content:space-between;gap:12px;margin:0;align-items:baseline}
+.invoice__head .label{color:var(--ox)}
+.invoice__nr{font:400 15px/1 var(--serif)}
+.invoice__to{margin:10px 0 18px;opacity:.75;font-size:13.5px}
+.invoice__items{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.18)}
+.invoice__items li,.invoice__total{display:flex;justify-content:space-between;gap:12px;padding:11px 0}
+.invoice__items li{border-bottom:1px solid rgba(21,18,19,.12)}
+.invoice b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.invoice__total{margin:6px 0 0;font:400 clamp(24px,3vw,32px)/1 var(--serif);border-top:2px solid var(--ink)}
+.invoice__total b{font-weight:400}
+.invoice__status{display:inline-block;margin:14px 0 0;padding:7px 10px;border:1px solid var(--ox);color:var(--ox)}
+/* Ablauf: js/app.js setzt .invoice--ready (Startzustand) und beim Sichtbarwerden .is-playing */
+/* Startzustand ohne Übergang (sofort unsichtbar); animiert wird nur das Erscheinen */
+.invoice--ready .invoice__items li,.invoice--ready .invoice__total,.invoice--ready .invoice__status{opacity:0;transform:translateX(-14px)}
+.invoice--ready.is-playing .invoice__items li,.invoice--ready.is-playing .invoice__total,.invoice--ready.is-playing .invoice__status{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.invoice--ready.is-playing .invoice__items li:nth-child(1){transition-delay:.2s}
+.invoice--ready.is-playing .invoice__items li:nth-child(2){transition-delay:.75s}
+.invoice--ready.is-playing .invoice__items li:nth-child(3){transition-delay:1.3s}
+.invoice--ready.is-playing .invoice__items li:nth-child(4){transition-delay:1.85s}
+.invoice--ready.is-playing .invoice__total{transition-delay:2.4s}
+.invoice--ready.is-playing .invoice__status{transition-delay:3.6s}
+
+/* Funktionen: Horizontal-Band ------------------------------------------------------- */
+/* Handy/Standard: Karten nebeneinander, mit dem Finger wischbar (Scroll-Snap) */
+.manage__features{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.manage__features li{flex:0 0 min(82%,420px);scroll-snap-align:start;border:1px solid rgba(243,239,232,.35);border-radius:22px;padding:28px 26px 30px;display:grid;gap:10px;align-content:start;min-height:240px}
+.manage__features .label{opacity:.75}
+.manage__features b{font:italic 400 clamp(30px,3.4vw,46px)/1 var(--serif)}
+.manage__features li>span:last-child{opacity:.88;font-size:16px;max-width:32ch}
+/* Desktop mit JavaScript: Bühne klebt unter dem Header, Band wird beim Scrollen verschoben */
+.manage__scroller.is-hscroll .manage__sticky{position:sticky;top:64px;height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden}
+.manage__scroller.is-hscroll .manage__features{overflow:visible;scroll-snap-type:none;gap:24px;padding:0;will-change:transform}
+.manage__scroller.is-hscroll .manage__features li{flex:0 0 clamp(340px,38vw,560px);min-height:min(56vh,440px);padding:40px 38px}
+
+
+/* 9) Startseite Software-first: Manage-Ergänzungen, Markeneinführung, Ablauf, Shop-Teaser, Abschluss
+   Reihenfolge der Flächen: Hero (Ink) → Einführung (Ivory) → Manage (Oxblood) → Ablauf (Sand)
+   → Teaser (Ivory) → Über uns (Sand) → FAQ (Ivory) → Abschluss (Blush). */
+
+/* Manage: CTA, großes Geräte-Mockup, Kundennutzen */
+.manage__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
+.manage__cta .textlink{color:var(--ivory)}
+.manage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Oxblood sichtbar halten */
+.manage__device,.sw-hero__device{position:relative;margin:0}
+.manage__benefit h3{margin:12px 0 24px;font:italic 400 clamp(32px,3.6vw,50px)/1.02 var(--serif);letter-spacing:-.02em;max-width:16ch}
+.manage__gains{list-style:none;margin:0;padding:0;border-top:1px solid rgba(243,239,232,.4)}
+.manage__gains li{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid rgba(243,239,232,.25)}
+.manage__gains b{font:500 16px/1.3 var(--sans)}
+.manage__gains span{opacity:.88;font-size:15px;max-width:44ch}
+/* Gebündelter Transparenzhinweis am Ende des Manage-Bereichs */
+.manage__disclaimer{grid-column:1/-1;margin:0;font-size:13px;opacity:.75}
+
+/* Markeneinführung: großes Statement links, Text rechts unten */
+.intro{display:grid;gap:clamp(24px,4vw,60px)}
+.intro__head{margin:0;max-width:none}
+.intro__body{max-width:56ch}
+.intro__body p{margin:0 0 14px;opacity:.85}
+.intro__body .intro__lead{margin:0 0 20px;font:400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
+@media(min-width:900px){.intro{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end}}
+
+/* So funktioniert's: drei Schritte als versetzte Treppe (Desktop), Liste mit Haarlinien (Handy) */
+.steps{background:#ebe5db}
+.steps__list{list-style:none;margin:0;padding:0;display:grid}
+.step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 22px;padding:28px 0 30px;border-top:1px solid var(--ink)}
+.step__num{grid-row:span 2;font:italic 400 clamp(56px,8vw,120px)/.8 var(--serif);color:var(--ox)}
+.step h3{margin:0;font:400 clamp(30px,3.4vw,48px)/1 var(--serif);letter-spacing:-.02em}
+.step p{margin:0;max-width:34ch;opacity:.85}
+@media(min-width:900px){
+  .steps__list{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
+  .step{grid-template-columns:1fr}
+  .step__num{grid-row:auto;margin-bottom:22px}
+  .step:nth-child(2){margin-top:clamp(60px,7vw,110px)}
+  .step:nth-child(3){margin-top:clamp(120px,14vw,220px)}
+}
+
+/* Shop-Teaser: zwei Produkte, asymmetrisch versetzt (kein Kachelraster) */
+.teaser__grid{display:grid;gap:48px}
+.teaser__item{display:grid;gap:10px;align-content:start}
+.teaser__img{position:relative;display:block;overflow:hidden;border-radius:14px;aspect-ratio:4/3;background:var(--plate-tools);container-type:size}
+.teaser__img--design{background:var(--plate-design)}
+.tpl,.rpf{position:absolute;inset:0;transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.teaser__item:hover .tpl,.teaser__item:hover .rpf{scale:1.04}
+.teaser__meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:10px 0 0}
+.teaser__price{font:400 24px/1 var(--serif);white-space:nowrap}
+.teaser__price small{font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.65}
+.teaser__item h3{margin:0;font:400 clamp(30px,3.4vw,46px)/1 var(--serif);letter-spacing:-.02em}
+.teaser__item>p:last-child{margin:0;opacity:.8;max-width:40ch}
+.teaser__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:clamp(40px,5vw,70px)}
+/* Desktop: Überschrift und CTA links (4 Spalten), zwei kleinere Produkte rechts (8 Spalten), zweites versetzt.
+   Bewusst kleiner als der Manage-Bereich: der Shop ist Ergänzung, nicht Hauptangebot. */
+@media(min-width:900px){
+  .teaser{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);grid-template-rows:auto 1fr;gap:0 clamp(40px,6vw,100px)}
+  .teaser .section-head{grid-column:1;grid-row:1}
+  .teaser__cta{grid-column:1;grid-row:2;align-self:end;margin-top:30px}
+  .teaser__grid{grid-column:2;grid-row:1 / span 2;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
+  .teaser__item:nth-child(2){margin-top:clamp(60px,8vw,140px)}
+  .teaser__item:nth-child(2) .teaser__img{aspect-ratio:4/5}
+}
+
+/* Über uns: Vision als Zitatzeile */
+.about .about__vision{font:italic 400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
+
+/* Abschluss-CTA: Blush-Fläche (Ink auf Blush 12,04:1, Oxblood auf Blush ca. 10:1) */
+.closing{background:var(--blush);color:var(--ink);text-align:center;padding:clamp(80px,11vw,160px) var(--pad);display:grid;justify-items:center;gap:18px}
+.closing .label{color:var(--ox)}
+.closing h2{margin:0;font:400 clamp(48px,8vw,120px)/.95 var(--serif);letter-spacing:-.035em}
+.closing h2 em{color:var(--ox)}
+.closing p{margin:0;max-width:44ch}
+.closing .btn{margin-top:10px}
+/* Link im Fließtext (z. B. FAQ) */
+.inline-link{border-bottom:1px solid currentColor}
+.inline-link:hover{color:var(--accent)}
+
+/* 9a) Software-Interface (Mockup in HTML/CSS, fiktive Daten) ------------------------------------
+   Alle Maße in em; die Grundschrift hängt an der Breite des Fensters (Container-Einheit cqi).
+   So skaliert dieselbe Oberfläche vom großen Fenster bis in den kleinen Laptop-Bildschirm.
+   Unter 620 px Breite wird die Navigation ausgeblendet (wie eine echte App auf dem Handy);
+   .app--fixed (im Laptop-Foto) behält immer die Desktop-Ansicht. */
+.app{container-type:inline-size;width:100%;text-align:left}
+.app__win{font:400 1.42cqi/1.35 var(--sans);color:var(--ink);background:#fbf8f3;border:1px solid rgba(21,18,19,.12);border-radius:.9em;overflow:hidden;box-shadow:0 3em 6em -3em rgba(21,18,19,.65)}
+.app__bar{display:flex;align-items:center;gap:.45em;padding:.7em 1em;background:#ece6dc;border-bottom:1px solid rgba(21,18,19,.1)}
+.app__bar>i{width:.75em;height:.75em;border-radius:50%;background:#d6ccbf}
+.app__url{margin-left:1.2em;flex:0 1 24em;background:#fbf8f3;border-radius:.5em;padding:.3em .9em;font-size:.85em;color:rgba(21,18,19,.6)}
+.app__body{display:grid;grid-template-columns:11em minmax(0,1fr)}
+.app__nav{display:flex;flex-direction:column;gap:.2em;padding:1.4em 1em;background:#f3eee6;border-right:1px solid rgba(21,18,19,.08)}
+.app__brand{display:flex;align-items:center;gap:.35em;margin:0 0 1.4em .55em;font:400 1em/1 var(--serif);letter-spacing:.16em;text-transform:uppercase}
+.app__brand i{width:1.1em;height:1px;background:var(--ox)}
+.app__nav>span{padding:.55em .7em;border-radius:.45em;color:rgba(21,18,19,.72)}
+.app__nav>.is-active{background:var(--ink);color:var(--ivory)}
+.app__nav>.app__user{margin-top:auto;padding-top:1em;border-top:1px solid rgba(21,18,19,.1);border-radius:0;font-size:.85em}
+.app__main{display:grid;gap:1.2em;padding:1.4em 1.6em 1.6em;min-width:0}
+.app__head{display:flex;justify-content:space-between;align-items:flex-end;gap:1em}
+.app__head small,.app__kpis small,.app__card-head small{display:block;font-size:.76em;letter-spacing:.12em;text-transform:uppercase;color:rgba(21,18,19,.55)}
+.app__head b{font:400 2.1em/1.1 var(--serif)}
+.app__btn{background:var(--ox);color:var(--ivory);border-radius:.5em;padding:.65em 1em;font-weight:500;white-space:nowrap}
+.app__kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8em}
+.app__kpis>div,.app__card{background:#fff;border:1px solid rgba(21,18,19,.08);border-radius:.7em}
+.app__kpis>div{display:grid;gap:.25em;padding:.9em 1em}
+.app__kpis b{font:400 1.75em/1.1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.app__kpis>div:nth-child(2) b{color:var(--ox)}
+.app__kpis em{font-style:normal;font-size:.85em;color:rgba(21,18,19,.6)}
+.app__grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:.8em}
+.app__card{display:grid;gap:.55em;align-content:start;padding:1em 1.1em;min-width:0}
+.app__card-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6em}
+.app__card-head span{font-size:.8em;color:var(--ox)}
+.app__row{display:grid;grid-template-columns:4.2em minmax(0,1fr) minmax(0,1.5fr) auto;gap:.8em;padding:.5em 0;border-top:1px solid rgba(21,18,19,.07);font-variant-numeric:tabular-nums}
+.app__row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app__row span:last-child{text-align:right}
+.app__row--head{padding-top:0;border-top:0;font-size:.76em;letter-spacing:.1em;text-transform:uppercase;color:rgba(21,18,19,.5)}
+.app__chart{display:flex;align-items:flex-end;gap:.35em;height:5.5em;padding-bottom:.4em;border-bottom:1px solid rgba(21,18,19,.1)}
+.app__chart i{flex:1;background:var(--ink);opacity:.82;border-radius:.2em .2em 0 0}
+.app__chart i:last-child{background:var(--ox);opacity:1}
+.app__chart i:nth-child(1){height:42%}.app__chart i:nth-child(2){height:48%}.app__chart i:nth-child(3){height:61%}
+.app__chart i:nth-child(4){height:70%}.app__chart i:nth-child(5){height:78%}.app__chart i:nth-child(6){height:84%}
+.app__chart i:nth-child(7){height:66%}.app__chart i:nth-child(8){height:88%}.app__chart i:nth-child(9){height:81%}
+.app__chart i:nth-child(10){height:74%}.app__chart i:nth-child(11){height:92%}
+.app__invoices{list-style:none;margin:0;padding:0;display:grid}
+.app__invoices li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.15em .6em;padding:.5em 0;border-top:1px solid rgba(21,18,19,.07)}
+.app__invoices b{font-weight:500;font-variant-numeric:tabular-nums}
+.app__invoices em{grid-column:1/-1;justify-self:start;font-style:normal;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;padding:.2em .6em;border-radius:99em}
+.app__invoices .is-open{background:#f3dcd6;color:var(--ox)}
+.app__invoices .is-paid{background:#ece6dc;color:var(--ink)}
+.app__invoices .is-draft{border:1px dashed rgba(21,18,19,.35);color:rgba(21,18,19,.7)}
+@container (max-width: 620px){
+  .app:not(.app--fixed) .app__win{font-size:2.9cqi}
+  .app:not(.app--fixed) .app__body{grid-template-columns:1fr}
+  .app:not(.app--fixed) .app__nav,.app:not(.app--fixed) .app__card--side{display:none}
+  .app:not(.app--fixed) .app__grid{grid-template-columns:1fr}
+}
+/* Im Laptop-Foto: füllt den Bildschirm, ohne eigenen Rahmen und Schatten */
+.shot__screen .app{position:absolute;inset:0}
+.shot__screen .app__win{height:100%;border:0;border-radius:0;box-shadow:none}
+
+/* 9b) Vorlagen-Mockups im Shop-Teaser (zeigen den Aufbau der Vorlagen, fiktive Inhalte) ---------
+   Maße in cqi der Bildfläche (.teaser__img). Gestaltung wie Packshots auf farbiger Fläche. */
+.tpl,.rpf{display:block}
+.tpl span,.rpf span{display:block}
+/* Tournament Planner: Tabellenblatt einer Saisonplanung */
+.tpl__sheet{position:absolute;left:6%;right:6%;top:9%;font:400 2.2cqi/1.3 var(--sans);color:var(--ink);background:#fbf8f3;border-radius:.6em;padding:1.4em 1.4em 1.2em;box-shadow:0 2.5em 4em -2em rgba(21,18,19,.55);rotate:-2.5deg}
+.tpl__head{display:flex!important;justify-content:space-between;align-items:baseline;margin-bottom:1em}
+.tpl__head b{font:400 2.1em/1 var(--serif)}
+.tpl__head small{font-size:.8em;letter-spacing:.14em;text-transform:uppercase;color:var(--ox)}
+.tpl__row{display:grid!important;grid-template-columns:3.4em minmax(0,1.6fr) minmax(0,1fr) 4.8em 4.8em 4.2em;gap:.5em;padding:.45em .3em;border-top:1px solid rgba(21,18,19,.1);font-variant-numeric:tabular-nums}
+.tpl__row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tpl__row span:nth-child(n+4){text-align:right}
+.tpl__row--head{background:var(--ink);color:var(--ivory);border-radius:.35em;border-top:0;font-size:.8em;font-weight:500}
+.tpl__row--total{border-top:2px solid var(--ink);font-weight:500}
+.tpl__row--total span:last-child{color:var(--ox)}
+/* Rider Portfolio: Titelseite mit Foto hinten, Profilseite vorne */
+/* Größen mit min(): richtet sich nach Breite UND Höhe der Fläche, damit beide Seiten im Quer- und Hochformat ganz sichtbar bleiben */
+.rpf{font:400 min(2.4cqi,2.1cqh)/1.3 var(--sans);color:var(--ink)}
+.rpf__cover{position:absolute;left:8%;top:9%;width:min(58%,58cqh);aspect-ratio:3/4.2;overflow:hidden;border-radius:.3em;background:var(--ink);box-shadow:0 2em 3.5em -1.8em rgba(21,18,19,.6);rotate:-4deg}
+.rpf__cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.rpf__cover-title{position:absolute;left:8%;right:8%;bottom:7%;color:var(--ivory)}
+.rpf__cover-title small{display:block;font-size:.7em;letter-spacing:.2em;text-transform:uppercase}
+.rpf__cover-title b{font:italic 400 1.6em/1 var(--serif)}
+.rpf__page{position:absolute;right:7%;bottom:8%;width:min(56%,56cqh);aspect-ratio:3/4.2;display:flex!important;flex-direction:column;gap:.55em;padding:8% 8% 7%;background:#fbf8f3;border-radius:.3em;box-shadow:0 2.4em 4em -1.8em rgba(21,18,19,.6);rotate:3deg}
+.rpf__kicker{font-size:.62em;letter-spacing:.2em;text-transform:uppercase;color:var(--ox)}
+.rpf__name{font:400 2em/1 var(--serif)}
+.rpf__role{font-size:.72em;opacity:.7}
+.rpf__lines,.rpf__list{display:grid!important;gap:.45em;margin-bottom:.4em}
+.rpf__lines i,.rpf__list i{display:block;height:.4em;border-radius:9em;background:#e6ddd2}
+.rpf__lines i:last-child{width:70%}
+.rpf__list i{width:85%;position:relative;margin-left:.9em}
+.rpf__list i::before{content:"";position:absolute;left:-.9em;top:0;width:.4em;height:.4em;border-radius:50%;background:var(--ox)}
+.rpf__cta{margin-top:auto;align-self:flex-start;background:var(--ox);color:var(--ivory);font-size:.62em;letter-spacing:.14em;text-transform:uppercase;padding:.6em .9em;border-radius:.3em}
+
+/* Vorlagen-Mockups auf Produktseiten (produkte/): farbige Fläche wie im Teaser, Tabelle mittig */
+.pdp__plate.pdp__plate--tools{background:var(--plate-tools)}
+.pdp__plate.pdp__plate--design{background:var(--plate-design)}
+.pdp__plate .tpl__sheet{top:50%;translate:0 -50%}
+
+/* 10) Über EquiBill --------------------------------------------------------------------------- */
+.about{display:grid;gap:30px;align-items:center;background:#ebe5db}
+.about__photo{aspect-ratio:4/5;background:linear-gradient(190deg,#cfc6ba,#6c6258)}
+.about h2{margin:10px 0 22px;font:italic 400 clamp(40px,5.4vw,76px)/1 var(--serif);letter-spacing:-.025em}
+.about p{max-width:50ch;margin:0 0 14px;opacity:.85}
+.about .about__demo{margin-top:26px;font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+@media(min-width:860px){.about{grid-template-columns:5fr 6fr;gap:clamp(30px,6vw,90px)}}
+
+/* 11) FAQ ------------------------------------------------------------------------------------- */
+.faq{display:grid;gap:30px}
+.faq__list{border-top:1px solid var(--ink)}
+.faq details{border-bottom:1px solid rgba(21,18,19,.25);padding:20px 0}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:400 clamp(20px,2vw,26px)/1.25 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 28px/1 var(--sans);color:var(--ox)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:14px 0 0;max-width:60ch;opacity:.85}
+@media(min-width:860px){.faq{grid-template-columns:4fr 7fr;gap:clamp(30px,6vw,90px);align-items:start}.faq .section-head{position:sticky;top:100px}}
+
+/* 12) Footer ------------------------------------------------------------------------------------ */
+.site-footer{background:var(--ink);color:var(--ivory);padding:clamp(50px,7vw,100px) var(--pad) 30px}
+.site-footer .wordmark{font-size:clamp(30px,8vw,100px);justify-content:center;margin-bottom:46px}
+.site-footer__cols{display:grid;gap:28px;grid-template-columns:repeat(2,minmax(0,1fr));padding:30px 0;border-top:1px solid rgba(243,239,232,.25)}
+.site-footer h2{margin:0 0 12px;opacity:.6}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.site-footer a:hover{color:var(--blush)}
+.demo-box{margin:0;max-width:52ch;color:var(--blush);text-transform:none;letter-spacing:0;font:400 13px/1.55 var(--sans)}
+.site-footer__legal{margin:22px 0 0;opacity:.6;font-size:12.5px;max-width:80ch}
+@media(min-width:760px){.site-footer__cols{grid-template-columns:repeat(4,1fr)}}
+.site-footer__cols>*{min-width:0;overflow-wrap:anywhere}
+
+/* 13) Rückmeldung Demo-Warenkorb ------------------------------------------------------------------- */
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--ivory);padding:14px 20px;max-width:min(92vw,520px);font-size:14px;z-index:200;transition:opacity .25s,transform .25s}
+.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+
+/* 14) Variante B „Noir“ (dunkel) ---------------------------------------------------------------
+   Gilt nur für Seiten mit <body class="theme-noir"> (aktuell: Produktseiten in produkte/).
+   Immer die ganze Seite, nie einzelne Abschnitte (Hell und Dunkel nicht innerhalb einer Seite mischen).
+   Farben: Fläche Ink, Text Ivory (16,25:1), Akzent Blush (12,04:1 auf Ink); Linien in Smoke. */
+.theme-noir{background:var(--ink);color:var(--ivory);--line:var(--smoke);--accent:var(--blush)}
+.theme-noir :focus-visible{outline-color:var(--blush)}
+.theme-noir .label--accent{color:var(--blush)}
+.theme-noir .skip{background:var(--ivory);color:var(--ink)}
+.theme-noir .site-header{background:rgba(21,18,19,.94);border-bottom-color:var(--smoke)}
+.theme-noir .nav-mobile[open] .nav-mobile__panel{background:var(--ink);border-bottom-color:var(--smoke)}
+.theme-noir .nav-desktop a:hover,.theme-noir .header-cart:hover{color:var(--blush)}
+.theme-noir .logo{--eb-text:var(--ivory);--eb-accent:var(--blush)}
+/* Button invertiert: Ivory-Fläche mit Ink-Schrift, Hover Blush (Ink auf Blush 12,04:1) */
+.theme-noir .btn{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.theme-noir .btn:hover{background:var(--blush);border-color:var(--blush);color:var(--ink)}
+.theme-noir .site-footer{border-top:1px solid var(--smoke)}
+.theme-noir .toast{background:var(--ivory);color:var(--ink)}
+.theme-noir .product__points li::before{background:var(--blush)}
+.theme-noir .product__format{border-color:rgba(243,239,232,.4)}
+
+/* 15) Produktseite (produkte/*.html) --------------------------------------------------------------
+   Aufbau: Brotkrumen → Produktbereich (Bild + Kaufinfos) → Beschreibung und technische Daten → Zurück.
+   Mobile First: alles untereinander; ab 900 px Bild links (7 Spalten), Infos rechts (5 Spalten). */
+.breadcrumb{padding:22px var(--pad) 0}
+.breadcrumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 10px;opacity:.75}
+.breadcrumb li+li::before{content:"/";margin-right:10px;opacity:.6}
+.breadcrumb a{border-bottom:1px solid currentColor}
+.breadcrumb a:hover{color:var(--accent)}
+.pdp{display:grid;gap:30px;padding:22px var(--pad) clamp(50px,7vw,100px)}
+.pdp>*{min-width:0}
+.pdp__media{position:relative;margin:0}
+/* Bildfläche: container-type, damit Geräte-Fotos mit Mockup (.shot) wie im Shop „cover“ füllen */
+.pdp__plate{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:14px;background:var(--smoke);container-type:size}
+.pdp__plate .plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pdp__media .product__note{right:10px;bottom:10px;color:var(--ink)}
+.pdp__info{display:flex;flex-direction:column;gap:18px}
+.pdp__num{font:400 clamp(20px,2vw,26px)/1 var(--serif);font-style:italic;color:var(--blush)}
+.pdp__meta{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0}
+.pdp__title{margin:0;font:400 clamp(46px,7vw,96px)/.95 var(--serif);letter-spacing:-.03em;overflow-wrap:anywhere}
+.pdp__lead{margin:0;max-width:42ch;font-size:18px;opacity:.88}
+.pdp__buy{display:grid;gap:12px;justify-items:start;margin-top:8px;padding-top:22px;border-top:1px solid var(--smoke)}
+.pdp__price{margin:0;font:400 clamp(38px,4.4vw,54px)/1 var(--serif);letter-spacing:-.01em}
+.pdp__tax,.pdp__shipping{margin:0;font-size:14.5px;opacity:.85}
+.pdp__shipping b{font-weight:500}
+.pdp__buy .btn{margin-top:10px}
+.pdp__demo{margin:4px 0 0;max-width:46ch;font-size:13px;line-height:1.5;opacity:.75;text-transform:none;letter-spacing:0;font-weight:400}
+/* Beschreibung und technische Daten */
+.pdp-details{display:grid;gap:clamp(40px,5vw,60px);border-top:1px solid var(--smoke)}
+.pdp-details>*{min-width:0}
+.pdp-details h2{margin:10px 0 20px;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif);letter-spacing:-.02em}
+.pdp-details p{margin:0 0 14px;max-width:56ch;opacity:.88}
+.pdp-details .product__points{margin-top:22px;font-size:15.5px;opacity:.88}
+.specs{margin:0;border-top:1px solid var(--ivory)}
+.specs>div{display:grid;gap:4px;padding:14px 0;border-bottom:1px solid var(--smoke)}
+.specs dt{font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.specs dd{margin:0}
+.specs__note{margin-top:16px!important;font-size:13.5px}
+.pdp-back{margin:0;padding:0 var(--pad) clamp(50px,7vw,100px)}
+@media(min-width:600px){.specs>div{grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:20px}}
+@media(min-width:900px){
+  .pdp{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,100px);align-items:start}
+  .pdp__plate{aspect-ratio:4/5}
+  .pdp__info{position:sticky;top:110px}
+  .pdp-details{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,100px)}
+}
+
+/* 16) Unterseiten: Seitenkopf (Shop) und Software-Seite (software.html, Noir) ---------------------
+   Farben über --line und --accent, damit dieselben Bausteine hell und dunkel funktionieren. */
+.page-head{padding:clamp(30px,5vw,70px) var(--pad) 0;max-width:1100px}
+.page-head__title{margin:12px 0 0;font:400 clamp(56px,10vw,150px)/.9 var(--serif);letter-spacing:-.04em}
+.page-head__title em{color:var(--accent)}
+.page-head__lead{margin:24px 0 0;max-width:52ch;font-size:18px;opacity:.85}
+
+.sw-hero{display:grid;gap:40px;padding:22px var(--pad) clamp(60px,8vw,120px)}
+.sw-hero>*{min-width:0}
+.sw-hero__text{display:flex;flex-direction:column;gap:18px}
+.sw-hero__title{margin:0;font:400 clamp(56px,9vw,140px)/.9 var(--serif);letter-spacing:-.04em}
+.sw-hero__title em{color:var(--accent)}
+.sw-hero__claim{margin:0;font:italic 400 clamp(24px,3vw,34px)/1.15 var(--serif)}
+.sw-hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:10px}
+.sw-hero .pdp__buy .btn{margin-top:0}
+@media(min-width:1000px){
+  .sw-hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center}
+}
+
+/* Funktionen als Index-Liste mit Haarlinien */
+.feature-list{list-style:none;margin:0;padding:0;border-top:1px solid currentColor}
+.feature-list li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px clamp(16px,3vw,44px);padding:clamp(22px,3vw,36px) 0;border-bottom:1px solid var(--line)}
+.feature-list__num{grid-row:span 2;padding-top:.7em;font:500 11px/1 var(--sans);letter-spacing:.2em;color:var(--accent)}
+.feature-list h3{margin:0;font:400 clamp(32px,4.6vw,68px)/1 var(--serif);letter-spacing:-.03em}
+.feature-list p{margin:0;max-width:52ch;opacity:.85}
+.feature-list__tag{display:inline-block;vertical-align:middle;margin-left:10px;border:1px solid currentColor;border-radius:99px;padding:5px 9px;font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+@media(min-width:900px){
+  .feature-list li{grid-template-columns:70px minmax(0,6fr) minmax(0,5fr);align-items:baseline}
+  .feature-list__num{grid-row:auto}
+}
+
+/* Demo: Text links, animierte Rechnung rechts */
+.sw-demo{display:grid;gap:36px;align-items:center;border-top:1px solid var(--line)}
+.sw-demo>*{min-width:0}
+.sw-demo h2{margin:10px 0 20px;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif);letter-spacing:-.02em}
+.sw-demo p{margin:0 0 14px;max-width:46ch;opacity:.88}
+@media(min-width:900px){.sw-demo{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,100px)}}
+
+/* Anwendungsbeispiele: drei Spalten mit senkrechten Haarlinien (keine Kacheln) */
+.examples{display:grid;border-top:1px solid currentColor}
+.example{padding:26px 0 30px;border-bottom:1px solid var(--line)}
+.example__tag{color:var(--accent)}
+.example h3{margin:12px 0;font:italic 400 clamp(28px,3vw,40px)/1.05 var(--serif)}
+.example p{margin:0;max-width:40ch;opacity:.85}
+@media(min-width:900px){
+  .examples{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .example{padding:30px clamp(20px,3vw,40px);border-bottom:none;border-left:1px solid var(--line)}
+  .example:first-child{padding-left:0;border-left:none}
+}
+
+/* Tarifvergleich: drei Spalten, Professional hervorgehoben */
+.tarife{display:grid;gap:20px}
+.tarif{border:1px solid var(--line);border-radius:22px;padding:clamp(24px,3vw,36px);display:grid;gap:10px;align-content:start}
+.tarif--focus{border-color:var(--accent)}
+.tarif h3{margin:0;font:italic 400 clamp(32px,3.4vw,46px)/1 var(--serif)}
+.tarif__price{margin:6px 0 0;font:400 clamp(40px,4.4vw,56px)/1 var(--serif)}
+.tarif__price small{margin-left:8px;font:500 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.tarif__for{margin:0;opacity:.8;font-size:15px}
+.tarif__list{list-style:none;margin:14px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:8px;font-size:15px}
+.tarif__list li{position:relative;padding-left:18px}
+.tarif__list li::before{content:"";position:absolute;left:0;top:.75em;width:8px;height:1px;background:var(--accent)}
+.tarif__list em{opacity:.75}
+@media(min-width:900px){.tarife{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Hinweis auf den Shop am Seitenende: bewusst klein gehalten */
+.sw-more{padding:clamp(60px,8vw,110px) var(--pad);border-top:1px solid var(--line);display:grid;gap:14px;justify-items:start}
+.sw-more h2{margin:0;font:italic 400 clamp(40px,5vw,72px)/1 var(--serif);letter-spacing:-.02em}
+.sw-more p{margin:0;max-width:44ch;opacity:.85}
+
+/* 17) Sehr schmale Smartphones (< 360 px): Header und Footer verhindern horizontales Scrollen */
+@media(max-width:359px){
+  .site-header{gap:8px}
+  .wordmark{font-size:15px;letter-spacing:.1em}
+  .header-cart{letter-spacing:.08em}
+}

@@ -1,0 +1,34 @@
+Bildnachweis – Fotos der EquiBill-Website (Weiterbildungsprojekt, fiktives Unternehmen)
+Stand: 25.11.2026
+
+Alle Fotos stammen von Unsplash (https://unsplash.com) und stehen unter der Unsplash-Lizenz
+(https://unsplash.com/de/lizenz): kostenlos, auch kommerziell nutzbar, Namensnennung nicht
+verpflichtend, aber hier freiwillig angegeben. Keine „Unsplash+“-Bilder (kostenpflichtig).
+Lizenz am 25.11.2026 auf der jeweiligen Fotoseite geprüft.
+
+Hinweise:
+- Alle Fotos sind SYMBOLBILDER. Abgebildete Personen, Pferde und Orte haben keinen Bezug zu
+  EquiBill; sie sind keine Kundinnen oder Kunden und empfehlen keine Produkte.
+- Auf Laptop- und Smartphone-Display ist ein selbst gezeichnetes Mockup eingeblendet (CSS).
+- Die Unsplash-Lizenz erlaubt nicht, die Fotos unverändert als eigene Fotosammlung weiterzuverkaufen.
+- Heruntergeladen in Webgröße, alle Fotos in Schwarz-Weiß (Graustufen) umgewandelt; Hero/Über uns max. 1600 px,
+  Produktbilder max. 1000 px. Über-uns-Foto rechts beschnitten (unscharfes Auto am Rand entfernt).
+- Bildstil (Entscheidung 25.11.2026): hochwertige Schwarz-Weiß-Fotografie, Low-Key, Körnung, ruhige Momente.
+
+Datei                               | Motiv                                      | Fotograf/in         | Quelle
+------------------------------------|--------------------------------------------|---------------------|--------------------------------------------
+hero-schimmel-boxentuer.jpg         | Schimmel über dunkler Boxentür             | Artur Aldyrkhanov   | https://unsplash.com/de/fotos/YGV0MvcmtZI
+ueber-uns-reiterin-zaun.jpg         | Reiterin von hinten am Holzzaun            | Philippe Oursel     | https://unsplash.com/de/fotos/u3YBxRCRVvs
+kategorie-design-frau-hut.jpg       | Frau mit Hut und Pferd                     | gaspar zaldo        | https://unsplash.com/de/fotos/3lCEJSI-Pys
+rider-portfolio-reiterin-sw.jpg     | Reiterin im Sattel, Detail                 | Louise Pilgaard     | https://unsplash.com/de/fotos/3SM_F21nzSw
+horse-portfolio-stall.jpg           | Pferdekopf im dunklen Stall, Gegenlicht    | Oleksii Rozanov     | https://unsplash.com/de/fotos/gphKStm87Fg
+manage-laptop.jpg                   | Laptop, Holztisch (in S/W umgewandelt)     | Sincerely Media     | https://unsplash.com/de/fotos/OOHsoUNRxt8
+social-media-kit-smartphone.jpg     | Hand mit Smartphone (in S/W umgewandelt)   | Kelly Sikkema       | https://unsplash.com/de/fotos/roJv_dmHKVA
+tournament-planner-notizbuch.jpg    | Kariertes Notizbuch (in S/W umgewandelt)   | Kelly Sikkema       | https://unsplash.com/de/fotos/q3blHqtnhog
+business-kit-notizbuch.jpg          | Dunkles Notizbuch (in S/W umgewandelt)     | Justin Morgan       | https://unsplash.com/de/fotos/2_BrZ3AJ_78
+kategorie-tools-notizbuch.jpg       | Spiralnotizbuch (in S/W umgewandelt)       | Kelly Sikkema       | https://unsplash.com/de/fotos/iiaUVel-cJE
+
+Nicht mehr verwendet (Farbfassung, im Archiv _archiv/_archiv_2026-11-25_farbfotos/):
+Stiefel im Steigbügel (Philippe Oursel, jckGRV_-FI4), Stallgasse (Paul Millage, HaSmNeQopzw),
+Springreiter (Valerie Semenova, 9bOYXUlfyik), Fuchs am Boxenfenster (Anna, z95cffEbcg4).
+Verworfen (Motiv kein Sportpferd): Low-Key-Kopf (Marko Blažević, BWIZexgF6mU), Datei im Archiv.

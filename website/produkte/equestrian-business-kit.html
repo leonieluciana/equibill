@@ -16,12 +16,12 @@
   <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
+      <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
+        <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -46,8 +46,8 @@
         </g>
       </svg>
     </a>
-    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
-    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+    <!-- Warenkorb: Zähler aus dem Browser-Speicher (js/app.js, Abschnitt 3) -->
+    <a class="header-cart label" href="../warenkorb.html" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
   <main id="inhalt">
@@ -57,7 +57,7 @@
     </nav>
 
     <!-- Produktbereich: Bild + Name, Kurzbeschreibung, Preis, Versand, Warenkorb -->
-    <section class="pdp" aria-labelledby="produkt-titel">
+    <section class="pdp" data-cart-product aria-labelledby="produkt-titel">
       <figure class="pdp__media">
         <div class="pdp__plate"><img class="plate__img" src="../assets/images/fotos/business-kit-notizbuch.jpg" alt="Dunkles Notizbuch mit Stift auf einem Schreibblock, Holztisch" width="667" height="1000"></div>
         <span class="product__note">Symbolbild</span>
@@ -65,15 +65,15 @@
       <div class="pdp__info">
         <span class="pdp__num" aria-hidden="true">N° 06</span>
         <p class="pdp__meta"><span class="label label--accent">Business Tools</span><span class="product__format">Digitale Vorlagen</span></p>
-        <h1 class="pdp__title" id="produkt-titel">Equestrian Business Kit</h1>
+        <h1 class="pdp__title" id="produkt-titel" data-cart-name>Equestrian Business Kit</h1>
         <p class="pdp__lead">Digitale Vorlagen für die Betriebsorganisation.</p>
         <div class="pdp__buy">
-          <p class="pdp__price"><span class="sr-only">Demo-Preis </span>99&nbsp;€</p>
+          <p class="pdp__price"><span class="sr-only">Demo-Preis </span><data value="9900" data-cart-price>99&nbsp;€</data></p>
           <p class="pdp__tax">inkl. MwSt., zzgl. Versand · Demo-Preis</p>
           <p class="pdp__shipping"><b>Versandkosten:</b> 0&nbsp;€ · digitale Lieferung per Download, kein Versand</p>
-          <!-- Schaltfläche bewusst noch ohne Funktion (kein data-add); Warenkorb folgt -->
-          <button class="btn" type="button" aria-describedby="kauf-hinweis">In den Warenkorb</button>
-          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung. Die Warenkorb-Funktion folgt.</p>
+          <!-- Legt den Artikel in den Warenkorb (js/app.js liest Name und Preis aus diesem Abschnitt) -->
+          <button class="btn" type="button" data-cart-add aria-describedby="kauf-hinweis">In den Warenkorb</button>
+          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung.</p>
         </div>
       </div>
     </section>
@@ -112,7 +112,7 @@
       <div><h2>Software</h2><ul><li><a href="../software.html">EquiBill Manage</a></li><li><a href="../software.html#funktionen">Funktionen</a></li><li><a href="../software.html#tarife">Tarife</a></li></ul></div>
       <div><h2>Shop</h2><ul><li><a href="../shop.html">Alle Produkte</a></li><li><a href="../shop.html?kategorie=tools#produkte">Business Tools</a></li><li><a href="../shop.html?kategorie=design#produkte">Marketing &amp; Design</a></li></ul></div>
       <div><h2>EquiBill</h2><ul><li><a href="../index.html#ueber-uns">Über uns</a></li><li><a href="../index.html#faq">FAQ</a></li><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
-      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+      <div><h2>Über diese Demo</h2><p class="demo-box">EquiBill ist ein fiktives Unternehmen aus einem Weiterbildungsprojekt. Alle Preise sind Demo-Preise, es gibt keine Bestellung und keine Zahlung. Software und Vorlagen sind Konzepte, Interface-Abbildungen sind Mockups mit fiktiven Daten.</p></div>
     </div>
     <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="../assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>
   </footer>

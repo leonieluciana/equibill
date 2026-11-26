@@ -145,7 +145,7 @@ Technischer Ansatz: lokale HTML-Anwendung. Konzipiert bzw. umgesetzt wurden in d
 | **Sekundär** (wächst mit Connect/Discover) | Pferdebesitzer, Züchter, Gestüte, Trainer, Stallbetreiber, Pferdeinvestoren, Verkaufsställe |
 | **Später möglich** | Pferdetransporteure, Hufschmiede, Tierärzte, Pferdephysiotherapeuten, weitere Dienstleister |
 
-**Regionen:** zunächst Deutschland/Norddeutschland; langfristig DACH, Europa, international.
+**Regionen:** zunächst Deutschland/Norddeutschland (interne Planungsannahme, wird in der Markenkommunikation seit 26.11.2026 nicht genannt); langfristig DACH, Europa, international.
 
 ---
 
@@ -403,13 +403,13 @@ Mobile First, responsive, intuitive Navigation, klare Informationshierarchie, gr
 
 | # | Bereich | Inhalt |
 |---|---|---|
-| – | Kopf | Logo (animiert), Navigation Software · Shop · Über uns · FAQ, Warenkorb |
+| – | Kopf | Logo (animiert), Navigation Software · Shop · Über uns, Warenkorb (FAQ im Fuß) |
 | 1 | Hero | Cinematic Hero, „The Business Behind the Sport.“, „Weniger Büro. Mehr Pferd.“; CTA „Software entdecken“, sekundär „Zum Shop“ |
 | 2 | Markeneinführung | „Du machst den Sport. Wir vereinfachen das Business dahinter.“ Was, für wen, welches Problem |
 | 3 | EquiBill Manage | Größter Bereich: Geräte-Mockup, Kundennutzen, animierte Beispielrechnung (fiktiv), Funktionen, „ab 19 €/Monat“ |
 | 4 | So funktioniert’s | Erfassen → Verwalten → Abrechnen |
 | 5 | Shop-Teaser „Mehr als Software“ | Nur Tournament Planner und Rider Portfolio; CTA „Alle Produkte entdecken“ |
-| 6 | Über EquiBill | Vision und Zielgruppe, als fiktiv gekennzeichnet |
+| 6 | Über EquiBill | Markengeschichte „Aus dem Pferdesport. Für den Pferdesport.“ (Ursprung laut Kap. 4), als fiktiv gekennzeichnet |
 | 7 | FAQ | Kompakte Fragen zu Software und Shop |
 | 8 | Abschluss-CTA und Footer | Fokus auf Manage; Impressum-/Datenschutz-Platzhalter und Demo-Hinweis |
 
@@ -417,7 +417,7 @@ Nicht mehr auf der Startseite: Sortimentsbereich, vollständige Produktübersich
 
 ### 14.3 Navigation und Unterseiten (Beschlossen 26.11.2026)
 
-- **Navigation:** Software · Shop · Über uns · FAQ; Warenkorb als eigenständiges Element rechts.
+- **Navigation:** Software · Shop · Über uns; Warenkorb als eigenständiges Element rechts; FAQ im Fuß verlinkt.
 - **`software.html`** (Variante Noir): Landingpage EquiBill Manage mit Funktionen, Demo (Beispielrechnung), fiktiven Anwendungsbeispielen, Tarifvergleich Basic/Professional/Business, technischen Daten und Warenkorb-Schaltfläche. Ersetzt die frühere Produktseite von Manage.
 - **`shop.html`** (Variante Maison): alle Produkte mit Kategorien, Filter und Links zu den Produktdetailseiten (`produkte/`, Variante Noir).
 - **Über uns, FAQ:** zunächst Anker auf der Startseite.
@@ -601,3 +601,8 @@ Ergebnisse werden geprüft auf: Vollständigkeit, technische Funktionsfähigkeit
 - Kap. 14.1–14.4, 14.6: neuer Startseitenaufbau, Navigation, Unterseiten `software.html` und `shop.html`, zwei Customer Journeys.
 - Unverändert: Plattformarchitektur, Sortiment und Preise, Designrichtung Atelier.
 - Sicherung: `_archiv/_archiv_2026-11-26_vor-software-first/PROJECT_BRIEFING.md`.
+
+## Änderungsvermerk (26.11.2026, Feinschliff Markenauftritt)
+
+- Kap. 8, 14.2, 14.3: Norddeutschland nur noch interne Annahme, nicht in der Markenkommunikation; Über uns als Markengeschichte; FAQ aus der Hauptnavigation in den Fuß.
+- Website: realistisches Software-Interface, Vorlagen-Mockups im Shop-Teaser, gebündelte Demo-Hinweise (Regeln in `CLAUDE.md` Kap. 6 und 7).

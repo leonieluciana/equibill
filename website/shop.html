@@ -16,12 +16,12 @@
   <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a><a href="index.html#faq">FAQ</a>
+      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a><a href="index.html#faq">FAQ</a>
+        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -46,8 +46,8 @@
         </g>
       </svg>
     </a>
-    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
-    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+    <!-- Warenkorb: Zähler aus dem Browser-Speicher (js/app.js, Abschnitt 3) -->
+    <a class="header-cart label" href="warenkorb.html" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
   <main id="inhalt">
@@ -84,7 +84,7 @@
           </a></li>
         </ol>
         <div class="catnav__visual" aria-hidden="true">
-          <figure class="catnav__img is-active" data-catnav-img="0"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="" width="1000" height="666"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div><figcaption>01 · Software · Symbolbild</figcaption></figure>
+          <figure class="catnav__img is-active" data-catnav-img="0"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="" width="1000" height="666"><div class="shot__screen"><div class="app app--fixed" aria-hidden="true"> <div class="app__win" aria-hidden="true"> <div class="app__bar"><i></i><i></i><i></i><span class="app__url">equibill.demo/uebersicht</span></div> <div class="app__body"> <div class="app__nav"> <b class="app__brand">Equi<i></i>Bill</b> <span class="is-active">Übersicht</span><span>Pferde</span><span>Kunden</span><span>Leistungen</span><span>Rechnungen</span><span>Turniere</span> <span class="app__user">Beispielstall</span> </div> <div class="app__main"> <div class="app__head"><div><small>November 2026</small><b>Übersicht</b></div><span class="app__btn">+ Leistung erfassen</span></div> <div class="app__kpis"> <div><small>Umsatz November</small><b>6.240,00 €</b><em>18 Rechnungen</em></div> <div><small>Offen</small><b>1.245,00 €</b><em>3 Rechnungen</em></div> <div><small>Pferde im Beritt</small><b>8</b><em>5 Besitzer</em></div> </div> <div class="app__grid"> <div class="app__card"> <div class="app__card-head"><small>Letzte Einträge</small><span>Alle anzeigen</span></div> <div class="app__row app__row--head"><span>Datum</span><span>Pferd</span><span>Leistung</span><span>Betrag</span></div> <div class="app__row"><span>24.11.</span><span>Quintus</span><span>Nenngeld S*</span><span>85,00 €</span></div> <div class="app__row"><span>23.11.</span><span>Lavinia</span><span>Transport Turnier</span><span>140,00 €</span></div> <div class="app__row"><span>22.11.</span><span>Fiora</span><span>Hufschmied</span><span>95,00 €</span></div> <div class="app__row"><span>21.11.</span><span>Quintus</span><span>Training</span><span>60,00 €</span></div> <div class="app__row"><span>20.11.</span><span>Lavinia</span><span>Tierarzt (weiterber.)</span><span>118,50 €</span></div> </div> <div class="app__card app__card--side"> <div class="app__card-head"><small>Umsatz 2026</small><span>Jan–Nov</span></div> <div class="app__chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div> <div class="app__card-head"><small>Rechnungen</small></div> <ul class="app__invoices"> <li><span>A. Muster</span><b>940,00 €</b><em class="is-open">Offen</em></li> <li><span>Hof Beispiel</span><b>1.380,00 €</b><em class="is-paid">Bezahlt</em></li> <li><span>K. Beispiel</span><b>305,00 €</b><em class="is-draft">Entwurf</em></li> </ul> </div> </div> </div> </div> </div> </div><figcaption>01 · Software · Symbolbild</figcaption></figure>
           <figure class="catnav__img" data-catnav-img="1"><img src="assets/images/fotos/kategorie-tools-notizbuch.jpg" alt="" width="694" height="1000" loading="lazy"><figcaption>02 · Business Tools · Symbolbild</figcaption></figure>
           <figure class="catnav__img" data-catnav-img="2"><img src="assets/images/fotos/kategorie-design-frau-hut.jpg" alt="" width="666" height="1000" loading="lazy"><figcaption>03 · Marketing &amp; Design · Symbolbild</figcaption></figure>
         </div>
@@ -101,87 +101,87 @@
         <button type="button" data-filter="design" aria-pressed="false">Marketing &amp; Design</button>
       </div>
       <div class="products">
-        <article class="product" data-category="software">
+        <article class="product" data-cart-product data-cart-variant="Basic" data-category="software">
           <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
-          <a class="product__plate" href="software.html" tabindex="-1" aria-hidden="true"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666" loading="lazy"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div></div><span class="product__note">Symbolbild</span></a>
+          <a class="product__plate" href="software.html" tabindex="-1" aria-hidden="true"><div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666" loading="lazy"><div class="shot__screen"><div class="app app--fixed" aria-hidden="true"> <div class="app__win" aria-hidden="true"> <div class="app__bar"><i></i><i></i><i></i><span class="app__url">equibill.demo/uebersicht</span></div> <div class="app__body"> <div class="app__nav"> <b class="app__brand">Equi<i></i>Bill</b> <span class="is-active">Übersicht</span><span>Pferde</span><span>Kunden</span><span>Leistungen</span><span>Rechnungen</span><span>Turniere</span> <span class="app__user">Beispielstall</span> </div> <div class="app__main"> <div class="app__head"><div><small>November 2026</small><b>Übersicht</b></div><span class="app__btn">+ Leistung erfassen</span></div> <div class="app__kpis"> <div><small>Umsatz November</small><b>6.240,00 €</b><em>18 Rechnungen</em></div> <div><small>Offen</small><b>1.245,00 €</b><em>3 Rechnungen</em></div> <div><small>Pferde im Beritt</small><b>8</b><em>5 Besitzer</em></div> </div> <div class="app__grid"> <div class="app__card"> <div class="app__card-head"><small>Letzte Einträge</small><span>Alle anzeigen</span></div> <div class="app__row app__row--head"><span>Datum</span><span>Pferd</span><span>Leistung</span><span>Betrag</span></div> <div class="app__row"><span>24.11.</span><span>Quintus</span><span>Nenngeld S*</span><span>85,00 €</span></div> <div class="app__row"><span>23.11.</span><span>Lavinia</span><span>Transport Turnier</span><span>140,00 €</span></div> <div class="app__row"><span>22.11.</span><span>Fiora</span><span>Hufschmied</span><span>95,00 €</span></div> <div class="app__row"><span>21.11.</span><span>Quintus</span><span>Training</span><span>60,00 €</span></div> <div class="app__row"><span>20.11.</span><span>Lavinia</span><span>Tierarzt (weiterber.)</span><span>118,50 €</span></div> </div> <div class="app__card app__card--side"> <div class="app__card-head"><small>Umsatz 2026</small><span>Jan–Nov</span></div> <div class="app__chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div> <div class="app__card-head"><small>Rechnungen</small></div> <ul class="app__invoices"> <li><span>A. Muster</span><b>940,00 €</b><em class="is-open">Offen</em></li> <li><span>Hof Beispiel</span><b>1.380,00 €</b><em class="is-paid">Bezahlt</em></li> <li><span>K. Beispiel</span><b>305,00 €</b><em class="is-draft">Entwurf</em></li> </ul> </div> </div> </div> </div> </div> </div></div></div><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Software</span><span class="product__format">Software-Abo</span></p>
-            <h3><a class="product__link" href="software.html">EquiBill Manage</a></h3>
+            <h3><a class="product__link" data-cart-name href="software.html">EquiBill Manage</a></h3>
             <p class="product__desc">Verwaltungs- und Abrechnungssoftware für Berufsreiter und Pferdebetriebe.</p>
             <ul class="product__points"><li>Pferde, Kunden und Kosten an einem Ort</li><li>Monatsabrechnung und PDF-Rechnungen</li><li>Dashboard mit offenen Rechnungen</li></ul>
             <div class="product__buy">
-              <p class="product__price"><span class="sr-only">Demo-Preis </span>ab 19&nbsp;€/Monat<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="software.html" aria-label="Details zu EquiBill Manage">Details</a><button class="btn" type="button" data-add="EquiBill Manage">In den Warenkorb</button></div>
+              <p class="product__price"><span class="sr-only">Demo-Preis </span><data value="1900" data-cart-price data-cart-interval="monat">ab 19&nbsp;€/Monat</data><small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="software.html" aria-label="Details zu EquiBill Manage">Details</a><button class="btn" type="button" data-cart-add>In den Warenkorb</button></div>
             </div>
           </div>
         </article>
-        <article class="product" data-category="tools">
+        <article class="product" data-cart-product data-category="tools">
           <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
           <a class="product__plate" href="produkte/tournament-planner.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/tournament-planner-notizbuch.jpg" alt="Aufgeschlagenes kariertes Notizbuch mit Bleistift auf einem Holztisch" width="1000" height="650" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlage</span></p>
-            <h3><a class="product__link" href="produkte/tournament-planner.html">Tournament Planner</a></h3>
+            <h3><a class="product__link" data-cart-name href="produkte/tournament-planner.html">Tournament Planner</a></h3>
             <p class="product__desc">Digitale Vorlage für Turnierplanung und Kostenkalkulation.</p>
             <ul class="product__points"><li>Turniertermine und Starts planen</li><li>Nenngelder, Transport und Zusatzkosten kalkulieren</li><li>Kosten je Turnier im Überblick</li></ul>
             <div class="product__buy">
-              <p class="product__price"><span class="sr-only">Demo-Preis </span>29&nbsp;€<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="produkte/tournament-planner.html" aria-label="Details zu Tournament Planner">Details</a><button class="btn" type="button" data-add="Tournament Planner">In den Warenkorb</button></div>
+              <p class="product__price"><span class="sr-only">Demo-Preis </span><data value="2900" data-cart-price>29&nbsp;€</data><small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="produkte/tournament-planner.html" aria-label="Details zu Tournament Planner">Details</a><button class="btn" type="button" data-cart-add>In den Warenkorb</button></div>
             </div>
           </div>
         </article>
-        <article class="product" data-category="design">
+        <article class="product" data-cart-product data-category="design">
           <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
           <a class="product__plate" href="produkte/rider-portfolio.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/rider-portfolio-reiterin-sw.jpg" alt="Reiterin im Sattel, Detail mit Schabracke und Reitstiefel, Schwarz-Weiß" width="1000" height="666" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
-            <h3><a class="product__link" href="produkte/rider-portfolio.html">Rider Portfolio</a></h3>
+            <h3><a class="product__link" data-cart-name href="produkte/rider-portfolio.html">Rider Portfolio</a></h3>
             <p class="product__desc">Canva-Vorlage für Reiter- und Sponsorenpräsentationen.</p>
             <ul class="product__points"><li>Profil, Erfolge und Leistungen übersichtlich darstellen</li><li>Bereich für Sponsorenanfragen</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
             <div class="product__buy">
-              <p class="product__price"><span class="sr-only">Demo-Preis </span>49&nbsp;€<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="produkte/rider-portfolio.html" aria-label="Details zu Rider Portfolio">Details</a><button class="btn" type="button" data-add="Rider Portfolio">In den Warenkorb</button></div>
+              <p class="product__price"><span class="sr-only">Demo-Preis </span><data value="4900" data-cart-price>49&nbsp;€</data><small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="produkte/rider-portfolio.html" aria-label="Details zu Rider Portfolio">Details</a><button class="btn" type="button" data-cart-add>In den Warenkorb</button></div>
             </div>
           </div>
         </article>
-        <article class="product" data-category="design">
+        <article class="product" data-cart-product data-category="design">
           <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
           <a class="product__plate" href="produkte/horse-portfolio.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/horse-portfolio-stall.jpg" alt="Pferdekopf mit Auge in Nahaufnahme im dunklen Stall, Gegenlicht, Schwarz-Weiß" width="666" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Canva-Vorlage</span></p>
-            <h3><a class="product__link" href="produkte/horse-portfolio.html">Horse Portfolio</a></h3>
+            <h3><a class="product__link" data-cart-name href="produkte/horse-portfolio.html">Horse Portfolio</a></h3>
             <p class="product__desc">Canva-Vorlage für Pferdeverkaufsexposés.</p>
             <ul class="product__points"><li>Exposé mit Fotos, Daten und Ausbildungsstand</li><li>Für Verkauf und Vorstellung bei Interessenten</li><li>In Canva mit eigenen Fotos und Texten anpassbar</li></ul>
             <div class="product__buy">
-              <p class="product__price"><span class="sr-only">Demo-Preis </span>39&nbsp;€<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="produkte/horse-portfolio.html" aria-label="Details zu Horse Portfolio">Details</a><button class="btn" type="button" data-add="Horse Portfolio">In den Warenkorb</button></div>
+              <p class="product__price"><span class="sr-only">Demo-Preis </span><data value="3900" data-cart-price>39&nbsp;€</data><small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="produkte/horse-portfolio.html" aria-label="Details zu Horse Portfolio">Details</a><button class="btn" type="button" data-cart-add>In den Warenkorb</button></div>
             </div>
           </div>
         </article>
-        <article class="product" data-category="design">
+        <article class="product" data-cart-product data-category="design">
           <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
           <a class="product__plate" href="produkte/social-media-kit.html" tabindex="-1" aria-hidden="true"><div class="shot shot--phone"><img src="assets/images/fotos/social-media-kit-smartphone.jpg" alt="Hand hält ein Smartphone, auf dem Display Beitragsvorlagen des Social Media Kit (Mockup)" width="1000" height="636" loading="lazy"><div class="shot__screen"><div class="feed"><b class="feed__bar"></b><div class="feed__grid"><i class="feed__t1">EQ</i><i class="feed__t2"></i><i class="feed__t3">26</i><i class="feed__t4"></i><i class="feed__t5">Aa</i><i class="feed__t6"></i></div></div></div></div><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Marketing &amp; Design</span><span class="product__format">Designvorlagen</span></p>
-            <h3><a class="product__link" href="produkte/social-media-kit.html">Social Media Kit</a></h3>
+            <h3><a class="product__link" data-cart-name href="produkte/social-media-kit.html">Social Media Kit</a></h3>
             <p class="product__desc">Designvorlagen für den Social-Media-Auftritt von Reitern.</p>
             <ul class="product__points"><li>Einheitlicher Look für den Social-Media-Auftritt</li><li>Vorlagen für regelmäßige Beiträge</li><li>Mit eigenen Fotos, Farben und Texten anpassbar</li></ul>
             <div class="product__buy">
-              <p class="product__price"><span class="sr-only">Demo-Preis </span>39&nbsp;€<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="produkte/social-media-kit.html" aria-label="Details zu Social Media Kit">Details</a><button class="btn" type="button" data-add="Social Media Kit">In den Warenkorb</button></div>
+              <p class="product__price"><span class="sr-only">Demo-Preis </span><data value="3900" data-cart-price>39&nbsp;€</data><small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="produkte/social-media-kit.html" aria-label="Details zu Social Media Kit">Details</a><button class="btn" type="button" data-cart-add>In den Warenkorb</button></div>
             </div>
           </div>
         </article>
-        <article class="product" data-category="tools">
+        <article class="product" data-cart-product data-category="tools">
           <!-- Bild führt ebenfalls zur Produktseite; für Tastatur/Screenreader reicht der Link am Namen -->
           <a class="product__plate" href="produkte/equestrian-business-kit.html" tabindex="-1" aria-hidden="true"><img class="plate__img" src="assets/images/fotos/business-kit-notizbuch.jpg" alt="Dunkles Notizbuch mit Stift auf einem Schreibblock, Holztisch" width="667" height="1000" loading="lazy"><span class="product__note">Symbolbild</span></a>
           <div class="product__body">
             <p class="product__meta"><span class="label">Business Tools</span><span class="product__format">Digitale Vorlagen</span></p>
-            <h3><a class="product__link" href="produkte/equestrian-business-kit.html">Equestrian Business Kit</a></h3>
+            <h3><a class="product__link" data-cart-name href="produkte/equestrian-business-kit.html">Equestrian Business Kit</a></h3>
             <p class="product__desc">Digitale Vorlagen für die Betriebsorganisation.</p>
             <ul class="product__points"><li>Vorlagen für den Büroalltag im Pferdebetrieb</li><li>Einheitliche Dokumente statt Einzellösungen</li><li>Eine Sammlung statt vieler einzelner Dateien</li></ul>
             <div class="product__buy">
-              <p class="product__price"><span class="sr-only">Demo-Preis </span>99&nbsp;€<small>Demo-Preis</small></p>
-              <div class="product__links"><a class="textlink" href="produkte/equestrian-business-kit.html" aria-label="Details zu Equestrian Business Kit">Details</a><button class="btn" type="button" data-add="Equestrian Business Kit">In den Warenkorb</button></div>
+              <p class="product__price"><span class="sr-only">Demo-Preis </span><data value="9900" data-cart-price>99&nbsp;€</data><small>Demo-Preis</small></p>
+              <div class="product__links"><a class="textlink" href="produkte/equestrian-business-kit.html" aria-label="Details zu Equestrian Business Kit">Details</a><button class="btn" type="button" data-cart-add>In den Warenkorb</button></div>
             </div>
           </div>
         </article>
@@ -197,7 +197,7 @@
       <div><h2>Software</h2><ul><li><a href="software.html">EquiBill Manage</a></li><li><a href="software.html#funktionen">Funktionen</a></li><li><a href="software.html#tarife">Tarife</a></li></ul></div>
       <div><h2>Shop</h2><ul><li><a href="shop.html">Alle Produkte</a></li><li><a href="shop.html?kategorie=tools#produkte">Business Tools</a></li><li><a href="shop.html?kategorie=design#produkte">Marketing &amp; Design</a></li></ul></div>
       <div><h2>EquiBill</h2><ul><li><a href="index.html#ueber-uns">Über uns</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
-      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+      <div><h2>Über diese Demo</h2><p class="demo-box">EquiBill ist ein fiktives Unternehmen aus einem Weiterbildungsprojekt. Alle Preise sind Demo-Preise, es gibt keine Bestellung und keine Zahlung. Software und Vorlagen sind Konzepte, Interface-Abbildungen sind Mockups mit fiktiven Daten.</p></div>
     </div>
     <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>
   </footer>

@@ -16,12 +16,12 @@
   <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
+      <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a><a href="../index.html#faq">FAQ</a>
+        <a href="../software.html">Software</a><a href="../shop.html">Shop</a><a href="../index.html#ueber-uns">Über uns</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -46,8 +46,8 @@
         </g>
       </svg>
     </a>
-    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
-    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+    <!-- Warenkorb: Zähler aus dem Browser-Speicher (js/app.js, Abschnitt 3) -->
+    <a class="header-cart label" href="../warenkorb.html" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
   <main id="inhalt">
@@ -57,23 +57,37 @@
     </nav>
 
     <!-- Produktbereich: Bild + Name, Kurzbeschreibung, Preis, Versand, Warenkorb -->
-    <section class="pdp" aria-labelledby="produkt-titel">
+    <section class="pdp" data-cart-product aria-labelledby="produkt-titel">
       <figure class="pdp__media">
-        <div class="pdp__plate"><img class="plate__img" src="../assets/images/fotos/tournament-planner-notizbuch.jpg" alt="Aufgeschlagenes kariertes Notizbuch mit Bleistift auf einem Holztisch" width="1000" height="650"></div>
-        <span class="product__note">Symbolbild</span>
+        <!-- Mockup der Vorlage (HTML/CSS, fiktive Werte); role="img" + aria-label ersetzen den Alternativtext -->
+        <div class="pdp__plate pdp__plate--tools" role="img" aria-label="Mockup des Tournament Planner: Tabellenblatt „Turniersaison 2026“ mit fünf Beispielturnieren, Nenngeld, Transport und Summe je Turnier sowie der Saisonsumme (fiktive Werte)">
+          <span class="tpl" aria-hidden="true">
+            <span class="tpl__sheet">
+              <span class="tpl__head"><b>Turniersaison 2026</b><small>Tournament Planner</small></span>
+              <span class="tpl__row tpl__row--head"><span>Datum</span><span>Turnier</span><span>Pferd</span><span>Nenngeld</span><span>Transport</span><span>Summe</span></span>
+              <span class="tpl__row"><span>12.04.</span><span>Frühjahrsturnier</span><span>Lavinia</span><span>85 €</span><span>140 €</span><span>225 €</span></span>
+              <span class="tpl__row"><span>03.05.</span><span>Reitertage</span><span>Quintus</span><span>120 €</span><span>210 €</span><span>330 €</span></span>
+              <span class="tpl__row"><span>21.06.</span><span>Sommerturnier</span><span>Lavinia</span><span>95 €</span><span>160 €</span><span>255 €</span></span>
+              <span class="tpl__row"><span>16.08.</span><span>Springderby</span><span>Fiora</span><span>150 €</span><span>280 €</span><span>430 €</span></span>
+              <span class="tpl__row"><span>27.09.</span><span>Herbstturnier</span><span>Quintus</span><span>110 €</span><span>190 €</span><span>300 €</span></span>
+              <span class="tpl__row tpl__row--total"><span></span><span>Saison gesamt</span><span></span><span>560 €</span><span>980 €</span><span>1.540 €</span></span>
+            </span>
+          </span>
+        </div>
+        <span class="product__note">Mockup</span>
       </figure>
       <div class="pdp__info">
         <span class="pdp__num" aria-hidden="true">N° 02</span>
         <p class="pdp__meta"><span class="label label--accent">Business Tools</span><span class="product__format">Digitale Vorlage</span></p>
-        <h1 class="pdp__title" id="produkt-titel">Tournament Planner</h1>
+        <h1 class="pdp__title" id="produkt-titel" data-cart-name>Tournament Planner</h1>
         <p class="pdp__lead">Digitale Vorlage für Turnierplanung und Kostenkalkulation.</p>
         <div class="pdp__buy">
-          <p class="pdp__price"><span class="sr-only">Demo-Preis </span>29&nbsp;€</p>
+          <p class="pdp__price"><span class="sr-only">Demo-Preis </span><data value="2900" data-cart-price>29&nbsp;€</data></p>
           <p class="pdp__tax">inkl. MwSt., zzgl. Versand · Demo-Preis</p>
           <p class="pdp__shipping"><b>Versandkosten:</b> 0&nbsp;€ · digitale Lieferung per Download, kein Versand</p>
-          <!-- Schaltfläche bewusst noch ohne Funktion (kein data-add); Warenkorb folgt -->
-          <button class="btn" type="button" aria-describedby="kauf-hinweis">In den Warenkorb</button>
-          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung. Die Warenkorb-Funktion folgt.</p>
+          <!-- Legt den Artikel in den Warenkorb (js/app.js liest Name und Preis aus diesem Abschnitt) -->
+          <button class="btn" type="button" data-cart-add aria-describedby="kauf-hinweis">In den Warenkorb</button>
+          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung.</p>
         </div>
       </div>
     </section>
@@ -112,7 +126,7 @@
       <div><h2>Software</h2><ul><li><a href="../software.html">EquiBill Manage</a></li><li><a href="../software.html#funktionen">Funktionen</a></li><li><a href="../software.html#tarife">Tarife</a></li></ul></div>
       <div><h2>Shop</h2><ul><li><a href="../shop.html">Alle Produkte</a></li><li><a href="../shop.html?kategorie=tools#produkte">Business Tools</a></li><li><a href="../shop.html?kategorie=design#produkte">Marketing &amp; Design</a></li></ul></div>
       <div><h2>EquiBill</h2><ul><li><a href="../index.html#ueber-uns">Über uns</a></li><li><a href="../index.html#faq">FAQ</a></li><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
-      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+      <div><h2>Über diese Demo</h2><p class="demo-box">EquiBill ist ein fiktives Unternehmen aus einem Weiterbildungsprojekt. Alle Preise sind Demo-Preise, es gibt keine Bestellung und keine Zahlung. Software und Vorlagen sind Konzepte, Interface-Abbildungen sind Mockups mit fiktiven Daten.</p></div>
     </div>
     <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="../assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>
   </footer>

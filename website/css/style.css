@@ -149,7 +149,6 @@ a{color:inherit;text-decoration:none}
 .hero__lead{margin:20px 0 0;max-width:46ch;font-size:17px;opacity:.92}
 .hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:30px}
 .hero__cta .textlink{color:var(--ivory)}
-.hero__audience{margin:30px 0 0;opacity:.75}
 .hero__stage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Dunkel sichtbar halten */
 @media(min-width:900px){
   /* Desktop: Hochformat-Foto rechts in voller Höhe, links Tiefschwarz für den Text;
@@ -259,10 +258,6 @@ a{color:inherit;text-decoration:none}
 .shot--laptop .shot__screen{left:29%;top:33.2%;width:42.2%;height:38.9%}   /* gemessen im Foto: Display 290–712 × 221–480 px */
 .shot--phone{--ar:1000/636}
 .shot--phone .shot__screen{left:41.6%;top:21%;width:13.1%;height:43.6%;border-radius:6%/3%}  /* Display 416–548 × 134–411 px */
-/* Dashboard auf dem Laptop-Display: Rahmen und Schatten entfallen, das Foto liefert das Gerät.
-   „.shot__screen“ davor macht die Regel stärker als die allgemeinen Mockup-Regeln weiter unten. */
-.shot__screen .mk--screen .scr{width:100%;height:100%;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;padding:5%}
-.shot__screen .mk--screen .st i{height:auto;aspect-ratio:3/1}
 /* Social-Feed auf dem Smartphone-Display */
 .feed{position:absolute;inset:0;padding:22% 9% 8%;display:grid;grid-template-rows:auto 1fr;gap:6%}
 .feed__bar{display:block;height:4px;width:55%;background:var(--ink);border-radius:9px}
@@ -358,17 +353,14 @@ a{color:inherit;text-decoration:none}
 .manage__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
 .manage__cta .textlink{color:var(--ivory)}
 .manage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Oxblood sichtbar halten */
-.manage__device,.sw-hero__device{position:relative;margin:0;aspect-ratio:1000/666;overflow:hidden;border-radius:14px;container-type:size;box-shadow:0 40px 80px -40px rgba(21,18,19,.7)}
-.manage__device figcaption,.sw-hero__device figcaption{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);color:var(--ink);padding:4px 6px}
+.manage__device,.sw-hero__device{position:relative;margin:0}
 .manage__benefit h3{margin:12px 0 24px;font:italic 400 clamp(32px,3.6vw,50px)/1.02 var(--serif);letter-spacing:-.02em;max-width:16ch}
 .manage__gains{list-style:none;margin:0;padding:0;border-top:1px solid rgba(243,239,232,.4)}
 .manage__gains li{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid rgba(243,239,232,.25)}
 .manage__gains b{font:500 16px/1.3 var(--sans)}
 .manage__gains span{opacity:.88;font-size:15px;max-width:44ch}
-/* Desktop: Mockup läuft bis an den rechten Rand (Anschnitt wie im Editorial-Layout) */
-@media(min-width:900px){
-  .manage__device{margin-right:calc(var(--pad) * -1);border-radius:14px 0 0 14px}
-}
+/* Gebündelter Transparenzhinweis am Ende des Manage-Bereichs */
+.manage__disclaimer{grid-column:1/-1;margin:0;font-size:13px;opacity:.75}
 
 /* Markeneinführung: großes Statement links, Text rechts unten */
 .intro{display:grid;gap:clamp(24px,4vw,60px)}
@@ -376,7 +368,6 @@ a{color:inherit;text-decoration:none}
 .intro__body{max-width:56ch}
 .intro__body p{margin:0 0 14px;opacity:.85}
 .intro__body .intro__lead{margin:0 0 20px;font:400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
-.intro__audience{list-style:none;margin:28px 0 0;padding:20px 0 0;border-top:1px solid var(--ink);display:flex;flex-wrap:wrap;gap:8px 26px;color:var(--ox)}
 @media(min-width:900px){.intro{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end}}
 
 /* So funktioniert's: drei Schritte als versetzte Treppe (Desktop), Liste mit Haarlinien (Handy) */
@@ -386,7 +377,6 @@ a{color:inherit;text-decoration:none}
 .step__num{grid-row:span 2;font:italic 400 clamp(56px,8vw,120px)/.8 var(--serif);color:var(--ox)}
 .step h3{margin:0;font:400 clamp(30px,3.4vw,48px)/1 var(--serif);letter-spacing:-.02em}
 .step p{margin:0;max-width:34ch;opacity:.85}
-.steps__note{margin:30px 0 0;opacity:.7}
 @media(min-width:900px){
   .steps__list{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
   .step{grid-template-columns:1fr}
@@ -398,16 +388,16 @@ a{color:inherit;text-decoration:none}
 /* Shop-Teaser: zwei Produkte, asymmetrisch versetzt (kein Kachelraster) */
 .teaser__grid{display:grid;gap:48px}
 .teaser__item{display:grid;gap:10px;align-content:start}
-.teaser__img{position:relative;display:block;overflow:hidden;border-radius:14px;aspect-ratio:4/3;background:var(--plate-tools)}
-.teaser__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:scale .7s cubic-bezier(.2,.8,.2,1)}
-.teaser__item:hover .teaser__img img{scale:1.05}
+.teaser__img{position:relative;display:block;overflow:hidden;border-radius:14px;aspect-ratio:4/3;background:var(--plate-tools);container-type:size}
+.teaser__img--design{background:var(--plate-design)}
+.tpl,.rpf{position:absolute;inset:0;transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.teaser__item:hover .tpl,.teaser__item:hover .rpf{scale:1.04}
 .teaser__meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:10px 0 0}
 .teaser__price{font:400 24px/1 var(--serif);white-space:nowrap}
 .teaser__price small{font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.65}
 .teaser__item h3{margin:0;font:400 clamp(30px,3.4vw,46px)/1 var(--serif);letter-spacing:-.02em}
 .teaser__item>p:last-child{margin:0;opacity:.8;max-width:40ch}
 .teaser__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:clamp(40px,5vw,70px)}
-.teaser__cta p{margin:0;opacity:.7}
 /* Desktop: Überschrift und CTA links (4 Spalten), zwei kleinere Produkte rechts (8 Spalten), zweites versetzt.
    Bewusst kleiner als der Manage-Bereich: der Shop ist Ergänzung, nicht Hauptangebot. */
 @media(min-width:900px){
@@ -433,12 +423,111 @@ a{color:inherit;text-decoration:none}
 .inline-link{border-bottom:1px solid currentColor}
 .inline-link:hover{color:var(--accent)}
 
+/* 9a) Software-Interface (Mockup in HTML/CSS, fiktive Daten) ------------------------------------
+   Alle Maße in em; die Grundschrift hängt an der Breite des Fensters (Container-Einheit cqi).
+   So skaliert dieselbe Oberfläche vom großen Fenster bis in den kleinen Laptop-Bildschirm.
+   Unter 620 px Breite wird die Navigation ausgeblendet (wie eine echte App auf dem Handy);
+   .app--fixed (im Laptop-Foto) behält immer die Desktop-Ansicht. */
+.app{container-type:inline-size;width:100%;text-align:left}
+.app__win{font:400 1.42cqi/1.35 var(--sans);color:var(--ink);background:#fbf8f3;border:1px solid rgba(21,18,19,.12);border-radius:.9em;overflow:hidden;box-shadow:0 3em 6em -3em rgba(21,18,19,.65)}
+.app__bar{display:flex;align-items:center;gap:.45em;padding:.7em 1em;background:#ece6dc;border-bottom:1px solid rgba(21,18,19,.1)}
+.app__bar>i{width:.75em;height:.75em;border-radius:50%;background:#d6ccbf}
+.app__url{margin-left:1.2em;flex:0 1 24em;background:#fbf8f3;border-radius:.5em;padding:.3em .9em;font-size:.85em;color:rgba(21,18,19,.6)}
+.app__body{display:grid;grid-template-columns:11em minmax(0,1fr)}
+.app__nav{display:flex;flex-direction:column;gap:.2em;padding:1.4em 1em;background:#f3eee6;border-right:1px solid rgba(21,18,19,.08)}
+.app__brand{display:flex;align-items:center;gap:.35em;margin:0 0 1.4em .55em;font:400 1em/1 var(--serif);letter-spacing:.16em;text-transform:uppercase}
+.app__brand i{width:1.1em;height:1px;background:var(--ox)}
+.app__nav>span{padding:.55em .7em;border-radius:.45em;color:rgba(21,18,19,.72)}
+.app__nav>.is-active{background:var(--ink);color:var(--ivory)}
+.app__nav>.app__user{margin-top:auto;padding-top:1em;border-top:1px solid rgba(21,18,19,.1);border-radius:0;font-size:.85em}
+.app__main{display:grid;gap:1.2em;padding:1.4em 1.6em 1.6em;min-width:0}
+.app__head{display:flex;justify-content:space-between;align-items:flex-end;gap:1em}
+.app__head small,.app__kpis small,.app__card-head small{display:block;font-size:.76em;letter-spacing:.12em;text-transform:uppercase;color:rgba(21,18,19,.55)}
+.app__head b{font:400 2.1em/1.1 var(--serif)}
+.app__btn{background:var(--ox);color:var(--ivory);border-radius:.5em;padding:.65em 1em;font-weight:500;white-space:nowrap}
+.app__kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8em}
+.app__kpis>div,.app__card{background:#fff;border:1px solid rgba(21,18,19,.08);border-radius:.7em}
+.app__kpis>div{display:grid;gap:.25em;padding:.9em 1em}
+.app__kpis b{font:400 1.75em/1.1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.app__kpis>div:nth-child(2) b{color:var(--ox)}
+.app__kpis em{font-style:normal;font-size:.85em;color:rgba(21,18,19,.6)}
+.app__grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:.8em}
+.app__card{display:grid;gap:.55em;align-content:start;padding:1em 1.1em;min-width:0}
+.app__card-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6em}
+.app__card-head span{font-size:.8em;color:var(--ox)}
+.app__row{display:grid;grid-template-columns:4.2em minmax(0,1fr) minmax(0,1.5fr) auto;gap:.8em;padding:.5em 0;border-top:1px solid rgba(21,18,19,.07);font-variant-numeric:tabular-nums}
+.app__row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app__row span:last-child{text-align:right}
+.app__row--head{padding-top:0;border-top:0;font-size:.76em;letter-spacing:.1em;text-transform:uppercase;color:rgba(21,18,19,.5)}
+.app__chart{display:flex;align-items:flex-end;gap:.35em;height:5.5em;padding-bottom:.4em;border-bottom:1px solid rgba(21,18,19,.1)}
+.app__chart i{flex:1;background:var(--ink);opacity:.82;border-radius:.2em .2em 0 0}
+.app__chart i:last-child{background:var(--ox);opacity:1}
+.app__chart i:nth-child(1){height:42%}.app__chart i:nth-child(2){height:48%}.app__chart i:nth-child(3){height:61%}
+.app__chart i:nth-child(4){height:70%}.app__chart i:nth-child(5){height:78%}.app__chart i:nth-child(6){height:84%}
+.app__chart i:nth-child(7){height:66%}.app__chart i:nth-child(8){height:88%}.app__chart i:nth-child(9){height:81%}
+.app__chart i:nth-child(10){height:74%}.app__chart i:nth-child(11){height:92%}
+.app__invoices{list-style:none;margin:0;padding:0;display:grid}
+.app__invoices li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.15em .6em;padding:.5em 0;border-top:1px solid rgba(21,18,19,.07)}
+.app__invoices b{font-weight:500;font-variant-numeric:tabular-nums}
+.app__invoices em{grid-column:1/-1;justify-self:start;font-style:normal;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;padding:.2em .6em;border-radius:99em}
+.app__invoices .is-open{background:#f3dcd6;color:var(--ox)}
+.app__invoices .is-paid{background:#ece6dc;color:var(--ink)}
+.app__invoices .is-draft{border:1px dashed rgba(21,18,19,.35);color:rgba(21,18,19,.7)}
+@container (max-width: 620px){
+  .app:not(.app--fixed) .app__win{font-size:2.9cqi}
+  .app:not(.app--fixed) .app__body{grid-template-columns:1fr}
+  .app:not(.app--fixed) .app__nav,.app:not(.app--fixed) .app__card--side{display:none}
+  .app:not(.app--fixed) .app__grid{grid-template-columns:1fr}
+}
+/* Im Laptop-Foto: füllt den Bildschirm, ohne eigenen Rahmen und Schatten */
+.shot__screen .app{position:absolute;inset:0}
+.shot__screen .app__win{height:100%;border:0;border-radius:0;box-shadow:none}
+
+/* 9b) Vorlagen-Mockups im Shop-Teaser (zeigen den Aufbau der Vorlagen, fiktive Inhalte) ---------
+   Maße in cqi der Bildfläche (.teaser__img). Gestaltung wie Packshots auf farbiger Fläche. */
+.tpl,.rpf{display:block}
+.tpl span,.rpf span{display:block}
+/* Tournament Planner: Tabellenblatt einer Saisonplanung */
+.tpl__sheet{position:absolute;left:6%;right:6%;top:9%;font:400 2.2cqi/1.3 var(--sans);color:var(--ink);background:#fbf8f3;border-radius:.6em;padding:1.4em 1.4em 1.2em;box-shadow:0 2.5em 4em -2em rgba(21,18,19,.55);rotate:-2.5deg}
+.tpl__head{display:flex!important;justify-content:space-between;align-items:baseline;margin-bottom:1em}
+.tpl__head b{font:400 2.1em/1 var(--serif)}
+.tpl__head small{font-size:.8em;letter-spacing:.14em;text-transform:uppercase;color:var(--ox)}
+.tpl__row{display:grid!important;grid-template-columns:3.4em minmax(0,1.6fr) minmax(0,1fr) 4.8em 4.8em 4.2em;gap:.5em;padding:.45em .3em;border-top:1px solid rgba(21,18,19,.1);font-variant-numeric:tabular-nums}
+.tpl__row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tpl__row span:nth-child(n+4){text-align:right}
+.tpl__row--head{background:var(--ink);color:var(--ivory);border-radius:.35em;border-top:0;font-size:.8em;font-weight:500}
+.tpl__row--total{border-top:2px solid var(--ink);font-weight:500}
+.tpl__row--total span:last-child{color:var(--ox)}
+/* Rider Portfolio: Titelseite mit Foto hinten, Profilseite vorne */
+/* Größen mit min(): richtet sich nach Breite UND Höhe der Fläche, damit beide Seiten im Quer- und Hochformat ganz sichtbar bleiben */
+.rpf{font:400 min(2.4cqi,2.1cqh)/1.3 var(--sans);color:var(--ink)}
+.rpf__cover{position:absolute;left:8%;top:9%;width:min(58%,58cqh);aspect-ratio:3/4.2;overflow:hidden;border-radius:.3em;background:var(--ink);box-shadow:0 2em 3.5em -1.8em rgba(21,18,19,.6);rotate:-4deg}
+.rpf__cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.rpf__cover-title{position:absolute;left:8%;right:8%;bottom:7%;color:var(--ivory)}
+.rpf__cover-title small{display:block;font-size:.7em;letter-spacing:.2em;text-transform:uppercase}
+.rpf__cover-title b{font:italic 400 1.6em/1 var(--serif)}
+.rpf__page{position:absolute;right:7%;bottom:8%;width:min(56%,56cqh);aspect-ratio:3/4.2;display:flex!important;flex-direction:column;gap:.55em;padding:8% 8% 7%;background:#fbf8f3;border-radius:.3em;box-shadow:0 2.4em 4em -1.8em rgba(21,18,19,.6);rotate:3deg}
+.rpf__kicker{font-size:.62em;letter-spacing:.2em;text-transform:uppercase;color:var(--ox)}
+.rpf__name{font:400 2em/1 var(--serif)}
+.rpf__role{font-size:.72em;opacity:.7}
+.rpf__lines,.rpf__list{display:grid!important;gap:.45em;margin-bottom:.4em}
+.rpf__lines i,.rpf__list i{display:block;height:.4em;border-radius:9em;background:#e6ddd2}
+.rpf__lines i:last-child{width:70%}
+.rpf__list i{width:85%;position:relative;margin-left:.9em}
+.rpf__list i::before{content:"";position:absolute;left:-.9em;top:0;width:.4em;height:.4em;border-radius:50%;background:var(--ox)}
+.rpf__cta{margin-top:auto;align-self:flex-start;background:var(--ox);color:var(--ivory);font-size:.62em;letter-spacing:.14em;text-transform:uppercase;padding:.6em .9em;border-radius:.3em}
+
+/* Vorlagen-Mockups auf Produktseiten (produkte/): farbige Fläche wie im Teaser, Tabelle mittig */
+.pdp__plate.pdp__plate--tools{background:var(--plate-tools)}
+.pdp__plate.pdp__plate--design{background:var(--plate-design)}
+.pdp__plate .tpl__sheet{top:50%;translate:0 -50%}
+
 /* 10) Über EquiBill --------------------------------------------------------------------------- */
 .about{display:grid;gap:30px;align-items:center;background:#ebe5db}
 .about__photo{aspect-ratio:4/5;background:linear-gradient(190deg,#cfc6ba,#6c6258)}
 .about h2{margin:10px 0 22px;font:italic 400 clamp(40px,5.4vw,76px)/1 var(--serif);letter-spacing:-.025em}
 .about p{max-width:50ch;margin:0 0 14px;opacity:.85}
-.about__demo{border:1px solid var(--ox);color:var(--ox);padding:14px 16px;margin-top:24px;max-width:50ch}
+.about .about__demo{margin-top:26px;font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.6}
 @media(min-width:860px){.about{grid-template-columns:5fr 6fr;gap:clamp(30px,6vw,90px)}}
 
 /* 11) FAQ ------------------------------------------------------------------------------------- */
@@ -459,7 +548,7 @@ a{color:inherit;text-decoration:none}
 .site-footer h2{margin:0 0 12px;opacity:.6}
 .site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .site-footer a:hover{color:var(--blush)}
-.demo-box{border:1px solid var(--blush);color:var(--blush);padding:14px 18px;margin:0;max-width:640px}
+.demo-box{margin:0;max-width:52ch;color:var(--blush);text-transform:none;letter-spacing:0;font:400 13px/1.55 var(--sans)}
 .site-footer__legal{margin:22px 0 0;opacity:.6;font-size:12.5px;max-width:80ch}
 @media(min-width:760px){.site-footer__cols{grid-template-columns:repeat(4,1fr)}}
 .site-footer__cols>*{min-width:0;overflow-wrap:anywhere}
@@ -467,67 +556,6 @@ a{color:inherit;text-decoration:none}
 /* 13) Rückmeldung Demo-Warenkorb ------------------------------------------------------------------- */
 .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--ivory);padding:14px 20px;max-width:min(92vw,520px);font-size:14px;z-index:200;transition:opacity .25s,transform .25s}
 .toast.is-visible{opacity:1;transform:translate(-50%,0)}
-.mk{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
-.mk *{box-sizing:border-box}
-.mk i,.mk b{display:block;font-style:normal}
-.mk .l{height:5px;border-radius:9px;background:var(--mk-soft)}
-.mk-manage .scr{width:82%;aspect-ratio:16/10;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:7px;display:grid;grid-template-columns:20% 1fr;gap:6%;padding:5%;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}
-.mk-manage .sb{background:var(--mk-soft);border-radius:4px}
-.mk-manage .mn{display:grid;grid-template-rows:auto auto 1fr;gap:9%}
-.mk-manage .mh{height:6px;width:46%;background:var(--mk-ink);border-radius:9px}
-.mk-manage .st{display:grid;grid-template-columns:repeat(3,1fr);gap:6%}
-.mk-manage .st i{height:20px;background:var(--mk-soft);border-radius:3px}
-.mk-manage .st i:first-child{background:var(--mk-acc)}
-.mk-manage .bars{display:flex;align-items:flex-end;gap:5%}
-.mk-manage .bars i{flex:1;height:var(--h);background:var(--mk-ink);opacity:.8;border-radius:2px 2px 0 0}
-.mk-manage .bars i:nth-child(5){background:var(--mk-acc);opacity:1}
-/* Balkenhöhen des Dashboard-Mockups (vorher als Inline-Style im HTML) */
-.mk-manage .bars i:nth-child(1){--h:35%}
-.mk-manage .bars i:nth-child(2){--h:52%}
-.mk-manage .bars i:nth-child(3){--h:44%}
-.mk-manage .bars i:nth-child(4){--h:68%}
-.mk-manage .bars i:nth-child(5){--h:86%}
-.mk-manage .bars i:nth-child(6){--h:58%}
-.mk-manage .bars i:nth-child(7){--h:74%}
-/* Verkürzte Textzeilen in Mockups (vorher Inline-Style); doppelte Klasse für Vorrang */
-.mk .l.l--70{width:70%}
-.mk .l.l--60{width:60%}
-.mk-manage .ph{position:absolute;right:6%;bottom:9%;width:19%;aspect-ratio:9/18;background:var(--mk-ink);border-radius:9px;padding:4px;box-shadow:0 14px 30px -10px rgba(0,0,0,.55)}
-.mk-manage .ph b{height:100%;border-radius:6px;background:var(--mk-bg);padding:12% 14%;display:grid;align-content:start;gap:8px}
-.mk-manage .ph b i{height:5px;border-radius:9px;background:var(--mk-soft)}
-.mk-manage .ph b i:first-child{background:var(--mk-acc);height:12px;border-radius:3px}
-.mk-planner .sheet{width:56%;aspect-ratio:4/5;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:6px;padding:7%;display:grid;grid-template-rows:auto 1fr;gap:6%;transform:rotate(-4deg);box-shadow:0 18px 36px -16px rgba(0,0,0,.4)}
-.mk-planner .top{height:14px;background:var(--mk-ink);border-radius:3px}
-.mk-planner .g{display:grid;grid-template-columns:repeat(5,1fr);gap:5%}
-.mk-planner .g i{background:var(--mk-soft);border-radius:2px}
-.mk-planner .g i.on{background:var(--mk-acc)}
-.mk-planner .g i.dk{background:var(--mk-ink)}
-.mk-planner .sum{position:absolute;right:7%;bottom:12%;width:34%;background:var(--mk-ink);border-radius:6px;padding:7%;display:grid;gap:7px;transform:rotate(5deg);box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
-.mk-planner .sum .l{background:var(--mk-bg);opacity:.35}
-.mk-planner .sum .l.a{background:var(--mk-acc);opacity:1;width:60%}
-.mk-rider .pg{width:46%;aspect-ratio:3/4.2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;display:grid;grid-template-rows:56% auto auto;gap:5%;padding:6%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);z-index:2}
-.mk-rider .pg.bk{position:absolute;transform:translate(34%,4%) rotate(7deg);z-index:1;opacity:.9;grid-template-rows:1fr;background:var(--mk-soft)}
-.mk-rider .pic{background:linear-gradient(160deg,var(--mk-acc),var(--mk-ink));border-radius:2px}
-.mk-rider .nm{height:9px;width:70%;background:var(--mk-ink);border-radius:2px}
-.mk-rider .lg{display:flex;gap:6%}
-.mk-rider .lg i{width:18%;aspect-ratio:1;background:var(--mk-soft);border:1px solid var(--mk-line)}
-.mk-horse .ld{width:78%;aspect-ratio:3/2;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:4px;display:grid;grid-template-columns:58% 1fr;gap:5%;padding:5%;box-shadow:0 20px 40px -18px rgba(0,0,0,.5);transform:rotate(-2deg)}
-.mk-horse .pic{background:linear-gradient(200deg,var(--mk-soft),var(--mk-acc) 70%);border-radius:2px;position:relative}
-.mk-horse .pic::after{content:"";position:absolute;left:12%;right:12%;bottom:18%;height:38%;border:2px solid var(--mk-bg);border-bottom:none;border-radius:99px 99px 0 0;opacity:.8}
-.mk-horse .sp{display:grid;align-content:center;gap:9px}
-.mk-horse .sp .l:first-child{height:9px;background:var(--mk-ink);width:80%}
-.mk-horse .tag{position:absolute;right:8%;bottom:14%;background:var(--mk-acc);color:var(--mk-bg);font:700 9px/1 var(--mk-font,sans-serif);padding:6px 9px;border-radius:99px;letter-spacing:.08em;transform:rotate(-2deg)}
-.mk-social .sq{position:absolute;width:40%;aspect-ratio:1;border-radius:4px;box-shadow:0 16px 30px -14px rgba(0,0,0,.5);display:grid;place-items:center;font:800 clamp(22px,5cqi,44px)/1 var(--mk-font,sans-serif)}
-.mk-social .a{left:12%;top:16%;background:var(--mk-acc);color:var(--mk-bg);transform:rotate(-6deg)}
-.mk-social .b{right:12%;top:10%;background:var(--mk-ink);color:var(--mk-bg);transform:rotate(5deg)}
-.mk-social .c{left:30%;bottom:10%;background:var(--mk-bg);color:var(--mk-ink);border:1px solid var(--mk-line);transform:rotate(-1deg)}
-.mk-biz .dc{position:absolute;width:44%;aspect-ratio:3/4;background:var(--mk-bg);border:1px solid var(--mk-line);border-radius:3px;padding:6%;display:grid;align-content:start;gap:8px;box-shadow:0 14px 28px -14px rgba(0,0,0,.5)}
-.mk-biz .d1{left:12%;top:12%;transform:rotate(-7deg);background:var(--mk-soft)}
-.mk-biz .d2{left:30%;top:8%;transform:rotate(2deg)}
-.mk-biz .d3{right:10%;top:16%;transform:rotate(8deg);background:var(--mk-ink)}
-.mk-biz .d3 .l{background:var(--mk-bg);opacity:.4}
-.mk-biz .d2 .l:first-child{background:var(--mk-ink);height:8px;width:60%}
-.mk-biz .stamp{position:absolute;left:36%;bottom:12%;width:22%;aspect-ratio:1;border-radius:50%;background:var(--mk-acc);color:var(--mk-bg);display:grid;place-items:center;font:800 9px/1 var(--mk-font,sans-serif);letter-spacing:.1em;transform:rotate(-12deg)}
 
 /* 14) Variante B „Noir“ (dunkel) ---------------------------------------------------------------
    Gilt nur für Seiten mit <body class="theme-noir"> (aktuell: Produktseiten in produkte/).
@@ -574,7 +602,7 @@ a{color:inherit;text-decoration:none}
 .pdp__tax,.pdp__shipping{margin:0;font-size:14.5px;opacity:.85}
 .pdp__shipping b{font-weight:500}
 .pdp__buy .btn{margin-top:10px}
-.pdp__demo{margin:4px 0 0;max-width:46ch;border:1px solid var(--blush);color:var(--blush);padding:12px 14px;line-height:1.5}
+.pdp__demo{margin:4px 0 0;max-width:46ch;font-size:13px;line-height:1.5;opacity:.75;text-transform:none;letter-spacing:0;font-weight:400}
 /* Beschreibung und technische Daten */
 .pdp-details{display:grid;gap:clamp(40px,5vw,60px);border-top:1px solid var(--smoke)}
 .pdp-details>*{min-width:0}
@@ -612,7 +640,6 @@ a{color:inherit;text-decoration:none}
 .sw-hero .pdp__buy .btn{margin-top:0}
 @media(min-width:1000px){
   .sw-hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center}
-  .sw-hero__device{margin-right:calc(var(--pad) * -1);border-radius:14px 0 0 14px}
 }
 
 /* Funktionen als Index-Liste mit Haarlinien */
@@ -664,6 +691,48 @@ a{color:inherit;text-decoration:none}
 .sw-more{padding:clamp(60px,8vw,110px) var(--pad);border-top:1px solid var(--line);display:grid;gap:14px;justify-items:start}
 .sw-more h2{margin:0;font:italic 400 clamp(40px,5vw,72px)/1 var(--serif);letter-spacing:-.02em}
 .sw-more p{margin:0;max-width:44ch;opacity:.85}
+
+/* 16a) Warenkorb (warenkorb.html, Variante A „Maison“) --------------------------------------------
+   Inhalt kommt aus js/app.js (Abschnitt 3b). Handy: Zeile in drei Reihen; ab 700 px eine Zeile;
+   ab 1000 px Liste links, Summe rechts (bleibt beim Scrollen stehen). */
+.cart [hidden]{display:none!important}
+.cart{padding-top:clamp(30px,4vw,50px)}
+.cart__content{display:grid;gap:clamp(30px,5vw,60px)}
+.cart__content>*{min-width:0}
+.cart__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.cart__item{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"info info" "qty line" "remove remove";gap:14px 12px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.cart__info{grid-area:info}
+.cart__name{margin:0;font:400 clamp(24px,2.4vw,32px)/1.1 var(--serif);overflow-wrap:anywhere}
+.cart__unit{margin:6px 0 0;font-size:14px;opacity:.75}
+.cart__qty{grid-area:qty;display:inline-flex;align-items:center;border:1px solid var(--ink);border-radius:99px}
+.cart__qty-btn{width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:inherit;font:400 20px/1 var(--sans);cursor:pointer}
+.cart__qty-btn:hover:not(:disabled){color:var(--ox)}
+.cart__qty-btn:disabled{opacity:.3;cursor:default}
+.cart__qty-value{min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+.cart__line{grid-area:line;margin:0;text-align:right;font:400 clamp(19px,5.6vw,24px)/1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cart__remove{grid-area:remove;justify-self:start;padding:6px 0;border:0;border-bottom:1px solid currentColor;background:none;color:inherit;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.cart__remove:hover{color:var(--ox)}
+.cart__summary{display:grid;gap:14px;align-content:start;padding:clamp(22px,3vw,34px);border-radius:22px;background:#ebe5db}
+.cart__summary h2{margin:0}
+.cart__totals{margin:0}
+.cart__totals>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart__totals dd{margin:0 0 0 auto;font:400 clamp(20px,6.5vw,26px)/1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cart__tax,.cart__note{margin:0;font-size:13.5px;opacity:.8}
+.cart__summary .btn{width:100%}
+.cart__empty,.cart__done{display:grid;gap:18px;justify-items:start;max-width:56ch}
+.cart__empty-text{margin:0;font:italic 400 clamp(30px,4vw,48px)/1.1 var(--serif)}
+.cart__done-title{margin:0;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif)}
+.cart__done p{margin:0}
+.cart__done:focus{outline:none}
+.cart__links{display:flex;flex-wrap:wrap;gap:16px 28px;margin:0}
+@media(min-width:700px){
+  .cart__item{grid-template-columns:minmax(0,1fr) auto minmax(7em,auto) auto;grid-template-areas:"info qty line remove"}
+  .cart__remove{justify-self:end}
+}
+@media(min-width:1000px){
+  .cart__content{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:start}
+  .cart__summary{position:sticky;top:110px}
+}
 
 /* 17) Sehr schmale Smartphones (< 360 px): Header und Footer verhindern horizontales Scrollen */
 @media(max-width:359px){

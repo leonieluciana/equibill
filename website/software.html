@@ -16,12 +16,12 @@
   <!-- KOPF: identisch auf allen Seiten (Pfade je Ebene anpassen, siehe CLAUDE.md Kap. 14) -->
   <header class="site-header">
     <nav class="nav-desktop label" aria-label="Hauptnavigation">
-      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a><a href="index.html#faq">FAQ</a>
+      <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
     </nav>
     <details class="nav-mobile label">
       <summary>Menü</summary>
       <nav class="nav-mobile__panel" aria-label="Hauptnavigation mobil">
-        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a><a href="index.html#faq">FAQ</a>
+        <a href="software.html">Software</a><a href="shop.html">Shop</a><a href="index.html#ueber-uns">Über uns</a>
       </nav>
     </details>
     <!-- Logo: SVG inline, damit css/style.css die Buchstaben einzeln animieren kann (Quelle: assets/images/logo/equibill-logo-inline.svg) -->
@@ -46,8 +46,8 @@
         </g>
       </svg>
     </a>
-    <!-- Warenkorb: Demo-Zähler (js/app.js), noch keine Warenkorb-Seite -->
-    <a class="header-cart label" href="#" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
+    <!-- Warenkorb: Zähler aus dem Browser-Speicher (js/app.js, Abschnitt 3) -->
+    <a class="header-cart label" href="warenkorb.html" data-cart-link>Warenkorb (<span data-cart-count>0</span>)</a>
   </header>
 
   <main id="inhalt">
@@ -56,27 +56,66 @@
     </nav>
 
     <!-- 1) EINSTIEG: Name, Nutzen, Preis, Warenkorb + großes Geräte-Mockup -->
-    <section class="sw-hero" aria-labelledby="sw-titel">
+    <section class="sw-hero" data-cart-product data-cart-variant="Basic" aria-labelledby="sw-titel">
       <div class="sw-hero__text">
         <span class="label label--accent">Software · Kernprodukt</span>
-        <h1 class="sw-hero__title" id="sw-titel">EquiBill <em>Manage</em></h1>
+        <h1 class="sw-hero__title" id="sw-titel" data-cart-name>EquiBill <em>Manage</em></h1>
         <p class="sw-hero__claim">Weniger Büro. Mehr Pferd.</p>
         <p class="pdp__lead">Verwaltungs- und Abrechnungssoftware für Berufsreiter, Bereiter, Trainer und Pferdebetriebe. Du erfasst, was im Stall passiert, EquiBill macht daraus die Abrechnung.</p>
         <div class="pdp__buy">
-          <p class="pdp__price"><span class="sr-only">Demo-Preis </span>ab 19&nbsp;€/Monat</p>
+          <p class="pdp__price"><span class="sr-only">Demo-Preis </span><data value="1900" data-cart-price data-cart-interval="monat">ab 19&nbsp;€/Monat</data></p>
           <p class="pdp__tax">inkl. MwSt., zzgl. Versand · Demo-Preis</p>
           <p class="pdp__shipping"><b>Versandkosten:</b> 0&nbsp;€ · Lieferung als Online-Zugang, kein Versand</p>
           <div class="sw-hero__cta">
-            <!-- Schaltfläche bewusst noch ohne Funktion (kein data-add); Warenkorb folgt -->
-            <button class="btn" type="button" aria-describedby="kauf-hinweis">In den Warenkorb</button>
+            <!-- Legt den Artikel in den Warenkorb (js/app.js liest Name und Preis aus diesem Abschnitt) -->
+            <button class="btn" type="button" data-cart-add aria-describedby="kauf-hinweis">In den Warenkorb</button>
             <a class="textlink" href="#tarife">Tarife vergleichen</a>
           </div>
-          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung. EquiBill Manage ist ein Konzept und in dieser Demo nicht nutzbar.</p>
+          <p class="pdp__demo label" id="kauf-hinweis">Demo: fiktives Unternehmen, keine echte Bestellung. EquiBill Manage ist ein Konzept und in dieser Demo nicht nutzbar; Abbildungen sind Mockups mit fiktiven Daten.</p>
         </div>
       </div>
       <figure class="sw-hero__device">
-        <div class="shot shot--laptop"><img src="assets/images/fotos/manage-laptop.jpg" alt="Laptop auf einem Holzschreibtisch, auf dem Bildschirm das Dashboard von EquiBill Manage (Mockup)" width="1000" height="666"><div class="shot__screen"><div class="mk mk-manage mk--screen"><div class="scr"><i class="sb"></i><div class="mn"><b class="mh"></b><div class="st"><i></i><i></i><i></i></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div></div></div>
-        <figcaption>Mockup · Symbolbild</figcaption>
+        <div class="app" role="img" aria-label="Oberfläche von EquiBill Manage (Mockup mit fiktiven Daten): Übersicht mit Umsatz, offenen Beträgen, letzten Einträgen je Pferd und Rechnungsstatus">
+          <div class="app__win" aria-hidden="true">
+            <div class="app__bar"><i></i><i></i><i></i><span class="app__url">equibill.demo/uebersicht</span></div>
+            <div class="app__body">
+              <div class="app__nav">
+                <b class="app__brand">Equi<i></i>Bill</b>
+                <span class="is-active">Übersicht</span><span>Pferde</span><span>Kunden</span><span>Leistungen</span><span>Rechnungen</span><span>Turniere</span>
+                <span class="app__user">Beispielstall</span>
+              </div>
+              <div class="app__main">
+                <div class="app__head"><div><small>November 2026</small><b>Übersicht</b></div><span class="app__btn">+ Leistung erfassen</span></div>
+                <div class="app__kpis">
+                  <div><small>Umsatz November</small><b>6.240,00 €</b><em>18 Rechnungen</em></div>
+                  <div><small>Offen</small><b>1.245,00 €</b><em>3 Rechnungen</em></div>
+                  <div><small>Pferde im Beritt</small><b>8</b><em>5 Besitzer</em></div>
+                </div>
+                <div class="app__grid">
+                  <div class="app__card">
+                    <div class="app__card-head"><small>Letzte Einträge</small><span>Alle anzeigen</span></div>
+                    <div class="app__row app__row--head"><span>Datum</span><span>Pferd</span><span>Leistung</span><span>Betrag</span></div>
+                    <div class="app__row"><span>24.11.</span><span>Quintus</span><span>Nenngeld S*</span><span>85,00 €</span></div>
+                    <div class="app__row"><span>23.11.</span><span>Lavinia</span><span>Transport Turnier</span><span>140,00 €</span></div>
+                    <div class="app__row"><span>22.11.</span><span>Fiora</span><span>Hufschmied</span><span>95,00 €</span></div>
+                    <div class="app__row"><span>21.11.</span><span>Quintus</span><span>Training</span><span>60,00 €</span></div>
+                    <div class="app__row"><span>20.11.</span><span>Lavinia</span><span>Tierarzt (weiterber.)</span><span>118,50 €</span></div>
+                  </div>
+                  <div class="app__card app__card--side">
+                    <div class="app__card-head"><small>Umsatz 2026</small><span>Jan–Nov</span></div>
+                    <div class="app__chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                    <div class="app__card-head"><small>Rechnungen</small></div>
+                    <ul class="app__invoices">
+                      <li><span>A. Muster</span><b>940,00 €</b><em class="is-open">Offen</em></li>
+                      <li><span>Hof Beispiel</span><b>1.380,00 €</b><em class="is-paid">Bezahlt</em></li>
+                      <li><span>K. Beispiel</span><b>305,00 €</b><em class="is-draft">Entwurf</em></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </figure>
     </section>
 
@@ -218,7 +257,7 @@
       <div><h2>Software</h2><ul><li><a href="software.html">EquiBill Manage</a></li><li><a href="software.html#funktionen">Funktionen</a></li><li><a href="software.html#tarife">Tarife</a></li></ul></div>
       <div><h2>Shop</h2><ul><li><a href="shop.html">Alle Produkte</a></li><li><a href="shop.html?kategorie=tools#produkte">Business Tools</a></li><li><a href="shop.html?kategorie=design#produkte">Marketing &amp; Design</a></li></ul></div>
       <div><h2>EquiBill</h2><ul><li><a href="index.html#ueber-uns">Über uns</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="#">Impressum (Platzhalter)</a></li><li><a href="#">Datenschutz (Platzhalter)</a></li></ul></div>
-      <div><h2>Demo</h2><p class="demo-box"><strong>Fiktives Unternehmen</strong> · Demo-Preise · keine echte Bestellung, keine Zahlung</p></div>
+      <div><h2>Über diese Demo</h2><p class="demo-box">EquiBill ist ein fiktives Unternehmen aus einem Weiterbildungsprojekt. Alle Preise sind Demo-Preise, es gibt keine Bestellung und keine Zahlung. Software und Vorlagen sind Konzepte, Interface-Abbildungen sind Mockups mit fiktiven Daten.</p></div>
     </div>
     <p class="site-footer__legal">Canva ist eine Marke der jeweiligen Inhaberin. EquiBill steht in keiner Verbindung zu Canva. Fotos: Unsplash (Unsplash-Lizenz), Symbolbilder; <a href="assets/images/fotos/BILDNACHWEIS.txt">Bildnachweis</a>.</p>
   </footer>
