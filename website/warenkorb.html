@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Warenkorb – EquiBill (Demo)</title>
-  <meta name="description" content="Warenkorb des EquiBill Demo-Shops: Artikel ansehen, Menge ändern und eine Demo-Bestellung absenden. Fiktives Unternehmen, keine echte Bestellung, keine Zahlung.">
-  <!-- Warenkorb (Variante A „Maison“). Inhalt baut js/app.js aus dem Browser-Speicher auf (Abschnitt 3b).
-       Es gibt kein Formular und keine Abfrage persönlicher Daten. -->
+  <meta name="description" content="Warenkorb und Demo-Kasse des EquiBill Demo-Shops: Artikel ansehen, Testdaten eingeben, fiktive Zahlungsart wählen und eine Demo-Bestellung absenden. Fiktives Unternehmen, keine echte Bestellung, keine Zahlung.">
+  <!-- Warenkorb und Demo-Kasse (Variante A „Maison“). Inhalt baut js/app.js aus dem Browser-Speicher auf (Abschnitt 3b),
+       die Kasse steuert Abschnitt 3c. Eingaben im Formular bleiben nur im geöffneten Fenster: nichts wird gespeichert
+       oder übertragen (das Formular hat kein Ziel, das Absenden wird abgefangen). -->
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -60,7 +61,15 @@
       <h1 class="page-head__title">Dein <em>Warenkorb</em></h1>
     </header>
 
-    <section class="section cart" data-cart aria-label="Artikel und Summe">
+    <section class="section cart" data-cart aria-label="Warenkorb und Kasse">
+      <!-- Fortschritt: js/app.js setzt aria-current="step" auf den aktuellen Schritt -->
+      <ol class="checkout-steps label" data-checkout-steps aria-label="Bestellschritte" hidden>
+        <li data-step="cart"><span>01</span> Warenkorb</li>
+        <li data-step="form"><span>02</span> Angaben</li>
+        <li data-step="review"><span>03</span> Prüfen</li>
+        <li data-step="done"><span>04</span> Fertig</li>
+      </ol>
+
       <noscript><p class="cart__note">Der Warenkorb benötigt JavaScript. Bitte aktiviere JavaScript in deinem Browser.</p></noscript>
 
       <!-- Leerer Warenkorb -->
@@ -80,15 +89,151 @@
             <div><dt>Versandkosten</dt><dd>0,00&nbsp;€</dd></div>
           </dl>
           <p class="cart__tax">inkl. MwSt., zzgl. Versand · Demo-Preise</p>
-          <button class="btn" type="button" data-cart-order>Demo-Bestellung absenden</button>
-          <p class="cart__note">Demo: Es werden keine Daten abgefragt, keine Bestellung ausgelöst und keine Zahlung verarbeitet.</p>
+          <button class="btn" type="button" data-checkout-start>Demo-Bestellung absenden</button>
+          <p class="cart__note">Demo: Im nächsten Schritt gibst du erfundene Testdaten ein. Keine echte Bestellung, keine Zahlung.</p>
         </aside>
       </div>
 
-      <!-- Bestätigung nach der Demo-Bestellung (tabindex="-1": bekommt den Fokus, damit Screenreader sie vorlesen) -->
+      <!-- SCHRITT 2: Angaben und Zahlungsart. Eigene Prüfung in js/app.js (novalidate), damit die Fehlermeldungen
+           deutsch, einheitlich und für Screenreader verknüpft sind (aria-describedby, aria-invalid). -->
+      <form class="checkout" data-checkout novalidate hidden aria-labelledby="checkout-titel">
+        <div class="checkout__main">
+          <div class="checkout__head" tabindex="-1" data-checkout-focus>
+            <h2 class="checkout__title" id="checkout-titel">Deine <em>Angaben</em></h2>
+            <p class="checkout__intro">Bitte nur <strong>erfundene Testdaten</strong> eingeben. Diese Demo speichert und überträgt nichts; nach dem Schließen oder Neuladen der Seite sind die Eingaben weg.</p>
+            <button class="checkout__fill" type="button" data-checkout-fill>Testdaten einfügen</button>
+          </div>
+
+          <!-- Fehlerübersicht: erscheint nach dem Absenden, wenn etwas fehlt; Links springen zum Feld -->
+          <div class="checkout__errors" data-checkout-errors tabindex="-1" hidden>
+            <p class="checkout__errors-title">Bitte prüfe deine Angaben:</p>
+            <ul data-checkout-error-list></ul>
+          </div>
+
+          <fieldset class="checkout__group">
+            <legend class="label label--accent">01 — Rechnungsadresse</legend>
+            <div class="checkout__grid">
+              <div class="field">
+                <label for="co-vorname">Vorname</label>
+                <input id="co-vorname" name="vorname" type="text" autocomplete="off" maxlength="60" required aria-describedby="co-vorname-fehler">
+                <p class="field__error" id="co-vorname-fehler"></p>
+              </div>
+              <div class="field">
+                <label for="co-nachname">Nachname</label>
+                <input id="co-nachname" name="nachname" type="text" autocomplete="off" maxlength="60" required aria-describedby="co-nachname-fehler">
+                <p class="field__error" id="co-nachname-fehler"></p>
+              </div>
+              <div class="field field--wide">
+                <label for="co-firma">Stall oder Firma <span class="field__optional">(optional)</span></label>
+                <input id="co-firma" name="firma" type="text" autocomplete="off" maxlength="80">
+              </div>
+              <div class="field field--wide">
+                <label for="co-email">E-Mail</label>
+                <input id="co-email" name="email" type="email" inputmode="email" autocomplete="off" maxlength="120" required aria-describedby="co-email-hinweis co-email-fehler">
+                <p class="field__hint" id="co-email-hinweis">Fiktiv, z. B. name@example.com. Es wird keine E-Mail verschickt.</p>
+                <p class="field__error" id="co-email-fehler"></p>
+              </div>
+              <div class="field field--wide">
+                <label for="co-strasse">Straße und Hausnummer</label>
+                <input id="co-strasse" name="strasse" type="text" autocomplete="off" maxlength="100" required aria-describedby="co-strasse-fehler">
+                <p class="field__error" id="co-strasse-fehler"></p>
+              </div>
+              <div class="field field--plz">
+                <label for="co-plz">PLZ</label>
+                <input id="co-plz" name="plz" type="text" inputmode="numeric" autocomplete="off" maxlength="5" required aria-describedby="co-plz-fehler">
+                <p class="field__error" id="co-plz-fehler"></p>
+              </div>
+              <div class="field field--ort">
+                <label for="co-ort">Ort</label>
+                <input id="co-ort" name="ort" type="text" autocomplete="off" maxlength="60" required aria-describedby="co-ort-fehler">
+                <p class="field__error" id="co-ort-fehler"></p>
+              </div>
+              <div class="field field--wide">
+                <label for="co-land">Land</label>
+                <select id="co-land" name="land">
+                  <option value="Deutschland">Deutschland</option>
+                  <option value="Österreich">Österreich</option>
+                  <option value="Schweiz">Schweiz</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Zahlungsart: nur Auswahl. Bewusst KEINE Felder für Karten- oder Kontonummern, damit niemand echte
+               Zahlungsdaten eintippt; die Zahlung wird im letzten Schritt nur simuliert. -->
+          <fieldset class="checkout__group" aria-describedby="co-zahlung-hinweis co-zahlung-fehler">
+            <legend class="label label--accent">02 — Zahlungsart (Demo)</legend>
+            <p class="field__hint" id="co-zahlung-hinweis">Es werden keine Karten- oder Kontodaten abgefragt. Die Zahlung wird nur simuliert.</p>
+            <div class="pay">
+              <label class="pay__option"><input type="radio" name="zahlung" value="Kreditkarte"><span><b>Kreditkarte</b><small>Zahlung wird simuliert</small></span></label>
+              <label class="pay__option"><input type="radio" name="zahlung" value="SEPA-Lastschrift"><span><b>SEPA-Lastschrift</b><small>Einzug wird simuliert</small></span></label>
+              <label class="pay__option"><input type="radio" name="zahlung" value="Rechnung"><span><b>Rechnung</b><small>Zahlbar in 14 Tagen (fiktiv)</small></span></label>
+              <label class="pay__option"><input type="radio" name="zahlung" value="Vorkasse"><span><b>Vorkasse</b><small>Überweisung (fiktiv)</small></span></label>
+            </div>
+            <p class="field__error" id="co-zahlung-fehler"></p>
+          </fieldset>
+
+          <div class="checkout__actions">
+            <button class="btn" type="submit">Weiter zur Prüfung</button>
+            <button class="checkout__back" type="button" data-checkout-back="cart">Zurück zum Warenkorb</button>
+          </div>
+        </div>
+
+        <!-- Kurzübersicht der Bestellung (Inhalt aus js/app.js) -->
+        <aside class="cart__summary checkout__aside" aria-labelledby="co-uebersicht">
+          <h2 class="label label--accent" id="co-uebersicht">Deine Bestellung</h2>
+          <ul class="checkout__mini" data-checkout-mini></ul>
+          <dl class="cart__totals" data-checkout-totals></dl>
+          <p class="cart__tax">inkl. MwSt., zzgl. Versand · Demo-Preise</p>
+        </aside>
+      </form>
+
+      <!-- SCHRITT 3: Prüfen und zahlungspflichtig bestellen (Demo) -->
+      <div class="review" data-checkout-review hidden>
+        <div class="checkout__head" tabindex="-1" data-review-focus>
+          <h2 class="checkout__title">Bestellung <em>prüfen</em></h2>
+          <p class="checkout__intro">Bitte kontrolliere deine (erfundenen) Angaben. Mit dem Klick auf „Zahlungspflichtig bestellen“ wird in dieser Demo nichts bestellt und nichts bezahlt.</p>
+        </div>
+        <div class="review__grid">
+          <section class="review__box" aria-labelledby="rv-adresse">
+            <h3 class="label label--accent" id="rv-adresse">Rechnungsadresse</h3>
+            <address class="review__text" data-review-address></address>
+            <button class="checkout__back" type="button" data-checkout-back="form">Ändern</button>
+          </section>
+          <section class="review__box" aria-labelledby="rv-zahlung">
+            <h3 class="label label--accent" id="rv-zahlung">Zahlungsart</h3>
+            <p class="review__text" data-review-payment></p>
+            <button class="checkout__back" type="button" data-checkout-back="form">Ändern</button>
+          </section>
+          <section class="review__box review__box--wide" aria-labelledby="rv-artikel">
+            <h3 class="label label--accent" id="rv-artikel">Artikel</h3>
+            <ul class="checkout__mini" data-review-items></ul>
+            <dl class="cart__totals" data-review-totals></dl>
+            <p class="cart__tax">inkl. MwSt., zzgl. Versand · Demo-Preise</p>
+            <button class="checkout__back" type="button" data-checkout-back="cart">Warenkorb ändern</button>
+          </section>
+        </div>
+        <div class="review__confirm">
+          <label class="check">
+            <input type="checkbox" data-review-consent aria-describedby="rv-zustimmung-fehler">
+            <span>Mir ist klar, dass dies eine Demo ist: EquiBill ist ein fiktives Unternehmen, es gibt keine echte Bestellung und keine Zahlung.</span>
+          </label>
+          <p class="field__error" id="rv-zustimmung-fehler"></p>
+          <button class="btn" type="button" data-checkout-order>Zahlungspflichtig bestellen (Demo)</button>
+          <!-- Status der simulierten Zahlung, wird von Screenreadern angesagt -->
+          <p class="review__status" data-review-status role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- SCHRITT 4: Bestätigung (tabindex="-1": bekommt den Fokus, damit Screenreader sie vorlesen) -->
       <div class="cart__done" data-cart-done tabindex="-1" hidden>
-        <h2 class="cart__done-title">Danke für deine Demo-Bestellung.</h2>
-        <p>Das war eine Demonstration: Es wurde nichts bestellt, nichts bezahlt und keine Daten übermittelt. Dein Warenkorb ist jetzt leer.</p>
+        <h2 class="cart__done-title" data-done-title>Danke für deine Demo-Bestellung.</h2>
+        <dl class="done__facts">
+          <div><dt class="label">Bestellnummer (fiktiv)</dt><dd data-done-number></dd></div>
+          <div><dt class="label">Zahlungsart</dt><dd data-done-payment></dd></div>
+          <div><dt class="label">Summe</dt><dd data-done-total></dd></div>
+        </dl>
+        <p>Das war eine Demonstration: Es wurde nichts bestellt, nichts bezahlt, keine E-Mail verschickt und keine Daten übermittelt. Deine Eingaben sind gelöscht, dein Warenkorb ist jetzt leer.</p>
         <p class="cart__links"><a class="textlink" href="index.html">Zur Startseite</a><a class="textlink" href="shop.html">Zum Shop</a></p>
       </div>
     </section>

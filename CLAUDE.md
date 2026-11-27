@@ -237,15 +237,18 @@ Seit dem 26.11.2026 hat die Website neben der Startseite eigene Unterseiten. Es 
 Demo-Warenkorb ohne Server: `warenkorb.html` (Variante A „Maison“) und Abschnitt 3 in `js/app.js`. Keine zusätzlichen Pakete.
 
 - **Speicherort:** `localStorage` des Browsers, Schlüssel `equibill-warenkorb`. Bleibt bei Seitenwechsel und Neuladen erhalten, nur in diesem Browser auf diesem Gerät; nichts wird übertragen.
-- **Datenschutz:** gespeichert werden **nur Artikel**, Form `[{ "name": "Tournament Planner", "cents": 2900, "monthly": false, "qty": 1 }]`. Keine persönlichen Daten, keine Kennungen, keine Zeitstempel, kein Tracking. Gespeichert wird **erst beim Hineinlegen**; ein bloßer Besuch legt nichts an. Wird der Warenkorb leer (alles entfernt oder Demo-Bestellung), wird der Schlüssel gelöscht. Die FAQ „Werden Daten von mir gespeichert?“ beschreibt das.
+- **Datenschutz:** gespeichert werden **nur Artikel**, Form `[{ "name": "Tournament Planner", "cents": 2900, "monthly": false, "qty": 1 }]`. Keine persönlichen Daten, keine Kennungen, keine Zeitstempel, kein Tracking. Gespeichert wird **erst beim Hineinlegen**; ein bloßer Besuch legt nichts an. Wird der Warenkorb leer (alles entfernt oder Demo-Bestellung), wird der Schlüssel gelöscht. Die Angaben aus der Demo-Kasse werden **nie** gespeichert (siehe unten). Die FAQ „Werden Daten von mir gespeichert?“ beschreibt das.
 - **Name und Preis aus dem HTML, keine Produktliste im Skript:** Der Abschnitt mit dem Artikel trägt `data-cart-product`, darin der Name mit `data-cart-name` und der Preis als `<data value="2900" data-cart-price>29&nbsp;€</data>` (Wert in Cent). Abo-Preise zusätzlich `data-cart-interval="monat"`; `data-cart-variant="Basic"` am Abschnitt hängt „ – Basic“ an den Namen. Die Schaltfläche hat `data-cart-add`. Neue Produkte nur so auszeichnen; der angezeigte Preis und `value` müssen übereinstimmen.
 - **Rechnen und Anzeigen:** immer in **Cent** (ganze Zahlen), Anzeige mit `Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' })`, z. B. „19,99 €“. Einmalige Preise und Abo-Preise werden **getrennt summiert** („Einmalig“, „Monatlich“), nie vermischt. Darunter „inkl. MwSt., zzgl. Versand“ und „Versandkosten: 0,00 €“.
 - **Menge:** 1 bis 99 je Artikel; „−“ ist bei 1 gesperrt, „+“ bei 99. Gleicher Name und Preis erhöhen die Menge statt einer neuen Zeile.
 - **Rückmeldung:** nach jedem Hineinlegen, Ändern und Entfernen eine kurze Meldung im Element `#toast` (`role="status"`), damit Screenreader sie ansagen. Zähler im Kopf (`data-cart-count`) zeigt die Gesamtmenge auf allen Seiten; der Link führt zu `warenkorb.html` bzw. `../warenkorb.html`.
-- **Demo-Bestellung:** „Demo-Bestellung absenden“ fragt **keine Daten** ab (kein Formular), zeigt nur eine Bestätigung (bekommt den Fokus), leert den Warenkorb und setzt den Zähler auf 0. Keine Zahlung, keine echte Bestellung.
+- **Demo-Kasse (seit 27.11.2026, `js/app.js` Abschnitt 3c, CSS 16b):** „Demo-Bestellung absenden“ führt in vier Schritten auf derselben Seite (Fortschritt `.checkout-steps` mit `aria-current="step"`): 01 Warenkorb → 02 Angaben (Rechnungsadresse: Vorname, Nachname, Stall/Firma optional, E-Mail, Straße, PLZ, Ort, Land DE/AT/CH; Zahlungsart) → 03 Prüfen (Zusammenfassung, „Ändern“-Links, Pflicht-Häkchen „Mir ist klar, dass dies eine Demo ist“, „Zahlungspflichtig bestellen (Demo)“) → 04 Fertig (fiktive Bestellnummer `EB-DEMO-123456`, Zahlungsart, Summe).
+  - **Nur erfundene Testdaten:** Hinweis im Formular, Schaltfläche „Testdaten einfügen“ (Mila Beispiel, `example.com`-Adresse). Eingaben bleiben nur im geöffneten Fenster (Formular und Variable `order`), **kein** localStorage, **keine** Übertragung (Formular ohne Ziel, Absenden abgefangen). Nach der Bestellung werden Warenkorb, Formular und Variable geleert.
+  - **Zahlungsarten fiktiv:** Kreditkarte, SEPA-Lastschrift, Rechnung, Vorkasse, nur als Auswahl. **Bewusst keine Felder für Karten- oder Kontonummern**, damit niemand echte Zahlungsdaten eintippt; die Zahlung wird mit einer kurzen Statusmeldung simuliert (bei „Bewegung reduzieren“ sofort). Keine Markennamen von Zahlungsdiensten.
+  - **Prüfung der Eingaben:** eigene Prüfung (`novalidate`) mit deutschen Meldungen am Feld (`aria-describedby`, `aria-invalid`) und Fehlerübersicht mit Sprunglinks (bekommt den Fokus); PLZ 5 Ziffern (DE) bzw. 4 (AT/CH); E-Mail-Format. Fokus springt bei jedem Schrittwechsel auf die neue Überschrift.
 - **Sicherheit:** gespeicherte Daten werden beim Lesen geprüft (Typen, Grenzen) und nur bekannte Felder übernommen; Texte werden ausschließlich mit `textContent` eingesetzt, nie mit `innerHTML`. Ist der Speicher blockiert (z. B. privater Modus), erscheint eine Meldung statt eines Fehlers.
 - **Ohne JavaScript:** `warenkorb.html` zeigt einen Hinweis (`<noscript>`); alle anderen Seiten bleiben lesbar.
-- **Testliste bei Änderungen:** Besuch ohne Hineinlegen legt nichts an · Hineinlegen von Shop, Produktseite und Software-Seite · Seitenwechsel und Neuladen · Menge ändern (auch per Tastatur) · Entfernen bis leer (Schlüssel gelöscht) · Summen nachrechnen · Demo-Bestellung · manipulierte Speicherdaten · 320/390/768/1440 px ohne horizontales Scrollen.
+- **Testliste bei Änderungen:** Besuch ohne Hineinlegen legt nichts an · Hineinlegen von Shop, Produktseite und Software-Seite · Seitenwechsel und Neuladen · Menge ändern (auch per Tastatur) · Entfernen bis leer (Schlüssel gelöscht) · Summen nachrechnen · Demo-Kasse: leeres Formular (Fehler), falsche PLZ, Testdaten, Zurück/Ändern, Bestellen ohne Häkchen, Bestellung (Warenkorb leer, Zähler 0, nichts im Speicher) · manipulierte Speicherdaten · 320/390/768/1440 px ohne horizontales Scrollen.
 
 ## Änderungsvermerk (24.11.2026)
 
@@ -309,6 +312,17 @@ Demo-Warenkorb ohne Server: `warenkorb.html` (Variante A „Maison“) und Absch
 - Neu: Kap. 15 „Warenkorb“ (Speicherung im Browser, Datenschutz, Auszeichnung im HTML, Cent-Rechnung, getrennte Summen, Demo-Bestellung, Sicherheit, Testliste); `warenkorb.html` in Kap. 13.
 - Geändert: „In den Warenkorb“ auf Shop-, Produkt- und Software-Seite legt Artikel hinein (Kap. 14); Warenkorb-Link im Kopf führt zu `warenkorb.html`; FAQ zur Datenspeicherung angepasst.
 - Sicherung: `_archiv/_archiv_2026-11-26_vor-warenkorb/`.
+
+## Änderungsvermerk (27.11.2026, Typografie-Rhythmus)
+
+- Geändert: Überschriften hatten zu enge Zeilenhöhen (0,86–0,95) und zu wenig Abstand zum Fließtext. Neu zentral in `css/style.css` (Abschnitt 1): `--lh-display: 1.08` (große Display-Überschriften), `--lh-title: 1.14` (mittlere Überschriften), `--gap-title` (24–38 px Abstand Überschrift → Text). Gilt auf allen Seiten; neue Überschriften nutzen diese Variablen.
+- Sicherung: `_archiv/_archiv_2026-11-27_vor-zeilenhoehe/`.
+
+## Änderungsvermerk (27.11.2026, Demo-Kasse)
+
+- Neu: Demo-Kasse im Warenkorb (Kap. 15): Angaben mit erfundenen Testdaten, fiktive Zahlungsart ohne Karten-/Kontofelder, Prüfschritt, simulierte Zahlung, Bestätigung mit fiktiver Bestellnummer. Ersetzt die frühere Regel „keine Datenabfrage“; Eingaben werden weiterhin nicht gespeichert oder übertragen.
+- Geändert: FAQ „Werden Daten von mir gespeichert?“ (Startseite) entsprechend angepasst.
+- Sicherung: `_archiv/_archiv_2026-11-27_vor-checkout/`.
 
 ## Änderungsvermerk (26.11.2026, Software-Produktseite)
 

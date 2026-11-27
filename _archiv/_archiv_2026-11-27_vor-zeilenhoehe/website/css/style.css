@@ -1,0 +1,1142 @@
+/* ==========================================================================
+   EquiBill – Startseite (Design „Atelier A / Maison“), Projektstruktur Tag 43
+   Gestaltung getrennt von Struktur (index.html) und Logik (js/app.js).
+   Mobile First: Basis = Smartphone, Erweiterungen per min-width.
+   Schriften: lokal aus fonts/ (keine Google Fonts, keine externen Server).
+   Alle Produkte/Preise sind fiktive Demo-Konzeptwerte.
+   ========================================================================== */
+
+/* 0) Lokale Schriften (fonts/, Lizenz: SIL OFL 1.1) ------------------ */
+@font-face{
+  font-family:"Bodoni Moda"; font-style:normal; font-weight:400 900; font-display:swap;
+  src:url("../fonts/BodoniModa-opsz-normal.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Bodoni Moda"; font-style:italic; font-weight:400 900; font-display:swap;
+  src:url("../fonts/BodoniModa-opsz-italic.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/Inter-400.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:500; font-display:swap;
+  src:url("../fonts/Inter-500.woff2") format("woff2");
+}
+
+/* 1) Design-Variablen ---------------------------------------------------- */
+:root{
+  --ivory:#F3EFE8; --ink:#151213; --ox:#6E1423; --blush:#E9C9C0; --stone:#BDB5AB;
+  --wine:#5B1A24; --smoke:#3A3231;
+  --line:rgba(21,18,19,.16); --accent:var(--ox);  /* Haarlinien und Akzent; in .theme-noir umgestellt */  /* Zusatzfarben Variante B „Noir“ (Produktseiten) */
+  --serif:"Bodoni Moda",Didot,"Bodoni 72","Bodoni MT","Times New Roman",serif;
+  --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --pad:clamp(18px,4vw,56px);
+  --plate-software:#E9C9C0; --plate-tools:#D9D2C7; --plate-design:#E0BFB3;
+  /* Farben der gezeichneten Produkt-Mockups */
+  --mk-bg:#fbf8f3; --mk-ink:#151213; --mk-acc:#6E1423; --mk-soft:#e6ddd2; --mk-line:#d6ccbf; --mk-font:var(--serif);
+  /* Filmkörnung der Foto-Platzhalter */
+  --gr:url("../assets/images/grain.svg");
+}
+
+/* 2) Grundlagen ------------------------------------------------------------ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--ivory);color:var(--ink);font:400 16px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ox);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--ivory);padding:10px 14px;z-index:100}
+.skip:focus{top:12px}
+.label{font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+/* Label in Akzentfarbe (Oxblood auf Ivory, Kontrast 10,25:1); ersetzt frühere Inline-Styles */
+.label--accent{color:var(--ox)}
+.textlink{display:inline-flex;gap:12px;align-items:center;border-bottom:1px solid currentColor;padding-bottom:5px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.textlink::after{content:"";width:16px;height:8px;background:currentColor;-webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);padding:16px 24px;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,translate .45s cubic-bezier(.2,.8,.2,1)}
+.btn:hover{background:var(--ox);border-color:var(--ox)}
+.btn--light{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.btn--light:hover{background:var(--blush);border-color:var(--blush);color:var(--ink)}
+.section{padding:clamp(64px,9vw,130px) var(--pad)}
+.section-head{margin:0 0 clamp(28px,4vw,52px);max-width:62ch}
+.section-head h2{margin:10px 0 0;font:400 clamp(40px,6vw,88px)/.95 var(--serif);letter-spacing:-.03em}
+.section-head p{margin:16px 0 0;opacity:.75}
+/* Scroll-Reveal (js/app.js setzt .reveal und beim Sichtbarwerden .is-visible) */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0s)}
+.reveal.is-visible{opacity:1;transform:none}
+/* Hero-Zoom (Scroll-Driven Animation, reines CSS): Beim Herausscrollen zoomt das Foto
+   langsam heran und verschiebt sich leicht (Parallaxe), der Text tritt zurück.
+   Nur in Browsern, die „animation-timeline“ kennen; sonst bleibt der Hero ruhig. */
+@supports (animation-timeline: view()){
+  .hero{view-timeline-name:--hero}  /* benannte Zeitleiste: wie weit der Hero schon aus dem Bild gescrollt ist */
+  .hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both,hero-zoom linear both;animation-timeline:auto,--hero;animation-range:normal,exit 0% exit 100%}
+  .hero__text{animation:hero-fade linear both;animation-timeline:--hero;animation-range:exit 0% exit 80%}
+}
+@keyframes hero-zoom{from{transform:scale(1) translateY(0)}to{transform:scale(1.14) translateY(6%)}}
+@keyframes hero-fade{from{opacity:1;transform:none}to{opacity:.35;transform:translateY(-40px)}}
+/* Statement „Über uns“: Wörter leuchten nacheinander auf (js/app.js setzt .is-lit) */
+.statement--split .word{opacity:.16;transition:opacity .45s ease}
+.statement--split .word.is-lit{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* 3) Foto-Platzhalter (keine echten Fotos!) ------------------------------- */
+.photo{margin:0;position:relative;overflow:hidden}
+.photo::before{content:"";position:absolute;inset:0;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;z-index:1}
+.photo figcaption{position:absolute;left:12px;bottom:12px;z-index:3;font:500 9.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.92);padding:6px 8px;max-width:84%}
+
+/* 4) Header ------------------------------------------------------------------ */
+.site-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px var(--pad);background:rgba(243,239,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,18,19,.12)}
+.wordmark{font:400 18px/1 var(--serif);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:.5em}
+.wordmark i{display:inline-block;width:1.4em;height:1px;background:var(--ox)}
+
+/* Logo im Header: Inline-SVG, Farben über Variablen (hell: Ink + Oxblood).
+   SVG Line Animation beim Laden: Eine feine Linie zeichnet die Umrisse nach
+   (EQUI → Steilsprung-Signet → BILL), danach füllen sich die Formen und die Linie verschwindet.
+   Technik: pathLength="1" im HTML macht jede Pfadlänge = 1; stroke-dasharray/-dashoffset
+   von 1 auf 0 „zieht“ die Linie. Ohne Animation (Bewegung reduzieren) steht das Logo sofort da. */
+.logo-link{display:block;width:136px;line-height:0}
+.logo{display:block;width:100%;height:auto;overflow:visible;--eb-text:var(--ink);--eb-accent:var(--ox)}
+.eb-letter{fill:var(--eb-text);stroke:var(--eb-text)}
+.eb-signet-body,.eb-signet-knob{fill:var(--eb-accent);stroke:var(--eb-accent)}
+.logo path{stroke-width:9;stroke-dasharray:1;stroke-dashoffset:0;stroke-opacity:0;stroke-linejoin:round;
+  animation:eb-draw 1.3s cubic-bezier(.6,.1,.3,1) both,eb-fill .7s ease both;
+  animation-delay:var(--d,0s),calc(var(--d,0s) + 1.15s)}
+#eb-letter-1{--d:.05s}#eb-letter-2{--d:.13s}#eb-letter-3{--d:.21s}#eb-letter-4{--d:.29s}
+.eb-signet-body{--d:.4s}.eb-signet-knob{--d:1.1s}
+#eb-letter-5{--d:.55s}#eb-letter-6{--d:.63s}#eb-letter-7{--d:.71s}#eb-letter-8{--d:.79s}
+@keyframes eb-draw{from{stroke-dashoffset:1;stroke-opacity:1}to{stroke-dashoffset:0;stroke-opacity:1}}
+@keyframes eb-fill{from{fill-opacity:0;stroke-opacity:1}to{fill-opacity:1;stroke-opacity:0}}
+.nav-desktop{display:none}
+.nav-mobile summary{list-style:none;cursor:pointer;padding:8px 0}
+/* Größere Tipp-Fläche (ca. 44 px) ohne das Layout zu verändern */
+.nav-mobile summary{position:relative}
+.nav-mobile summary::after{content:"";position:absolute;inset:-8px -14px}
+.nav-mobile summary::-webkit-details-marker{display:none}
+.nav-mobile[open] .nav-mobile__panel{position:absolute;left:0;right:0;top:100%;background:var(--ivory);padding:20px var(--pad) 26px;border-bottom:1px solid rgba(21,18,19,.15);display:grid;gap:2px;max-height:calc(100vh - 64px);overflow-y:auto}
+.nav-mobile__panel a{padding:8px 0}
+.header-cart{white-space:nowrap}
+/* Desktop-Navigation erst ab 1240 px: Die fünf Menüpunkte brauchen nebeneinander ca. 450 px
+   pro Seite neben der zentrierten Wortmarke. Darunter würden sie zweizeilig umbrechen,
+   deshalb gilt bis 1239 px die Schaltfläche „Menü“. Wert muss zu js/app.js passen. */
+@media(min-width:1240px){
+  .site-header{display:grid;grid-template-columns:1fr auto 1fr;padding:20px var(--pad)}
+  .wordmark{grid-column:2;grid-row:1;font-size:24px;letter-spacing:.2em}
+  .logo-link{grid-column:2;grid-row:1;width:230px}
+  .nav-desktop{display:flex;gap:26px;grid-column:1;grid-row:1}
+  .nav-mobile{display:none}
+  .header-cart{grid-column:3;justify-self:end}
+}
+.nav-desktop a:hover,.header-cart:hover{color:var(--ox)}
+/* Aktiver Navigationspunkt: aria-current="page" am Link (aktuell auf software.html) */
+.nav-desktop a[aria-current="page"],.nav-mobile__panel a[aria-current="page"]{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:7px}
+
+/* 5) Hero: Cinematic Hero -------------------------------------------------------
+   Großflächiges Foto als Bühne (fast volle Bildschirmhöhe), dunkler Verlauf für Lesbarkeit,
+   Text in Ivory unten links. Akzent auf Dunkel = Blush (Kontrast 12:1), nicht Oxblood. */
+.hero{display:grid}
+.hero__stage{position:relative;min-height:calc(100svh - 64px);display:flex;align-items:flex-end;overflow:hidden;background:var(--ink);color:var(--ivory)}
+.hero__photo{position:absolute;inset:0}
+/* Körnung über die ganze Bühne statt nur über das Foto, sonst entsteht an der Fotokante ein sichtbarer Helligkeitssprung */
+.hero__photo::before{display:none}
+.hero__stage::before{content:"";position:absolute;inset:0;z-index:1;background-image:var(--gr);opacity:.45;mix-blend-mode:multiply;pointer-events:none}
+.hero__photo::after{content:"";position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(21,18,19,.35) 0%,rgba(21,18,19,0) 22%,rgba(21,18,19,.62) 45%,rgba(21,18,19,.9) 100%),
+             linear-gradient(90deg,rgba(21,18,19,.55) 0%,rgba(21,18,19,0) 70%)}
+.hero__photo figcaption{top:12px;bottom:auto;left:auto;right:12px}  /* Handy: oben, damit der Text unten frei bleibt */
+.hero__text{position:relative;z-index:3;padding:clamp(28px,6vw,72px) var(--pad);max-width:900px}
+.hero__eyebrow{margin:0 0 22px;color:var(--blush)}
+.hero h1{margin:0;font:400 clamp(50px,13vw,112px)/.95 var(--serif);letter-spacing:-.035em}
+.hero h1 em{color:var(--blush)}
+.hero__claim{margin:24px 0 0;font:italic 400 clamp(24px,3.2vw,36px)/1.15 var(--serif)}
+.hero__lead{margin:20px 0 0;max-width:46ch;font-size:17px;opacity:.92}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:30px}
+.hero__cta .textlink{color:var(--ivory)}
+.hero__stage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Dunkel sichtbar halten */
+@media(min-width:900px){
+  /* Desktop: Hochformat-Foto rechts in voller Höhe, links Tiefschwarz für den Text;
+     ein Verlauf lässt Foto und Schwarz weich ineinanderlaufen (keine harte Kante). */
+  .hero__photo{left:auto;width:62%}
+  .hero__photo::after{background:linear-gradient(90deg,var(--ink) 0%,rgba(21,18,19,.6) 22%,rgba(21,18,19,0) 55%),
+                                 linear-gradient(180deg,rgba(21,18,19,0) 60%,rgba(21,18,19,.6) 100%)}
+  .hero__stage{align-items:center}
+  .hero__photo figcaption{top:auto;bottom:12px}
+  .hero h1{font-size:clamp(70px,7.6vw,122px)}
+}
+/* Einstieg: Foto zoomt beim Laden ganz langsam heraus (Ken-Burns), Texte blenden nacheinander ein */
+.hero__photo>img{animation:hero-kenburns 14s cubic-bezier(.2,.6,.2,1) both}
+.hero__text>*{animation:hero-in 1.3s cubic-bezier(.2,.8,.2,1) both}
+.hero__text>:nth-child(1){animation-delay:.3s}
+.hero__text>:nth-child(2){animation-delay:.5s}
+.hero__text>:nth-child(3){animation-delay:.8s}
+.hero__text>:nth-child(4){animation-delay:1s}
+.hero__text>:nth-child(5){animation-delay:1.2s}
+.hero__text>:nth-child(6){animation-delay:1.4s}
+@keyframes hero-kenburns{from{scale:1.12}to{scale:1}}
+@keyframes hero-in{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* 6) Sortiment (shop.html): Editorial Category Navigation ------------------------------------
+   Links drei große Serifen-Kategorien (01–03) mit Haarlinien, rechts eine Bildfläche.
+   js/app.js setzt .is-active (aktive Kategorie + Bild) und .is-engaged (Liste wird benutzt). */
+.catnav{display:grid;gap:28px}
+.catnav__list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.16)}
+.catnav__item{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 clamp(14px,3vw,44px);align-items:start;
+  padding:clamp(26px,3.6vw,46px) 0;border-bottom:1px solid rgba(21,18,19,.16);transition:opacity .5s ease}
+/* Linie in Oxblood wächst unter der aktiven Kategorie von links */
+.catnav__item::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--ox);transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.catnav__item.is-active::after{transform:scaleX(1)}
+.catnav__num{padding-top:.9em;font:500 11px/1 var(--sans);letter-spacing:.2em;color:var(--ox);font-variant-numeric:tabular-nums}
+.catnav__title{margin:0;font:400 clamp(42px,6.4vw,100px)/.95 var(--serif);letter-spacing:-.03em;transition:translate .7s cubic-bezier(.2,.8,.2,1)}
+.catnav__desc{display:block;margin-top:14px;max-width:38ch;font-size:15px;opacity:.72}
+.catnav__meta{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:18px;align-self:stretch;padding-top:.6em}
+.catnav__count{white-space:nowrap;opacity:.6}
+/* Pfeil im Kreis: dreht sich bei Aktivität von schräg (↗) nach rechts (→) und füllt sich */
+.catnav__arrow{position:relative;width:46px;height:46px;border:1px solid rgba(21,18,19,.35);border-radius:50%;flex:none;
+  transition:background .45s ease,border-color .45s ease,rotate .6s cubic-bezier(.2,.8,.2,1);rotate:-45deg}
+.catnav__arrow::before{content:"";position:absolute;inset:0;margin:auto;width:16px;height:8px;background:var(--ink);
+  -webkit-mask:url("../assets/images/arrow.svg") no-repeat center/contain;mask:url("../assets/images/arrow.svg") no-repeat center/contain;transition:background .45s ease,translate .45s ease}
+.catnav__item.is-active .catnav__arrow{background:var(--ink);border-color:var(--ink);rotate:0deg}
+.catnav__item.is-active .catnav__arrow::before{background:var(--ivory)}
+.catnav__item.is-active .catnav__title{translate:clamp(8px,1.4vw,22px) 0}
+/* Während die Liste benutzt wird, treten die anderen Kategorien zurück */
+.catnav__list.is-engaged .catnav__item:not(.is-active){opacity:.38}
+.catnav__item:focus-visible{outline-offset:6px}
+@media(hover:hover){.catnav__item:hover .catnav__arrow::before{translate:3px 0}}
+
+/* Bildfläche: drei übereinanderliegende Bilder, nur das aktive ist sichtbar (sanfter Fade + leichter Zoom) */
+.catnav__visual{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--ink);container-type:size}
+.catnav__img{position:absolute;inset:0;margin:0;opacity:0;scale:1.06;transition:opacity 1s ease,scale 1.6s cubic-bezier(.2,.8,.2,1)}
+.catnav__img.is-active{opacity:1;scale:1}
+.catnav__img>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.catnav__img figcaption{position:absolute;left:12px;top:12px;z-index:3;font:500 9.5px/1.35 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.92);padding:6px 8px}
+
+/* Handy/Tablet (eigene Darstellung): Bildfläche oben, Liste darunter; das Bild folgt der
+   Kategorie, die gerade in der Bildschirmmitte steht (js/app.js). Pfeil kleiner. */
+@media(max-width:899px){
+  /* Bild bleibt unter dem Header stehen, die Kategorien scrollen darunter durch */
+  .catnav__visual{order:-1;position:sticky;top:63px;z-index:2;aspect-ratio:auto;height:40svh;width:100%;box-shadow:0 18px 30px -24px rgba(21,18,19,.5)}
+  .catnav__item{grid-template-columns:auto minmax(0,1fr) auto}
+  .catnav__count{display:none}
+  .catnav__arrow{width:38px;height:38px}
+  .catnav__meta{justify-content:flex-start}
+}
+/* Desktop: Liste links (7 Spalten), Bildfläche rechts (5 Spalten), bleibt beim Scrollen stehen */
+@media(min-width:900px){
+  .catnav{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,110px);align-items:start}
+  .catnav__visual{aspect-ratio:4/5;position:sticky;top:110px}
+}
+}
+
+/* 7) Shop ----------------------------------------------------------------------- */
+.shop{background:#ebe5db}
+.filter{display:none;flex-wrap:wrap;gap:10px;margin:0 0 34px}
+.js .filter{display:flex}
+.filter button{border:1px solid var(--ink);background:transparent;color:var(--ink);padding:11px 16px;font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:99px}
+.filter button[aria-pressed="true"]{background:var(--ink);color:var(--ivory)}
+.filter button:hover{background:var(--ox);color:var(--ivory);border-color:var(--ox)}
+.products{display:grid;gap:30px}
+.product{background:var(--ivory);display:flex;flex-direction:column}
+.product[hidden]{display:none}
+/* Bildfläche ist ein Link zur Produktseite (<a>), deshalb display:block, sonst greift aspect-ratio nicht */
+.product__plate{display:block;position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--c)}
+.product[data-category="software"]{--c:var(--plate-software)}
+.product[data-category="tools"]{--c:var(--plate-tools)}
+.product[data-category="design"]{--c:var(--plate-design)}
+/* ---------- Echte Fotos (Unsplash, Symbolbilder; Nachweis: assets/images/fotos/BILDNACHWEIS.txt) ---------- */
+/* Fotos in Hero und Über uns füllen die Bildfläche; die Körnung (.photo::before) liegt darüber */
+.photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero__photo>img{object-position:50% 30%}  /* Kopf des Schimmels im oberen Bilddrittel halten */
+.about__photo>img{object-position:50% 6%}   /* Kopf der Reiterin im Bild halten (Hochformat wird oben angesetzt) */
+/* Produkt- und Kategoriebilder: Foto füllt die Fläche, Hover = sanfter Zoom */
+.product__plate{container-type:size}
+.plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.plate__img,.shot{transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.product:hover .plate__img,.product:hover .shot{scale:1.05}
+/* Geräte-Foto mit eingeblendetem Bildschirm: Das Foto behält sein Seitenverhältnis (--ar)
+   und füllt die Fläche wie „cover“; so bleibt der Bildschirm-Ausschnitt deckungsgleich. */
+.shot{position:absolute;left:50%;top:50%;width:max(100cqw,calc(100cqh * var(--ar)));aspect-ratio:var(--ar);translate:-50% -50%}
+.shot>img{width:100%;height:100%;display:block}
+.shot__screen{position:absolute;overflow:hidden;background:var(--mk-bg)}
+.shot--laptop{--ar:1000/666}
+.shot--laptop .shot__screen{left:29%;top:33.2%;width:42.2%;height:38.9%}   /* gemessen im Foto: Display 290–712 × 221–480 px */
+.shot--phone{--ar:1000/636}
+.shot--phone .shot__screen{left:41.6%;top:21%;width:13.1%;height:43.6%;border-radius:6%/3%}  /* Display 416–548 × 134–411 px */
+/* Social-Feed auf dem Smartphone-Display */
+.feed{position:absolute;inset:0;padding:22% 9% 8%;display:grid;grid-template-rows:auto 1fr;gap:6%}
+.feed__bar{display:block;height:4px;width:55%;background:var(--ink);border-radius:9px}
+.feed__grid{display:grid;grid-template-columns:1fr 1fr;gap:5%;align-content:start}
+.feed__grid i{display:grid;place-items:center;aspect-ratio:1;font:400 clamp(7px,1.6cqw,12px)/1 var(--serif);font-style:normal;color:var(--ivory)}
+.feed__t1{background:var(--ox)}.feed__t2{background:var(--blush)}.feed__t3{background:var(--ink)}
+.feed__t4{background:#bdb5ab}.feed__t5{background:var(--ink)}.feed__t6{background:var(--ox)}
+/* ---------- Kacheln (inspiriert von landing.love) ----------
+   Abgerundete Rahmen-Kachel, Bild mit eigenem Radius eingerückt.
+   Hover: Kachel hebt sich (translate) mit weichem Schatten, das Bild zoomt (siehe oben). */
+.product{border-radius:22px;padding:10px;transition:translate .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s cubic-bezier(.2,.8,.2,1)}
+.product__plate{border-radius:14px}
+.product__body{padding:20px 14px 16px}
+.product:hover{translate:0 -6px;box-shadow:0 26px 50px -30px rgba(21,18,19,.5)}
+/* Während des Einblendens gilt der Reveal-Übergang (danach entfernt js/app.js die Klasse) */
+.product.reveal,.catnav__item.reveal{transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--reveal-delay,0s)}
+.product__note{position:absolute;right:10px;bottom:10px;z-index:3;font:500 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(243,239,232,.9);padding:4px 6px}
+.product__body{display:flex;flex-direction:column;gap:14px;padding:22px 22px 24px;flex:1}
+.product__meta{display:flex;justify-content:space-between;gap:10px;margin:0;align-items:center}
+.product__meta .label{color:var(--ox)}
+.product__format{border:1px solid rgba(21,18,19,.35);border-radius:99px;padding:5px 10px;font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.product h3{margin:0;font:400 clamp(28px,2.6vw,36px)/1 var(--serif);letter-spacing:-.01em}
+/* Produktname führt zur Produktseite (produkte/…); Unterstreichung erst beim Hover */
+.product__link{background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/0 1px;transition:background-size .5s cubic-bezier(.2,.8,.2,1)}
+.product__link:hover,.product__link:focus-visible{background-size:100% 1px;color:var(--ox)}
+.product__desc{margin:0;opacity:.85}
+.product__points{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14.5px;opacity:.8}
+.product__points li{padding-left:18px;position:relative}
+.product__points li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--ox)}
+.product__buy{margin-top:auto;padding-top:18px;border-top:1px solid rgba(21,18,19,.2);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.product__price{margin:0;font:400 32px/1 var(--serif);letter-spacing:-.01em}
+.product__price small{display:block;margin-top:4px;font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+.product__links{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.shop__note{margin:34px 0 0;opacity:.7}
+@media(min-width:700px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.products{grid-template-columns:repeat(3,1fr)}}
+
+/* 8) Featured Product: EquiBill Manage ------------------------------------------------ */
+/* „overflow:clip“ statt „hidden“: schneidet ab, blockiert aber nicht „position:sticky“ (Horizontal-Band) */
+.manage{background:var(--ox);color:var(--ivory);display:grid;gap:36px;align-items:center;overflow:clip}
+.manage>*{min-width:0}  /* Grid-Kinder dürfen schmaler als ihr Inhalt werden (sonst wird die Rechnung abgeschnitten) */
+.manage h2{margin:12px 0 18px;font:italic 400 clamp(54px,9vw,120px)/.9 var(--serif);letter-spacing:-.035em}
+.manage__lead{margin:0 0 26px;max-width:44ch;font-size:18px}
+.manage__price{font:400 clamp(34px,4vw,48px)/1 var(--serif);margin:0 0 6px}
+.manage__price small{font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-left:10px;opacity:.85}
+.manage__tarife{margin:0 0 24px;opacity:.85;font-size:14.5px}
+@media(min-width:900px){.manage{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(48px,6vw,100px) clamp(30px,5vw,80px)}.manage__scroller{grid-column:1/-1}}
+
+/* Animierte Rechnung (Produkt-Demo) ------------------------------------------------ */
+.manage__stage{background:var(--blush);border-radius:22px;padding:clamp(20px,4vw,48px);max-width:560px;width:100%;justify-self:center;color:var(--ink)}
+.manage__note{display:block;margin-top:14px;text-align:center;font:500 9px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.invoice{background:var(--ivory);border-radius:12px;padding:clamp(18px,3vw,30px);box-shadow:0 30px 60px -34px rgba(21,18,19,.55);font-size:14.5px}
+.invoice__head{display:flex;justify-content:space-between;gap:12px;margin:0;align-items:baseline}
+.invoice__head .label{color:var(--ox)}
+.invoice__nr{font:400 15px/1 var(--serif)}
+.invoice__to{margin:10px 0 18px;opacity:.75;font-size:13.5px}
+.invoice__items{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.18)}
+.invoice__items li,.invoice__total{display:flex;justify-content:space-between;gap:12px;padding:11px 0}
+.invoice__items li{border-bottom:1px solid rgba(21,18,19,.12)}
+.invoice b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.invoice__total{margin:6px 0 0;font:400 clamp(24px,3vw,32px)/1 var(--serif);border-top:2px solid var(--ink)}
+.invoice__total b{font-weight:400}
+.invoice__status{display:inline-block;margin:14px 0 0;padding:7px 10px;border:1px solid var(--ox);color:var(--ox)}
+/* Ablauf: js/app.js setzt .invoice--ready (Startzustand) und beim Sichtbarwerden .is-playing */
+/* Startzustand ohne Übergang (sofort unsichtbar); animiert wird nur das Erscheinen */
+.invoice--ready .invoice__items li,.invoice--ready .invoice__total,.invoice--ready .invoice__status{opacity:0;transform:translateX(-14px)}
+.invoice--ready.is-playing .invoice__items li,.invoice--ready.is-playing .invoice__total,.invoice--ready.is-playing .invoice__status{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.invoice--ready.is-playing .invoice__items li:nth-child(1){transition-delay:.2s}
+.invoice--ready.is-playing .invoice__items li:nth-child(2){transition-delay:.75s}
+.invoice--ready.is-playing .invoice__items li:nth-child(3){transition-delay:1.3s}
+.invoice--ready.is-playing .invoice__items li:nth-child(4){transition-delay:1.85s}
+.invoice--ready.is-playing .invoice__total{transition-delay:2.4s}
+.invoice--ready.is-playing .invoice__status{transition-delay:3.6s}
+
+/* Funktionen: Horizontal-Band ------------------------------------------------------- */
+/* Handy/Standard: Karten nebeneinander, mit dem Finger wischbar (Scroll-Snap) */
+.manage__features{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.manage__features li{flex:0 0 min(82%,420px);scroll-snap-align:start;border:1px solid rgba(243,239,232,.35);border-radius:22px;padding:28px 26px 30px;display:grid;gap:10px;align-content:start;min-height:240px}
+.manage__features .label{opacity:.75}
+.manage__features b{font:italic 400 clamp(30px,3.4vw,46px)/1 var(--serif)}
+.manage__features li>span:last-child{opacity:.88;font-size:16px;max-width:32ch}
+/* Desktop mit JavaScript: Bühne klebt unter dem Header, Band wird beim Scrollen verschoben */
+.manage__scroller.is-hscroll .manage__sticky{position:sticky;top:64px;height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden}
+.manage__scroller.is-hscroll .manage__features{overflow:visible;scroll-snap-type:none;gap:24px;padding:0;will-change:transform}
+.manage__scroller.is-hscroll .manage__features li{flex:0 0 clamp(340px,38vw,560px);min-height:min(56vh,440px);padding:40px 38px}
+
+
+/* 9) Startseite Software-first: Manage-Ergänzungen, Markeneinführung, Ablauf, Shop-Teaser, Abschluss
+   Reihenfolge der Flächen: Hero (Ink) → Einführung (Ivory) → Manage (Oxblood) → Ablauf (Sand)
+   → Teaser (Ivory) → Über uns (Sand) → FAQ (Ivory) → Abschluss (Blush). */
+
+/* Manage: CTA, großes Geräte-Mockup, Kundennutzen */
+.manage__cta{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
+.manage__cta .textlink{color:var(--ivory)}
+.manage :focus-visible{outline-color:var(--blush)}  /* Fokusrahmen auf Oxblood sichtbar halten */
+.manage__device{position:relative;margin:0}
+.manage__benefit h3{margin:12px 0 24px;font:italic 400 clamp(32px,3.6vw,50px)/1.02 var(--serif);letter-spacing:-.02em;max-width:16ch}
+.manage__gains{list-style:none;margin:0;padding:0;border-top:1px solid rgba(243,239,232,.4)}
+.manage__gains li{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid rgba(243,239,232,.25)}
+.manage__gains b{font:500 16px/1.3 var(--sans)}
+.manage__gains span{opacity:.88;font-size:15px;max-width:44ch}
+/* Gebündelter Transparenzhinweis am Ende des Manage-Bereichs */
+.manage__disclaimer{grid-column:1/-1;margin:0;font-size:13px;opacity:.75}
+
+/* Markeneinführung: großes Statement links, Text rechts unten */
+.intro{display:grid;gap:clamp(24px,4vw,60px)}
+.intro__head{margin:0;max-width:none}
+.intro__body{max-width:56ch}
+.intro__body p{margin:0 0 14px;opacity:.85}
+.intro__body .intro__lead{margin:0 0 20px;font:400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
+@media(min-width:900px){.intro{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end}}
+
+/* So funktioniert's: drei Schritte als versetzte Treppe (Desktop), Liste mit Haarlinien (Handy) */
+.steps{background:#ebe5db}
+.steps__list{list-style:none;margin:0;padding:0;display:grid}
+.step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 22px;padding:28px 0 30px;border-top:1px solid var(--ink)}
+.step__num{grid-row:span 2;font:italic 400 clamp(56px,8vw,120px)/.8 var(--serif);color:var(--ox)}
+.step h3{margin:0;font:400 clamp(30px,3.4vw,48px)/1 var(--serif);letter-spacing:-.02em}
+.step p{margin:0;max-width:34ch;opacity:.85}
+@media(min-width:900px){
+  .steps__list{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
+  .step{grid-template-columns:1fr}
+  .step__num{grid-row:auto;margin-bottom:22px}
+  .step:nth-child(2){margin-top:clamp(60px,7vw,110px)}
+  .step:nth-child(3){margin-top:clamp(120px,14vw,220px)}
+}
+
+/* Shop-Teaser: zwei Produkte, asymmetrisch versetzt (kein Kachelraster) */
+.teaser__grid{display:grid;gap:48px}
+.teaser__item{display:grid;gap:10px;align-content:start}
+.teaser__img{position:relative;display:block;overflow:hidden;border-radius:14px;aspect-ratio:4/3;background:var(--plate-tools);container-type:size}
+.teaser__img--design{background:var(--plate-design)}
+.tpl,.rpf{position:absolute;inset:0;transition:scale .7s cubic-bezier(.2,.8,.2,1)}
+.teaser__item:hover .tpl,.teaser__item:hover .rpf{scale:1.04}
+.teaser__meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:10px 0 0}
+.teaser__price{font:400 24px/1 var(--serif);white-space:nowrap}
+.teaser__price small{font:500 9.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.65}
+.teaser__item h3{margin:0;font:400 clamp(30px,3.4vw,46px)/1 var(--serif);letter-spacing:-.02em}
+.teaser__item>p:last-child{margin:0;opacity:.8;max-width:40ch}
+.teaser__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:clamp(40px,5vw,70px)}
+/* Desktop: Überschrift und CTA links (4 Spalten), zwei kleinere Produkte rechts (8 Spalten), zweites versetzt.
+   Bewusst kleiner als der Manage-Bereich: der Shop ist Ergänzung, nicht Hauptangebot. */
+@media(min-width:900px){
+  .teaser{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);grid-template-rows:auto 1fr;gap:0 clamp(40px,6vw,100px)}
+  .teaser .section-head{grid-column:1;grid-row:1}
+  .teaser__cta{grid-column:1;grid-row:2;align-self:end;margin-top:30px}
+  .teaser__grid{grid-column:2;grid-row:1 / span 2;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px);align-items:start}
+  .teaser__item:nth-child(2){margin-top:clamp(60px,8vw,140px)}
+  .teaser__item:nth-child(2) .teaser__img{aspect-ratio:4/5}
+}
+
+/* Über uns: Vision als Zitatzeile */
+.about .about__vision{font:italic 400 clamp(22px,2.2vw,28px)/1.3 var(--serif);opacity:1}
+
+/* Abschluss-CTA: Blush-Fläche (Ink auf Blush 12,04:1, Oxblood auf Blush ca. 10:1) */
+.closing{background:var(--blush);color:var(--ink);text-align:center;padding:clamp(80px,11vw,160px) var(--pad);display:grid;justify-items:center;gap:18px}
+.closing .label{color:var(--ox)}
+.closing h2{margin:0;font:400 clamp(48px,8vw,120px)/.95 var(--serif);letter-spacing:-.035em}
+.closing h2 em{color:var(--ox)}
+.closing p{margin:0;max-width:44ch}
+.closing .btn{margin-top:10px}
+/* Link im Fließtext (z. B. FAQ) */
+.inline-link{border-bottom:1px solid currentColor}
+.inline-link:hover{color:var(--accent)}
+
+/* 9a) Software-Interface (Mockup in HTML/CSS, fiktive Daten) ------------------------------------
+   Alle Maße in em; die Grundschrift hängt an der Breite des Fensters (Container-Einheit cqi).
+   So skaliert dieselbe Oberfläche vom großen Fenster bis in den kleinen Laptop-Bildschirm.
+   Unter 620 px Breite wird die Navigation ausgeblendet (wie eine echte App auf dem Handy);
+   .app--fixed (im Laptop-Foto) behält immer die Desktop-Ansicht. */
+.app{container-type:inline-size;width:100%;text-align:left}
+.app__win{font:400 1.42cqi/1.35 var(--sans);color:var(--ink);background:#fbf8f3;border:1px solid rgba(21,18,19,.12);border-radius:.9em;overflow:hidden;box-shadow:0 3em 6em -3em rgba(21,18,19,.65)}
+.app__bar{display:flex;align-items:center;gap:.45em;padding:.7em 1em;background:#ece6dc;border-bottom:1px solid rgba(21,18,19,.1)}
+.app__bar>i{width:.75em;height:.75em;border-radius:50%;background:#d6ccbf}
+.app__url{margin-left:1.2em;flex:0 1 24em;background:#fbf8f3;border-radius:.5em;padding:.3em .9em;font-size:.85em;color:rgba(21,18,19,.6)}
+.app__body{display:grid;grid-template-columns:11em minmax(0,1fr)}
+.app__nav{display:flex;flex-direction:column;gap:.2em;padding:1.4em 1em;background:#f3eee6;border-right:1px solid rgba(21,18,19,.08)}
+.app__brand{display:flex;align-items:center;gap:.35em;margin:0 0 1.4em .55em;font:400 1em/1 var(--serif);letter-spacing:.16em;text-transform:uppercase}
+.app__brand i{width:1.1em;height:1px;background:var(--ox)}
+.app__nav>span{padding:.55em .7em;border-radius:.45em;color:rgba(21,18,19,.72)}
+.app__nav>.is-active{background:var(--ink);color:var(--ivory)}
+.app__nav>.app__user{margin-top:auto;padding-top:1em;border-top:1px solid rgba(21,18,19,.1);border-radius:0;font-size:.85em}
+.app__main{display:grid;gap:1.2em;padding:1.4em 1.6em 1.6em;min-width:0}
+.app__head{display:flex;justify-content:space-between;align-items:flex-end;gap:1em}
+.app__head small,.app__kpis small,.app__card-head small{display:block;font-size:.76em;letter-spacing:.12em;text-transform:uppercase;color:rgba(21,18,19,.55)}
+.app__head b{font:400 2.1em/1.1 var(--serif)}
+.app__btn{background:var(--ox);color:var(--ivory);border-radius:.5em;padding:.65em 1em;font-weight:500;white-space:nowrap}
+.app__kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8em}
+.app__kpis>div,.app__card{background:#fff;border:1px solid rgba(21,18,19,.08);border-radius:.7em}
+.app__kpis>div{display:grid;gap:.25em;padding:.9em 1em}
+.app__kpis b{font:400 1.75em/1.1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.app__kpis>div:nth-child(2) b{color:var(--ox)}
+.app__kpis em{font-style:normal;font-size:.85em;color:rgba(21,18,19,.6)}
+.app__grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:.8em}
+.app__card{display:grid;gap:.55em;align-content:start;padding:1em 1.1em;min-width:0}
+.app__card-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6em}
+.app__card-head span{font-size:.8em;color:var(--ox)}
+.app__row{display:grid;grid-template-columns:4.2em minmax(0,1fr) minmax(0,1.5fr) auto;gap:.8em;padding:.5em 0;border-top:1px solid rgba(21,18,19,.07);font-variant-numeric:tabular-nums}
+.app__row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app__row span:last-child{text-align:right}
+.app__row--head{padding-top:0;border-top:0;font-size:.76em;letter-spacing:.1em;text-transform:uppercase;color:rgba(21,18,19,.5)}
+.app__chart{display:flex;align-items:flex-end;gap:.35em;height:5.5em;padding-bottom:.4em;border-bottom:1px solid rgba(21,18,19,.1)}
+.app__chart i{flex:1;background:var(--ink);opacity:.82;border-radius:.2em .2em 0 0}
+.app__chart i:last-child{background:var(--ox);opacity:1}
+.app__chart i:nth-child(1){height:42%}.app__chart i:nth-child(2){height:48%}.app__chart i:nth-child(3){height:61%}
+.app__chart i:nth-child(4){height:70%}.app__chart i:nth-child(5){height:78%}.app__chart i:nth-child(6){height:84%}
+.app__chart i:nth-child(7){height:66%}.app__chart i:nth-child(8){height:88%}.app__chart i:nth-child(9){height:81%}
+.app__chart i:nth-child(10){height:74%}.app__chart i:nth-child(11){height:92%}
+.app__invoices{list-style:none;margin:0;padding:0;display:grid}
+.app__invoices li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.15em .6em;padding:.5em 0;border-top:1px solid rgba(21,18,19,.07)}
+.app__invoices b{font-weight:500;font-variant-numeric:tabular-nums}
+.app__invoices em{grid-column:1/-1;justify-self:start;font-style:normal;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;padding:.2em .6em;border-radius:99em}
+.app__invoices .is-open{background:#f3dcd6;color:var(--ox)}
+.app__invoices .is-paid{background:#ece6dc;color:var(--ink)}
+.app__invoices .is-draft{border:1px dashed rgba(21,18,19,.35);color:rgba(21,18,19,.7)}
+@container (max-width: 620px){
+  .app:not(.app--fixed) .app__win{font-size:2.9cqi}
+  .app:not(.app--fixed) .app__body{grid-template-columns:1fr}
+  .app:not(.app--fixed) .app__nav,.app:not(.app--fixed) .app__card--side{display:none}
+  .app:not(.app--fixed) .app__grid{grid-template-columns:1fr}
+}
+/* Im Laptop-Foto: füllt den Bildschirm, ohne eigenen Rahmen und Schatten */
+.shot__screen .app{position:absolute;inset:0}
+.shot__screen .app__win{height:100%;border:0;border-radius:0;box-shadow:none}
+
+/* 9b) Vorlagen-Mockups im Shop-Teaser (zeigen den Aufbau der Vorlagen, fiktive Inhalte) ---------
+   Maße in cqi der Bildfläche (.teaser__img). Gestaltung wie Packshots auf farbiger Fläche. */
+.tpl,.rpf{display:block}
+.tpl span,.rpf span{display:block}
+/* Tournament Planner: Tabellenblatt einer Saisonplanung */
+.tpl__sheet{position:absolute;left:6%;right:6%;top:9%;font:400 2.2cqi/1.3 var(--sans);color:var(--ink);background:#fbf8f3;border-radius:.6em;padding:1.4em 1.4em 1.2em;box-shadow:0 2.5em 4em -2em rgba(21,18,19,.55);rotate:-2.5deg}
+.tpl__head{display:flex!important;justify-content:space-between;align-items:baseline;margin-bottom:1em}
+.tpl__head b{font:400 2.1em/1 var(--serif)}
+.tpl__head small{font-size:.8em;letter-spacing:.14em;text-transform:uppercase;color:var(--ox)}
+.tpl__row{display:grid!important;grid-template-columns:3.4em minmax(0,1.6fr) minmax(0,1fr) 4.8em 4.8em 4.2em;gap:.5em;padding:.45em .3em;border-top:1px solid rgba(21,18,19,.1);font-variant-numeric:tabular-nums}
+.tpl__row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tpl__row span:nth-child(n+4){text-align:right}
+.tpl__row--head{background:var(--ink);color:var(--ivory);border-radius:.35em;border-top:0;font-size:.8em;font-weight:500}
+.tpl__row--total{border-top:2px solid var(--ink);font-weight:500}
+.tpl__row--total span:last-child{color:var(--ox)}
+/* Rider Portfolio: Titelseite mit Foto hinten, Profilseite vorne */
+/* Größen mit min(): richtet sich nach Breite UND Höhe der Fläche, damit beide Seiten im Quer- und Hochformat ganz sichtbar bleiben */
+.rpf{font:400 min(2.4cqi,2.1cqh)/1.3 var(--sans);color:var(--ink)}
+.rpf__cover{position:absolute;left:8%;top:9%;width:min(58%,58cqh);aspect-ratio:3/4.2;overflow:hidden;border-radius:.3em;background:var(--ink);box-shadow:0 2em 3.5em -1.8em rgba(21,18,19,.6);rotate:-4deg}
+.rpf__cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.rpf__cover-title{position:absolute;left:8%;right:8%;bottom:7%;color:var(--ivory)}
+.rpf__cover-title small{display:block;font-size:.7em;letter-spacing:.2em;text-transform:uppercase}
+.rpf__cover-title b{font:italic 400 1.6em/1 var(--serif)}
+.rpf__page{position:absolute;right:7%;bottom:8%;width:min(56%,56cqh);aspect-ratio:3/4.2;display:flex!important;flex-direction:column;gap:.55em;padding:8% 8% 7%;background:#fbf8f3;border-radius:.3em;box-shadow:0 2.4em 4em -1.8em rgba(21,18,19,.6);rotate:3deg}
+.rpf__kicker{font-size:.62em;letter-spacing:.2em;text-transform:uppercase;color:var(--ox)}
+.rpf__name{font:400 2em/1 var(--serif)}
+.rpf__role{font-size:.72em;opacity:.7}
+.rpf__lines,.rpf__list{display:grid!important;gap:.45em;margin-bottom:.4em}
+.rpf__lines i,.rpf__list i{display:block;height:.4em;border-radius:9em;background:#e6ddd2}
+.rpf__lines i:last-child{width:70%}
+.rpf__list i{width:85%;position:relative;margin-left:.9em}
+.rpf__list i::before{content:"";position:absolute;left:-.9em;top:0;width:.4em;height:.4em;border-radius:50%;background:var(--ox)}
+.rpf__cta{margin-top:auto;align-self:flex-start;background:var(--ox);color:var(--ivory);font-size:.62em;letter-spacing:.14em;text-transform:uppercase;padding:.6em .9em;border-radius:.3em}
+
+/* Vorlagen-Mockups auf Produktseiten (produkte/): farbige Fläche wie im Teaser, Tabelle mittig */
+.pdp__plate.pdp__plate--tools{background:var(--plate-tools)}
+.pdp__plate.pdp__plate--design{background:var(--plate-design)}
+.pdp__plate .tpl__sheet{top:50%;translate:0 -50%}
+
+/* 10) Über EquiBill --------------------------------------------------------------------------- */
+.about{display:grid;gap:30px;align-items:center;background:#ebe5db}
+.about__photo{aspect-ratio:4/5;background:linear-gradient(190deg,#cfc6ba,#6c6258)}
+.about h2{margin:10px 0 22px;font:italic 400 clamp(40px,5.4vw,76px)/1 var(--serif);letter-spacing:-.025em}
+.about p{max-width:50ch;margin:0 0 14px;opacity:.85}
+.about .about__demo{margin-top:26px;font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+@media(min-width:860px){.about{grid-template-columns:5fr 6fr;gap:clamp(30px,6vw,90px)}}
+
+/* 11) FAQ ------------------------------------------------------------------------------------- */
+.faq{display:grid;gap:30px}
+.faq__list{border-top:1px solid var(--ink)}
+.faq details{border-bottom:1px solid rgba(21,18,19,.25);padding:20px 0}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:400 clamp(20px,2vw,26px)/1.25 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 28px/1 var(--sans);color:var(--ox)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:14px 0 0;max-width:60ch;opacity:.85}
+@media(min-width:860px){.faq{grid-template-columns:4fr 7fr;gap:clamp(30px,6vw,90px);align-items:start}.faq .section-head{position:sticky;top:100px}}
+
+/* 12) Footer ------------------------------------------------------------------------------------ */
+.site-footer{background:var(--ink);color:var(--ivory);padding:clamp(50px,7vw,100px) var(--pad) 30px}
+.site-footer .wordmark{font-size:clamp(30px,8vw,100px);justify-content:center;margin-bottom:46px}
+.site-footer__cols{display:grid;gap:28px;grid-template-columns:repeat(2,minmax(0,1fr));padding:30px 0;border-top:1px solid rgba(243,239,232,.25)}
+.site-footer h2{margin:0 0 12px;opacity:.6}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.site-footer a:hover{color:var(--blush)}
+.demo-box{margin:0;max-width:52ch;color:var(--blush);text-transform:none;letter-spacing:0;font:400 13px/1.55 var(--sans)}
+.site-footer__legal{margin:22px 0 0;opacity:.6;font-size:12.5px;max-width:80ch}
+@media(min-width:760px){.site-footer__cols{grid-template-columns:repeat(4,1fr)}}
+.site-footer__cols>*{min-width:0;overflow-wrap:anywhere}
+
+/* 13) Rückmeldung Demo-Warenkorb ------------------------------------------------------------------- */
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--ivory);padding:14px 20px;max-width:min(92vw,520px);font-size:14px;z-index:200;transition:opacity .25s,transform .25s}
+.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+
+/* 14) Variante B „Noir“ (dunkel) ---------------------------------------------------------------
+   Gilt nur für Seiten mit <body class="theme-noir"> (aktuell: Produktseiten in produkte/).
+   Immer die ganze Seite, nie einzelne Abschnitte (Hell und Dunkel nicht innerhalb einer Seite mischen).
+   Farben: Fläche Ink, Text Ivory (16,25:1), Akzent Blush (12,04:1 auf Ink); Linien in Smoke. */
+.theme-noir{background:var(--ink);color:var(--ivory);--line:var(--smoke);--accent:var(--blush)}
+.theme-noir :focus-visible{outline-color:var(--blush)}
+.theme-noir .label--accent{color:var(--blush)}
+.theme-noir .skip{background:var(--ivory);color:var(--ink)}
+.theme-noir .site-header{background:rgba(21,18,19,.94);border-bottom-color:var(--smoke)}
+.theme-noir .nav-mobile[open] .nav-mobile__panel{background:var(--ink);border-bottom-color:var(--smoke)}
+.theme-noir .nav-desktop a:hover,.theme-noir .header-cart:hover{color:var(--blush)}
+.theme-noir .logo{--eb-text:var(--ivory);--eb-accent:var(--blush)}
+/* Button invertiert: Ivory-Fläche mit Ink-Schrift, Hover Blush (Ink auf Blush 12,04:1) */
+.theme-noir .btn{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.theme-noir .btn:hover{background:var(--blush);border-color:var(--blush);color:var(--ink)}
+.theme-noir .site-footer{border-top:1px solid var(--smoke)}
+.theme-noir .toast{background:var(--ivory);color:var(--ink)}
+.theme-noir .photo figcaption{color:var(--ink)}  /* Bildnachweis: Ink auf hellem Etikett, sonst Ivory auf Ivory */
+.theme-noir .product__points li::before{background:var(--blush)}
+.theme-noir .product__format{border-color:rgba(243,239,232,.4)}
+
+/* 15) Produktseite (produkte/*.html) --------------------------------------------------------------
+   Aufbau: Brotkrumen → Produktbereich (Bild + Kaufinfos) → Beschreibung und technische Daten → Zurück.
+   Mobile First: alles untereinander; ab 900 px Bild links (7 Spalten), Infos rechts (5 Spalten). */
+.breadcrumb{padding:22px var(--pad) 0}
+.breadcrumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 10px;opacity:.75}
+.breadcrumb li+li::before{content:"/";margin-right:10px;opacity:.6}
+.breadcrumb a{border-bottom:1px solid currentColor}
+.breadcrumb a:hover{color:var(--accent)}
+.pdp{display:grid;gap:30px;padding:22px var(--pad) clamp(50px,7vw,100px)}
+.pdp>*{min-width:0}
+.pdp__media{position:relative;margin:0}
+/* Bildfläche: container-type, damit Geräte-Fotos mit Mockup (.shot) wie im Shop „cover“ füllen */
+.pdp__plate{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:14px;background:var(--smoke);container-type:size}
+.pdp__plate .plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pdp__media .product__note{right:10px;bottom:10px;color:var(--ink)}
+.pdp__info{display:flex;flex-direction:column;gap:18px}
+.pdp__num{font:400 clamp(20px,2vw,26px)/1 var(--serif);font-style:italic;color:var(--blush)}
+.pdp__meta{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0}
+.pdp__title{margin:0;font:400 clamp(46px,7vw,96px)/.95 var(--serif);letter-spacing:-.03em;overflow-wrap:anywhere}
+.pdp__lead{margin:0;max-width:42ch;font-size:18px;opacity:.88}
+.pdp__buy{display:grid;gap:12px;justify-items:start;margin-top:8px;padding-top:22px;border-top:1px solid var(--smoke)}
+.pdp__price{margin:0;font:400 clamp(38px,4.4vw,54px)/1 var(--serif);letter-spacing:-.01em}
+.pdp__tax,.pdp__shipping{margin:0;font-size:14.5px;opacity:.85}
+.pdp__shipping b{font-weight:500}
+.pdp__buy .btn{margin-top:10px}
+.pdp__demo{margin:4px 0 0;max-width:46ch;font-size:13px;line-height:1.5;opacity:.75;text-transform:none;letter-spacing:0;font-weight:400}
+/* Beschreibung und technische Daten */
+.pdp-details{display:grid;gap:clamp(40px,5vw,60px);border-top:1px solid var(--smoke)}
+.pdp-details>*{min-width:0}
+.pdp-details h2{margin:10px 0 20px;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif);letter-spacing:-.02em}
+.pdp-details p{margin:0 0 14px;max-width:56ch;opacity:.88}
+.pdp-details .product__points{margin-top:22px;font-size:15.5px;opacity:.88}
+.specs{margin:0;border-top:1px solid var(--ivory)}
+.specs>div{display:grid;gap:4px;padding:14px 0;border-bottom:1px solid var(--smoke)}
+.specs dt{font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.specs dd{margin:0}
+.specs__note{margin-top:16px!important;font-size:13.5px}
+.pdp-back{margin:0;padding:0 var(--pad) clamp(50px,7vw,100px)}
+@media(min-width:600px){.specs>div{grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:20px}}
+@media(min-width:900px){
+  .pdp{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,100px);align-items:start}
+  .pdp__plate{aspect-ratio:4/5}
+  .pdp__info{position:sticky;top:110px}
+  .pdp-details{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,100px)}
+}
+
+/* 16) Unterseiten: Seitenkopf (Shop) und Software-Seite (software.html, Noir) ---------------------
+   Farben über --line und --accent, damit dieselben Bausteine hell und dunkel funktionieren. */
+.page-head{padding:clamp(30px,5vw,70px) var(--pad) 0;max-width:1100px}
+.page-head__title{margin:12px 0 0;font:400 clamp(56px,10vw,150px)/.9 var(--serif);letter-spacing:-.04em}
+.page-head__title em{color:var(--accent)}
+.page-head__lead{margin:24px 0 0;max-width:52ch;font-size:18px;opacity:.85}
+
+/* ---------- Software-Seite (software.html) ----------
+   Dramaturgie: Hero → Problem/Lösung → Funktionen → interaktive Demo → Anwendungsfälle → Tarife → FAQ → Abschluss.
+   Präfix „swp-“ = Software-Seite, „ui__“ = gezeichnete Interface-Mockups, „demo__“ = anklickbare Demo.
+   Animationen: js/app.js setzt bei [data-play] erst .is-armed (Startzustand, ohne Übergang) und beim
+   Sichtbarwerden .is-playing (Übergang zum Endzustand). Ohne JS oder bei „Bewegung reduzieren“
+   bleibt der Endzustand stehen. */
+.swp-note{display:block;margin:14px 0 0;text-align:center;font:500 9.5px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.swp-note--left{text-align:left}
+
+/* 1) Product Hero: Text oben (Desktop zweispaltig), darunter breites App-Fenster */
+.swp-hero{display:grid;gap:clamp(44px,6vw,90px);padding:22px var(--pad) clamp(70px,9vw,140px)}
+.swp-hero>*{min-width:0}
+.swp-hero__text{display:grid;gap:18px}
+.swp-hero__title{margin:0;font:400 clamp(58px,12vw,190px)/.86 var(--serif);letter-spacing:-.045em}
+.swp-hero__title em{color:var(--accent)}
+.swp-hero__claim{margin:0;max-width:20ch;font:italic 400 clamp(26px,3.4vw,44px)/1.1 var(--serif)}
+.swp-hero__side{display:grid;gap:18px;justify-items:start}
+.swp-hero__lead{margin:0;max-width:48ch;font-size:17px;opacity:.88}
+.swp-hero__price{margin:0;font:400 clamp(30px,3vw,40px)/1 var(--serif)}
+.swp-hero__price small{margin-left:10px;font:500 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.swp-hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+@media(min-width:1000px){
+  .swp-hero__text{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:clamp(40px,6vw,100px);align-items:end}
+  .swp-hero__text>.label,.swp-hero__title,.swp-hero__claim{grid-column:1}
+  .swp-hero__side{grid-column:2;grid-row:1 / span 3}
+}
+.swp-hero__device{position:relative;margin:0;perspective:1600px}
+.swp-hero__device .app{transform-origin:50% 0}
+.swp-hero__device .app__win{box-shadow:0 4em 8em -3em rgba(0,0,0,.85),0 0 0 1px rgba(243,239,232,.08)}
+/* Fenster liegt leicht nach hinten gekippt und richtet sich beim Scrollen auf (nur Browser mit Scroll-Timeline) */
+@supports (animation-timeline: view()){
+  .swp-hero__device .app{animation:swp-tilt linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+}
+@keyframes swp-tilt{from{transform:rotateX(14deg) scale(.95)}to{transform:none}}
+/* Schwebende Interface-Hinweise (dekorativ), blenden nach dem Laden versetzt ein; auf dem Handy ausgeblendet */
+.swp-chip{position:absolute;z-index:2;display:none;align-items:center;gap:8px;padding:11px 16px;border-radius:99px;background:var(--ivory);color:var(--ink);font:400 13px/1.2 var(--sans);white-space:nowrap;box-shadow:0 18px 40px -16px rgba(0,0,0,.85);animation:swp-chip-in .9s cubic-bezier(.2,.8,.2,1) both}
+.swp-chip b{font-weight:500;color:var(--ox)}
+.swp-chip i{width:9px;height:9px;border-radius:50%;background:var(--ox)}
+.swp-chip--a{left:5%;top:-20px;animation-delay:1.2s}
+.swp-chip--b{right:5%;bottom:40px;animation-delay:1.8s}
+@media(min-width:700px){.swp-chip{display:flex}}
+@keyframes swp-chip-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* 2) Problem und Lösung: Zettel-Illustration links (klebt beim Scrollen), vier Paare rechts */
+.swp-problem,.swp-features,.swp-demo,.swp-cases,.swp-pricing{border-top:1px solid var(--line)}
+.swp-problem__grid{display:grid;gap:clamp(40px,6vw,90px)}
+.swp-problem__grid>*{min-width:0}
+@media(min-width:960px){
+  .swp-problem__grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:start}
+  .swp-board{position:sticky;top:110px}
+}
+.swp-board{margin:0}
+.swp-board__plate{position:relative;display:block;aspect-ratio:1/1;border-radius:22px;background:var(--smoke);overflow:hidden;container-type:size;color:var(--ink)}
+/* Schriftgröße an den Kindern: cqi bezieht sich auf die Fläche (Container), nicht auf das Element selbst */
+.swp-board__plate>*{font:400 3cqi/1.25 var(--sans)}
+.swp-board__head{position:absolute;left:10%;right:10%;top:6%;display:flex;justify-content:space-between;align-items:baseline;gap:1em;color:var(--ivory)}
+.swp-board__head b{font:400 1.7em/1 var(--serif)}
+.swp-board__head small{font-size:.7em;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.swp-board__total{position:absolute;left:10%;right:10%;top:85%;display:flex;justify-content:space-between;padding-top:.6em;border-top:2px solid var(--ivory);color:var(--ivory);font:400 4.6cqi/1 var(--serif)}
+/* Endzustand: Zettel liegen sauber untereinander wie Rechnungspositionen */
+.slip{position:absolute;left:10%;width:80%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:.15em 1em;padding:.75em 1em;background:#fbf8f3;border-radius:.4em;box-shadow:0 1.2em 2em -1.2em rgba(0,0,0,.6)}
+.slip small{grid-column:1/-1;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;color:rgba(21,18,19,.6)}
+.slip b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slip i{font-style:normal;font-variant-numeric:tabular-nums;white-space:nowrap}
+.slip--receipt{top:19%}.slip--sheet{top:32%}.slip--note{top:45%}.slip--fuel{top:58%}.slip--vet{top:71%}
+/* Startzustand (Chaos): schräg verteilt, eigene Papierarten */
+.swp-board.is-armed:not(.is-playing) .swp-board__head,.swp-board.is-armed:not(.is-playing) .swp-board__total{opacity:0}
+.swp-board.is-armed:not(.is-playing) .slip--receipt{left:5%;top:8%;width:44%;rotate:-9deg;border-bottom:2px dashed rgba(21,18,19,.3)}
+.swp-board.is-armed:not(.is-playing) .slip--sheet{left:40%;top:22%;width:56%;rotate:5deg;background:repeating-linear-gradient(90deg,#fbf8f3 0 30%,#e6ddd2 30% calc(30% + 1px)),#fbf8f3}
+.swp-board.is-armed:not(.is-playing) .slip--note{left:9%;top:44%;width:46%;rotate:4deg;background:var(--blush)}
+.swp-board.is-armed:not(.is-playing) .slip--fuel{left:50%;top:57%;width:42%;rotate:-7deg}
+.swp-board.is-armed:not(.is-playing) .slip--vet{left:16%;top:74%;width:52%;rotate:-2deg}
+.swp-board.is-playing .slip{transition:left 1.2s cubic-bezier(.2,.8,.2,1),top 1.2s cubic-bezier(.2,.8,.2,1),width 1.2s cubic-bezier(.2,.8,.2,1),rotate 1.2s cubic-bezier(.2,.8,.2,1),background .8s ease}
+.swp-board.is-playing .slip--sheet{transition-delay:.12s}.swp-board.is-playing .slip--note{transition-delay:.24s}
+.swp-board.is-playing .slip--fuel{transition-delay:.36s}.swp-board.is-playing .slip--vet{transition-delay:.48s}
+.swp-board.is-playing .swp-board__head,.swp-board.is-playing .swp-board__total{transition:opacity .8s ease 1.3s}
+.swp-pains{list-style:none;margin:0;padding:0;border-top:1px solid currentColor}
+.swp-pains li{display:grid;gap:10px;padding:26px 0 30px;border-bottom:1px solid var(--line)}
+.swp-pains p{margin:0}
+.swp-pains__before{font-size:15px;opacity:.7}
+.swp-pains__before .label{margin-right:8px;color:var(--accent)}
+.swp-pains h3{margin:0;font:400 clamp(28px,3vw,42px)/1.05 var(--serif);letter-spacing:-.02em}
+.swp-pains li>p:last-child{max-width:46ch;opacity:.88}
+
+/* 3) Funktionen: alternierende Text-Bild-Kompositionen, Tabs und breite Statusliste */
+.swp-feature,.swp-tabs__panel{display:grid;gap:clamp(28px,4vw,48px);align-items:center}
+.swp-feature{padding:clamp(40px,6vw,90px) 0;border-top:1px solid var(--line)}
+.swp-feature>*,.swp-tabs__panel>*{min-width:0}
+.swp-feature__text{display:grid;gap:14px;align-content:start;max-width:48ch}
+.swp-feature__text p,.swp-status__text p{margin:0;opacity:.88}
+.swp-feature__num{font:italic 400 clamp(22px,2vw,28px)/1 var(--serif);color:var(--accent)}
+.swp-feature h3,.swp-tabs h3,.swp-status h3{margin:0;font:400 clamp(34px,4vw,60px)/.98 var(--serif);letter-spacing:-.03em;hyphens:auto;overflow-wrap:break-word}
+.swp-features .swp-tier{margin-top:6px;padding-top:12px;border-top:1px solid var(--line);font:500 10.5px/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+@media(min-width:900px){
+  .swp-feature,.swp-tabs__panel{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,100px)}
+  .swp-feature--flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .swp-feature--flip .swp-feature__text{order:2}
+}
+/* Tabs (ohne JS: Leiste versteckt, Inhalte untereinander) */
+.swp-tabs{padding:clamp(40px,6vw,90px) 0;border-top:1px solid var(--line)}
+.swp-tabs__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 40px;margin-bottom:clamp(28px,4vw,50px)}
+.swp-tabs__list{display:flex;flex-wrap:wrap;gap:4px;padding:5px;border:1px solid var(--line);border-radius:30px}
+.swp-tabs__list[hidden]{display:none}
+.swp-tabs__tab{display:inline-flex;align-items:baseline;gap:8px;min-height:44px;padding:13px 20px;border:0;border-radius:99px;background:transparent;color:inherit;font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s}
+.swp-tabs__tab span{font:italic 400 15px/1 var(--serif);letter-spacing:0;opacity:.75}
+.swp-tabs__tab:hover{color:var(--accent)}
+.swp-tabs__tab[aria-selected="true"]{background:var(--ivory);color:var(--ink)}
+.theme-noir .swp-tabs__tab[aria-selected="true"]:focus-visible{outline-color:var(--blush)}
+.swp-tabs__panel+.swp-tabs__panel{margin-top:clamp(50px,7vw,100px)}
+.js .swp-tabs__panel+.swp-tabs__panel{margin-top:0}
+.swp-tabs__panel[hidden]{display:none}
+.js .swp-tabs__panel:not([hidden]){animation:swp-panel-in .6s cubic-bezier(.2,.8,.2,1)}
+.swp-tabs__panel:focus-visible{outline-offset:10px}
+@keyframes swp-panel-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* N° 06 Status: Text oben zweispaltig, Liste über die volle Breite */
+.swp-status{display:grid;gap:clamp(28px,4vw,48px);padding-top:clamp(40px,6vw,90px);border-top:1px solid var(--line)}
+.swp-status__text{display:grid;gap:14px}
+.swp-status__text>div{display:grid;gap:14px;align-content:start;max-width:52ch}
+@media(min-width:900px){.swp-status__text{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,100px);align-items:end}}
+
+/* Interface-Mockups (.ui): wie .app in em-Maßen, Grundschrift aus der Containerbreite (cqi) */
+.ui{container-type:inline-size;width:100%}
+.ui__win{display:grid;gap:1.1em;padding:1.6em 1.8em;border-radius:.9em;background:#fbf8f3;color:var(--ink);font:400 min(2.3cqi,15px)/1.35 var(--sans);text-align:left;box-shadow:0 3em 6em -3em rgba(0,0,0,.85)}
+.ui small{display:block;font-size:.76em;letter-spacing:.12em;text-transform:uppercase;color:rgba(21,18,19,.6)}
+.ui__top{display:flex;justify-content:space-between;align-items:baseline;gap:1em;padding-bottom:.8em;border-bottom:1px solid rgba(21,18,19,.1)}
+.ui__top b{font:400 1.8em/1.1 var(--serif)}
+.ui__top>span{font-size:.85em;color:rgba(21,18,19,.65)}
+.ui .is-accent{color:var(--ox)}
+.ui__kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8em}
+.ui__kpis>div,.ui__facts>div{background:#fff;border:1px solid rgba(21,18,19,.08);border-radius:.7em}
+.ui__kpis>div{display:grid;gap:.3em;padding:.9em 1em}
+.ui__kpis b{font:400 1.5em/1.1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ui__split{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1.6em}
+.ui__bars-row{display:flex;align-items:flex-end;gap:.6em;height:8em;margin-top:.6em;border-bottom:1px solid rgba(21,18,19,.15)}
+.ui__bars-row i{flex:1;background:var(--ink);border-radius:.25em .25em 0 0;transform-origin:bottom}
+.ui__bars-row i:last-child{background:var(--ox)}
+.ui__bars-row i:nth-child(1){height:55%}.ui__bars-row i:nth-child(2){height:62%}.ui__bars-row i:nth-child(3){height:48%}
+.ui__bars-row i:nth-child(4){height:74%}.ui__bars-row i:nth-child(5){height:81%}.ui__bars-row i:nth-child(6){height:94%}
+.ui__bars-axis{display:flex;gap:.6em;margin-top:.4em;font-size:.72em;color:rgba(21,18,19,.6)}
+.ui__bars-axis span{flex:1;text-align:center}
+.ui__shares p{display:grid;grid-template-columns:5.2em minmax(0,1fr) 2.8em;align-items:center;gap:.6em;margin:.8em 0 0}
+.ui__shares i{position:relative;height:.55em;border-radius:9em;background:#e6ddd2;overflow:hidden}
+.ui__shares i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);border-radius:inherit;background:var(--ink);transform-origin:left}
+.ui__shares p:nth-of-type(1) i{--w:62%}.ui__shares p:nth-of-type(2) i{--w:21%}.ui__shares p:nth-of-type(3) i{--w:17%}
+.ui__shares em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.is-armed:not(.is-playing) .ui__bars-row i{scale:1 0}
+.is-armed:not(.is-playing) .ui__shares i::after{scale:0 1}
+.is-playing .ui__bars-row i,.is-playing .ui__shares i::after{transition:scale 1s cubic-bezier(.2,.8,.2,1)}
+.is-playing .ui__bars-row i:nth-child(2){transition-delay:.08s}.is-playing .ui__bars-row i:nth-child(3){transition-delay:.16s}
+.is-playing .ui__bars-row i:nth-child(4){transition-delay:.24s}.is-playing .ui__bars-row i:nth-child(5){transition-delay:.32s}
+.is-playing .ui__bars-row i:nth-child(6){transition-delay:.4s}.is-playing .ui__shares i::after{transition-delay:.5s}
+/* Pferdeprofil */
+.ui__win--horse{grid-template-columns:9em minmax(0,1fr);gap:1.4em}
+.ui__list{display:flex;flex-direction:column;gap:.25em;padding-right:1.2em;border-right:1px solid rgba(21,18,19,.08)}
+.ui__list small{margin-bottom:.6em}
+.ui__list span{padding:.5em .7em;border-radius:.45em;color:rgba(21,18,19,.75)}
+.ui__list .is-active{background:var(--ink);color:var(--ivory)}
+.ui__list .ui__more{font-size:.85em;color:var(--ox)}
+.ui__profile{display:grid;gap:.9em;align-content:start;min-width:0}
+.ui__profile-head{display:flex;align-items:center;gap:.9em}
+.ui__profile-head b{display:block;font:400 1.7em/1.1 var(--serif)}
+.ui__avatar{display:grid;place-items:center;width:2.2em;height:2.2em;flex:none;border-radius:50%;background:var(--blush);color:var(--ox);font:400 1.4em/1 var(--serif)}
+.ui__pill{margin-left:auto;padding:.25em .7em;border-radius:9em;background:#ece6dc;font-style:normal;font-size:.75em;letter-spacing:.08em;text-transform:uppercase}
+.ui__facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6em;margin:0}
+.ui__facts>div{padding:.7em .8em;min-width:0}
+.ui__facts dt{font-size:.72em;letter-spacing:.12em;text-transform:uppercase;color:rgba(21,18,19,.6)}
+.ui__facts dd{margin:.2em 0 0;font-weight:500}
+.ui__row{display:grid;grid-template-columns:4em minmax(0,1fr) auto;gap:.8em;padding:.45em 0;border-top:1px solid rgba(21,18,19,.07);font-variant-numeric:tabular-nums}
+/* Erfassungsmaske */
+.ui__field{display:grid;gap:.35em;min-width:0}
+.ui__field>span{display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.7em .9em;background:#fff;border:1px solid rgba(21,18,19,.15);border-radius:.5em}
+.ui__field em{font-style:normal;font-size:.8em;color:rgba(21,18,19,.6)}
+.ui__field-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8em}
+.ui__field>.ui__typed{justify-content:flex-start;gap:.1em;border-color:var(--ox);box-shadow:0 0 0 1px var(--ox)}
+.ui__typed::after{content:"";width:1px;height:1.1em;background:var(--ox);animation:ui-caret 1s steps(1) infinite}
+@keyframes ui-caret{50%{opacity:0}}
+.ui__file{display:flex;align-items:center;gap:.6em;padding:.6em .9em;border:1px dashed rgba(21,18,19,.3);border-radius:.5em;font-size:.9em}
+.ui__file i,.ui__note-line i{flex:none;width:.8em;height:1em;border:1px solid var(--ox);border-radius:.15em}
+.ui__actions{display:flex;justify-content:flex-end;align-items:center;gap:1.2em}
+.ui__actions span{color:rgba(21,18,19,.65)}
+.ui__actions b{padding:.6em 1.1em;border-radius:.5em;background:var(--ox);color:var(--ivory);font-weight:500}
+/* Tabellen (Turnier, Rechnungsstatus) */
+.ui__table p,.ui__status p{display:grid;gap:.8em;align-items:center;margin:0;padding:.6em 0;border-top:1px solid rgba(21,18,19,.08);font-variant-numeric:tabular-nums}
+.ui__table p{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr) repeat(3,minmax(0,1fr))}
+.ui__table p span:nth-child(n+3),.ui__status p span:nth-child(4),.ui__status p span:last-child{text-align:right}
+.ui p.ui__th{border-top:0;font-size:.74em;letter-spacing:.1em;text-transform:uppercase;color:rgba(21,18,19,.6)}
+.ui p.ui__tf{border-top:2px solid var(--ink);font-weight:500}
+.ui__tf span:last-child{color:var(--ox)}
+.ui__note-line{display:flex;align-items:center;gap:.6em;font-size:.85em;color:rgba(21,18,19,.7)}
+.ui__note-line i{width:.6em;height:.6em;border:0;border-radius:50%;background:var(--ox)}
+.ui__status p{grid-template-columns:6em minmax(0,1.2fr) 4.5em minmax(0,1fr) 7.5em}
+.ui__count{margin-left:.4em;font:400 1.5em/1 var(--serif);color:var(--ox);font-variant-numeric:tabular-nums}
+.st{display:inline-grid;padding:.25em .75em;border-radius:9em;font-style:normal;font-size:.75em;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.st--open{background:#f3dcd6;color:var(--ox)}
+.st--paid,.st--switch{background:#ece6dc;color:var(--ink)}
+.st--late{background:var(--ox);color:var(--ivory)}
+.st--switch b{grid-area:1/1;font-weight:400;text-align:center}
+.st--switch b:first-child{opacity:0}
+.is-armed:not(.is-playing) .st--switch{background:#f3dcd6;color:var(--ox)}
+.is-armed:not(.is-playing) .st--switch b:first-child{opacity:1}
+.is-armed:not(.is-playing) .st--switch b:last-child{opacity:0}
+.is-playing .st--switch,.is-playing .st--switch b{transition:background .5s,color .5s,opacity .5s;transition-delay:1.1s}
+.is-playing .is-switch--2 .st--switch,.is-playing .is-switch--2 .st--switch b{transition-delay:2s}
+/* PDF-Rechnung auf Papier */
+.ui--paper{max-width:540px;justify-self:center}
+.ui__pdf{position:relative;display:flex;flex-direction:column;gap:1em;padding:2.4em;background:#fff;color:var(--ink);font:400 2.7cqi/1.4 var(--sans);box-shadow:0 3em 6em -3em rgba(0,0,0,.85);rotate:-1.5deg}
+.ui__pdf p{margin:0}
+.ui__pdf-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1em}
+.ui__pdf-head b{display:flex;align-items:center;gap:.35em;font:400 1.1em/1 var(--serif);letter-spacing:.16em;text-transform:uppercase}
+.ui__pdf-head b i{width:1.1em;height:1px;background:var(--ox)}
+.ui__pdf-head span{font-size:.72em;text-align:right;color:rgba(21,18,19,.65)}
+.ui__pdf-to{font-size:.85em}
+.ui__pdf-title{font:400 2em/1 var(--serif)}
+.ui__pdf-title span{display:block;margin-top:.5em;font:400 .38em/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:rgba(21,18,19,.6)}
+.ui__pdf-rows{border-top:1px solid var(--ink)}
+.ui__pdf-rows p,.ui__pdf p.ui__pdf-total{display:flex;justify-content:space-between;gap:1em;padding:.5em 0;border-bottom:1px solid rgba(21,18,19,.1);font-variant-numeric:tabular-nums}
+.ui__pdf p.ui__pdf-total{padding-top:.6em;border-bottom:0;border-top:2px solid var(--ink);font:400 1.5em/1 var(--serif)}
+.ui__stamp{position:absolute;right:2.4em;bottom:4.6em;padding:.3em .7em;border:1px solid var(--ox);color:var(--ox);font-size:.72em;letter-spacing:.14em;text-transform:uppercase;rotate:-6deg}
+/* Schmale Mockups (Handy): größere Schrift, Nebenspalten ausblenden */
+@container (max-width:520px){
+  .ui__win{padding:1.2em 1.3em;font-size:3.4cqi}
+  .ui__pdf{padding:1.6em;font-size:3.6cqi}
+  .ui__split,.ui__win--horse{grid-template-columns:1fr}
+  .ui__kpis{grid-template-columns:1fr 1fr}.ui__kpis>div:last-child{grid-column:1/-1}
+  .ui__list{display:none}
+  .ui__table p{grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr))}
+  .ui__table p span:nth-child(2){display:none}
+  .ui__status p{grid-template-columns:minmax(0,1fr) auto 7em}
+  .ui__status p span:nth-child(1),.ui__status p span:nth-child(3){display:none}
+  .ui__stamp{bottom:5.6em}
+}
+
+/* 4) Interaktive Demo: helles App-Fenster auf Noir; Formular links, Rechnung rechts */
+.demo{overflow:hidden;border-radius:18px;background:#fbf8f3;color:var(--ink);box-shadow:0 40px 90px -50px rgba(0,0,0,.9)}
+.theme-noir .demo :focus-visible{outline-color:var(--ox)}
+.demo__bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:#ece6dc;border-bottom:1px solid rgba(21,18,19,.1);font-size:12.5px;color:rgba(21,18,19,.65)}
+.demo__bar i{width:11px;height:11px;border-radius:50%;background:#d6ccbf}
+.demo__bar span{margin-left:14px;padding:4px 12px;border-radius:7px;background:#fbf8f3}
+.demo__body{display:grid}
+.demo__body>*{min-width:0}
+.demo__form{display:grid;gap:22px;align-content:start;padding:clamp(22px,3vw,40px);border-bottom:1px solid rgba(21,18,19,.1)}
+.demo__form[hidden],.demo__items[hidden]{display:none}
+.demo__title{margin:0;font:400 clamp(28px,2.6vw,36px)/1 var(--serif)}
+.demo__label{display:block;margin:0 0 10px;padding:0;font:500 10.5px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(21,18,19,.72)}
+.demo__horses{margin:0;padding:0;border:0;min-width:0}
+.demo__horse-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px}
+.demo__horse{position:relative;cursor:pointer}
+.demo__horse input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.demo__horse span{display:grid;gap:3px;min-height:44px;padding:12px 14px;border:1px solid rgba(21,18,19,.25);border-radius:10px;transition:background .25s,border-color .25s,color .25s}
+.demo__horse b{font:400 20px/1.1 var(--serif)}
+.demo__horse small{font-size:12px;opacity:.75}
+.demo__horse:hover span{border-color:var(--ink)}
+.demo__horse input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+.demo__horse input:focus-visible+span{outline:2px solid var(--ox);outline-offset:3px}
+.demo select,.demo__amount input{width:100%;min-height:48px;padding:12px 14px;border:1px solid rgba(21,18,19,.35);border-radius:10px;background:#fff;color:var(--ink);font:400 16px/1.2 var(--sans)}
+.demo__amount{position:relative}
+.demo__amount input{padding-right:40px;font-variant-numeric:tabular-nums}
+.demo__amount span{position:absolute;right:14px;top:50%;translate:0 -50%;opacity:.65}
+.demo__amount input[aria-invalid="true"]{border-color:var(--ox);box-shadow:0 0 0 1px var(--ox)}
+.demo__hint{margin:8px 0 0;font-size:13px;color:rgba(21,18,19,.7)}
+.demo__error{margin:6px 0 0;font-size:13.5px;font-weight:500;color:var(--ox)}
+.demo__error:empty{display:none}
+.theme-noir .demo .btn{width:100%;background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+.theme-noir .demo .btn:hover{background:var(--ox);border-color:var(--ox);color:var(--ivory)}
+.demo__reset{justify-self:start;min-height:32px;padding:6px 0;border:0;border-bottom:1px solid currentColor;background:none;color:inherit;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.demo__reset:hover{color:var(--ox)}
+.demo__nojs{margin:0;padding:clamp(22px,3vw,40px)}
+.demo__out{display:grid;gap:22px;align-content:start;padding:clamp(22px,3vw,40px);background:#f3eee6}
+.demo__invoice{padding:clamp(18px,2.4vw,28px);border-radius:12px;background:#fff;box-shadow:0 24px 50px -34px rgba(21,18,19,.5)}
+.demo__out>*{min-width:0}  /* Grid-Kinder dürfen schmaler als ihr Inhalt werden (320 px) */
+.demo__inv-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 12px;margin:0}
+.demo__inv-head .demo__label{margin:0;color:var(--ox)}
+.demo__inv-head>span:last-child{font:400 15px/1 var(--serif);white-space:nowrap}
+.demo__inv-to{margin:10px 0 16px;font-size:14px;opacity:.85}
+.demo__inv-to b{font-weight:500}
+.demo__items{list-style:none;margin:0;padding:0;border-top:1px solid rgba(21,18,19,.18)}
+.demo__items li{display:grid;grid-template-columns:minmax(0,1fr) auto 32px;align-items:center;gap:8px;margin:0 -8px;padding:8px;border-bottom:1px solid rgba(21,18,19,.1);font-size:15px}
+.demo__items li span{overflow-wrap:anywhere}
+.demo__items li b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.demo__items li.is-new{animation:demo-new 1.8s ease both}
+@keyframes demo-new{0%{opacity:0;transform:translateX(-10px);background:var(--blush)}25%{opacity:1;transform:none;background:var(--blush)}100%{background:transparent}}
+.demo__remove{grid-column:3;width:32px;height:32px;border:0;border-radius:50%;background:none;color:rgba(21,18,19,.7);font:400 20px/1 var(--sans);cursor:pointer}
+.demo__remove:hover{background:#f3dcd6;color:var(--ox)}
+.demo__inv-total{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 0;padding-top:12px;border-top:2px solid var(--ink);font:400 clamp(24px,2.6vw,30px)/1 var(--serif)}
+.demo__inv-total b{font-weight:400;font-variant-numeric:tabular-nums}
+.demo__overview ul{list-style:none;margin:0;padding:0}
+.demo__overview li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid rgba(21,18,19,.12)}
+.demo__overview li small{margin-left:6px;font-size:12.5px;opacity:.75}
+.demo__overview li.is-current>span::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:var(--ox)}
+.demo__overview b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.demo__all{display:flex;justify-content:space-between;gap:12px;margin:12px 0 0;font:400 20px/1.2 var(--serif)}
+.demo__all b{font-weight:400;font-variant-numeric:tabular-nums}
+@media(min-width:900px){
+  .demo__body{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+  .demo__form{border-bottom:0;border-right:1px solid rgba(21,18,19,.1)}
+}
+
+/* 5) Anwendungsfälle: Foto (klebt auf Desktop) + Szenen mit großer Uhrzeit, leicht versetzt */
+.swp-cases__grid{display:grid;gap:clamp(36px,5vw,80px)}
+.swp-cases__grid>*{min-width:0}
+.swp-cases__photo{aspect-ratio:4/3}
+.swp-cases__list{list-style:none;margin:0;padding:0;border-top:1px solid currentColor}
+.swp-case{display:grid;gap:10px;padding:clamp(26px,3vw,40px) 0;border-bottom:1px solid var(--line)}
+.swp-case>*{min-width:0}
+.swp-case p{margin:0}
+.swp-case__time{font:italic 400 clamp(38px,4.4vw,64px)/.95 var(--serif);color:var(--accent)}
+.swp-case h3{margin:12px 0 10px;font:400 clamp(26px,2.8vw,38px)/1.05 var(--serif)}
+.swp-case div>p{max-width:52ch;opacity:.88}
+.swp-case div>p.swp-case__tier{margin-top:14px;font:500 10.5px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+@media(min-width:700px){.swp-case{grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(20px,3vw,48px);align-items:baseline}}
+@media(min-width:1100px){
+  .swp-cases__grid{grid-template-columns:minmax(0,4fr) minmax(0,8fr);align-items:start}
+  .swp-cases__photo{position:sticky;top:110px;aspect-ratio:3/4}
+  .swp-case:nth-child(even){padding-left:clamp(0px,4vw,60px)}
+}
+
+/* 6) Tarife: drei Spalten (Professional hervorgehoben), Warenkorb je Tarif, Vergleich aufklappbar */
+.tarife{display:grid;gap:20px}
+.tarif{display:flex;flex-direction:column;gap:10px;padding:clamp(24px,3vw,36px);border:1px solid var(--line);border-radius:22px}
+.tarif--focus{border-color:var(--accent)}
+.tarif__product{margin:0;opacity:.75}
+.tarif h3{margin:0;font:italic 400 clamp(32px,3.4vw,46px)/1 var(--serif)}
+.tarif__price{margin:6px 0 0;font:400 clamp(40px,4.4vw,56px)/1 var(--serif)}
+.tarif__price small{margin-left:8px;font:500 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.tarif__for{margin:0;opacity:.85;font-size:15px}
+.tarif__list{list-style:none;margin:14px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:8px;margin-bottom:14px;font-size:15px}
+.tarif__list li{position:relative;padding-left:18px}
+.tarif__list li::before{content:"";position:absolute;left:0;top:.75em;width:8px;height:1px;background:var(--accent)}
+.tarif__list em{opacity:.8}
+.tarif__btn{align-self:flex-start;margin-top:auto}
+@media(min-width:900px){.tarife{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.compare{margin-top:clamp(36px,5vw,60px);border-top:1px solid currentColor;border-bottom:1px solid var(--line)}
+.compare summary{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;list-style:none;cursor:pointer;font:400 clamp(22px,2.2vw,30px)/1.2 var(--serif)}
+.compare summary::-webkit-details-marker{display:none}
+.compare summary::after{content:"+";font:300 28px/1 var(--sans);color:var(--accent)}
+.compare[open] summary::after{content:"–"}
+.compare__scroll{overflow-x:auto;padding-bottom:24px}
+.compare__table{width:100%;min-width:620px;border-collapse:collapse;font-size:15px}
+.compare__table caption{padding:0 0 14px;text-align:left;font:500 10.5px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.compare__table th,.compare__table td{padding:14px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.compare__table th:first-child{width:36%;padding-left:0}
+.compare__table thead th{border-bottom-color:currentColor;font:italic 400 22px/1.1 var(--serif)}
+.compare__table thead th span{display:block;margin-top:6px;font:500 10px/1 var(--sans);font-style:normal;letter-spacing:.16em;opacity:.75}
+.compare__table tbody th{font-weight:400}
+.compare__table th:nth-child(3),.compare__table td:nth-child(3){background:rgba(233,201,192,.07)}
+.compare .yes::before{content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:var(--accent);vertical-align:.1em}
+.compare .no{opacity:.6}
+.swp-specs{margin-top:clamp(50px,7vw,90px);padding-top:clamp(40px,5vw,60px)}
+.swp-specs__title{margin:10px 0 20px;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif);letter-spacing:-.02em}
+
+/* 7) FAQ auf Noir: Linien und Plus-Zeichen umfärben (Baustein aus Abschnitt 11) */
+.theme-noir .faq__list{border-top-color:var(--ivory)}
+.theme-noir .faq details{border-bottom-color:var(--smoke)}
+.theme-noir .faq summary::after{color:var(--blush)}
+
+/* 8) Abschluss-CTA: S/W-Foto auf Ink (wie der Cinematic Hero der Startseite), Akzent Blush */
+.swp-closing{position:relative;display:grid;align-items:end;min-height:min(90svh,820px);overflow:hidden;border-top:1px solid var(--line)}
+.swp-closing .swp-closing__photo{position:absolute;inset:0;margin:0}
+.swp-closing__photo img{object-position:50% 30%}
+.swp-closing__photo::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(21,18,19,.25) 0%,rgba(21,18,19,.6) 45%,var(--ink) 100%)}
+.swp-closing__photo figcaption{top:12px;right:12px;bottom:auto;left:auto}
+.swp-closing__text{position:relative;z-index:3;display:grid;gap:18px;justify-items:start;padding:clamp(60px,8vw,120px) var(--pad)}
+.swp-closing h2{margin:0;font:400 clamp(54px,10vw,160px)/.92 var(--serif);letter-spacing:-.04em}
+.swp-closing h2 em{color:var(--blush)}
+.swp-closing p{margin:0;max-width:44ch;font-size:18px;opacity:.9}
+@media(min-width:900px){
+  .swp-closing{align-items:center}
+  .swp-closing .swp-closing__photo{left:auto;width:58%}
+  .swp-closing__photo::after{background:linear-gradient(90deg,var(--ink) 0%,rgba(21,18,19,.45) 30%,rgba(21,18,19,0) 60%),linear-gradient(180deg,rgba(21,18,19,0) 65%,var(--ink) 100%)}
+}
+
+/* 16a) Warenkorb (warenkorb.html, Variante A „Maison“) --------------------------------------------
+   Inhalt kommt aus js/app.js (Abschnitt 3b). Handy: Zeile in drei Reihen; ab 700 px eine Zeile;
+   ab 1000 px Liste links, Summe rechts (bleibt beim Scrollen stehen). */
+.cart [hidden]{display:none!important}
+.cart{padding-top:clamp(30px,4vw,50px)}
+.cart__content{display:grid;gap:clamp(30px,5vw,60px)}
+.cart__content>*{min-width:0}
+.cart__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.cart__item{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"info info" "qty line" "remove remove";gap:14px 12px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.cart__info{grid-area:info}
+.cart__name{margin:0;font:400 clamp(24px,2.4vw,32px)/1.1 var(--serif);overflow-wrap:anywhere}
+.cart__unit{margin:6px 0 0;font-size:14px;opacity:.75}
+.cart__qty{grid-area:qty;display:inline-flex;align-items:center;border:1px solid var(--ink);border-radius:99px}
+.cart__qty-btn{width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:inherit;font:400 20px/1 var(--sans);cursor:pointer}
+.cart__qty-btn:hover:not(:disabled){color:var(--ox)}
+.cart__qty-btn:disabled{opacity:.3;cursor:default}
+.cart__qty-value{min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+.cart__line{grid-area:line;margin:0;text-align:right;font:400 clamp(19px,5.6vw,24px)/1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cart__remove{grid-area:remove;justify-self:start;padding:6px 0;border:0;border-bottom:1px solid currentColor;background:none;color:inherit;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.cart__remove:hover{color:var(--ox)}
+.cart__summary{display:grid;gap:14px;align-content:start;padding:clamp(22px,3vw,34px);border-radius:22px;background:#ebe5db}
+.cart__summary h2{margin:0}
+.cart__totals{margin:0}
+.cart__totals>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart__totals dd{margin:0 0 0 auto;font:400 clamp(20px,6.5vw,26px)/1 var(--serif);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cart__tax,.cart__note{margin:0;font-size:13.5px;opacity:.8}
+.cart__summary .btn{width:100%}
+.cart__empty,.cart__done{display:grid;gap:18px;justify-items:start;max-width:56ch}
+.cart__empty-text{margin:0;font:italic 400 clamp(30px,4vw,48px)/1.1 var(--serif)}
+.cart__done-title{margin:0;font:italic 400 clamp(34px,4.4vw,60px)/1 var(--serif)}
+.cart__done p{margin:0}
+.cart__done:focus{outline:none}
+.cart__links{display:flex;flex-wrap:wrap;gap:16px 28px;margin:0}
+@media(min-width:700px){
+  .cart__item{grid-template-columns:minmax(0,1fr) auto minmax(7em,auto) auto;grid-template-areas:"info qty line remove"}
+  .cart__remove{justify-self:end}
+}
+@media(min-width:1000px){
+  .cart__content{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:start}
+  .cart__summary{position:sticky;top:110px}
+}
+
+/* 16b) Demo-Kasse (warenkorb.html): Fortschritt, Formular, Zahlungsart, Prüfen, Bestätigung ----------
+   Logik in js/app.js (Abschnitt 3c). Felder mit 48 px Mindesthöhe (gut antippbar), 16 px Schrift
+   (verhindert das automatische Hineinzoomen auf dem iPhone). Fehlerfarbe Oxblood auf Ivory (10,25:1). */
+.checkout-steps{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 clamp(26px,4vw,44px);padding:0;list-style:none;color:rgba(21,18,19,.62)}
+.checkout-steps li{display:flex;align-items:center;gap:8px;padding-bottom:6px;border-bottom:1px solid transparent}
+.checkout-steps span{font:400 15px/1 var(--serif);letter-spacing:0}
+.checkout-steps [aria-current="step"]{color:var(--ink);border-bottom-color:var(--ox)}
+.checkout-steps [aria-current="step"] span{color:var(--ox)}
+.checkout{display:grid;gap:clamp(30px,5vw,60px)}
+.checkout>*{min-width:0}
+.checkout__main{display:grid;gap:clamp(26px,3.5vw,40px);align-content:start}
+.checkout__head{display:grid;gap:14px;justify-items:start;max-width:60ch}
+.checkout__head:focus{outline:none}
+.checkout__title{margin:0;font:400 clamp(38px,5vw,64px)/1 var(--serif);letter-spacing:-.02em}
+.checkout__intro{margin:0;opacity:.85}
+.checkout__intro strong{font-weight:500}
+.checkout__fill,.checkout__back{min-height:32px;padding:6px 0;border:0;border-bottom:1px solid currentColor;background:none;color:inherit;font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.checkout__fill:hover,.checkout__back:hover{color:var(--ox)}
+.checkout__errors{padding:18px 20px;border:1px solid var(--ox);border-left-width:4px;border-radius:12px;background:#fbf8f3}
+.checkout__errors:focus{outline:2px solid var(--ox);outline-offset:3px}
+.checkout__errors-title{margin:0 0 8px;font-weight:500;color:var(--ox)}
+.checkout__errors ul{margin:0;padding-left:20px}
+.checkout__errors a{color:var(--ox);text-decoration:underline}
+.checkout__group{min-width:0;margin:0;padding:22px 0 0;border:0;border-top:1px solid var(--ink)}
+.checkout__group legend{float:left;width:100%;margin:0 0 18px;padding:0}  /* float: Legende sitzt im Raster statt auf der Linie */
+.checkout__group legend+*{clear:both}
+.checkout__grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px 14px}
+.field{grid-column:1/-1;display:grid;gap:7px;align-content:start}
+.field label{font:500 10.5px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(21,18,19,.78)}
+.field__optional{letter-spacing:.06em;text-transform:none;opacity:.8}
+.field input,.field select{width:100%;min-height:48px;padding:12px 14px;border:1px solid rgba(21,18,19,.4);border-radius:10px;background:#fff;color:var(--ink);font:400 16px/1.2 var(--sans)}
+.field input:hover,.field select:hover{border-color:var(--ink)}
+.field input[aria-invalid="true"]{border-color:var(--ox);box-shadow:0 0 0 1px var(--ox)}
+.field__hint{margin:0;font-size:13px;color:rgba(21,18,19,.72)}
+.field__error{margin:0;font-size:13.5px;font-weight:500;color:var(--ox)}
+.field__error:empty{display:none}
+.pay{display:grid;gap:10px;margin:12px 0 0}
+.pay__option{position:relative;cursor:pointer}
+.pay__option input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.pay__option span{display:grid;gap:3px;min-height:56px;padding:14px 16px 14px 48px;border:1px solid rgba(21,18,19,.3);border-radius:12px;background:#fff;transition:border-color .25s,background .25s}
+/* Eigener Auswahlkreis (das echte Optionsfeld liegt unsichtbar darüber und bleibt bedienbar) */
+.pay__option span::before{content:"";position:absolute;left:16px;top:50%;width:18px;height:18px;translate:0 -50%;border:1px solid var(--ink);border-radius:50%;background:#fff;box-shadow:inset 0 0 0 4px #fff}
+.pay__option b{font:400 21px/1.1 var(--serif)}
+.pay__option small{font-size:13px;opacity:.75}
+.pay__option:hover span{border-color:var(--ink)}
+.pay__option input:checked+span{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.pay__option input:checked+span::before{background:var(--ox);border-color:var(--ox)}
+.pay__option input:focus-visible+span{outline:2px solid var(--ox);outline-offset:3px}
+.checkout__actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px}
+.checkout__mini{list-style:none;margin:0;padding:0}
+.checkout__mini li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.checkout__mini li span{overflow-wrap:anywhere}
+.checkout__mini li b{font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.review{display:grid;gap:clamp(26px,3.5vw,40px)}
+.review__grid{display:grid;gap:14px}
+.review__grid>*{min-width:0}
+.review__box{display:grid;gap:12px;align-content:start;justify-items:start;padding:clamp(20px,2.6vw,30px);border-radius:22px;background:#ebe5db}
+.review__box>*{max-width:100%}
+.review__box h3{margin:0}
+.review__box--wide{justify-items:stretch}
+.review__box--wide .checkout__back{justify-self:start}
+.review__text{margin:0;font-style:normal;white-space:pre-line;overflow-wrap:anywhere}
+.review__confirm{display:grid;gap:14px;justify-items:start;max-width:60ch}
+.check{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.check input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:var(--ox);cursor:pointer}
+.check input[aria-invalid="true"]{outline:2px solid var(--ox);outline-offset:2px}
+.review__status{margin:0;font-size:14px;font-weight:500}
+.review__status:empty{display:none}
+.btn:disabled{opacity:.6;cursor:progress}
+.done__facts{display:grid;gap:0;margin:0;width:100%;border-top:1px solid var(--ink)}
+.done__facts>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.done__facts dd{margin:0;font:400 clamp(19px,2.2vw,24px)/1.2 var(--serif);font-variant-numeric:tabular-nums}
+@media(min-width:600px){
+  .field--half{grid-column:span 3}
+  .field--plz{grid-column:span 2}
+  .field--ort{grid-column:span 4}
+  .checkout__grid .field:nth-child(-n+2){grid-column:span 3}   /* Vorname und Nachname nebeneinander */
+  .pay{grid-template-columns:1fr 1fr}
+}
+@media(min-width:800px){
+  .review__grid{grid-template-columns:1fr 1fr}
+  .review__box--wide{grid-column:1/-1}
+}
+@media(min-width:1000px){
+  .checkout{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:start}
+  .checkout__aside{position:sticky;top:110px}
+}
+
+/* 17) Sehr schmale Smartphones (< 360 px): Header und Footer verhindern horizontales Scrollen */
+@media(max-width:359px){
+  .site-header{gap:8px}
+  .wordmark{font-size:15px;letter-spacing:.1em}
+  .header-cart{letter-spacing:.08em}
+}

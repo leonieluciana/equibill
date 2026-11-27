@@ -1,5 +1,5 @@
 /* EquiBill – kleine Demo-Logik für alle Seiten (kein Backend, keine Übertragung an Server)
-   1) Mobiles Menü   2) Kategorie-Filter im Shop   3) Warenkorb (lokal im Browser)   4) Effekte
+   1) Mobiles Menü   2) Kategorie-Filter im Shop   3) Warenkorb (lokal im Browser) und Demo-Kasse   4) Effekte
    5) Sortiment-Navigation (Shop)   6) Software-Seite: Tabs, abspielende Mockups, interaktive Demo
    Jeder Teil prüft, ob seine Elemente auf der aktuellen Seite vorkommen.
    Ohne JavaScript bleibt alles nutzbar: das Menü ist ein <details>-Element,
@@ -168,8 +168,10 @@
   // Zähler beim Laden aus dem Speicher setzen (nur lesen, legt nichts an)
   updateCounters(readCart());
 
-  /* 3b) Seite warenkorb.html: Liste, Menge ändern, Entfernen, Summen, Demo-Bestellung.
-     Alle Texte werden mit textContent gesetzt, nie als HTML (sicher auch bei manipulierten Daten). */
+  /* 3b) Seite warenkorb.html: Liste, Menge ändern, Entfernen, Summen.
+     Alle Texte werden mit textContent gesetzt, nie als HTML (sicher auch bei manipulierten Daten).
+     Die Seite hat vier Schritte: cart (Warenkorb) → form (Angaben) → review (Prüfen) → done (Fertig).
+     showStep() blendet jeweils genau einen Bereich ein. */
   var cartPage = document.querySelector('[data-cart]');
   var renderCart = function () {};
   if (cartPage) {
@@ -179,6 +181,10 @@
     var doneEl = cartPage.querySelector('[data-cart-done]');
     var onceRow = cartPage.querySelector('[data-cart-total-once]');
     var monthlyRow = cartPage.querySelector('[data-cart-total-monthly]');
+    var stepsEl = cartPage.querySelector('[data-checkout-steps]');
+    var formEl = cartPage.querySelector('[data-checkout]');
+    var reviewEl = cartPage.querySelector('[data-checkout-review]');
+    var step = 'cart';
 
     function el(tag, className, text) {
       var node = document.createElement(tag);
@@ -197,18 +203,46 @@
       return b;
     }
 
+    // Einmalige Preise und Abo-Preise getrennt summieren (in Cent)
+    function sumCart(items) {
+      var t = { once: 0, monthly: 0 };
+      items.forEach(function (i) { if (i.monthly) { t.monthly += i.cents * i.qty; } else { t.once += i.cents * i.qty; } });
+      return t;
+    }
+
+    // Kurzliste (Name, Menge, Zeilensumme) und Summen für Kasse und Prüfseite
+    function fillMini(listNode, totalsNode, items) {
+      if (!listNode || !totalsNode) { return; }
+      listNode.textContent = '';
+      items.forEach(function (item) {
+        var li = el('li');
+        li.appendChild(el('span', '', item.qty + ' × ' + item.name));
+        li.appendChild(el('b', '', formatCents(item.cents * item.qty) + (item.monthly ? ' / Monat' : '')));
+        listNode.appendChild(li);
+      });
+      var t = sumCart(items);
+      totalsNode.textContent = '';
+      function row(label, value) {
+        var d = el('div');
+        d.appendChild(el('dt', '', label));
+        d.appendChild(el('dd', '', value));
+        totalsNode.appendChild(d);
+      }
+      if (t.once > 0 || t.monthly === 0) { row('Einmalig', formatCents(t.once)); }
+      if (t.monthly > 0) { row('Monatlich', formatCents(t.monthly) + ' / Monat'); }
+      row('Versandkosten', formatCents(0));
+    }
+
     renderCart = function () {
       var items = readCart();
       updateCounters(items);
       listEl.textContent = '';
-      if (!doneEl.hidden) { return; }           // nach der Demo-Bestellung bleibt die Bestätigung stehen
-      emptyEl.hidden = items.length > 0;
-      contentEl.hidden = items.length === 0;
+      if (step === 'done') { return; }          // nach der Demo-Bestellung bleibt die Bestätigung stehen
+      // Wird der Warenkorb während der Kasse leer (z. B. in einem anderen Tab), zurück zum Warenkorb
+      if (items.length === 0 && step !== 'cart') { showStep('cart'); return; }
 
-      var once = 0, monthly = 0;
       items.forEach(function (item, index) {
         var line = item.cents * item.qty;
-        if (item.monthly) { monthly += line; } else { once += line; }
         var suffix = item.monthly ? ' / Monat' : '';
 
         var li = el('li', 'cart__item');
@@ -236,11 +270,41 @@
         listEl.appendChild(li);
       });
 
-      onceRow.hidden = once === 0 && monthly > 0;
-      monthlyRow.hidden = monthly === 0;
-      onceRow.querySelector('dd').textContent = formatCents(once);
-      monthlyRow.querySelector('dd').textContent = formatCents(monthly) + ' / Monat';
+      var t = sumCart(items);
+      onceRow.hidden = t.once === 0 && t.monthly > 0;
+      monthlyRow.hidden = t.monthly === 0;
+      onceRow.querySelector('dd').textContent = formatCents(t.once);
+      monthlyRow.querySelector('dd').textContent = formatCents(t.monthly) + ' / Monat';
+
+      // Kurzübersichten in Kasse und Prüfschritt aktuell halten
+      fillMini(cartPage.querySelector('[data-checkout-mini]'), cartPage.querySelector('[data-checkout-totals]'), items);
+      fillMini(cartPage.querySelector('[data-review-items]'), cartPage.querySelector('[data-review-totals]'), items);
+
+      if (step === 'cart') { showStep('cart'); }
     };
+
+    // Genau einen Schritt einblenden, Fortschrittsanzeige setzen, optional Fokus setzen
+    function showStep(name, focusTarget) {
+      step = name;
+      var hasItems = readCart().length > 0;
+      contentEl.hidden = !(name === 'cart' && hasItems);
+      emptyEl.hidden = !(name === 'cart' && !hasItems);
+      if (formEl) { formEl.hidden = name !== 'form'; }
+      if (reviewEl) { reviewEl.hidden = name !== 'review'; }
+      doneEl.hidden = name !== 'done';
+      if (stepsEl) {
+        stepsEl.hidden = name === 'cart' && !hasItems;
+        stepsEl.querySelectorAll('[data-step]').forEach(function (li) {
+          if (li.getAttribute('data-step') === name) { li.setAttribute('aria-current', 'step'); }
+          else { li.removeAttribute('aria-current'); }
+        });
+      }
+      if (focusTarget) {
+        focusTarget.focus();
+        // Bereich sichtbar machen (ruhig, ohne Animation bei „Bewegung reduzieren“)
+        cartPage.scrollIntoView({ block: 'start' });
+      }
+    }
 
     // Ein Klick-Empfänger für die ganze Liste (die Zeilen werden neu aufgebaut)
     listEl.addEventListener('click', function (e) {
@@ -271,15 +335,200 @@
       if (target) { target.focus(); }
     });
 
-    // Demo-Bestellung: keine Datenabfrage, nur Bestätigung; Warenkorb wird geleert
-    cartPage.querySelector('[data-cart-order]').addEventListener('click', function () {
-      writeCart([]);
-      updateCounters([]);
-      contentEl.hidden = true;
-      emptyEl.hidden = true;
-      doneEl.hidden = false;
-      doneEl.focus();   // Screenreader lesen die Bestätigung vor
-    });
+    /* 3c) Demo-Kasse: Angaben, Zahlungsart, Prüfen, simulierte Zahlung, Bestätigung.
+       Datenschutz: Die Eingaben bleiben nur im geöffneten Fenster (im Formular und in der Variable „order“).
+       Nichts davon wird gespeichert (kein localStorage) oder übertragen (kein Server, das Absenden wird abgefangen).
+       Nach der Bestellung werden Formular und Variable geleert. Karten- oder Kontodaten werden nie abgefragt. */
+    if (formEl && reviewEl) {
+      var order = null;                       // geprüfte Angaben, nur im Arbeitsspeicher
+      var triedSubmit = false;                // Fehler erst nach dem ersten Absenden live aktualisieren
+      var errorBox = formEl.querySelector('[data-checkout-errors]');
+      var errorList = formEl.querySelector('[data-checkout-error-list]');
+      var consent = reviewEl.querySelector('[data-review-consent]');
+      var consentError = document.getElementById('rv-zustimmung-fehler');
+      var orderBtn = reviewEl.querySelector('[data-checkout-order]');
+      var statusEl = reviewEl.querySelector('[data-review-status]');
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+      // Pflichtfelder mit verständlicher Fehlermeldung
+      var REQUIRED = [
+        { name: 'vorname',  msg: 'Bitte gib einen Vornamen ein.' },
+        { name: 'nachname', msg: 'Bitte gib einen Nachnamen ein.' },
+        { name: 'email',    msg: 'Bitte gib eine E-Mail-Adresse ein.' },
+        { name: 'strasse',  msg: 'Bitte gib Straße und Hausnummer ein.' },
+        { name: 'plz',      msg: 'Bitte gib eine PLZ ein.' },
+        { name: 'ort',      msg: 'Bitte gib einen Ort ein.' }
+      ];
+
+      function value(name) { return (formEl.elements[name].value || '').trim(); }
+
+      // Ein Feld prüfen; Rückgabe: Fehlermeldung oder ''
+      function checkField(name) {
+        var v = value(name);
+        var rule = REQUIRED.filter(function (r) { return r.name === name; })[0];
+        if (rule && !v) { return rule.msg; }
+        if (name === 'email' && !EMAIL_RE.test(v)) { return 'Bitte gib eine gültige E-Mail-Adresse ein, z. B. name@example.com.'; }
+        if (name === 'plz') {
+          var de = value('land') === 'Deutschland';
+          if (!(de ? /^\d{5}$/ : /^\d{4}$/).test(v)) {
+            return 'Die PLZ für ' + value('land') + ' hat ' + (de ? '5' : '4') + ' Ziffern.';
+          }
+        }
+        return '';
+      }
+
+      function showFieldError(name, msg) {
+        var input = formEl.elements[name];
+        var errEl = document.getElementById('co-' + name + '-fehler');
+        if (input.setAttribute) { input.setAttribute('aria-invalid', msg ? 'true' : 'false'); }
+        if (errEl) { errEl.textContent = msg; }
+      }
+
+      // Alle Felder prüfen, Fehler anzeigen; Rückgabe: Liste der Fehler
+      function validate() {
+        var errors = [];
+        REQUIRED.forEach(function (r) {
+          var msg = checkField(r.name);
+          showFieldError(r.name, msg);
+          if (msg) { errors.push({ id: 'co-' + r.name, msg: msg }); }
+        });
+        var paymentMsg = formEl.elements.zahlung.value ? '' : 'Bitte wähle eine Zahlungsart.';
+        document.getElementById('co-zahlung-fehler').textContent = paymentMsg;
+        if (paymentMsg) { errors.push({ id: formEl.querySelector('[name="zahlung"]').id || '', msg: paymentMsg, radio: true }); }
+        return errors;
+      }
+
+      function showErrorSummary(errors) {
+        errorList.textContent = '';
+        errors.forEach(function (err) {
+          var li = el('li');
+          var a = el('a', '', err.msg);
+          a.href = '#';
+          a.addEventListener('click', function (e) {
+            e.preventDefault();
+            var target = err.radio ? formEl.querySelector('[name="zahlung"]') : document.getElementById(err.id);
+            if (target) { target.focus(); }
+          });
+          li.appendChild(a);
+          errorList.appendChild(li);
+        });
+        errorBox.hidden = errors.length === 0;
+      }
+
+      // Nach dem ersten Absenden: Fehler beim Tippen sofort aktualisieren
+      formEl.addEventListener('input', function (e) {
+        if (!triedSubmit) { return; }
+        var name = e.target.name;
+        if (name === 'zahlung' || name === 'land') { validate(); }
+        else if (REQUIRED.some(function (r) { return r.name === name; })) { showFieldError(name, checkField(name)); }
+      });
+      formEl.addEventListener('change', function (e) {
+        if (triedSubmit && (e.target.name === 'zahlung' || e.target.name === 'land')) { validate(); }
+      });
+
+      // Schritt 1 → 2
+      cartPage.querySelector('[data-checkout-start]').addEventListener('click', function () {
+        if (!readCart().length) { renderCart(); return; }
+        showStep('form', formEl.querySelector('[data-checkout-focus]'));
+      });
+
+      // Zurück-Schaltflächen (zum Warenkorb oder zu den Angaben)
+      cartPage.querySelectorAll('[data-checkout-back]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var to = btn.getAttribute('data-checkout-back');
+          if (to === 'form') { showStep('form', formEl.querySelector('[data-checkout-focus]')); }
+          else { showStep('cart', cartPage.querySelector('[data-checkout-start]')); renderCart(); }
+        });
+      });
+
+      // Erfundene Testdaten einfügen (praktisch für Präsentationen)
+      formEl.querySelector('[data-checkout-fill]').addEventListener('click', function () {
+        var demo = { vorname: 'Mila', nachname: 'Beispiel', firma: 'Reitstall Musterhof (fiktiv)',
+          email: 'mila.beispiel@example.com', strasse: 'Musterweg 12', plz: '12345', ort: 'Musterstadt', land: 'Deutschland' };
+        Object.keys(demo).forEach(function (k) { formEl.elements[k].value = demo[k]; });
+        formEl.querySelector('[name="zahlung"][value="Rechnung"]').checked = true;
+        if (triedSubmit) { showErrorSummary(validate()); }
+        showToast('Erfundene Testdaten wurden eingefügt.');
+      });
+
+      // Schritt 2 → 3: prüfen, Angaben merken (nur in der Variable), Prüfseite füllen
+      formEl.addEventListener('submit', function (e) {
+        e.preventDefault();                   // nichts wird gesendet
+        triedSubmit = true;
+        var errors = validate();
+        showErrorSummary(errors);
+        if (errors.length) { errorBox.focus(); return; }
+
+        order = {
+          vorname: value('vorname'), nachname: value('nachname'), firma: value('firma'), email: value('email'),
+          strasse: value('strasse'), plz: value('plz'), ort: value('ort'), land: value('land'),
+          zahlung: formEl.elements.zahlung.value
+        };
+        // Adresse zeilenweise (CSS: white-space:pre-line), sicher per textContent
+        reviewEl.querySelector('[data-review-address]').textContent = [
+          order.vorname + ' ' + order.nachname, order.firma, order.strasse,
+          order.plz + ' ' + order.ort, order.land, order.email
+        ].filter(Boolean).join('\n');
+        reviewEl.querySelector('[data-review-payment]').textContent = order.zahlung + ' (Demo, keine Zahlung)';
+        consent.checked = false;
+        consent.setAttribute('aria-invalid', 'false');
+        consentError.textContent = '';
+        statusEl.textContent = '';
+        renderCart();
+        showStep('review', reviewEl.querySelector('[data-review-focus]'));
+      });
+
+      consent.addEventListener('change', function () {
+        if (consent.checked) { consentError.textContent = ''; consent.setAttribute('aria-invalid', 'false'); }
+      });
+
+      // Fiktive Bestellnummer, z. B. EB-DEMO-482913
+      function demoOrderNumber() {
+        var n;
+        if (window.crypto && window.crypto.getRandomValues) { n = window.crypto.getRandomValues(new Uint32Array(1))[0]; }
+        else { n = Math.floor(Math.random() * 4294967295); }
+        return 'EB-DEMO-' + String(100000 + (n % 900000));
+      }
+
+      // Schritt 3 → 4: Zustimmung prüfen, Zahlung simulieren, Bestätigung zeigen, alles leeren
+      orderBtn.addEventListener('click', function () {
+        var items = readCart();
+        if (!order || !items.length) { showStep('cart'); renderCart(); return; }
+        if (!consent.checked) {
+          consentError.textContent = 'Bitte bestätige, dass dir klar ist, dass dies eine Demo ist.';
+          consent.setAttribute('aria-invalid', 'true');
+          consent.focus();
+          return;
+        }
+        orderBtn.disabled = true;
+        statusEl.textContent = 'Zahlung per ' + order.zahlung + ' wird simuliert …';
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        setTimeout(function () {
+          var t = sumCart(items);
+          var parts = [];
+          if (t.once > 0 || t.monthly === 0) { parts.push(formatCents(t.once) + ' einmalig'); }
+          if (t.monthly > 0) { parts.push(formatCents(t.monthly) + ' / Monat'); }
+
+          doneEl.querySelector('[data-done-title]').textContent = 'Danke, ' + order.vorname + '. Deine Demo-Bestellung ist eingegangen.';
+          doneEl.querySelector('[data-done-number]').textContent = demoOrderNumber();
+          doneEl.querySelector('[data-done-payment]').textContent = order.zahlung + ' (simuliert)';
+          doneEl.querySelector('[data-done-total]').textContent = parts.join(' · ');
+
+          // Aufräumen: Warenkorb, Formular und gemerkte Angaben löschen
+          writeCart([]);
+          updateCounters([]);
+          formEl.reset();
+          order = null;
+          triedSubmit = false;
+          errorBox.hidden = true;
+          reviewEl.querySelector('[data-review-address]').textContent = '';
+          orderBtn.disabled = false;
+          statusEl.textContent = '';
+          showStep('done', doneEl);   // Screenreader lesen die Bestätigung vor
+        }, reduce ? 0 : 1400);
+      });
+    }
 
     renderCart();
   }
